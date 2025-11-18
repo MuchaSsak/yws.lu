@@ -502,6 +502,11 @@ export const DICTIONARY = {
         description:
           "We are always looking to rent any type of residential property — whether it's a house, apartment, or individual room. Partner with us to provide safe, affordable housing to young people in need while enjoying a reliable, worry-free rental experience.",
       } as Metadata,
+      weSparkProjectsMetadata: {
+        title: "Youth Work Synergy | We Spark Projects",
+        description:
+          "Discover We Spark Projects — youth-led initiatives supported by Youth Work Synergy. Explore creative workshops, housing education sessions, and documentary projects that empower young people in Luxembourg to navigate housing challenges, build skills, and share their stories.",
+      } as Metadata,
     },
     heroDescriptionWeSparkProjects:
       "Here's a showcase of projects we've helped to bring to life.",
@@ -1000,6 +1005,11 @@ Supported by Fondation Sommer.
         title: "Youth Work Synergy | Louez votre propriété",
         description:
           "Nous cherchons toujours à louer tout type de bien résidentiel — qu’il s’agisse d’une maison, d’un appartement ou d’une chambre individuelle. Collaborez avec nous pour offrir un logement sûr et abordable aux jeunes dans le besoin tout en profitant d’une expérience de location fiable et sans souci.",
+      } as Metadata,
+      weSparkProjectsMetadata: {
+        title: "Youth Work Synergy | We Spark Projects",
+        description:
+          "Découvrez We Spark Projects — des initiatives menées par des jeunes et soutenues par Youth Work Synergy. Ateliers pratiques, sessions d'information sur le logement et projets documentaires : des actions conçues pour aider les jeunes au Luxembourg à comprendre le marché du logement, développer leurs compétences et partager leurs expériences.",
       } as Metadata,
     },
     heroDescriptionWeSparkProjects:

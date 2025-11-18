@@ -7,9 +7,7 @@ import HeroSection from "@/app/WeSparkProjects/(components)/hero/HeroSection";
  * Metadata
  */
 export function generateMetadata() {
-  return generateTranslatedMetadata("aboutUsMetadata");
-  // TODO: Uncomment
-  //   return generateTranslatedMetadata("weSparkProjectsMetadata");
+  return generateTranslatedMetadata("weSparkProjectsMetadata");
 }
 
 /**
