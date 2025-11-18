@@ -503,6 +503,9 @@ export const DICTIONARY = {
           "We are always looking to rent any type of residential property — whether it's a house, apartment, or individual room. Partner with us to provide safe, affordable housing to young people in need while enjoying a reliable, worry-free rental experience.",
       } as Metadata,
     },
+    heroDescriptionWeSparkProjects:
+      "Here's a showcase of projects we've helped to bring to life.",
+    "We Spark Projects": "We Spark Projects",
   },
 
   /**
@@ -978,5 +981,8 @@ export const DICTIONARY = {
           "Nous cherchons toujours à louer tout type de bien résidentiel — qu’il s’agisse d’une maison, d’un appartement ou d’une chambre individuelle. Collaborez avec nous pour offrir un logement sûr et abordable aux jeunes dans le besoin tout en profitant d’une expérience de location fiable et sans souci.",
       } as Metadata,
     },
+    heroDescriptionWeSparkProjects:
+      "Voici une sélection de projets que nous avons accompagnés jusqu’à leur réalisation.",
+    "We Spark Projects": "We Spark Projects",
   },
 };

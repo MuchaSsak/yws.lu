@@ -58,7 +58,7 @@ function HamburgerMenu() {
     },
     {
       href: "/WeSparkProjects",
-      label: "We Spark Projects",
+      label: dictionary["We Spark Projects"],
       Icon: <PersonStanding className="size-7" />,
     },
   ];
