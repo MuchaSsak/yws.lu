@@ -59,25 +59,10 @@ function HeroHeader() {
 
       {/* CTA buttons */}
       <motion.div {...motionFadeIn(1.25)} className="flex gap-4 flex-wrap">
-        <Link
-          href={YWS_RENT_YOUR_PROPERTY_GOOGLE_FORM_LINK}
-          target="_blank"
-          tabIndex={-1}
-        >
-          <Button
-            className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
-            size="lg"
-          >
-            {dictionary["Rent now"]}{" "}
-            <span className="transition-[margin]">→</span>
-          </Button>
-        </Link>
-
         <Link href="/RentYourProperty" tabIndex={-1}>
           <Button
             className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
             size="lg"
-            variant="secondary"
           >
             {dictionary["Learn more"]}{" "}
             <span className="transition-[margin]">→</span>

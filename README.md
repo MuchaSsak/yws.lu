@@ -19,3 +19,11 @@ _Note: this project was very rushed due to having a lesser than a week deadline 
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+<!-- TODO: -->
+<!-- remove useless Rent primary buttons -->
+<!-- add logos of e.g. ESC, EU, YWS etc. -->
+<!-- donate section in sitemap canva -->
+<!-- responsiveness issue in rent for us -->
+<!-- change french text -->
+<!-- remove/disable luxembourgish -->
