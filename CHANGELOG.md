@@ -1,3 +1,17 @@
+# [1.2.0](https://github.com/MuchaSsak/yws.lu/compare/v1.1.0...v1.2.0) (2025-11-18)
+
+
+### Bug Fixes
+
+* add translated metadata for /WeSparkProjects ([b794558](https://github.com/MuchaSsak/yws.lu/commit/b794558733e9076f219fea4734b50b5327523f72))
+
+
+### Features
+
+* add fade in animations to projects cards ([30197ff](https://github.com/MuchaSsak/yws.lu/commit/30197ff8eea4ead5b9288e8472d5497d1b606a5f))
+
+
+
 # [1.1.0](https://github.com/MuchaSsak/yws.lu/compare/v1.0.2...v1.1.0) (2025-11-18)
 
 
