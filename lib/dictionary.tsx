@@ -35,12 +35,6 @@ export const AVAILABLE_LANGUAGES: AvailableLanguage[] = [
     labelNative: "Français",
     Icon: "🇫🇷",
   },
-  {
-    value: "lb",
-    label: "Luxembourgish",
-    labelNative: "Lëtzebuergesch",
-    Icon: "🇱🇺",
-  },
 ];
 
 export const DICTIONARY = {
