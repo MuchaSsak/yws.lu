@@ -32,8 +32,12 @@ function ProjectsList() {
 
   return (
     <div className="grid pt-4 [grid-template-columns:repeat(auto-fill,minmax(27rem,1fr))] gap-8">
-      {PROJECTS_LIST.map((project) => (
-        <ProjectsCard key={project.name} {...project} />
+      {PROJECTS_LIST.map((project, i) => (
+        <ProjectsCard
+          key={project.name}
+          entryAnimationDelay={0.15 + i * 0.1}
+          {...project}
+        />
       ))}
     </div>
   );
