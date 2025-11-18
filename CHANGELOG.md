@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/MuchaSsak/yws.lu/compare/v1.0.1...v1.0.2) (2025-11-18)
+
+
+### Bug Fixes
+
+* fallback language if localStorage values are invalid ([166cd51](https://github.com/MuchaSsak/yws.lu/commit/166cd51848a28f1ffaebb3844acf68c44f2f3aa1))
+
+
+
 ## [1.0.1](https://github.com/MuchaSsak/yws.lu/compare/v1.0.0...v1.0.1) (2025-11-18)
 
 
