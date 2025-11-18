@@ -54,6 +54,14 @@ export default function LanguageProvider({
 
     // Load from localStorage
     if (!localStorage.getItem("language")) return defaultLanguage;
+    // Fallback to default if the stored value in localStorage is invalid
+    else if (
+      !AVAILABLE_LANGUAGES.some(
+        (availableLanguage) =>
+          availableLanguage.value === localStorage.getItem("language")
+      )
+    )
+      return defaultLanguage;
     else return JSON.parse(localStorage.getItem("language")!);
   });
   const [dictionary, setDictionary] = useState(DICTIONARY[language]);
