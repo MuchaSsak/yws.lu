@@ -541,7 +541,7 @@ export const DICTIONARY = {
     "Youth-Led Projects!": "Projets menés par des jeunes !",
     "Apply now": "Postulez maintenant",
     "Looking for housing?": "Vous cherchez un logement ?",
-    "Give youth a chance for a": "Donner aux jeunes une chance de",
+    "Give youth a chance for a": "Donner aux jeunes une chance pour",
     "better future": "un avenir meilleur",
     "Learn more": "Apprendre encore plus",
     "Rent out": "Louer",

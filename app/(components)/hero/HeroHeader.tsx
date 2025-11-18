@@ -4,7 +4,6 @@ import React from "react";
 import * as motion from "motion/react-client";
 import Link from "next/link";
 
-import { YWS_RENT_YOUR_PROPERTY_GOOGLE_FORM_LINK } from "@/lib/constants";
 import motionFadeIn from "@/lib/animations/motionFadeIn";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { BoxReveal } from "@/components/magicui/box-reveal";
