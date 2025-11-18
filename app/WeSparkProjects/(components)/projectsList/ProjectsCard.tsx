@@ -23,11 +23,13 @@ function ProjectsCard({
         <img
           fetchPriority="high"
           src={imageSrc}
-          className="object-cover w-full p-4"
+          className="object-cover w-full"
           alt={description}
         />
         <CardTitle className="text-2xl">{name}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>
+          <pre className="w-fit text-wrap font-sans">{description}</pre>
+        </CardDescription>
       </CardHeader>
     </Card>
   );

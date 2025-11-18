@@ -506,6 +506,27 @@ export const DICTIONARY = {
     heroDescriptionWeSparkProjects:
       "Here's a showcase of projects we've helped to bring to life.",
     "We Spark Projects": "We Spark Projects",
+    projectGetYourHomeTitleWeSparkProjects:
+      "Get Your Home — Youth Housing Workshop",
+    projectGetYourHomeDescriptionWeSparkProjects: `Supported by Erasmus+
+Finding housing in Luxembourg has become one of the biggest challenges for young people. Many don’t know where to search, how to plan a budget, or how to convince a landlord to trust them.
+Get Your Home is a project created and led by Mariia MEKHED, one of our residents, to help young people aged 18–34 navigate the housing market with confidence.
+
+During the session, participants learn:
+
+• Where and under what conditions they can rent housing in Luxembourg
+• How to plan their budget and understand rental deposits
+• What their rights are as tenants
+• How to present themselves effectively to landlords
+
+The project combines information, experience-sharing, and peer support - empowering young people to take their first independent housing steps.    
+`,
+    projectLockedOutTitleWeSparkProjects: "Locked Out — Youth Lens on Housing",
+    projectLockedOutDescriptionWeSparkProjects: `“Locked Out” is a creative documentary project that brings together young people living in Luxembourg to explore the housing crisis through their own lens.
+Participants learn the fundamentals of documentary filmmaking - from storytelling to camera work - and create short personal films that reflect their experiences, opinions, and hopes about finding a place to call home.
+The project aims to give young voices a platform to express how the housing situation shapes their lives and future.
+Supported by Fondation Sommer.    
+`,
   },
 
   /**
@@ -984,5 +1005,27 @@ export const DICTIONARY = {
     heroDescriptionWeSparkProjects:
       "Voici une sélection de projets que nous avons accompagnés jusqu’à leur réalisation.",
     "We Spark Projects": "We Spark Projects",
+    projectGetYourHomeTitleWeSparkProjects:
+      "Get Your Home — Atelier Jeunesse sur le Logement",
+    projectGetYourHomeDescriptionWeSparkProjects: `Soutenu par Erasmus+
+Trouver un logement au Luxembourg est devenu l’un des plus grands défis pour les jeunes. Beaucoup ne savent pas où chercher, comment planifier un budget ou comment convaincre un propriétaire de leur faire confiance.
+Get Your Home est un projet créé et dirigé par Mariia MEKHED, l’une de nos résidentes, pour aider les jeunes de 18 à 34 ans à naviguer sur le marché du logement en toute confiance.
+
+Lors de la session, les participant·e·s apprennent :
+
+• Où et dans quelles conditions ils peuvent louer un logement au Luxembourg
+• Comment planifier leur budget et comprendre les cautions locatives
+• Quels sont leurs droits en tant que locataires
+• Comment se présenter efficacement auprès des propriétaires
+
+Le projet combine information, partage d’expériences et soutien entre pairs — permettant aux jeunes de faire leurs premiers pas vers un logement indépendant.    
+`,
+    projectLockedOutTitleWeSparkProjects:
+      "Locked Out — Regard Jeune sur le Logement",
+    projectLockedOutDescriptionWeSparkProjects: `“Locked Out” est un projet documentaire créatif qui réunit des jeunes vivant au Luxembourg pour explorer la crise du logement à travers leur propre regard.
+Les participant·e·s apprennent les bases du documentaire — de la narration au travail de caméra — et réalisent de courts films personnels reflétant leurs expériences, opinions et espoirs concernant la recherche d’un endroit à appeler chez soi.
+Le projet vise à offrir aux jeunes une plateforme pour exprimer comment la situation du logement façonne leur vie et leur avenir.
+Soutenu par la Fondation Sommer.
+`,
   },
 };
