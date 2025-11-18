@@ -46,6 +46,7 @@ export default function RootLayout({
 /**
  * TODO: These things
  * * Finish the "Meet the Team" section in About Us page
+ * * Partnered logos marquee
  * * Create the "We Spark Projects" page
  * * Record tutorial video for adding/updating projects, statistics or house gallery images in Supabase for the YWS team
  * * Configure Vercel domain to run under `yws.lu` (as well as `yws-lu.vercel.app` as an alternative)
