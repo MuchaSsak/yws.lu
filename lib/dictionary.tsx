@@ -582,9 +582,9 @@ Supported by Fondation Sommer.
     "Choose your destination": "Choisissez votre destination",
     "All rights reserved": "Tous droits réservés",
     "See credits": "Voir les crédits",
-    Coaching: "Entraînement",
+    Coaching: "Accompagnement",
     Sustainability: "Durabilité",
-    Affordability: "Abordabilité",
+    Affordability: "Loyers accessibles",
     creditsDescription: (
       <div className="flex flex-col gap-2">
         <span>
