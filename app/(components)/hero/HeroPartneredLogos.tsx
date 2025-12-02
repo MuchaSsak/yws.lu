@@ -7,9 +7,24 @@ const PARTNERS_LOGOS = [
     href: "https://youth.europa.eu/solidarity_en",
   },
   {
+    src: "/images/projects/fondation_summer_logo.png",
+    alt: "Fondation Summer logo",
+    href: "https://fondation-sommer.lu/",
+  },
+  {
     src: "/images/partners-logos/erasmus.svg",
     alt: "Erasmus+ logo",
     href: "https://erasmus-plus.ec.europa.eu/",
+  },
+  {
+    src: "/images/projects/get_your_home_logo.png",
+    alt: "Get Your Home logo",
+    href: "https://drive.google.com/file/d/1z0IkpH7yZADfVEk9vvXN6S5iAnTdvVjn/view?usp=share_link",
+  },
+  {
+    src: "/images/projects/locked_out_logo.png",
+    alt: "Locked Out logo",
+    href: "https://fondation-sommer.lu/en/projects/locked-out-youth-lens-on-housing/",
   },
 ];
 
