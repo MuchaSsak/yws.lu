@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/MuchaSsak/yws.lu/compare/v1.3.0...v1.4.0) (2025-12-02)
+
+
+### Features
+
+* add more partnered logos to marquee ([2f82152](https://github.com/MuchaSsak/yws.lu/commit/2f821523b4eb7e95a7c3c9112ebf6358900b00f0))
+
+
+
 # [1.3.0](https://github.com/MuchaSsak/yws.lu/compare/v1.2.1...v1.3.0) (2025-12-02)
 
 
@@ -42,15 +51,6 @@
 
 * add partnered logos marquee ([cd8f3d4](https://github.com/MuchaSsak/yws.lu/commit/cd8f3d4bfa16c71ed8516aa2bf7adc7a5ea90d2a))
 * add WeSparkProjects page ([433b14e](https://github.com/MuchaSsak/yws.lu/commit/433b14effd08e2b8ab874c2908d6220dc6b9e725))
-
-
-
-## [1.0.2](https://github.com/MuchaSsak/yws.lu/compare/v1.0.1...v1.0.2) (2025-11-18)
-
-
-### Bug Fixes
-
-* fallback language if localStorage values are invalid ([166cd51](https://github.com/MuchaSsak/yws.lu/commit/166cd51848a28f1ffaebb3844acf68c44f2f3aa1))
 
 
 
