@@ -23,7 +23,7 @@ function Footer() {
   const { dictionary } = useLanguage();
 
   return (
-    <footer className="sticky flex justify-between py-4 bg-foreground/80 backdrop-blur-xs bottom-[attr(height)] sm:items-center max-sm:h-56 sm:h-32 text-white/80 max-sm:px-5 sm:px-16 xl:px-48">
+    <footer className="sticky flex justify-between py-4 bg-foreground/80 backdrop-blur-xs bottom-[attr(height)] sm:items-center text-white/80 max-sm:px-5 sm:px-16 xl:px-48">
       <div>
         <h4 className="pb-1">
           ©2025. Youth Work Synergy ASBL. {dictionary["All rights reserved"]}.

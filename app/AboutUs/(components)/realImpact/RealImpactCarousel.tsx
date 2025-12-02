@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 
-import RealImpactMap from "@/app/AboutUs/(components)/realImpact/RealImpactMap";
 import {
   Carousel,
   CarouselContent,
@@ -17,16 +16,11 @@ function RealImpactCarousel() {
   const { data: housesPicturesURLs } = useGetHousesPicturesURLs();
 
   return (
-    <Carousel opts={{ loop: true }} className="">
-      <CarouselContent className="h-[30rem]">
-        {/* Map */}
-        <CarouselItem className="w-min">
-          <RealImpactMap />
-        </CarouselItem>
-
+    <Carousel opts={{ loop: true }}>
+      <CarouselContent className="h-[30rem] md:w-[40rem] max-md:w-screen">
         {/* Houses pictures */}
         {housesPicturesURLs?.map((pictureURL, i) => (
-          <CarouselItem key={pictureURL} className="w-min">
+          <CarouselItem key={pictureURL} className="w-min max-md:pr-4">
             <Image
               src={pictureURL}
               alt={`Youth Work Synergy (YWS) Shared House Picture #${i}`}

@@ -5,11 +5,16 @@ import { WeSparkProjectsCard } from "@/app/WeSparkProjects/(components)/projects
 import { ShineBorder } from "@/components/ui/shine-border";
 import {
   Card,
+  CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import motionFadeIn from "@/lib/animations/motionFadeIn";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type ProjectsCardProps = WeSparkProjectsCard & {
   entryAnimationDelay?: number;
@@ -18,27 +23,66 @@ type ProjectsCardProps = WeSparkProjectsCard & {
 function ProjectsCard({
   name,
   description,
-  imageSrc,
+  logoSrc,
+  href,
+  images,
   shineColor = "#ff7820",
   entryAnimationDelay = 0,
 }: ProjectsCardProps) {
+  const { dictionary } = useLanguage();
+
   return (
     <motion.div {...motionFadeIn(entryAnimationDelay)}>
-      <Card className="relative overflow-hidden  backdrop-blur-lg shadow bg-background/25">
+      <Card className="relative overflow-hidden max-md:w-[85vw] md:grid max-md:flex-col max-md:flex md:grid-cols-2 backdrop-blur-lg shadow bg-background/25">
         <ShineBorder shineColor={shineColor} />
 
-        <CardHeader>
-          <img
-            fetchPriority="high"
-            src={imageSrc}
-            className="object-cover w-full"
-            alt={description}
-          />
-          <CardTitle className="text-2xl">{name}</CardTitle>
-          <CardDescription>
-            <pre className="w-fit text-wrap font-sans">{description}</pre>
-          </CardDescription>
-        </CardHeader>
+        <div>
+          <CardHeader>
+            {/* Logo */}
+            <img
+              fetchPriority="high"
+              src={logoSrc}
+              className="object-cover w-[15rem]"
+              alt={description}
+            />
+
+            {/* Title */}
+            <CardTitle className="text-2xl">{name}</CardTitle>
+            <CardDescription>
+              <pre className="w-fit text-wrap font-sans">{description}</pre>
+            </CardDescription>
+          </CardHeader>
+
+          {/* Buttons */}
+          <CardFooter className="pt-4">
+            <Link href={href} target="_blank" tabIndex={-1}>
+              <Button
+                className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
+                size="lg"
+              >
+                {dictionary["Learn more"]}{" "}
+                <span className="transition-[margin]">→</span>
+              </Button>
+            </Link>
+          </CardFooter>
+        </div>
+
+        {/* Images */}
+        <CardContent>
+          <span className="text-muted-foreground italic text-sm">
+            {dictionary["Pictures gallery:"]}
+          </span>
+          <div className="flex flex-wrap gap-4 pt-1">
+            {images.map((src) => (
+              <img
+                key={src}
+                src={src}
+                className="object-cover w-[15rem]"
+                alt={description}
+              />
+            ))}
+          </div>
+        </CardContent>
       </Card>
     </motion.div>
   );

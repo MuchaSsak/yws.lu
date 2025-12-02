@@ -532,6 +532,7 @@ Participants learn the fundamentals of documentary filmmaking - from storytellin
 The project aims to give young voices a platform to express how the housing situation shapes their lives and future.
 Supported by Fondation Sommer.    
 `,
+    "Pictures gallery:": "Pictures gallery:",
   },
 
   /**
@@ -1007,14 +1008,14 @@ Supported by Fondation Sommer.
           "Nous cherchons toujours à louer tout type de bien résidentiel — qu’il s’agisse d’une maison, d’un appartement ou d’une chambre individuelle. Collaborez avec nous pour offrir un logement sûr et abordable aux jeunes dans le besoin tout en profitant d’une expérience de location fiable et sans souci.",
       } as Metadata,
       weSparkProjectsMetadata: {
-        title: "Youth Work Synergy | We Spark Projects",
+        title: "Youth Work Synergy | Nous donnons vie à des projets",
         description:
-          "Découvrez We Spark Projects — des initiatives menées par des jeunes et soutenues par Youth Work Synergy. Ateliers pratiques, sessions d'information sur le logement et projets documentaires : des actions conçues pour aider les jeunes au Luxembourg à comprendre le marché du logement, développer leurs compétences et partager leurs expériences.",
+          "Découvrez Nous donnons vie à des projets — des initiatives menées par des jeunes et soutenues par Youth Work Synergy. Ateliers pratiques, sessions d'information sur le logement et projets documentaires : des actions conçues pour aider les jeunes au Luxembourg à comprendre le marché du logement, développer leurs compétences et partager leurs expériences.",
       } as Metadata,
     },
     heroDescriptionWeSparkProjects:
       "Voici une sélection de projets que nous avons accompagnés jusqu’à leur réalisation.",
-    "We Spark Projects": "We Spark Projects",
+    "We Spark Projects": "Nous donnons vie à des projets",
     projectGetYourHomeTitleWeSparkProjects:
       "Get Your Home — Atelier Jeunesse sur le Logement",
     projectGetYourHomeDescriptionWeSparkProjects: `Soutenu par Erasmus+
@@ -1037,5 +1038,6 @@ Les participant·e·s apprennent les bases du documentaire — de la narration a
 Le projet vise à offrir aux jeunes une plateforme pour exprimer comment la situation du logement façonne leur vie et leur avenir.
 Soutenu par la Fondation Sommer.
 `,
+    "Pictures gallery:": "Galerie de photos",
   },
 };
