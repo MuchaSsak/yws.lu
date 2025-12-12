@@ -7,7 +7,7 @@ export const SUPABASE_HOUSES_PICTURES_BUCKET_ROOT_URL = `${SUPABASE_PUBLIC_URL}/
 
 // Info
 export const YWS_EMAIL = "contact@yws.lu";
-export const YWS_PHONE_NUMBER = "+352 691 597 315";
+export const YWS_PHONE_NUMBER = "286622 • 661597312";
 export const YWS_WEBSITE_LINK = "https://yws.lu";
 export const YWS_WEBSITE_LINK_AESTHETIC = "www.yws.lu";
 

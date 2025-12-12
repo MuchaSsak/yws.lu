@@ -33,7 +33,7 @@ function ProjectsCard({
 
   return (
     <motion.div {...motionFadeIn(entryAnimationDelay)}>
-      <Card className="relative overflow-hidden max-md:w-[85vw] md:grid max-md:flex-col max-md:flex md:grid-cols-2 backdrop-blur-lg shadow bg-background/25">
+      <Card className="relative overflow-hidden max-md:w-[85vw] lex-col flex backdrop-blur-lg shadow bg-background/25">
         <ShineBorder shineColor={shineColor} />
 
         <div>
@@ -55,15 +55,17 @@ function ProjectsCard({
 
           {/* Buttons */}
           <CardFooter className="pt-4">
-            <Link href={href} target="_blank" tabIndex={-1}>
-              <Button
-                className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
-                size="lg"
-              >
-                {dictionary["Learn more"]}{" "}
-                <span className="transition-[margin]">→</span>
-              </Button>
-            </Link>
+            {href && (
+              <Link href={href} target="_blank" tabIndex={-1}>
+                <Button
+                  className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
+                  size="lg"
+                >
+                  {dictionary["Learn more"]}{" "}
+                  <span className="transition-[margin]">→</span>
+                </Button>
+              </Link>
+            )}
           </CardFooter>
         </div>
 

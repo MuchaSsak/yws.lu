@@ -12,19 +12,19 @@ const PARTNERS_LOGOS = [
     href: "https://fondation-sommer.lu/",
   },
   {
+    src: "/images/partners-logos/gestion_locative_sociale.png",
+    alt: "Gestion Locative Sociale",
+    href: "https://logement.public.lu/fr/proprietaire/logement-location/gestion-locative-sociale.html",
+  },
+  {
     src: "/images/partners-logos/erasmus.svg",
     alt: "Erasmus+ logo",
     href: "https://erasmus-plus.ec.europa.eu/",
   },
   {
-    src: "/images/projects/get_your_home_logo.png",
-    alt: "Get Your Home logo",
-    href: "https://drive.google.com/file/d/1z0IkpH7yZADfVEk9vvXN6S5iAnTdvVjn/view?usp=share_link",
-  },
-  {
-    src: "/images/projects/locked_out_logo.png",
-    alt: "Locked Out logo",
-    href: "https://fondation-sommer.lu/en/projects/locked-out-youth-lens-on-housing/",
+    src: "/images/partners-logos/ministry_of_housing.png",
+    alt: "Ministry of Housing and Spatial Planning",
+    href: "https://mlogat.gouvernement.lu/en.html",
   },
 ];
 

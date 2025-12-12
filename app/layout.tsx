@@ -42,17 +42,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-/**
- * TODO: These things
- * * Finish the "Meet the Team" section in About Us page
- * * Partnered logos marquee
- * * Create the "We Spark Projects" page
- * * Record tutorial video for adding/updating projects, statistics or house gallery images in Supabase for the YWS team
- * * Configure Vercel domain to run under `yws.lu` (as well as `yws-lu.vercel.app` as an alternative)
- * * Check if Google SEO indexes the website properly once fully deployed into production. Make sure the metadata works
- *
- * ?.
- * * Replace placeholder images for houses pictures in the DB storage bucket
- * * Create the Google My Maps map showing all of the shared houses locations for the "Real impact" section in About Us page
- */

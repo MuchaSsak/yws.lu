@@ -19,17 +19,20 @@ function RealImpactCarousel() {
     <Carousel opts={{ loop: true }}>
       <CarouselContent className="h-[30rem] md:w-[40rem] max-md:w-screen">
         {/* Houses pictures */}
-        {housesPicturesURLs?.map((pictureURL, i) => (
-          <CarouselItem key={pictureURL} className="w-min max-md:pr-4">
-            <Image
-              src={pictureURL}
-              alt={`Youth Work Synergy (YWS) Shared House Picture #${i}`}
-              className="mx-auto object-contain h-full w-full"
-              width={500}
-              height={500}
-            />
-          </CarouselItem>
-        ))}
+        {housesPicturesURLs?.map(
+          (pictureURL, i) =>
+            i > 0 && (
+              <CarouselItem key={pictureURL} className="w-min max-md:pr-4">
+                <Image
+                  src={pictureURL}
+                  alt={`Youth Work Synergy (YWS) Shared House Picture #${i}`}
+                  className="mx-auto object-contain h-full w-full"
+                  width={500}
+                  height={500}
+                />
+              </CarouselItem>
+            )
+        )}
       </CarouselContent>
 
       <CarouselPrevious className="max-md:left-[40%] max-md:-bottom-16 max-md:top-[unset] max-md:-translate-x-1/2" />

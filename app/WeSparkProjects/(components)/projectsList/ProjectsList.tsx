@@ -9,7 +9,7 @@ export type WeSparkProjectsCard = {
   name: string;
   description: string;
   logoSrc: string;
-  href: string;
+  href?: string;
   images: string[];
   shineColor?: string;
 };
@@ -22,35 +22,28 @@ function ProjectsList() {
       name: dictionary.projectGetYourHomeTitleWeSparkProjects,
       description: dictionary.projectGetYourHomeDescriptionWeSparkProjects,
       logoSrc: "/images/projects/get_your_home_logo.png",
-      href: "https://drive.google.com/file/d/1z0IkpH7yZADfVEk9vvXN6S5iAnTdvVjn/view?usp=share_link",
       shineColor: "#ff7820",
       images: [
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
+        "/images/projects/get-your-home/1.jpg",
+        "/images/projects/get-your-home/2.jpg",
+        "/images/projects/get-your-home/3.jpg",
+        "/images/projects/get-your-home/4.jpg",
+        "/images/projects/get-your-home/5.jpg",
+        "/images/projects/get-your-home/6.jpg",
       ],
-      // images: [
-      //   "/images/projects/get_your_home_picture_1.jpg",
-      //   "/images/projects/get_your_home_picture_2.jpg",
-      //   "/images/projects/get_your_home_picture_3.jpg",
-      // ],
     },
     {
       name: dictionary.projectLockedOutTitleWeSparkProjects,
       description: dictionary.projectLockedOutDescriptionWeSparkProjects,
       logoSrc: "/images/projects/locked_out_logo.png",
-      href: "https://drive.google.com/file/d/1ywjehKL5FkDrsATRWOlFnFHiNXir-mNr/view?usp=sharing ",
+      href: "https://drive.google.com/file/d/1ywjehKL5FkDrsATRWOlFnFHiNXir-mNr/view?usp=sharing",
       shineColor: "#8D30FF",
       images: [
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
+        "/images/projects/locked-out/1.JPG",
+        "/images/projects/locked-out/2.JPG",
+        "/images/projects/locked-out/3.JPG",
+        "/images/projects/locked-out/4.JPG",
       ],
-      // images: [
-      //   "/images/projects/locked_out_picture_1.jpg",
-      //   "/images/projects/locked_out_picture_2.jpg",
-      //   "/images/projects/locked_out_picture_3.jpg",
-      // ],
     },
   ];
 
