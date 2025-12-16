@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const PARTNERS_LOGOS = [
@@ -33,7 +34,9 @@ function HeroPartneredLogos() {
     <Marquee loop={0} autoFill className="py-12" speed={25}>
       {PARTNERS_LOGOS.map(({ src, alt, href }) => (
         <a href={href} target="_blank" tabIndex={-1}>
-          <img
+          <Image
+            width={150}
+            height={0}
             key={src}
             className="max-sm:w-[6.25rem] sm:w-[9.375rem] max-sm:mx-8 sm:mx-16"
             src={src}

@@ -15,6 +15,7 @@ import motionFadeIn from "@/lib/animations/motionFadeIn";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
 
 type ProjectsCardProps = WeSparkProjectsCard & {
   entryAnimationDelay?: number;
@@ -39,7 +40,9 @@ function ProjectsCard({
         <div>
           <CardHeader>
             {/* Logo */}
-            <img
+            <Image
+              width={240}
+              height={0}
               fetchPriority="high"
               src={logoSrc}
               className="object-cover w-[15rem]"
@@ -76,7 +79,9 @@ function ProjectsCard({
           </span>
           <div className="flex flex-wrap gap-4 pt-1">
             {images.map((src) => (
-              <img
+              <Image
+                width={240}
+                height={0}
                 key={src}
                 src={src}
                 className="object-cover w-[15rem]"
