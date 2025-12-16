@@ -24,12 +24,12 @@ function ProjectsList() {
       logoSrc: "/images/projects/get_your_home_logo.png",
       shineColor: "#ff7820",
       images: [
-        "/images/projects/get-your-home/1.jpg",
-        "/images/projects/get-your-home/2.jpg",
-        "/images/projects/get-your-home/3.jpg",
-        "/images/projects/get-your-home/4.jpg",
-        "/images/projects/get-your-home/5.jpg",
-        "/images/projects/get-your-home/6.jpg",
+        "/images/projects/get-your-home/1.JPG",
+        "/images/projects/get-your-home/2.JPG",
+        "/images/projects/get-your-home/3.JPG",
+        "/images/projects/get-your-home/4.JPG",
+        "/images/projects/get-your-home/5.JPG",
+        "/images/projects/get-your-home/6.JPG",
       ],
     },
     {
