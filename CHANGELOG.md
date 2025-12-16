@@ -1,3 +1,12 @@
+## [1.4.3](https://github.com/MuchaSsak/yws.lu/compare/v1.4.2...v1.4.3) (2025-12-16)
+
+
+### Bug Fixes
+
+* projects images file paths ([ac317fe](https://github.com/MuchaSsak/yws.lu/commit/ac317fe5611bf086c75d4754c9c6f5b337edbf55))
+
+
+
 ## [1.4.2](https://github.com/MuchaSsak/yws.lu/compare/v1.4.1...v1.4.2) (2025-12-12)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add pictures to projects cards ([8cd66bc](https://github.com/MuchaSsak/yws.lu/commit/8cd66bc9edad6a209365f98e05ca22e4ee8c7e4d))
-
-
-
-## [1.2.1](https://github.com/MuchaSsak/yws.lu/compare/v1.2.0...v1.2.1) (2025-11-19)
-
-
-### Bug Fixes
-
-* our mission french translations ([08765a2](https://github.com/MuchaSsak/yws.lu/commit/08765a2668e2a916b72b92b0b307e13861303874))
 
 
 
