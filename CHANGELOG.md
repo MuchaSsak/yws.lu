@@ -1,3 +1,12 @@
+## [1.4.4](https://github.com/MuchaSsak/yws.lu/compare/v1.4.3...v1.4.4) (2025-12-16)
+
+
+### Bug Fixes
+
+* optimize images with NextImage ([d27c571](https://github.com/MuchaSsak/yws.lu/commit/d27c57135f8b47ac5478373bdd1fe4359ba614fc))
+
+
+
 ## [1.4.3](https://github.com/MuchaSsak/yws.lu/compare/v1.4.2...v1.4.3) (2025-12-16)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add more partnered logos to marquee ([2f82152](https://github.com/MuchaSsak/yws.lu/commit/2f821523b4eb7e95a7c3c9112ebf6358900b00f0))
-
-
-
-# [1.3.0](https://github.com/MuchaSsak/yws.lu/compare/v1.2.1...v1.3.0) (2025-12-02)
-
-
-### Features
-
-* add pictures to projects cards ([8cd66bc](https://github.com/MuchaSsak/yws.lu/commit/8cd66bc9edad6a209365f98e05ca22e4ee8c7e4d))
 
 
 
