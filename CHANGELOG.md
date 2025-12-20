@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/MuchaSsak/yws.lu/compare/v1.4.4...v1.5.0) (2025-12-20)
+
+
+### Bug Fixes
+
+* change navbar links order ([2e1287c](https://github.com/MuchaSsak/yws.lu/commit/2e1287ce8a2ba15de591568329ff4eccadecd19c))
+
+
+### Features
+
+* add more projects ([8ef200d](https://github.com/MuchaSsak/yws.lu/commit/8ef200d99545d3652b14d1b87238306557222b55))
+
+
+
 ## [1.4.4](https://github.com/MuchaSsak/yws.lu/compare/v1.4.3...v1.4.4) (2025-12-16)
 
 
@@ -31,15 +45,6 @@
 ### Bug Fixes
 
 * update information ([0057060](https://github.com/MuchaSsak/yws.lu/commit/0057060c623323aa8bc8ce182c2e8e84acc6e6c2))
-
-
-
-# [1.4.0](https://github.com/MuchaSsak/yws.lu/compare/v1.3.0...v1.4.0) (2025-12-02)
-
-
-### Features
-
-* add more partnered logos to marquee ([2f82152](https://github.com/MuchaSsak/yws.lu/commit/2f821523b4eb7e95a7c3c9112ebf6358900b00f0))
 
 
 
