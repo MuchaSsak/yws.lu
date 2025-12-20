@@ -26,6 +26,7 @@ function ProjectsCard({
   description,
   logoSrc,
   href,
+  hrefLabel,
   images,
   shineColor = "#ff7820",
   entryAnimationDelay = 0,
@@ -64,8 +65,7 @@ function ProjectsCard({
                   className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
                   size="lg"
                 >
-                  {dictionary["Learn more"]}{" "}
-                  <span className="transition-[margin]">→</span>
+                  {hrefLabel} <span className="transition-[margin]">→</span>
                 </Button>
               </Link>
             )}

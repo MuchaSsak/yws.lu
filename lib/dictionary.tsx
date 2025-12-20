@@ -533,12 +533,14 @@ The project aims to give young voices a platform to express how the housing situ
 Supported by Fondation Sommer.    
 `,
     "Pictures gallery:": "Pictures gallery:",
+    "Register now": "Register now",
   },
 
   /**
    * French
    */
   fr: {
+    "Register now": "Inscrivez-vous maintenant",
     "Interested in renting your property to us?":
       "Intéressé(e) à louer votre bien à notre organisation ?",
     "Property Maintenance": "Entretien de la propriété",

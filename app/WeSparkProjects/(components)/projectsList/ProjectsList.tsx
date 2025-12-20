@@ -10,6 +10,7 @@ export type WeSparkProjectsCard = {
   description: string;
   logoSrc: string;
   href?: string;
+  hrefLabel: string;
   images: string[];
   shineColor?: string;
 };
@@ -31,6 +32,8 @@ function ProjectsList() {
         "/images/projects/get-your-home/5.JPG",
         "/images/projects/get-your-home/6.JPG",
       ],
+      href: "https://docs.google.com/forms/d/e/1FAIpQLSdNnphOFE95EwvyIlIrZLubIiV-VRsMfgFElhcldRqpWb6zXQ/viewform",
+      hrefLabel: dictionary["Register now"],
     },
     {
       name: dictionary.projectLockedOutTitleWeSparkProjects,
@@ -44,6 +47,7 @@ function ProjectsList() {
         "/images/projects/locked-out/3.JPG",
         "/images/projects/locked-out/4.JPG",
       ],
+      hrefLabel: dictionary["Learn more"],
     },
   ];
 
