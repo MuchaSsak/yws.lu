@@ -35,20 +35,22 @@ function ProjectsCard({
 
   return (
     <motion.div {...motionFadeIn(entryAnimationDelay)}>
-      <Card className="relative overflow-hidden max-md:w-[85vw] lex-col flex backdrop-blur-lg shadow bg-background/25">
+      <Card className="relative overflow-hidden max-md:w-[85vw] flex-col h-full flex backdrop-blur-lg shadow bg-background/25">
         <ShineBorder shineColor={shineColor} />
 
         <div>
           <CardHeader>
             {/* Logo */}
-            <Image
-              width={240}
-              height={0}
-              fetchPriority="high"
-              src={logoSrc}
-              className="object-cover w-[15rem]"
-              alt={description}
-            />
+            {logoSrc && (
+              <Image
+                width={240}
+                height={0}
+                fetchPriority="high"
+                src={logoSrc}
+                className="object-cover w-[15rem]"
+                alt={description}
+              />
+            )}
 
             {/* Title */}
             <CardTitle className="text-2xl">{name}</CardTitle>
@@ -74,9 +76,11 @@ function ProjectsCard({
 
         {/* Images */}
         <CardContent>
-          <span className="text-muted-foreground italic text-sm">
-            {dictionary["Pictures gallery:"]}
-          </span>
+          {images.length > 0 && (
+            <span className="text-muted-foreground italic text-sm">
+              {dictionary["Pictures gallery:"]}
+            </span>
+          )}
           <div className="flex flex-wrap gap-4 pt-1">
             {images.map((src) => (
               <Image

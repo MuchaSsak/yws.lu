@@ -8,7 +8,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export type WeSparkProjectsCard = {
   name: string;
   description: string;
-  logoSrc: string;
+  logoSrc?: string;
   href?: string;
   hrefLabel: string;
   images: string[];
@@ -40,13 +40,41 @@ function ProjectsList() {
       description: dictionary.projectLockedOutDescriptionWeSparkProjects,
       logoSrc: "/images/projects/locked_out_logo.png",
       href: "https://drive.google.com/file/d/1ywjehKL5FkDrsATRWOlFnFHiNXir-mNr/view?usp=sharing",
-      shineColor: "#8D30FF",
+      shineColor: "#2757F5",
       images: [
         "/images/projects/locked-out/1.JPG",
         "/images/projects/locked-out/2.JPG",
         "/images/projects/locked-out/3.JPG",
         "/images/projects/locked-out/4.JPG",
       ],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectGirlsSectiveTitleWeSparkProjects,
+      description: dictionary.projectGirlsSectiveDescriptionWeSparkProjects,
+      shineColor: "#8D30FF",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectMobileLearningTitleWeSparkProjects,
+      description: dictionary.projectMobileLearningDescriptionWeSparkProjects,
+      shineColor: "#F5276F",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectSportTitleWeSparkProjects,
+      description: dictionary.projectSportDescriptionWeSparkProjects,
+      shineColor: "#54F527",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectSelfChronicleTitleWeSparkProjects,
+      description: dictionary.projectSelfChronicleDescriptionWeSparkProjects,
+      shineColor: "#F2F527",
+      images: [],
       hrefLabel: dictionary["Learn more"],
     },
   ];
