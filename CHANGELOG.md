@@ -1,3 +1,12 @@
+## [1.5.1](https://github.com/MuchaSsak/yws.lu/compare/v1.5.0...v1.5.1) (2025-12-20)
+
+
+### Bug Fixes
+
+* correct description ([7e1727c](https://github.com/MuchaSsak/yws.lu/commit/7e1727caf9b32a6b0dffb47ec2c7a73f67ea8f0f))
+
+
+
 # [1.5.0](https://github.com/MuchaSsak/yws.lu/compare/v1.4.4...v1.5.0) (2025-12-20)
 
 
@@ -36,15 +45,6 @@
 ### Bug Fixes
 
 * update vulnurable next version ([d2a3e47](https://github.com/MuchaSsak/yws.lu/commit/d2a3e47004795fd3cb3c9cf0c1b5db696f3e3f44))
-
-
-
-## [1.4.1](https://github.com/MuchaSsak/yws.lu/compare/v1.4.0...v1.4.1) (2025-12-12)
-
-
-### Bug Fixes
-
-* update information ([0057060](https://github.com/MuchaSsak/yws.lu/commit/0057060c623323aa8bc8ce182c2e8e84acc6e6c2))
 
 
 
