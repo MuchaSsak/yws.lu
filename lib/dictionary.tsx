@@ -436,8 +436,7 @@ export const DICTIONARY = {
     interestedInRentingDescriptionRentYourProperty: (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
-          Fill out the contact form or get in touch directly. We'd love to hear
-          from you.
+          Get in touch directly. We'd love to hear from you.
         </TextAnimate>
       </>
     ),
@@ -1005,8 +1004,7 @@ The project aims to help around 100 young people better integrate into Luxembour
     interestedInRentingDescriptionRentYourProperty: (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
-          Remplissez le formulaire de contact ou contactez-nous directement.
-          Nous serions ravis d’échanger avec vous.
+          Contactez-nous directement. Nous serions ravis d’échanger avec vous.
         </TextAnimate>
       </>
     ),
