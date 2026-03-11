@@ -16,6 +16,9 @@ export const YWS_FACEBOOK_LINK =
 export const YWS_LINKEDIN_LINK = "https://www.linkedin.com/in/ywslu/";
 export const YWS_INSTAGRAM_LINK = "https://www.instagram.com/yws.lu/";
 
+export const YWS_TEC_CONFERENCE_ZOOM_LINK =
+  "https://us06web.zoom.us/meeting/register/9XF6fSz_SuuP-9CLQ19ldw#/";
+
 export const YWS_RENT_YOUR_PROPERTY_GOOGLE_FORM_LINK = "";
 export const YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSeak3NN_4Ds3Iv7q8kCcJC7us8QsNb3FD2wZi1ausdO0mMstA/viewform";
