@@ -2,6 +2,7 @@ import React from "react";
 
 import { generateTranslatedMetadata } from "@/lib/utils";
 import HeroSection from "@/app/TecConference/(components)/hero/HeroSection";
+import GlobeSection from "@/app/TecConference/(components)/globe/GlobeSection";
 
 /**
  * Metadata
@@ -17,6 +18,7 @@ function TecConferencePage() {
   return (
     <>
       <HeroSection />
+      <GlobeSection />
     </>
   );
 }

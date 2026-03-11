@@ -12,8 +12,8 @@ function HeroBackground() {
         intensity={1}
         rotationSpeed={0.3}
         glowAmount={0.003}
-        pillarWidth={3}
-        pillarHeight={0.4}
+        pillarWidth={5}
+        pillarHeight={0.7}
         noiseIntensity={0.5}
         pillarRotation={25}
         interactive={false}
