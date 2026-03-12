@@ -36,6 +36,10 @@ function NavBar() {
       href: `/?#${CONTACT_SECTION_ID}`,
       label: dictionary["Contact us"],
     },
+    {
+      href: "/TecConference",
+      label: dictionary["TEC Conference"],
+    },
   ];
 
   return (
@@ -61,13 +65,13 @@ function NavBar() {
           label={
             width > 400
               ? AVAILABLE_LANGUAGES.find(
-                  (availableLanguage) => availableLanguage.value === language
+                  (availableLanguage) => availableLanguage.value === language,
                 )!.labelNative
               : undefined
           }
         />
 
-        {/* LInks */}
+        {/* Links */}
         {NAVBAR_LINKS.map(({ href, label }) => (
           <Link
             key={href}

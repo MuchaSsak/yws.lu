@@ -11,6 +11,7 @@ import {
   NotepadText,
   PersonStanding,
   Phone,
+  Speech,
 } from "@/lib/icons";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CONTACT_SECTION_ID } from "@/app/(components)/contact/ContactSection";
@@ -61,6 +62,11 @@ function HamburgerMenu() {
       label: dictionary["We Spark Projects"],
       Icon: <PersonStanding className="size-7" />,
     },
+    {
+      href: "/TecConference",
+      label: dictionary["TEC Conference"],
+      Icon: <Speech className="size-7" />,
+    },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +98,7 @@ function HamburgerMenu() {
             {dictionary["Choose your destination"]}
           </SheetTitle>
 
-          <SheetDescription asChild className="pt-32">
+          <SheetDescription asChild className="pt-24">
             <ul className="flex flex-col items-end gap-8 font-medium text-right sm:pr-8">
               {/* Links */}
               {HAMBURGER_MENU_LINKS.map(({ href, label, Icon }) => (
@@ -112,7 +118,7 @@ function HamburgerMenu() {
                 className="sm:p-5 max-sm:p-4 mt-6 max-sm:text-base sm:text-xl [&_svg]:size-6 hover:tracking-wide transition-all focus-visible:bg-foreground/25 hover:bg-foreground/25"
                 label={
                   AVAILABLE_LANGUAGES.find(
-                    (availableLanguage) => availableLanguage.value === language
+                    (availableLanguage) => availableLanguage.value === language,
                   )!.labelNative
                 }
               />

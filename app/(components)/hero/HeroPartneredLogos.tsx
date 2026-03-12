@@ -1,3 +1,4 @@
+import { YWS_TEC_CONFERENCE_ZOOM_LINK } from "@/lib/constants";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
@@ -26,6 +27,11 @@ const PARTNERS_LOGOS = [
     src: "/images/partners-logos/ministry_of_housing.png",
     alt: "Ministry of Housing and Spatial Planning",
     href: "https://mlogat.gouvernement.lu/en.html",
+  },
+  {
+    src: "/images/partners-logos/tec_compendium.png",
+    alt: "TEC Compendium logo",
+    href: YWS_TEC_CONFERENCE_ZOOM_LINK,
   },
 ];
 
