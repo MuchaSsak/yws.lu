@@ -6,7 +6,7 @@ import HeroBackground from "@/app/TecConference/(components)/hero/HeroBackground
 
 function HeroSection() {
   return (
-    <section className="xl:pt-48 max-xl:pt-32 relative min-h-screen px-side flex flex-col">
+    <section className="xl:pt-48 max-xl:pt-32 relative px-side flex flex-col">
       {/* Background */}
       <HeroBackground />
 
