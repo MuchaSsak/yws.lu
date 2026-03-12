@@ -28,11 +28,6 @@ const PARTNERS_LOGOS = [
     alt: "Ministry of Housing and Spatial Planning",
     href: "https://mlogat.gouvernement.lu/en.html",
   },
-  {
-    src: "/images/partners-logos/tec_compendium.png",
-    alt: "TEC Compendium logo",
-    href: YWS_TEC_CONFERENCE_ZOOM_LINK,
-  },
 ];
 
 function HeroPartneredLogos() {
