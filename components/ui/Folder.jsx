@@ -93,7 +93,6 @@ const Folder = ({
       <div
         className={folderClassName}
         style={folderStyle}
-        onClick={() => handleClick()}
         onMouseEnter={() => handleClick(true)}
         onMouseLeave={() => handleClick(false)}
       >

@@ -23,28 +23,6 @@ function QuestionsAndAnswersCards() {
 
   const QUESTIONS_AND_ANSWERS_CARDS = [
     {
-      Icon: <ListChecks className="size-16 text-orange-900" />,
-      title: "Conference programme",
-      description: (
-        <span className="flex-col gap-2 flex">
-          <div>
-            <span className="font-semibold">Moderation:</span> Youth Work
-            Synergy
-          </div>
-          <div>
-            <span className="font-semibold">Introduction to the process:</span>{" "}
-            the project and the website Presented by Youth Work Synergy (YWS)
-          </div>
-          <div>
-            <span className="font-semibold">
-              The power and language of 25 years of the TEC cycle:
-            </span>{" "}
-            Research presentation by Ninfea
-          </div>
-        </span>
-      ),
-    },
-    {
       Icon: <Calendar1 className="size-16 text-orange-900" />,
       title: "Time and date",
       description: "Beginning at 9 April 2026, 14:30-15:30",
@@ -66,12 +44,6 @@ function QuestionsAndAnswersCards() {
       Icon: <NotebookPen className="size-16 text-orange-900" />,
       title: "Registration",
       description: "Participation is free, but registration is required.",
-    },
-    {
-      Icon: <MailQuestionMark className="size-16 text-orange-900" />,
-      title: "Closing invitation",
-      description:
-        "An open call to continue contributing and stay connected with the initiative.",
     },
   ];
 

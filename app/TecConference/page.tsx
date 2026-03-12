@@ -8,6 +8,7 @@ import WhatWePresentSection from "@/app/TecConference/(components)/whatWePresent
 import WhoIsItForSection from "@/app/TecConference/(components)/whoIsItFor/WhoIsItForSection";
 import QuestionsAndAnswersSection from "@/app/TecConference/(components)/questionsAndAnswers/QuestionsAndAnswersSection";
 import JoinUsSection from "@/app/TecConference/(components)/joinUs/JoinUsSection";
+import ConfereProgramSection from "@/app/TecConference/(components)/conferenceProgram/ConferenceProgramSection";
 
 /**
  * Metadata
@@ -25,6 +26,7 @@ function TecConferencePage() {
       <HeroSection />
       <GlobeSection />
       <WhyItMattersSection />
+      <ConfereProgramSection />
       <QuestionsAndAnswersSection />
       <WhatWePresentSection />
       <WhoIsItForSection />
