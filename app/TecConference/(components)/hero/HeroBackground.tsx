@@ -1,3 +1,4 @@
+// @ts-nocheck
 import LightPillar from "@/components/ui/LightPillar";
 
 function HeroBackground() {

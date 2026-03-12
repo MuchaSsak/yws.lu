@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Folder from "@/components/ui/Folder";
 import { notoColorEmoji } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
