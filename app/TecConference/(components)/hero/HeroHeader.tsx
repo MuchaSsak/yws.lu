@@ -18,7 +18,7 @@ function HeroHeader() {
   const { dictionary } = useLanguage();
 
   return (
-    <div className="flex-row justify-between flex">
+    <div className="lg:flex-row max-lg:flex-col justify-between flex">
       <div className="flex flex-col w-full text-left">
         {/* Title */}
         <BoxReveal boxColor="#fa8534" duration={0.75}>
@@ -35,14 +35,14 @@ function HeroHeader() {
 
         {/* Description */}
         <BoxReveal boxColor="#fa8534" duration={1}>
-          <p className="pt-4 italic opacity-50 text-md md:w-[25rem] flex max-sm:text-center max-sm:text-balance flex-col gap-2">
+          <p className="pt-4 italic opacity-50 text-lg lg:w-[25rem] flex max-sm:text-center max-sm:text-balance flex-col gap-2">
             &quot;Sharing the wisdom of the Training & Evaluation Cycle of
             international volunteering programmes&quot;
           </p>
         </BoxReveal>
 
         <BoxReveal boxColor="#fa8534" duration={1}>
-          <p className="pt-4 pb-4 text-lg md:w-[25rem] max-sm:text-center max-sm:text-balance gap-2">
+          <p className="pt-4 pb-4 text-lg lg:w-[25rem] max-sm:text-center max-sm:text-balance gap-2">
             <span className="font-semibold">Join us</span> for the closing
             conference of V - Comprehensive Guide to Best Practices in Mobile
             Learning for Adults and discover how the knowledge, methods, and
@@ -53,19 +53,19 @@ function HeroHeader() {
         </BoxReveal>
 
         <BoxReveal boxColor="#fa8534" duration={1.1}>
-          <p className="text-lg md:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
+          <p className="text-lg lg:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
             {">"} Learning for adults
           </p>
         </BoxReveal>
 
         <BoxReveal boxColor="#fa8534" duration={1.2}>
-          <p className="text-lg md:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
+          <p className="text-lg lg:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
             {">"} 9 April 2026, 14:30–15:30
           </p>
         </BoxReveal>
 
         <BoxReveal boxColor="#fa8534" duration={1.3}>
-          <p className="text-lg pb-6 md:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
+          <p className="text-lg pb-6 lg:w-[25rem] font-semibold max-sm:text-center max-sm:text-balance gap-2">
             {">"} Hosted on{" "}
             <a
               href={YWS_TEC_CONFERENCE_ZOOM_LINK}
@@ -97,11 +97,11 @@ function HeroHeader() {
           chaos={0.12}
           thickness={2}
           style={{ borderRadius: 32 }}
-          className="h-fit animate-aurora"
+          className="h-fit w-fit max-lg:animate-aurora-sm max-lg:mt-16 max-lg:mr-4 lg:animate-aurora max-lg:ml-auto"
         >
           <Lens lensSize={350} zoomFactor={1.35}>
             <Image
-              className="rounded-2xl"
+              className="rounded-2xl max-lg:w-64"
               src="/images/projects/tec_conference_banner.png"
               alt="Youth Work Synergy (YWS) Group Photo in the About us section"
               priority

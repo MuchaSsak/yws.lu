@@ -11,22 +11,26 @@ function GlobeSection() {
   const scale = 1 + t * 0.3;
 
   return (
-    <section className="xl:py-48 max-xl:py-32 relative px-side flex flex-col">
-      {/* Flags */}
-
+    <section className="xl:py-48 max-xl:pb-32 max-xl:pt-16 relative px-side flex flex-col">
       {/* Globe */}
       <div className="relative">
         <div style={{ transform: `scale(${scale})` }}>
-          <Globe className="absolute top-1/2 -translate-y-1/2" />
+          <Globe className="absolute max-lg:bottom-0 lg:top-1/2 lg:mt-32 lg:-translate-y-1/2" />
         </div>
 
-        <div className="flex items-center gap-4 flex-row justify-betweem">
+        <div className="flex relative z-10 max-lg:bg-black/10 max-lg:p-4 max-lg:rounded-lg items-center max-lg:gap-32 lg:gap-4 max-lg:flex-col lg:flex-row justify-betweem">
           <div className="flex-1">
-            <p className="text-xl">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
-              eveniet mollitia excepturi deleniti modi quod consequatur nostrum
-              ab architecto accusamus ad, optio laboriosam quidem repellat
-              maxime facilis dicta perspiciatis eligendi.
+            <p className="text-xl font-semibold">
+              For many years, the methodologies used by{" "}
+              <span className="text-primary">TEC trainers</span> in
+              international mobility and volunteering programmes have remained
+              largely within a{" "}
+              <span className="text-primary">
+                specialised community of trainers and National Agencies
+              </span>
+              . Through this project, we wanted to open up that knowledge,
+              document its roots, and make its practical wisdom accessible to a
+              wider audience.
             </p>
           </div>
 
@@ -36,11 +40,12 @@ function GlobeSection() {
           />
 
           <div className="flex-1">
-            <p className="text-right text-xl">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
-              eveniet mollitia excepturi deleniti modi quod consequatur nostrum
-              ab architecto accusamus ad, optio laboriosam quidem repellat
-              maxime facilis dicta perspiciatis eligendi.
+            <p className="lg:text-right font-semibold text-xl">
+              During this{" "}
+              <span className="text-primary">one-hour online conference</span>,
+              we will launch the results of V - Comprehensive Guide to Best
+              Practices in Mobile Learning for Adults, present the new website,
+              and introduce the publication developed through this work.
             </p>
           </div>
         </div>
