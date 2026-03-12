@@ -1,7 +1,7 @@
 import React from "react";
 
-import QuestionsAndAnswersHeader from "@/app/tecConference/(components)/questionsAndAnswers/QuestionsAndAnswersHeader";
-import QuestionsAndAnswersCards from "@/app/tecConference/(components)/questionsAndAnswers/QuestionsAndAnswersCards";
+import QuestionsAndAnswersHeader from "@/app/TecConference/(components)/questionsAndAnswers/QuestionsAndAnswersHeader";
+import QuestionsAndAnswersCards from "@/app/TecConference/(components)/questionsAndAnswers/QuestionsAndAnswersCards";
 
 function QuestionsAndAnswersSection() {
   return (
