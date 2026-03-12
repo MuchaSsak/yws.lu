@@ -1,3 +1,12 @@
+## [1.6.1](https://github.com/MuchaSsak/yws.lu/compare/v1.6.0...v1.6.1) (2026-03-12)
+
+
+### Bug Fixes
+
+* remove project logo from partners logos ([68c934a](https://github.com/MuchaSsak/yws.lu/commit/68c934a6549cd5a0227e9f1025946a88a7883e25))
+
+
+
 # [1.6.0](https://github.com/MuchaSsak/yws.lu/compare/v1.5.1...v1.6.0) (2026-03-12)
 
 
@@ -45,15 +54,6 @@
 ### Bug Fixes
 
 * optimize images with NextImage ([d27c571](https://github.com/MuchaSsak/yws.lu/commit/d27c57135f8b47ac5478373bdd1fe4359ba614fc))
-
-
-
-## [1.4.3](https://github.com/MuchaSsak/yws.lu/compare/v1.4.2...v1.4.3) (2025-12-16)
-
-
-### Bug Fixes
-
-* projects images file paths ([ac317fe](https://github.com/MuchaSsak/yws.lu/commit/ac317fe5611bf086c75d4754c9c6f5b337edbf55))
 
 
 
