@@ -1,3 +1,12 @@
+# [1.7.0](https://github.com/MuchaSsak/yws.lu/compare/v1.6.1...v1.7.0) (2026-03-12)
+
+
+### Features
+
+* add conference programme section ([d52a01a](https://github.com/MuchaSsak/yws.lu/commit/d52a01a95a7deb60f89b9624d8a88087507b23f0))
+
+
+
 ## [1.6.1](https://github.com/MuchaSsak/yws.lu/compare/v1.6.0...v1.6.1) (2026-03-12)
 
 
@@ -45,15 +54,6 @@
 ### Features
 
 * add more projects ([8ef200d](https://github.com/MuchaSsak/yws.lu/commit/8ef200d99545d3652b14d1b87238306557222b55))
-
-
-
-## [1.4.4](https://github.com/MuchaSsak/yws.lu/compare/v1.4.3...v1.4.4) (2025-12-16)
-
-
-### Bug Fixes
-
-* optimize images with NextImage ([d27c571](https://github.com/MuchaSsak/yws.lu/commit/d27c57135f8b47ac5478373bdd1fe4359ba614fc))
 
 
 
