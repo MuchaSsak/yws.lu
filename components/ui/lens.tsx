@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 interface LensProps {
   children: React.ReactNode;
@@ -53,7 +54,14 @@ export const Lens: React.FC<LensProps> = ({
       onMouseLeave={() => setIsHovering(false)}
       onMouseMove={handleMouseMove}
     >
-      {children}
+      <div
+        className={cn(
+          "transition-all duration-500",
+          isHovering ? "brightness-50" : "",
+        )}
+      >
+        {children}
+      </div>
 
       {isStatic ? (
         <div>

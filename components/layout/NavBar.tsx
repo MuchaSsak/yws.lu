@@ -17,6 +17,10 @@ function NavBar() {
 
   const NAVBAR_LINKS = [
     {
+      href: "/AboutUs",
+      label: dictionary["About us"],
+    },
+    {
       href: "/LookingForHousing",
       label: dictionary["Apply for housing"],
     },
@@ -25,16 +29,16 @@ function NavBar() {
       label: dictionary["Rent your property"],
     },
     {
-      href: "/AboutUs",
-      label: dictionary["About us"],
+      href: "/WeSparkProjects",
+      label: dictionary["We Spark Projects"],
     },
     {
       href: `/?#${CONTACT_SECTION_ID}`,
       label: dictionary["Contact us"],
     },
     {
-      href: "/WeSparkProjects",
-      label: dictionary["We Spark Projects"],
+      href: "/TecConference",
+      label: dictionary["TEC Conference"],
     },
   ];
 
@@ -61,13 +65,13 @@ function NavBar() {
           label={
             width > 400
               ? AVAILABLE_LANGUAGES.find(
-                  (availableLanguage) => availableLanguage.value === language
+                  (availableLanguage) => availableLanguage.value === language,
                 )!.labelNative
               : undefined
           }
         />
 
-        {/* LInks */}
+        {/* Links */}
         {NAVBAR_LINKS.map(({ href, label }) => (
           <Link
             key={href}

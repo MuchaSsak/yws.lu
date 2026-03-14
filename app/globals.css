@@ -53,7 +53,31 @@
       background-position: 100% -100%;
     }
   }
-  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  --animate-aurora: aurora 10s ease-in-out infinite alternate;
+  --animate-aurora-sm: aurora-sm 15s ease-in-out infinite alternate;
+
+  @keyframes aurora-sm {
+    0% {
+      background-position: 0% 75%;
+      transform: rotate(-2.5deg) scale(0.95);
+    }
+    25% {
+      background-position: 75% 100%;
+      transform: rotate(2.5deg) scale(1.05);
+    }
+    50% {
+      background-position: 100% 75%;
+      transform: rotate(-1.5deg) scale(0.975);
+    }
+    75% {
+      background-position: 75% 0%;
+      transform: rotate(1.5deg) scale(1.025);
+    }
+    100% {
+      background-position: 0% 75%;
+      transform: rotate(-2.5deg) scale(0.95);
+    }
+  }
 
   @keyframes aurora {
     0% {
@@ -91,34 +115,51 @@
     }
   }
 
-  --animate-grid: grid 15s linear infinite
-;
+  --animate-grid: grid 15s linear infinite;
   @keyframes grid {
-  0% {
-    transform: translateY(-50%);}
-  100% {
-    transform: translateY(0);}}
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   @keyframes shimmer-slide {
-  to {
-    transform: translate(calc(100cqw - 100%), 0);}}
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
   @keyframes spin-around {
-  0% {
-    transform: translateZ(0) rotate(0);}
-  15%, 35% {
-    transform: translateZ(0) rotate(90deg);}
-  65%, 85% {
-    transform: translateZ(0) rotate(270deg);}
-  100% {
-    transform: translateZ(0) rotate(360deg);}}
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
   @keyframes shine {
-  0% {
-    background-position: 0% 0%;}
-  50% {
-    background-position: 100% 100%;}
-  to {
-    background-position: 0% 0%;}}}
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    to {
+      background-position: 0% 0%;
+    }
+  }
+}
 
 :root {
   --radius: 0.65rem;
@@ -143,7 +184,7 @@
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-4: #ffb900;
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.141 0.005 285.823);

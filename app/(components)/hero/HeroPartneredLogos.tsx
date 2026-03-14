@@ -1,3 +1,5 @@
+import { YWS_TEC_CONFERENCE_ZOOM_LINK } from "@/lib/constants";
+import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const PARTNERS_LOGOS = [
@@ -12,19 +14,19 @@ const PARTNERS_LOGOS = [
     href: "https://fondation-sommer.lu/",
   },
   {
+    src: "/images/partners-logos/gestion_locative_sociale.png",
+    alt: "Gestion Locative Sociale",
+    href: "https://logement.public.lu/fr/proprietaire/logement-location/gestion-locative-sociale.html",
+  },
+  {
     src: "/images/partners-logos/erasmus.svg",
     alt: "Erasmus+ logo",
     href: "https://erasmus-plus.ec.europa.eu/",
   },
   {
-    src: "/images/projects/get_your_home_logo.png",
-    alt: "Get Your Home logo",
-    href: "https://drive.google.com/file/d/1z0IkpH7yZADfVEk9vvXN6S5iAnTdvVjn/view?usp=share_link",
-  },
-  {
-    src: "/images/projects/locked_out_logo.png",
-    alt: "Locked Out logo",
-    href: "https://fondation-sommer.lu/en/projects/locked-out-youth-lens-on-housing/",
+    src: "/images/partners-logos/ministry_of_housing.png",
+    alt: "Ministry of Housing and Spatial Planning",
+    href: "https://mlogat.gouvernement.lu/en.html",
   },
 ];
 
@@ -33,7 +35,9 @@ function HeroPartneredLogos() {
     <Marquee loop={0} autoFill className="py-12" speed={25}>
       {PARTNERS_LOGOS.map(({ src, alt, href }) => (
         <a href={href} target="_blank" tabIndex={-1}>
-          <img
+          <Image
+            width={150}
+            height={0}
             key={src}
             className="max-sm:w-[6.25rem] sm:w-[9.375rem] max-sm:mx-8 sm:mx-16"
             src={src}

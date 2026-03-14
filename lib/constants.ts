@@ -7,7 +7,7 @@ export const SUPABASE_HOUSES_PICTURES_BUCKET_ROOT_URL = `${SUPABASE_PUBLIC_URL}/
 
 // Info
 export const YWS_EMAIL = "contact@yws.lu";
-export const YWS_PHONE_NUMBER = "+352 691 597 315";
+export const YWS_PHONE_NUMBER = "286622 • 661597312";
 export const YWS_WEBSITE_LINK = "https://yws.lu";
 export const YWS_WEBSITE_LINK_AESTHETIC = "www.yws.lu";
 
@@ -15,6 +15,9 @@ export const YWS_FACEBOOK_LINK =
   "https://www.facebook.com/profile.php?id=61557997643374";
 export const YWS_LINKEDIN_LINK = "https://www.linkedin.com/in/ywslu/";
 export const YWS_INSTAGRAM_LINK = "https://www.instagram.com/yws.lu/";
+
+export const YWS_TEC_CONFERENCE_ZOOM_LINK =
+  "https://us06web.zoom.us/meeting/register/9XF6fSz_SuuP-9CLQ19ldw#/";
 
 export const YWS_RENT_YOUR_PROPERTY_GOOGLE_FORM_LINK = "";
 export const YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK =

@@ -8,8 +8,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export type WeSparkProjectsCard = {
   name: string;
   description: string;
-  logoSrc: string;
-  href: string;
+  logoSrc?: string;
+  href?: string;
+  hrefLabel: string;
   images: string[];
   shineColor?: string;
 };
@@ -22,35 +23,59 @@ function ProjectsList() {
       name: dictionary.projectGetYourHomeTitleWeSparkProjects,
       description: dictionary.projectGetYourHomeDescriptionWeSparkProjects,
       logoSrc: "/images/projects/get_your_home_logo.png",
-      href: "https://drive.google.com/file/d/1z0IkpH7yZADfVEk9vvXN6S5iAnTdvVjn/view?usp=share_link",
       shineColor: "#ff7820",
       images: [
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
+        "/images/projects/get-your-home/1.JPG",
+        "/images/projects/get-your-home/2.JPG",
+        "/images/projects/get-your-home/3.JPG",
+        "/images/projects/get-your-home/4.JPG",
+        "/images/projects/get-your-home/5.JPG",
+        "/images/projects/get-your-home/6.JPG",
       ],
-      // images: [
-      //   "/images/projects/get_your_home_picture_1.jpg",
-      //   "/images/projects/get_your_home_picture_2.jpg",
-      //   "/images/projects/get_your_home_picture_3.jpg",
-      // ],
+      href: "https://docs.google.com/forms/d/e/1FAIpQLSdNnphOFE95EwvyIlIrZLubIiV-VRsMfgFElhcldRqpWb6zXQ/viewform",
+      hrefLabel: dictionary["Register now"],
     },
     {
       name: dictionary.projectLockedOutTitleWeSparkProjects,
       description: dictionary.projectLockedOutDescriptionWeSparkProjects,
       logoSrc: "/images/projects/locked_out_logo.png",
-      href: "https://drive.google.com/file/d/1ywjehKL5FkDrsATRWOlFnFHiNXir-mNr/view?usp=sharing ",
-      shineColor: "#8D30FF",
+      href: "https://drive.google.com/file/d/1ywjehKL5FkDrsATRWOlFnFHiNXir-mNr/view?usp=sharing",
+      shineColor: "#2757F5",
       images: [
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
-        "/images/projects/awd.JPG",
+        "/images/projects/locked-out/1.JPG",
+        "/images/projects/locked-out/2.JPG",
+        "/images/projects/locked-out/3.JPG",
+        "/images/projects/locked-out/4.JPG",
       ],
-      // images: [
-      //   "/images/projects/locked_out_picture_1.jpg",
-      //   "/images/projects/locked_out_picture_2.jpg",
-      //   "/images/projects/locked_out_picture_3.jpg",
-      // ],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectGirlsSectiveTitleWeSparkProjects,
+      description: dictionary.projectGirlsSectiveDescriptionWeSparkProjects,
+      shineColor: "#8D30FF",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectMobileLearningTitleWeSparkProjects,
+      description: dictionary.projectMobileLearningDescriptionWeSparkProjects,
+      shineColor: "#F5276F",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectSportTitleWeSparkProjects,
+      description: dictionary.projectSportDescriptionWeSparkProjects,
+      shineColor: "#54F527",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectSelfChronicleTitleWeSparkProjects,
+      description: dictionary.projectSelfChronicleDescriptionWeSparkProjects,
+      shineColor: "#F2F527",
+      images: [],
+      hrefLabel: dictionary["Learn more"],
     },
   ];
 

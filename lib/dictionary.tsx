@@ -42,6 +42,7 @@ export const DICTIONARY = {
    * English
    */
   en: {
+    "TEC Conference": "TEC Conference",
     "Interested in renting your property to us?":
       "Interested in renting your property to us?",
     "Property Maintenance": "Property Maintenance",
@@ -323,7 +324,7 @@ export const DICTIONARY = {
       // Default statistics if fetching is unsuccessful
       sharedHouses = 6,
       youngstersHelped = 30,
-      youngstersWaiting = 300
+      youngstersWaiting = 300,
     ) => (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
@@ -436,8 +437,7 @@ export const DICTIONARY = {
     interestedInRentingDescriptionRentYourProperty: (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
-          Fill out the contact form or get in touch directly. We'd love to hear
-          from you.
+          Get in touch directly. We'd love to hear from you.
         </TextAnimate>
       </>
     ),
@@ -492,6 +492,11 @@ export const DICTIONARY = {
         description:
           "Youth Work Synergy is a Luxembourg-based non-profit transforming empty homes into safe, affordable shared housing for young people aged 18-34. Learn about our mission, team, and how we support youth through housing, coaching, and social projects to create real impact in the community.",
       } as Metadata,
+      tecConferenceMetadata: {
+        title: "Youth Work Synergy | TEC Conference",
+        description:
+          "Join us for the closing conference of V - Comprehensive Guide to Best Practices in Mobile Learning for Adults and discover how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move.",
+      } as Metadata,
       lookingForHousingMetadata: {
         title: "Youth Work Synergy | Apply For Housing",
         description:
@@ -532,13 +537,77 @@ Participants learn the fundamentals of documentary filmmaking - from storytellin
 The project aims to give young voices a platform to express how the housing situation shapes their lives and future.
 Supported by Fondation Sommer.    
 `,
+    projectGirlsSectiveTitleWeSparkProjects:
+      "Projet : Girlssective (2024-2025)",
+    projectGirlsSectiveDescriptionWeSparkProjects: `Le projet Girlssective, lancé par un groupe de 5 jeunes en collaboration avec Youth Work Synergy, est une initiative dédiée à la promotion de la diversité, de l'inclusion et à l'autonomisation des femmes, en particulier des femmes immigrées, réfugiées et expatriées âgées de 16 à 35 ans. Ce projet s'inscrit dans le cadre des projets de solidarité du European Solidarity Corps.
+Objectifs principaux :
+Soutenir les femmes issues de communautés marginalisées ou vulnérables en leur fournissant des ateliers, un mentorat, et un soutien personnalisé pour surmonter les défis qu'elles rencontrent.
+Renforcer la confiance en soi des participantes et les aider à s'épanouir dans leurs communautés locales.
+Promouvoir la diversité et l'inclusion au Luxembourg en mettant l'accent sur l'intégration des femmes immigrées et réfugiées.
+Activités clés :
+Organisation d'ateliers interactifs sur des sujets variés tels que le développement personnel, la gestion de carrière, et la santé mentale.
+Mentorat personnalisé pour accompagner les femmes dans leur parcours de développement et de résilience.
+Collaboration avec des partenaires locaux et des réseaux communautaires pour élargir l'impact du projet et offrir un soutien continu aux participantes.
+Logo et symbolisme :
+Le logo officiel de Girlssective représente la force, l'unité et la nouvelle aventure qui commence pour soutenir les femmes dans leur parcours vers l'autonomisation. Ce logo incarne les valeurs fondamentales du projet : diversité, inclusion et résilience.
+Résultats attendus :
+Le projet Girlssective vise à soutenir plusieurs dizaines de femmes en les aidant à acquérir les compétences nécessaires pour naviguer les défis de l'intégration, à développer leur confiance et à réussir dans leurs communautés. Il s'agit d'un espace sécurisé pour permettre aux femmes de se connecter, d'apprendre et de grandir ensemble.
+`,
+    projectMobileLearningTitleWeSparkProjects:
+      "Projet V - Comprehensive Guide to Best Practices in Mobile Learning for Adults – KA210 partenariats à petite échelle – Erasmus +",
+    projectMobileLearningDescriptionWeSparkProjects: `Ce projet, coordonné par Youth Work Synergy en partenariat avec NINFEA et KulturNest e.V., vise à développer un guide complet des meilleures pratiques en matière d'apprentissage mobile pour adultes. Ce projet, d'une durée de 14 mois (de septembre 2024 à octobre 2025), a pour but de renforcer les ressources du Training and Evaluation Cycle (TEC) et de promouvoir l'inclusivité et la diversité dans l'éducation des adultes.
+Objectifs principaux :
+Créer une plateforme collaborative pour permettre aux praticiens du TEC de partager leurs expériences et connaissances.
+Développer un guide qui compile des activités et des ressources liées au TEC, spécifiquement pour l'intégration des nouveaux arrivants.
+Identifier et analyser les meilleures pratiques en consultant des parties prenantes de huit pays européens.
+Résultats attendus :
+Création d'une plateforme numérique pour le partage des bonnes pratiques.
+Production d'un guide pratique accessible aux professionnels de l'éducation et de l'intégration.
+Renforcement de la collaboration internationale et amélioration des pratiques d'accueil et de coexistence interculturelle.
+
+Activités principales :
+Gestion du projet (YWS) : Planification stratégique, coordination des partenaires et gestion des ressources.
+Recherche et développement de la plateforme (NINFEA) : Collecte de données sur les pratiques TEC et création d'une plateforme en ligne.
+Production du guide (KulturNest) : Compilation des meilleures pratiques avec un accent sur les approches interculturelles.
+Diffusion (YWS/KulturNest/NINFEA) : Distribution du guide et organisation d'ateliers et d'événements pour partager les résultats du projet.
+`,
+    projectSportTitleWeSparkProjects:
+      "Projet : Les jeunes amis du sport Luxembourg",
+    projectSportDescriptionWeSparkProjects: `Ce projet a pour ambition de proposer un programme riche et varié d'activités sportives destinées aux jeunes âgés de 15 à 25 ans. L’objectif principal est de promouvoir un mode de vie sain, tout en offrant des opportunités de socialisation, d’apprentissage et de développement personnel. Les activités choisies couvrent des sports collectifs, individuels et des expériences culturelles et éducatives, permettant ainsi de répondre aux intérêts et besoins variés des participants. 
+Objectifs principaux :
+Notre objectif principal est de réunir au moins 50 jeunes autour de notre projet. 
+Nous souhaitons que ces jeunes aient l'opportunité de découvrir des activités sportives qu'ils ne connaissent pas, et ce de manière décontractée, conviviale, sans pressionni jugement.
+L'objectif est de sortir les jeunes de leurs écrans pendant quelques heures, afin qu'ils prennent conscience du mondequi les entoure. Il est essentiel que les jeunes issus de l'immigration ne se sentent pas seuls et rejetés par la société.
+Activités clés :
+ L'organisation d'activités sportives telles que le football, le volleyball, la boxe, la danse, le vélo, la course et la marche en forêt en faveur de jeunes défavorisés.
+ Les participants sont encouragés à suggérer les activités qu'ils aimeraient réaliser. Ces activités nécessitent de se préparer en louant un espace, recruter les participants, acheter le matériel, etc…
+
+Résultats attendus :
+Nous attendons que les jeunes qui participent au projet puissent développer de la tolérance et qu’ils s’intègrent dans notre société. Afin qu'ils puissent profiter de bons moments et qu'ils aient envie de poursuivre leur pratique sportive en trouvant un sport qui les passionne. Nous voulons aussi renforcer leur confiance en eux et en leur aptitude. En assistant à nos séances, nous espérons qu'ils éprouveront moins de solitude.
+`,
+    projectSelfChronicleTitleWeSparkProjects:
+      "Project: The Self Chronicle (2024-2025)",
+    projectSelfChronicleDescriptionWeSparkProjects: `The Self Chronicle is one of the solidarity projects run by the European Solidarity Corps. This project, launched by a group of 5 young people in collaboration with Youth Work Synergy, aims to facilitate the integration of young immigrants aged between 12 and 30 who have recently arrived in Luxembourg. The project will run for a period of 10 months, from 1 June 2024 to 31 March 2025.
+Main objectives:
+● To create an interactive digital workbook for young newcomers, enabling them to gain a better understanding of Luxembourg, its traditions and culture.
+● Encourage their integration into Luxembourg society by providing them with tools and resources to discover local opportunities and develop a sense of belonging.
+● Organise workshops in collaboration with local partners to guide young people in using the digital notebook, with a focus on civic participation and living together.
+Key activities:
+● Development of the digital notebook using the MIRO and SEPPO platforms, which will incorporate interactive and geolocated tasks to discover the country.
+● Organisation of workshops in schools and youth centres to facilitate the use of this digital tool, while promoting social inclusion and intercultural cooperation.
+● Communication with local players such as the Office National de l'Accueil (ONA), the Ministry for the Family, and other partners to promote the use of the notebook.
+Expected results:
+The project aims to help around 100 young people better integrate into Luxembourg society, develop digital skills and feel at home more quickly in their new country. The digital workbook will be designed to be a sustainable tool, accessible to all new arrivals, with an interactive and multilingual approach.
+`,
     "Pictures gallery:": "Pictures gallery:",
+    "Register now": "Register now",
   },
 
   /**
    * French
    */
   fr: {
+    "Register now": "Inscrivez-vous maintenant",
     "Interested in renting your property to us?":
       "Intéressé(e) à louer votre bien à notre organisation ?",
     "Property Maintenance": "Entretien de la propriété",
@@ -824,7 +893,7 @@ Supported by Fondation Sommer.
       // Default statistics if fetching is unsuccessful
       sharedHouses = 6,
       youngstersHelped = 30,
-      youngstersWaiting = 300
+      youngstersWaiting = 300,
     ) => (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
@@ -941,8 +1010,7 @@ Supported by Fondation Sommer.
     interestedInRentingDescriptionRentYourProperty: (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
-          Remplissez le formulaire de contact ou contactez-nous directement.
-          Nous serions ravis d’échanger avec vous.
+          Contactez-nous directement. Nous serions ravis d’échanger avec vous.
         </TextAnimate>
       </>
     ),
@@ -1002,6 +1070,11 @@ Supported by Fondation Sommer.
         description:
           "Nous proposons des chambres entièrement meublées dans des maisons partagées — avec accompagnement, coaching et un environnement sécurisé. Vous êtes un jeune au Luxembourg à la recherche d’un logement ? Remplissez notre formulaire rapide et nous vous contacterons dès qu’une place sera disponible.",
       } as Metadata,
+      tecConferenceMetadata: {
+        title: "Youth Work Synergy | TEC Conference",
+        description:
+          "Join us for the closing conference of V - Comprehensive Guide to Best Practices in Mobile Learning for Adults and discover how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move.",
+      } as Metadata,
       rentYourPropertyMetadata: {
         title: "Youth Work Synergy | Louez votre propriété",
         description:
@@ -1038,6 +1111,69 @@ Les participant·e·s apprennent les bases du documentaire — de la narration a
 Le projet vise à offrir aux jeunes une plateforme pour exprimer comment la situation du logement façonne leur vie et leur avenir.
 Soutenu par la Fondation Sommer.
 `,
+    projectGirlsSectiveTitleWeSparkProjects:
+      "Projet : Girlssective (2024-2025)",
+    projectGirlsSectiveDescriptionWeSparkProjects: `Le projet Girlssective, lancé par un groupe de 5 jeunes en collaboration avec Youth Work Synergy, est une initiative dédiée à la promotion de la diversité, de l'inclusion et à l'autonomisation des femmes, en particulier des femmes immigrées, réfugiées et expatriées âgées de 16 à 35 ans. Ce projet s'inscrit dans le cadre des projets de solidarité du European Solidarity Corps.
+Objectifs principaux :
+Soutenir les femmes issues de communautés marginalisées ou vulnérables en leur fournissant des ateliers, un mentorat, et un soutien personnalisé pour surmonter les défis qu'elles rencontrent.
+Renforcer la confiance en soi des participantes et les aider à s'épanouir dans leurs communautés locales.
+Promouvoir la diversité et l'inclusion au Luxembourg en mettant l'accent sur l'intégration des femmes immigrées et réfugiées.
+Activités clés :
+Organisation d'ateliers interactifs sur des sujets variés tels que le développement personnel, la gestion de carrière, et la santé mentale.
+Mentorat personnalisé pour accompagner les femmes dans leur parcours de développement et de résilience.
+Collaboration avec des partenaires locaux et des réseaux communautaires pour élargir l'impact du projet et offrir un soutien continu aux participantes.
+Logo et symbolisme :
+Le logo officiel de Girlssective représente la force, l'unité et la nouvelle aventure qui commence pour soutenir les femmes dans leur parcours vers l'autonomisation. Ce logo incarne les valeurs fondamentales du projet : diversité, inclusion et résilience.
+Résultats attendus :
+Le projet Girlssective vise à soutenir plusieurs dizaines de femmes en les aidant à acquérir les compétences nécessaires pour naviguer les défis de l'intégration, à développer leur confiance et à réussir dans leurs communautés. Il s'agit d'un espace sécurisé pour permettre aux femmes de se connecter, d'apprendre et de grandir ensemble.
+`,
+    projectMobileLearningTitleWeSparkProjects:
+      "Projet V - Comprehensive Guide to Best Practices in Mobile Learning for Adults – KA210 partenariats à petite échelle – Erasmus +",
+    projectMobileLearningDescriptionWeSparkProjects: `Ce projet, coordonné par Youth Work Synergy en partenariat avec NINFEA et KulturNest e.V., vise à développer un guide complet des meilleures pratiques en matière d'apprentissage mobile pour adultes. Ce projet, d'une durée de 14 mois (de septembre 2024 à octobre 2025), a pour but de renforcer les ressources du Training and Evaluation Cycle (TEC) et de promouvoir l'inclusivité et la diversité dans l'éducation des adultes.
+Objectifs principaux :
+Créer une plateforme collaborative pour permettre aux praticiens du TEC de partager leurs expériences et connaissances.
+Développer un guide qui compile des activités et des ressources liées au TEC, spécifiquement pour l'intégration des nouveaux arrivants.
+Identifier et analyser les meilleures pratiques en consultant des parties prenantes de huit pays européens.
+Résultats attendus :
+Création d'une plateforme numérique pour le partage des bonnes pratiques.
+Production d'un guide pratique accessible aux professionnels de l'éducation et de l'intégration.
+Renforcement de la collaboration internationale et amélioration des pratiques d'accueil et de coexistence interculturelle.
+
+Activités principales :
+Gestion du projet (YWS) : Planification stratégique, coordination des partenaires et gestion des ressources.
+Recherche et développement de la plateforme (NINFEA) : Collecte de données sur les pratiques TEC et création d'une plateforme en ligne.
+Production du guide (KulturNest) : Compilation des meilleures pratiques avec un accent sur les approches interculturelles.
+Diffusion (YWS/KulturNest/NINFEA) : Distribution du guide et organisation d'ateliers et d'événements pour partager les résultats du projet.
+`,
+    projectSportTitleWeSparkProjects:
+      "Projet : Les jeunes amis du sport Luxembourg",
+    projectSportDescriptionWeSparkProjects: `Ce projet a pour ambition de proposer un programme riche et varié d'activités sportives destinées aux jeunes âgés de 15 à 25 ans. L’objectif principal est de promouvoir un mode de vie sain, tout en offrant des opportunités de socialisation, d’apprentissage et de développement personnel. Les activités choisies couvrent des sports collectifs, individuels et des expériences culturelles et éducatives, permettant ainsi de répondre aux intérêts et besoins variés des participants. 
+Objectifs principaux :
+Notre objectif principal est de réunir au moins 50 jeunes autour de notre projet. 
+Nous souhaitons que ces jeunes aient l'opportunité de découvrir des activités sportives qu'ils ne connaissent pas, et ce de manière décontractée, conviviale, sans pressionni jugement.
+L'objectif est de sortir les jeunes de leurs écrans pendant quelques heures, afin qu'ils prennent conscience du mondequi les entoure. Il est essentiel que les jeunes issus de l'immigration ne se sentent pas seuls et rejetés par la société.
+Activités clés :
+ L'organisation d'activités sportives telles que le football, le volleyball, la boxe, la danse, le vélo, la course et la marche en forêt en faveur de jeunes défavorisés.
+ Les participants sont encouragés à suggérer les activités qu'ils aimeraient réaliser. Ces activités nécessitent de se préparer en louant un espace, recruter les participants, acheter le matériel, etc…
+
+Résultats attendus :
+Nous attendons que les jeunes qui participent au projet puissent développer de la tolérance et qu’ils s’intègrent dans notre société. Afin qu'ils puissent profiter de bons moments et qu'ils aient envie de poursuivre leur pratique sportive en trouvant un sport qui les passionne. Nous voulons aussi renforcer leur confiance en eux et en leur aptitude. En assistant à nos séances, nous espérons qu'ils éprouveront moins de solitude.
+`,
+    projectSelfChronicleTitleWeSparkProjects:
+      "Project: The Self Chronicle (2024-2025)",
+    projectSelfChronicleDescriptionWeSparkProjects: `The Self Chronicle is one of the solidarity projects run by the European Solidarity Corps. This project, launched by a group of 5 young people in collaboration with Youth Work Synergy, aims to facilitate the integration of young immigrants aged between 12 and 30 who have recently arrived in Luxembourg. The project will run for a period of 10 months, from 1 June 2024 to 31 March 2025.
+Main objectives:
+● To create an interactive digital workbook for young newcomers, enabling them to gain a better understanding of Luxembourg, its traditions and culture.
+● Encourage their integration into Luxembourg society by providing them with tools and resources to discover local opportunities and develop a sense of belonging.
+● Organise workshops in collaboration with local partners to guide young people in using the digital notebook, with a focus on civic participation and living together.
+Key activities:
+● Development of the digital notebook using the MIRO and SEPPO platforms, which will incorporate interactive and geolocated tasks to discover the country.
+● Organisation of workshops in schools and youth centres to facilitate the use of this digital tool, while promoting social inclusion and intercultural cooperation.
+● Communication with local players such as the Office National de l'Accueil (ONA), the Ministry for the Family, and other partners to promote the use of the notebook.
+Expected results:
+The project aims to help around 100 young people better integrate into Luxembourg society, develop digital skills and feel at home more quickly in their new country. The digital workbook will be designed to be a sustainable tool, accessible to all new arrivals, with an interactive and multilingual approach.
+`,
     "Pictures gallery:": "Galerie de photos",
+    "TEC Conference": "TEC Conference",
   },
 };

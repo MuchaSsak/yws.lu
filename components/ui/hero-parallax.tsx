@@ -7,8 +7,7 @@ import {
   useSpring,
   MotionValue,
 } from "motion/react";
-
-
+import Image from "next/image";
 
 export const HeroParallax = ({
   products,
@@ -138,14 +137,11 @@ export const ProductCard = ({
       key={product.title}
       className="group/product h-96 w-[30rem] relative shrink-0"
     >
-      <a
-        href={product.link}
-        className="block group-hover/product:shadow-2xl "
-      >
-        <img
+      <a href={product.link} className="block group-hover/product:shadow-2xl ">
+        <Image
+          width={600}
+          height={600}
           src={product.thumbnail}
-          height="600"
-          width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
         />

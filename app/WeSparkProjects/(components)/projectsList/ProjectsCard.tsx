@@ -15,6 +15,7 @@ import motionFadeIn from "@/lib/animations/motionFadeIn";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
 
 type ProjectsCardProps = WeSparkProjectsCard & {
   entryAnimationDelay?: number;
@@ -25,6 +26,7 @@ function ProjectsCard({
   description,
   logoSrc,
   href,
+  hrefLabel,
   images,
   shineColor = "#ff7820",
   entryAnimationDelay = 0,
@@ -33,18 +35,22 @@ function ProjectsCard({
 
   return (
     <motion.div {...motionFadeIn(entryAnimationDelay)}>
-      <Card className="relative overflow-hidden max-md:w-[85vw] md:grid max-md:flex-col max-md:flex md:grid-cols-2 backdrop-blur-lg shadow bg-background/25">
+      <Card className="relative overflow-hidden max-md:w-[85vw] flex-col h-full flex backdrop-blur-lg shadow bg-background/25">
         <ShineBorder shineColor={shineColor} />
 
         <div>
           <CardHeader>
             {/* Logo */}
-            <img
-              fetchPriority="high"
-              src={logoSrc}
-              className="object-cover w-[15rem]"
-              alt={description}
-            />
+            {logoSrc && (
+              <Image
+                width={240}
+                height={0}
+                fetchPriority="high"
+                src={logoSrc}
+                className="object-cover w-[15rem]"
+                alt={description}
+              />
+            )}
 
             {/* Title */}
             <CardTitle className="text-2xl">{name}</CardTitle>
@@ -55,26 +61,31 @@ function ProjectsCard({
 
           {/* Buttons */}
           <CardFooter className="pt-4">
-            <Link href={href} target="_blank" tabIndex={-1}>
-              <Button
-                className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
-                size="lg"
-              >
-                {dictionary["Learn more"]}{" "}
-                <span className="transition-[margin]">→</span>
-              </Button>
-            </Link>
+            {href && (
+              <Link href={href} target="_blank" tabIndex={-1}>
+                <Button
+                  className="[&:hover_span]:ml-2 [&:focus-visible_span]:ml-2 hover:font-semibold focus-visible:font-semibold"
+                  size="lg"
+                >
+                  {hrefLabel} <span className="transition-[margin]">→</span>
+                </Button>
+              </Link>
+            )}
           </CardFooter>
         </div>
 
         {/* Images */}
         <CardContent>
-          <span className="text-muted-foreground italic text-sm">
-            {dictionary["Pictures gallery:"]}
-          </span>
+          {images.length > 0 && (
+            <span className="text-muted-foreground italic text-sm">
+              {dictionary["Pictures gallery:"]}
+            </span>
+          )}
           <div className="flex flex-wrap gap-4 pt-1">
             {images.map((src) => (
-              <img
+              <Image
+                width={240}
+                height={0}
                 key={src}
                 src={src}
                 className="object-cover w-[15rem]"

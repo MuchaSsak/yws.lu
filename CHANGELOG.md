@@ -1,56 +1,59 @@
-# [1.4.0](https://github.com/MuchaSsak/yws.lu/compare/v1.3.0...v1.4.0) (2025-12-02)
+# [1.7.0](https://github.com/MuchaSsak/yws.lu/compare/v1.6.1...v1.7.0) (2026-03-12)
 
 
 ### Features
 
-* add more partnered logos to marquee ([2f82152](https://github.com/MuchaSsak/yws.lu/commit/2f821523b4eb7e95a7c3c9112ebf6358900b00f0))
+* add conference programme section ([d52a01a](https://github.com/MuchaSsak/yws.lu/commit/d52a01a95a7deb60f89b9624d8a88087507b23f0))
 
 
 
-# [1.3.0](https://github.com/MuchaSsak/yws.lu/compare/v1.2.1...v1.3.0) (2025-12-02)
-
-
-### Features
-
-* add pictures to projects cards ([8cd66bc](https://github.com/MuchaSsak/yws.lu/commit/8cd66bc9edad6a209365f98e05ca22e4ee8c7e4d))
-
-
-
-## [1.2.1](https://github.com/MuchaSsak/yws.lu/compare/v1.2.0...v1.2.1) (2025-11-19)
+## [1.6.1](https://github.com/MuchaSsak/yws.lu/compare/v1.6.0...v1.6.1) (2026-03-12)
 
 
 ### Bug Fixes
 
-* our mission french translations ([08765a2](https://github.com/MuchaSsak/yws.lu/commit/08765a2668e2a916b72b92b0b307e13861303874))
+* remove project logo from partners logos ([68c934a](https://github.com/MuchaSsak/yws.lu/commit/68c934a6549cd5a0227e9f1025946a88a7883e25))
 
 
 
-# [1.2.0](https://github.com/MuchaSsak/yws.lu/compare/v1.1.0...v1.2.0) (2025-11-18)
-
-
-### Bug Fixes
-
-* add translated metadata for /WeSparkProjects ([b794558](https://github.com/MuchaSsak/yws.lu/commit/b794558733e9076f219fea4734b50b5327523f72))
-
-
-### Features
-
-* add fade in animations to projects cards ([30197ff](https://github.com/MuchaSsak/yws.lu/commit/30197ff8eea4ead5b9288e8472d5497d1b606a5f))
-
-
-
-# [1.1.0](https://github.com/MuchaSsak/yws.lu/compare/v1.0.2...v1.1.0) (2025-11-18)
+# [1.6.0](https://github.com/MuchaSsak/yws.lu/compare/v1.5.1...v1.6.0) (2026-03-12)
 
 
 ### Bug Fixes
 
-* translate projects ([808c776](https://github.com/MuchaSsak/yws.lu/commit/808c776dbd28ddcf8c1b5798f923ab3a5aba673a))
+* disable type checking for files including .jsx ([413819a](https://github.com/MuchaSsak/yws.lu/commit/413819ad3084ad88d244c98c9bc5a14d5e1ccbfa))
+* import paths casings ([d276428](https://github.com/MuchaSsak/yws.lu/commit/d276428950c18e62b79b4cc41ed8d7a942e09da8))
 
 
 ### Features
 
-* add partnered logos marquee ([cd8f3d4](https://github.com/MuchaSsak/yws.lu/commit/cd8f3d4bfa16c71ed8516aa2bf7adc7a5ea90d2a))
-* add WeSparkProjects page ([433b14e](https://github.com/MuchaSsak/yws.lu/commit/433b14effd08e2b8ab874c2908d6220dc6b9e725))
+* add globe country folder ([257e5bb](https://github.com/MuchaSsak/yws.lu/commit/257e5bbe0f73826150fe680e7f12f7e42c76d5f8))
+* add globe section ([7e8d60d](https://github.com/MuchaSsak/yws.lu/commit/7e8d60d72fdd5b23df8d324cfe5eaaa9dcd5ccaa))
+* add q&a section ([3d52fd3](https://github.com/MuchaSsak/yws.lu/commit/3d52fd3c7807b033b502a6f088d23f58e8e9f532))
+* add tec conference page ([6537661](https://github.com/MuchaSsak/yws.lu/commit/653766167f4d72c156d865e8548c49be0e0db7e4))
+
+
+
+## [1.5.1](https://github.com/MuchaSsak/yws.lu/compare/v1.5.0...v1.5.1) (2025-12-20)
+
+
+### Bug Fixes
+
+* correct description ([7e1727c](https://github.com/MuchaSsak/yws.lu/commit/7e1727caf9b32a6b0dffb47ec2c7a73f67ea8f0f))
+
+
+
+# [1.5.0](https://github.com/MuchaSsak/yws.lu/compare/v1.4.4...v1.5.0) (2025-12-20)
+
+
+### Bug Fixes
+
+* change navbar links order ([2e1287c](https://github.com/MuchaSsak/yws.lu/commit/2e1287ce8a2ba15de591568329ff4eccadecd19c))
+
+
+### Features
+
+* add more projects ([8ef200d](https://github.com/MuchaSsak/yws.lu/commit/8ef200d99545d3652b14d1b87238306557222b55))
 
 
 
