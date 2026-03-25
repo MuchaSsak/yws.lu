@@ -1,3 +1,12 @@
+## [1.8.1](https://github.com/MuchaSsak/yws.lu/compare/v1.8.0...v1.8.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* make jobs page responsive ([2f1e576](https://github.com/MuchaSsak/yws.lu/commit/2f1e5763c69908cd04bc947d8d737ddf3f682bc6))
+
+
+
 # [1.8.0](https://github.com/MuchaSsak/yws.lu/compare/v1.7.0...v1.8.0) (2026-03-25)
 
 
@@ -40,15 +49,6 @@
 * add globe section ([7e8d60d](https://github.com/MuchaSsak/yws.lu/commit/7e8d60d72fdd5b23df8d324cfe5eaaa9dcd5ccaa))
 * add q&a section ([3d52fd3](https://github.com/MuchaSsak/yws.lu/commit/3d52fd3c7807b033b502a6f088d23f58e8e9f532))
 * add tec conference page ([6537661](https://github.com/MuchaSsak/yws.lu/commit/653766167f4d72c156d865e8548c49be0e0db7e4))
-
-
-
-## [1.5.1](https://github.com/MuchaSsak/yws.lu/compare/v1.5.0...v1.5.1) (2025-12-20)
-
-
-### Bug Fixes
-
-* correct description ([7e1727c](https://github.com/MuchaSsak/yws.lu/commit/7e1727caf9b32a6b0dffb47ec2c7a73f67ea8f0f))
 
 
 
