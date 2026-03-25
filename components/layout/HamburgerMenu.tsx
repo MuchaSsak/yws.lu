@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AVAILABLE_LANGUAGES } from "@/lib/dictionary";
 import {
   BadgeDollarSign,
+  BriefcaseBusiness,
   House,
   Info,
   NotepadText,
@@ -67,6 +68,11 @@ function HamburgerMenu() {
       label: dictionary["TEC Conference"],
       Icon: <Speech className="size-7" />,
     },
+    {
+      href: "/Jobs",
+      label: dictionary["Jobs"],
+      Icon: <BriefcaseBusiness className="size-7" />,
+    },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -94,11 +100,11 @@ function HamburgerMenu() {
       <SheetContent>
         <SheetHeader>
           {/* Title */}
-          <SheetTitle className="py-4 text-2xl italic font-light sm:px-4 text-muted">
+          <SheetTitle className="py-4 text-xl italic font-light sm:px-4 text-muted">
             {dictionary["Choose your destination"]}
           </SheetTitle>
 
-          <SheetDescription asChild className="pt-24">
+          <SheetDescription asChild className="pt-4">
             <ul className="flex flex-col items-end gap-8 font-medium text-right sm:pr-8">
               {/* Links */}
               {HAMBURGER_MENU_LINKS.map(({ href, label, Icon }) => (
@@ -115,7 +121,7 @@ function HamburgerMenu() {
 
               {/* Language picker */}
               <LanguagePicker
-                className="sm:p-5 max-sm:p-4 mt-6 max-sm:text-base sm:text-xl [&_svg]:size-6 hover:tracking-wide transition-all focus-visible:bg-foreground/25 hover:bg-foreground/25"
+                className="sm:p-5 max-sm:p-4 max-sm:text-base sm:text-xl [&_svg]:size-6 hover:tracking-wide transition-all focus-visible:bg-foreground/25 hover:bg-foreground/25"
                 label={
                   AVAILABLE_LANGUAGES.find(
                     (availableLanguage) => availableLanguage.value === language,
@@ -127,7 +133,7 @@ function HamburgerMenu() {
         </SheetHeader>
 
         {/* Footer */}
-        <SheetFooter className="text-sm italic text-right text-muted">
+        <SheetFooter className="pt-0 text-sm italic text-right text-muted">
           ©2025. Youth Work Synergy ASBL. {dictionary["All rights reserved"]}.
         </SheetFooter>
       </SheetContent>

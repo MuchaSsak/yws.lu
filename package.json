@@ -24,12 +24,15 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",
     "embla-carousel-react": "^8.6.0",
+    "face-api.js": "^0.22.2",
     "gsap": "^3.13.0",
     "lucide-react": "^0.525.0",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^12.23.24",
     "next": "15.3.8",
     "next-themes": "^0.4.6",
+    "ogl": "^1.0.11",
+    "postprocessing": "^6.36.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",
@@ -39,7 +42,7 @@
     "sonner": "^2.0.6",
     "split-type": "^0.3.4",
     "tailwind-merge": "^3.3.1",
-    "three": "^0.178.0"
+    "three": "^0.167.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

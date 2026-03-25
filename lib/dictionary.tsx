@@ -42,6 +42,10 @@ export const DICTIONARY = {
    * English
    */
   en: {
+    Jobs: "Jobs",
+    "Property portfolio manager": "Property portfolio manager",
+    "6-month fixed-term contract, 20 hours per week":
+      "6-month fixed-term contract, 20 hours per week",
     "TEC Conference": "TEC Conference",
     "Interested in renting your property to us?":
       "Interested in renting your property to us?",
@@ -51,6 +55,7 @@ export const DICTIONARY = {
     "Tax Benefits": "Tax Benefits",
     "Guaranteed Rent": "Guaranteed Rent",
     "Why Rent to Us?": "Why Rent to Us?",
+    "Job Offers": "Job Offers",
     "Rent Out Your Property": "Rent Out Your Property",
     "Rent your property with confidence:":
       "Rent your property with confidence:",
@@ -228,6 +233,11 @@ export const DICTIONARY = {
           choice — including up to 90% tax exemption on your net rental income
           and other benefits.
         </span>
+      </>
+    ),
+    heroDescriptionJobs: (
+      <>
+        <span>Browse our current job opportunities and join our mission.</span>
       </>
     ),
     heroDescriptionAboutUs: (
@@ -497,6 +507,11 @@ export const DICTIONARY = {
         description:
           "Join us for the closing conference of V - Comprehensive Guide to Best Practices in Mobile Learning for Adults and discover how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move.",
       } as Metadata,
+      jobsMetadata: {
+        title: "Youth Work Synergy | Jobs",
+        description:
+          "Explore job opportunities at Youth Work Synergy. Join our mission to provide safe and affordable shared housing for young people in Luxembourg while contributing to impactful social projects, coaching, and community development.",
+      } as Metadata,
       lookingForHousingMetadata: {
         title: "Youth Work Synergy | Apply For Housing",
         description:
@@ -601,13 +616,24 @@ The project aims to help around 100 young people better integrate into Luxembour
 `,
     "Pictures gallery:": "Pictures gallery:",
     "Register now": "Register now",
+    Educator: "Educator",
+    "Download now": "Download now",
+    "Fixed-term contract (with possibility of permanent contract)":
+      "Fixed-term contract (with possibility of permanent contract)",
   },
 
   /**
    * French
    */
   fr: {
+    Jobs: "Emplois",
+    "Download now": "Télécharger maintenant",
+    "6-month fixed-term contract, 20 hours per week":
+      "CDD de 6 mois, 20h par semaine",
+    "Fixed-term contract (with possibility of permanent contract)":
+      "CDD (possible CDI)",
     "Register now": "Inscrivez-vous maintenant",
+    Educator: "Éducateur",
     "Interested in renting your property to us?":
       "Intéressé(e) à louer votre bien à notre organisation ?",
     "Property Maintenance": "Entretien de la propriété",
@@ -795,6 +821,12 @@ The project aims to help around 100 young people better integrate into Luxembour
         </span>
       </>
     ),
+    heroDescriptionJobs: (
+      <>
+        <span>Consultez nos offres d’emploi et rejoignez notre mission.</span>
+      </>
+    ),
+    "Property portfolio manager": "Gestionnaire du parc immobilier",
     heroDescriptionAboutUs: (
       <>
         <BoxReveal boxColor="#fa8534" duration={0.5}>
@@ -975,6 +1007,7 @@ The project aims to help around 100 young people better integrate into Luxembour
         </BoxReveal>
       </>
     ),
+    "Job Offers": "Offres d’emploi",
     whyRentToUsDescriptionRentYourProperty: (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
@@ -1074,6 +1107,11 @@ The project aims to help around 100 young people better integrate into Luxembour
         title: "Youth Work Synergy | TEC Conference",
         description:
           "Join us for the closing conference of V - Comprehensive Guide to Best Practices in Mobile Learning for Adults and discover how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move.",
+      } as Metadata,
+      jobsMetadata: {
+        title: "Youth Work Synergy | Jobs",
+        description:
+          "Découvrez les opportunités d’emploi chez Youth Work Synergy. Rejoignez notre mission visant à offrir des logements partagés sûrs et abordables aux jeunes au Luxembourg, tout en contribuant à des projets sociaux, au coaching et au développement de la communauté.",
       } as Metadata,
       rentYourPropertyMetadata: {
         title: "Youth Work Synergy | Louez votre propriété",

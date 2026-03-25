@@ -225,6 +225,10 @@
     @apply text-transparent bg-[linear-gradient(to_left,rgb(253,154,0),rgb(245,74,0),rgb(239,177,0))] bg-clip-text [-webkit-background-clip:text];
   }
 
+  .text-red-gradient {
+    @apply text-transparent bg-[linear-gradient(to_left,#5a0a1f,#7a0f2b,#9d174d)] bg-clip-text [-webkit-background-clip:text];
+  }
+
   .px-side {
     @apply md:px-24 max-sm:px-4 sm:px-16;
   }

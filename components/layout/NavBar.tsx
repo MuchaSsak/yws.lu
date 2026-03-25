@@ -40,6 +40,10 @@ function NavBar() {
       href: "/TecConference",
       label: dictionary["TEC Conference"],
     },
+    {
+      href: "/Jobs",
+      label: dictionary["Jobs"],
+    },
   ];
 
   return (
