@@ -8,7 +8,7 @@ function OffersList() {
   const { dictionary } = useLanguage();
 
   return (
-    <div className="py-12 gap-8 flex flex-col">
+    <div className="sm:py-12 max-sm:pb-12 max-sm:pt-4 max-sm:gap-16 sm:gap-8 flex flex-col">
       <OfferCard
         title={dictionary["Property portfolio manager"]}
         description={
@@ -16,7 +16,7 @@ function OffersList() {
         }
         href="/files/CDD_de_6_mois_-_Gestionnaire_du_parc_immobilier_20h_par_semaine.docx"
       >
-        <SquareChartGantt className="size-16 text-red-900" />
+        <SquareChartGantt className="max-md:size-12 md:size-16 text-red-900" />
       </OfferCard>
 
       <OfferCard
@@ -29,7 +29,7 @@ function OffersList() {
         }
         href="/files/CDD_(possible_CDI)_éducateur_trice.docx"
       >
-        <BookOpenText className="size-16 text-red-900" />
+        <BookOpenText className="max-md:size-12 md:size-16 text-red-900" />
       </OfferCard>
     </div>
   );
