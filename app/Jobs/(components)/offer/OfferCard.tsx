@@ -1,10 +1,9 @@
 "use client";
 
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 import * as motion from "motion/react-client";
 import Link from "next/link";
 
-import { YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK } from "@/lib/constants";
 import motionFadeIn from "@/lib/animations/motionFadeIn";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -12,15 +11,15 @@ import { Button } from "@/components/ui/button";
 
 type OffersCardProps = PropsWithChildren & {
   title: string;
-  description: string;
+  description: ReactNode;
+  competences: ReactNode;
   href: string;
-  isAlignedLeft?: boolean;
 };
 
 function OfferCard({
-  isAlignedLeft = true,
   title,
   description,
+  competences,
   children,
   href,
 }: OffersCardProps) {
@@ -30,27 +29,31 @@ function OfferCard({
     <div
       className={cn(
         "flex flex-col max-md:px-4 md:px-24",
-        isAlignedLeft ? "text-left items-start" : "text-right items-end",
+        "text-center items-center",
       )}
     >
       <div
         className={cn(
-          "flex items-center gap-2 lg:w-1/2",
-          isAlignedLeft ? " flex-row" : " flex-row-reverse",
+          "flex items-center gap-4 lg:w-1/2",
+          "justify-center flex-row",
         )}
       >
         {/* Icon */}
         {children}
 
         {/* Title */}
-        <h1 className="font-black max-sm:text-2xl flex-1 text-red-gradient sm:text-4xl">
+        <h1 className="font-black max-sm:text-2xl text-red-gradient sm:text-4xl">
           {title}
         </h1>
       </div>
 
       {/* Description */}
-      <p className="sm:w-[25rem] text-lg pt-4 pb-6 flex flex-col gap-2">
+      <p className="sm:w-[32.5rem] text-balance text-lg pt-4 pb-6 flex flex-col gap-2">
         {description}
+      </p>
+      {/* Competences */}
+      <p className="sm:w-[32.5rem] text-balance text-lg pt-4 pb-6 flex flex-col gap-2">
+        {competences}
       </p>
 
       {/* CTA buttons */}

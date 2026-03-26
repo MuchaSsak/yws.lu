@@ -237,7 +237,20 @@ export const DICTIONARY = {
     ),
     heroDescriptionJobs: (
       <>
-        <span>Browse our current job opportunities and join our mission.</span>
+        <span>
+          Youth Work Synergy (YWS) est une association de terrain basée au
+          Luxembourg, active dans le développement d’un travail de jeunesse
+          innovant et inclusif. Elle combine l’accès au logement abordable avec
+          l’éducation non formelle et la participation citoyenne afin de
+          renforcer l’autonomie, l’engagement et les compétences transversales
+          des jeunes. Partant du principe qu’offrir un toit aux personnes
+          constitue la première étape d’une stabilisation personnelle,
+          l’association met en œuvre des projets de colocation à destination de
+          jeunes ayant moins d’opportunités. Ces actions sont complétées par des
+          ateliers sur les droits sociaux, la transition écologique et la
+          citoyenneté active, ainsi que par un travail de coopération et de
+          plaidoyer avec les communes et les acteurs locaux.
+        </span>
       </>
     ),
     heroDescriptionAboutUs: (
@@ -823,7 +836,20 @@ The project aims to help around 100 young people better integrate into Luxembour
     ),
     heroDescriptionJobs: (
       <>
-        <span>Consultez nos offres d’emploi et rejoignez notre mission.</span>
+        <span>
+          Youth Work Synergy (YWS) est une association de terrain basée au
+          Luxembourg, active dans le développement d’un travail de jeunesse
+          innovant et inclusif. Elle combine l’accès au logement abordable avec
+          l’éducation non formelle et la participation citoyenne afin de
+          renforcer l’autonomie, l’engagement et les compétences transversales
+          des jeunes. Partant du principe qu’offrir un toit aux personnes
+          constitue la première étape d’une stabilisation personnelle,
+          l’association met en œuvre des projets de colocation à destination de
+          jeunes ayant moins d’opportunités. Ces actions sont complétées par des
+          ateliers sur les droits sociaux, la transition écologique et la
+          citoyenneté active, ainsi que par un travail de coopération et de
+          plaidoyer avec les communes et les acteurs locaux.
+        </span>
       </>
     ),
     "Property portfolio manager": "Gestionnaire du parc immobilier",

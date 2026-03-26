@@ -1,14 +1,9 @@
 "use client";
 
 import React from "react";
-import * as motion from "motion/react-client";
-import Link from "next/link";
 
-import { YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK } from "@/lib/constants";
-import motionFadeIn from "@/lib/animations/motionFadeIn";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { BoxReveal } from "@/components/magicui/box-reveal";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 function HeroHeader() {
   const { dictionary } = useLanguage();
@@ -23,9 +18,11 @@ function HeroHeader() {
       </BoxReveal>
 
       {/* Description */}
-      <div className="py-8 text-lg md:w-[32.5rem] xl:w-[25rem] flex flex-col items-center gap-2">
-        {dictionary.heroDescriptionJobs}
-      </div>
+      <BoxReveal boxColor="#fa8534" duration={0.5}>
+        <div className="py-8 text-lg md:w-[32.5rem] flex flex-col items-center gap-2">
+          {dictionary.heroDescriptionJobs}
+        </div>
+      </BoxReveal>
     </div>
   );
 }
