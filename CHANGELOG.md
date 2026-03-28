@@ -1,3 +1,12 @@
+## [1.9.1](https://github.com/MuchaSsak/yws.lu/compare/v1.9.0...v1.9.1) (2026-03-28)
+
+
+### Bug Fixes
+
+* rename jobs titles ([a94bf04](https://github.com/MuchaSsak/yws.lu/commit/a94bf04faf7446d61d9349605d328ce5dba3a55c))
+
+
+
 # [1.9.0](https://github.com/MuchaSsak/yws.lu/compare/v1.8.1...v1.9.0) (2026-03-26)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add conference programme section ([d52a01a](https://github.com/MuchaSsak/yws.lu/commit/d52a01a95a7deb60f89b9624d8a88087507b23f0))
-
-
-
-## [1.6.1](https://github.com/MuchaSsak/yws.lu/compare/v1.6.0...v1.6.1) (2026-03-12)
-
-
-### Bug Fixes
-
-* remove project logo from partners logos ([68c934a](https://github.com/MuchaSsak/yws.lu/commit/68c934a6549cd5a0227e9f1025946a88a7883e25))
 
 
 
