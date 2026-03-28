@@ -43,7 +43,7 @@ export const DICTIONARY = {
    */
   en: {
     Jobs: "Jobs",
-    "Property portfolio manager": "Property portfolio manager",
+    "Property portfolio manager": "Gestionnaire du parc immobilier",
     "6-month fixed-term contract, 20 hours per week":
       "6-month fixed-term contract, 20 hours per week",
     "TEC Conference": "TEC Conference",
@@ -629,7 +629,7 @@ The project aims to help around 100 young people better integrate into Luxembour
 `,
     "Pictures gallery:": "Pictures gallery:",
     "Register now": "Register now",
-    Educator: "Educator",
+    Educator: "un.e éduacteur.trice",
     "Download now": "Download now",
     "Fixed-term contract (with possibility of permanent contract)":
       "Fixed-term contract (with possibility of permanent contract)",
@@ -646,7 +646,7 @@ The project aims to help around 100 young people better integrate into Luxembour
     "Fixed-term contract (with possibility of permanent contract)":
       "CDD (possible CDI)",
     "Register now": "Inscrivez-vous maintenant",
-    Educator: "Éducateur",
+    Educator: "un.e éduacteur.trice",
     "Interested in renting your property to us?":
       "Intéressé(e) à louer votre bien à notre organisation ?",
     "Property Maintenance": "Entretien de la propriété",

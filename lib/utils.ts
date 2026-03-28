@@ -7,14 +7,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const isMobile = () =>
-  /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
+export function isMobile() {
+  if (typeof window === "undefined") return;
+  return /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent,
   );
+}
 
 export function generateTranslatedMetadata(
-  metadataKey: keyof typeof DICTIONARY.en.METADATA
+  metadataKey: keyof typeof DICTIONARY.en.METADATA,
 ) {
+  if (typeof window === "undefined") return;
   const locale = navigator.language.split("-")[0];
 
   // Fallback to English if locale not supported
