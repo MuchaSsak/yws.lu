@@ -1,3 +1,12 @@
+## [1.9.2](https://github.com/MuchaSsak/yws.lu/compare/v1.9.1...v1.9.2) (2026-04-06)
+
+
+### Bug Fixes
+
+* add microsoft verification file ([fd6a333](https://github.com/MuchaSsak/yws.lu/commit/fd6a33300995dfbef412cfddea853d7dceb35535))
+
+
+
 ## [1.9.1](https://github.com/MuchaSsak/yws.lu/compare/v1.9.0...v1.9.1) (2026-03-28)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add jobs page ([250e10a](https://github.com/MuchaSsak/yws.lu/commit/250e10aa7b73dfec544affc478181c62c65e74cb))
-
-
-
-# [1.7.0](https://github.com/MuchaSsak/yws.lu/compare/v1.6.1...v1.7.0) (2026-03-12)
-
-
-### Features
-
-* add conference programme section ([d52a01a](https://github.com/MuchaSsak/yws.lu/commit/d52a01a95a7deb60f89b9624d8a88087507b23f0))
 
 
 
