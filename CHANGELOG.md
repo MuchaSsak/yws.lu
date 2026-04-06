@@ -1,3 +1,12 @@
+# [1.10.0](https://github.com/MuchaSsak/yws.lu/compare/v1.9.2...v1.10.0) (2026-04-06)
+
+
+### Features
+
+* add new project ([480c928](https://github.com/MuchaSsak/yws.lu/commit/480c92862c8b4a3a85900362beaef4d6afd81b32))
+
+
+
 ## [1.9.2](https://github.com/MuchaSsak/yws.lu/compare/v1.9.1...v1.9.2) (2026-04-06)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * make jobs page responsive ([2f1e576](https://github.com/MuchaSsak/yws.lu/commit/2f1e5763c69908cd04bc947d8d737ddf3f682bc6))
-
-
-
-# [1.8.0](https://github.com/MuchaSsak/yws.lu/compare/v1.7.0...v1.8.0) (2026-03-25)
-
-
-### Features
-
-* add jobs page ([250e10a](https://github.com/MuchaSsak/yws.lu/commit/250e10aa7b73dfec544affc478181c62c65e74cb))
 
 
 
