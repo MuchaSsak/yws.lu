@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 
 import ProjectsCard from "@/app/WeSparkProjects/(components)/projectsList/ProjectsCard";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -12,13 +12,16 @@ export type WeSparkProjectsCard = {
   href?: string;
   hrefLabel: string;
   images: string[];
+  images_en?: string[];
+  images_fr?: string[];
+  image_size?: number;
   shineColor?: string;
 };
 
 function ProjectsList() {
   const { dictionary } = useLanguage();
 
-  const PROJECTS_LIST = [
+  const PROJECTS_LIST: WeSparkProjectsCard[] = [
     {
       name: dictionary.projectGetYourHomeTitleWeSparkProjects,
       description: dictionary.projectGetYourHomeDescriptionWeSparkProjects,
@@ -48,6 +51,17 @@ function ProjectsList() {
         "/images/projects/locked-out/4.JPG",
       ],
       hrefLabel: dictionary["Learn more"],
+    },
+    {
+      name: dictionary.projectSafePathsTitleWeSparkProjects,
+      description: dictionary.projectSafePathsDescriptionWeSparkProjects,
+      shineColor: "#3BFFAA",
+      images: [],
+      images_en: ["/images/projects/safe-paths/image_en.jpg"],
+      images_fr: ["/images/projects/safe-paths/image_fr.jpg"],
+      hrefLabel: dictionary["Learn more"],
+      href: "https://forms.gle/rncBigsjMoAbYVr4A",
+      image_size: 400,
     },
     {
       name: dictionary.projectGirlsSectiveTitleWeSparkProjects,

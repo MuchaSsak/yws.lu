@@ -627,6 +627,30 @@ Key activities:
 Expected results:
 The project aims to help around 100 young people better integrate into Luxembourg society, develop digital skills and feel at home more quickly in their new country. The digital workbook will be designed to be a sustainable tool, accessible to all new arrivals, with an interactive and multilingual approach.
 `,
+    projectSafePathsTitleWeSparkProjects: "Safe Paths Luxembourg",
+    projectSafePathsDescriptionWeSparkProjects: `Understanding your rights. Preventing violence. Finding help.
+
+The Safe Paths Luxembourg project, supported by the Ministry of Justice, offers information, awareness, and support workshops focused on access to rights and the protection of women and children. Through a multidisciplinary approach, these sessions help participants better understand their rights, identify different forms of violence, discover protection tools, and learn about available support resources. 
+
+The workshops combine legal content, psychological support, and awareness tools within a supportive and strictly confidential environment. Sessions are offered in both French and English to ensure that essential information is clear and accessible to a wide audience. 
+
+Workshop Schedule
+• Theoretical Workshop (FR): April 10, 2026, from 5:00 PM to 9:00 PM 
+• Theoretical Workshop (EN): April 17, 2026, from 5:00 PM to 9:00 PM 
+• Practical Workshop (FR): May 22, 2026, from 5:00 PM to 9:00 PM 
+• Practical Workshop (EN): May 29, 2026, from 5:00 PM to 9:00 PM 
+
+Practical Information
+Location: 11C Avenue de la Porte-Neuve, L-2227 Luxembourg
+Participation: Free of charge 
+
+Registration
+To participate in one of the workshops, please register via the link below:
+https://forms.gle/rncBigsjMoAbYVr4A
+
+Contact
+For any questions, you can write to us at:
+contact@yws.lu`,
     "Pictures gallery:": "Pictures gallery:",
     "Register now": "Register now",
     Educator: "un.e éduacteur.trice",
@@ -1236,6 +1260,28 @@ Key activities:
 ● Communication with local players such as the Office National de l'Accueil (ONA), the Ministry for the Family, and other partners to promote the use of the notebook.
 Expected results:
 The project aims to help around 100 young people better integrate into Luxembourg society, develop digital skills and feel at home more quickly in their new country. The digital workbook will be designed to be a sustainable tool, accessible to all new arrivals, with an interactive and multilingual approach.
+`,
+    projectSafePathsTitleWeSparkProjects: "Safe Paths Luxembourg",
+    projectSafePathsDescriptionWeSparkProjects: `Comprendre ses droits. Prévenir les violences. Trouver de l’aide.
+Le projet Safe Paths Luxembourg, soutenu par le ministère de la justice, propose des ateliers d’information, de sensibilisation et de soutien autour de l’accès aux droits et de la protection des femmes et des enfants. À travers une approche pluridisciplinaire, ces sessions permettent de mieux comprendre ses droits, d’identifier les différentes formes de violence, de découvrir des outils de protection et de connaître les ressources d’aide disponibles. 
+Les ateliers combinent contenus juridiques, soutien psychologique et outils de sensibilisation, dans un cadre bienveillant et en toute confidentialité. Les sessions sont proposées en français et en anglais, afin de permettre à un public large d’accéder à des informations essentielles de manière claire et accessible. 
+Programme des ateliers
+•	Atelier théorique (FR) : 10 avril 2026, de 17h00 à 21h00 
+•	Atelier théorique (EN) : 17 avril 2026, de 17h00 à 21h00 
+•	Atelier pratique (FR) : 22 mai 2026, de 17h00 à 21h00 
+•	Atelier pratique (EN) : 29 mai 2026, de 17h00 à 21h00 
+
+Informations pratiques
+Lieu : 11C Avenue de la Porte-Neuve, L-2227 Luxembourg
+Participation gratuite 
+
+Inscription
+Pour participer à l’un des ateliers, merci de vous inscrire via le lien ci-dessous :
+https://forms.gle/rncBigsjMoAbYVr4A
+
+Contact
+Pour toute question, vous pouvez nous écrire à :
+contact@yws.lu
 `,
     "Pictures gallery:": "Galerie de photos",
     "TEC Conference": "TEC Conference",

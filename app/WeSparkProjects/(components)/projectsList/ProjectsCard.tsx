@@ -27,11 +27,18 @@ function ProjectsCard({
   logoSrc,
   href,
   hrefLabel,
+  images_en,
+  images_fr,
+  image_size,
   images,
   shineColor = "#ff7820",
   entryAnimationDelay = 0,
 }: ProjectsCardProps) {
-  const { dictionary } = useLanguage();
+  const { dictionary, language } = useLanguage();
+
+  const allImages = [...images];
+  if (images_en && language === "en") allImages.push(...images_en);
+  if (images_fr && language === "fr") allImages.push(...images_fr);
 
   return (
     <motion.div {...motionFadeIn(entryAnimationDelay)}>
@@ -76,19 +83,19 @@ function ProjectsCard({
 
         {/* Images */}
         <CardContent>
-          {images.length > 0 && (
+          {allImages.length > 0 && (
             <span className="text-muted-foreground italic text-sm">
               {dictionary["Pictures gallery:"]}
             </span>
           )}
           <div className="flex flex-wrap gap-4 pt-1">
-            {images.map((src) => (
+            {allImages.map((src) => (
               <Image
-                width={240}
+                width={image_size ?? 240}
                 height={0}
                 key={src}
                 src={src}
-                className="object-cover w-[15rem]"
+                className="object-cover"
                 alt={description}
               />
             ))}
