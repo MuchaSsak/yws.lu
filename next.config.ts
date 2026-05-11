@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-import { SUPABASE_PUBLIC_HOSTNAME } from "@/lib/constants";
+import { SUPABASE_PUBLIC_HOSTNAME } from "./lib/constants";
 
 const nextConfig: NextConfig = {
   images: {

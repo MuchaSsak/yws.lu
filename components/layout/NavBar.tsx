@@ -37,13 +37,14 @@ function NavBar() {
       label: dictionary["Contact us"],
     },
     {
-      href: "/TecConference",
+      // href: "/TecConference",
+      href: "https://tecpractices.eu/web/",
       label: dictionary["TEC Conference"],
     },
-    {
-      href: "/Jobs",
-      label: dictionary["Jobs"],
-    },
+    //  {
+    //    href: "/Jobs",
+    //    label: dictionary["Jobs"],
+    //  },
   ];
 
   return (
