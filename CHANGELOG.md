@@ -1,3 +1,12 @@
+## [1.10.1](https://github.com/MuchaSsak/yws.lu/compare/v1.10.0...v1.10.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* remove jobs section as its no longer needed ([87b18ab](https://github.com/MuchaSsak/yws.lu/commit/87b18ab02f82a99cfdeafd791625457bf14e60f0))
+
+
+
 # [1.10.0](https://github.com/MuchaSsak/yws.lu/compare/v1.9.2...v1.10.0) (2026-04-06)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add jobs descriptions and qualifications ([9211434](https://github.com/MuchaSsak/yws.lu/commit/9211434d51bbbf905d53fa4576a8308a899241f1))
-
-
-
-## [1.8.1](https://github.com/MuchaSsak/yws.lu/compare/v1.8.0...v1.8.1) (2026-03-25)
-
-
-### Bug Fixes
-
-* make jobs page responsive ([2f1e576](https://github.com/MuchaSsak/yws.lu/commit/2f1e5763c69908cd04bc947d8d737ddf3f682bc6))
 
 
 
