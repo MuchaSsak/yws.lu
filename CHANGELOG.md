@@ -1,3 +1,12 @@
+## [1.10.2](https://github.com/MuchaSsak/yws.lu/compare/v1.10.1...v1.10.2) (2026-07-09)
+
+
+### Bug Fixes
+
+* update hq address ([1cef37f](https://github.com/MuchaSsak/yws.lu/commit/1cef37fdf15addbfa4345b2a8e3e231c2021d783))
+
+
+
 ## [1.10.1](https://github.com/MuchaSsak/yws.lu/compare/v1.10.0...v1.10.1) (2026-05-11)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * rename jobs titles ([a94bf04](https://github.com/MuchaSsak/yws.lu/commit/a94bf04faf7446d61d9349605d328ce5dba3a55c))
-
-
-
-# [1.9.0](https://github.com/MuchaSsak/yws.lu/compare/v1.8.1...v1.9.0) (2026-03-26)
-
-
-### Features
-
-* add jobs descriptions and qualifications ([9211434](https://github.com/MuchaSsak/yws.lu/commit/9211434d51bbbf905d53fa4576a8308a899241f1))
 
 
 
