@@ -24,16 +24,16 @@ export const YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSeak3NN_4Ds3Iv7q8kCcJC7us8QsNb3FD2wZi1ausdO0mMstA/viewform";
 
 export const YWS_GOOGLE_MAPS_LOCATION_LINK =
-  "https://maps.app.goo.gl/euKDQFmo8dNfjgdS9";
+  "https://maps.app.goo.gl/RumWCPEtHvCc9WiX9";
 export const YWS_GOOGLE_MAPS_LOCATION_LINK_EMBED =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2585.2051751191093!2d6.124943776508136!3d49.612736471444414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47954f2b11bd171b%3A0x46c0b47228f3a0ff!2s11C%20Av.%20de%20la%20Porte-Neuve%2C%202227%20Ville-Haute%20Luxembourg!5e0!3m2!1sen!2spl!4v1751975284636!5m2!1sen!2spl";
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2585.853520962533!2d6.111053576948706!3d49.60051167144242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x24349087789b73af%3A0x3128d9ec44f6ed48!2sIN%3ACUBATOR!5e0!3m2!1spl!2spl!4v1783632012547!5m2!1spl!2spl";
 export const YWS_GOOGLE_MAPS_HOUSES_LINK =
   "https://www.google.com/maps/d/u/0/edit?mid=1aPvVQqtHy7bmTQoetB5RWpCkIUjlEOg&usp=sharing";
 export const YWS_GOOGLE_MAPS_HOUSES_LINK_EMBED =
   "https://www.google.com/maps/d/u/0/embed?mid=1aPvVQqtHy7bmTQoetB5RWpCkIUjlEOg&ehbc=2E312F&noprof=1";
 export const YWS_HQ_LOCATION =
-  "11C Av. de la Porte-Neuve2227 Ville-Haute Luxembourg";
+  "INCUBATOR : 40, boulevard Pierre Dupong L-1430 Luxembourg";
 export const YWS_ADDRESS =
-  "16 Rue Pierre Weydert, 5891 Fentange Hesperange, Luxembourg";
+  "INCUBATOR : 40, boulevard Pierre Dupong L-1430 Luxembourg";
 
 export const DEVELOPER_GITHUB_LINK = "https://github.com/MuchaSsak";
