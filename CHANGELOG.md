@@ -1,3 +1,12 @@
+## [1.10.3](https://github.com/MuchaSsak/yws.lu/compare/v1.10.2...v1.10.3) (2026-07-17)
+
+
+### Bug Fixes
+
+* resolve useWheel return type inference in ZoomController ([739f8dc](https://github.com/MuchaSsak/yws.lu/commit/739f8dc7c57215c5c67b29eb4ce88306a12e5475))
+
+
+
 ## [1.10.2](https://github.com/MuchaSsak/yws.lu/compare/v1.10.1...v1.10.2) (2026-07-09)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * add microsoft verification file ([fd6a333](https://github.com/MuchaSsak/yws.lu/commit/fd6a33300995dfbef412cfddea853d7dceb35535))
-
-
-
-## [1.9.1](https://github.com/MuchaSsak/yws.lu/compare/v1.9.0...v1.9.1) (2026-03-28)
-
-
-### Bug Fixes
-
-* rename jobs titles ([a94bf04](https://github.com/MuchaSsak/yws.lu/commit/a94bf04faf7446d61d9349605d328ce5dba3a55c))
 
 
 
