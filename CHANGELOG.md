@@ -1,3 +1,12 @@
+## [1.10.4](https://github.com/MuchaSsak/yws.lu/compare/v1.10.3...v1.10.4) (2026-07-17)
+
+
+### Bug Fixes
+
+* add more partners ([0499d84](https://github.com/MuchaSsak/yws.lu/commit/0499d8472c15ea37c577ac1b06fe0a9fae188fa1))
+
+
+
 ## [1.10.3](https://github.com/MuchaSsak/yws.lu/compare/v1.10.2...v1.10.3) (2026-07-17)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * add new project ([480c928](https://github.com/MuchaSsak/yws.lu/commit/480c92862c8b4a3a85900362beaef4d6afd81b32))
-
-
-
-## [1.9.2](https://github.com/MuchaSsak/yws.lu/compare/v1.9.1...v1.9.2) (2026-04-06)
-
-
-### Bug Fixes
-
-* add microsoft verification file ([fd6a333](https://github.com/MuchaSsak/yws.lu/commit/fd6a33300995dfbef412cfddea853d7dceb35535))
 
 
 
