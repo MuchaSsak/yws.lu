@@ -28,6 +28,16 @@ const PARTNERS_LOGOS = [
     alt: "Ministry of Housing and Spatial Planning",
     href: "https://mlogat.gouvernement.lu/en.html",
   },
+  {
+    src: "/images/partners-logos/andre_losch_logo.png",
+    alt: "André Losch Fondation Logo",
+    href: "https://www.loschfondation.lu/en/",
+  },
+  {
+    src: "/images/partners-logos/ministry_of_justice_logo.png",
+    alt: "Ministry of Justice Logo",
+    href: "https://mj.gouvernement.lu/en.html",
+  },
 ];
 
 function HeroPartneredLogos() {
