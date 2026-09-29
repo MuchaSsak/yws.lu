@@ -1,3 +1,12 @@
+# [1.11.0](https://github.com/MuchaSsak/yws.lu/compare/v1.10.4...v1.11.0) (2026-09-29)
+
+
+### Features
+
+* update addresses and real impact figures ([188082f](https://github.com/MuchaSsak/yws.lu/commit/188082fdb7015a4058b2ccb1e924cd60d102f4cf))
+
+
+
 ## [1.10.4](https://github.com/MuchaSsak/yws.lu/compare/v1.10.3...v1.10.4) (2026-07-17)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * remove jobs section as its no longer needed ([87b18ab](https://github.com/MuchaSsak/yws.lu/commit/87b18ab02f82a99cfdeafd791625457bf14e60f0))
-
-
-
-# [1.10.0](https://github.com/MuchaSsak/yws.lu/compare/v1.9.2...v1.10.0) (2026-04-06)
-
-
-### Features
-
-* add new project ([480c928](https://github.com/MuchaSsak/yws.lu/commit/480c92862c8b4a3a85900362beaef4d6afd81b32))
 
 
 
