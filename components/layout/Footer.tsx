@@ -7,7 +7,8 @@ import CreditsDialog from "@/components/layout/CreditsDialog";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
-  YWS_ADDRESS,
+  YWS_OFFICE_ADDRESS,
+  YWS_POSTAL_ADDRESS,
   YWS_EMAIL,
   YWS_FACEBOOK_LINK,
   YWS_GOOGLE_MAPS_LOCATION_LINK,
@@ -34,9 +35,10 @@ function Footer() {
             target="_blank"
             className="hover:text-white focus-within:text-white hover:underline focus-within:underline"
           >
-            {YWS_ADDRESS}
+            {YWS_OFFICE_ADDRESS}
           </Link>
         </h5>
+        <h5 className="text-white/60">{YWS_POSTAL_ADDRESS}</h5>
 
         {/* Contact links */}
         <h5 className="text-white/60 max-sm:flex max-sm:flex-col max-sm:pt-2">

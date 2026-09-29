@@ -24,16 +24,18 @@ export const YWS_APPLY_FOR_HOUSING_GOOGLE_FORM_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSeak3NN_4Ds3Iv7q8kCcJC7us8QsNb3FD2wZi1ausdO0mMstA/viewform";
 
 export const YWS_GOOGLE_MAPS_LOCATION_LINK =
-  "https://maps.app.goo.gl/RumWCPEtHvCc9WiX9";
+  "https://www.google.com/maps/search/?api=1&query=136-138%2C%20rue%20Adolphe%20Fischer%2C%20L-1521%20Luxembourg";
 export const YWS_GOOGLE_MAPS_LOCATION_LINK_EMBED =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2585.853520962533!2d6.111053576948706!3d49.60051167144242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x24349087789b73af%3A0x3128d9ec44f6ed48!2sIN%3ACUBATOR!5e0!3m2!1spl!2spl!4v1783632012547!5m2!1spl!2spl";
+  "https://www.google.com/maps?q=136-138%2C%20rue%20Adolphe%20Fischer%2C%20L-1521%20Luxembourg&output=embed";
 export const YWS_GOOGLE_MAPS_HOUSES_LINK =
   "https://www.google.com/maps/d/u/0/edit?mid=1aPvVQqtHy7bmTQoetB5RWpCkIUjlEOg&usp=sharing";
 export const YWS_GOOGLE_MAPS_HOUSES_LINK_EMBED =
   "https://www.google.com/maps/d/u/0/embed?mid=1aPvVQqtHy7bmTQoetB5RWpCkIUjlEOg&ehbc=2E312F&noprof=1";
-export const YWS_HQ_LOCATION =
-  "INCUBATOR : 40, boulevard Pierre Dupong L-1430 Luxembourg";
-export const YWS_ADDRESS =
-  "INCUBATOR : 40, boulevard Pierre Dupong L-1430 Luxembourg";
+export const YWS_OFFICE_ADDRESS =
+  "Bureau YWS a.s.b.l. : 136-138, rue Adolphe Fischer L-1521 Luxembourg";
+export const YWS_POSTAL_ADDRESS =
+  "Siège (adresse postale) YWS a.s.b.l. : 16, rue Pierre Weydert, L-5891 Fentange";
+export const YWS_HQ_LOCATION = YWS_OFFICE_ADDRESS;
+export const YWS_ADDRESS = YWS_OFFICE_ADDRESS;
 
 export const DEVELOPER_GITHUB_LINK = "https://github.com/MuchaSsak";

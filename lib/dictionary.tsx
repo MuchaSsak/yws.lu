@@ -345,9 +345,9 @@ export const DICTIONARY = {
     ),
     realImpactDescriptionAboutUs: (
       // Default statistics if fetching is unsuccessful
-      sharedHouses = 6,
-      youngstersHelped = 30,
-      youngstersWaiting = 300,
+      sharedHouses = 9,
+      youngstersHelped = 40,
+      youngstersWaiting = 750,
     ) => (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
@@ -973,9 +973,9 @@ contact@yws.lu`,
     ),
     realImpactDescriptionAboutUs: (
       // Default statistics if fetching is unsuccessful
-      sharedHouses = 6,
-      youngstersHelped = 30,
-      youngstersWaiting = 300,
+      sharedHouses = 9,
+      youngstersHelped = 40,
+      youngstersWaiting = 750,
     ) => (
       <>
         <TextAnimate animation="fadeIn" by="word" as="span" duration={0.65}>
