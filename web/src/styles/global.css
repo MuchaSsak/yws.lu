@@ -23,13 +23,14 @@
 
   --font-sans: "Montserrat Variable", "Montserrat Fallback", ui-sans-serif, system-ui, sans-serif;
 
-  /* Type: three fluid steps (real maxima at 1280 px); xl / lg / base / sm stay Tailwind's (design.md § Typography). */
-  --text-display: clamp(2.25rem, 1.5rem + 3.75vw, 4.5rem);
-  --text-display--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);
-  --text-h2: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
-  --text-h2--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);
-  --text-h3: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
-  --text-h3--line-height: 1.2;
+  /* Type: three steps at their 2025 phone sizes, one jump at 640 px below (design.md § Typography); xl / lg / base /
+     sm stay Tailwind's. */
+  --text-display: 2.25rem;
+  --text-display--line-height: 2.5rem;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 2.5rem;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
 
   --radius-sm: 0.4rem;
   --radius-md: 0.525rem;
@@ -54,27 +55,51 @@
   size-adjust: 113.1%;
 }
 
+/* Layout, motion and layer tokens. Values are the 2025 ones (stepped at Tailwind's breakpoints), so applying them moves
+   nothing; the fluid versions are comps/ proposals (design.md § Spacing). The header is the rewritten one: 64 px below
+   1280 px, 80 px above (site/structure.md § Header). */
 :root {
   --header-h: 4rem;
-  --pad-x: clamp(1rem, 6vw, 6rem);
-  --content-max: 90rem;
+  --pad-x: 1rem;
+  --content-max: 96rem;
   --measure: 35rem;
   --measure-hero: 25rem;
-  --space-section: clamp(5rem, 3.667rem + 6.667vw, 9rem);
-  --space-hero-top: clamp(7rem, 5.667rem + 6.667vw, 11rem);
+  --space-section: 9rem;
+  --space-hero-top: 8rem;
   --dur-1: 200ms;
   --dur-2: 300ms;
   --dur-3: 500ms;
   --dur-4: 750ms;
   --dur-5: 900ms;
+  --z-bg: -4;
+  --z-sticky: 40;
+  --z-header: 50;
+  --z-skip: 60;
   --focus-ring: var(--color-primary-strong);
   /* The 2025 heading gradient (#fd9a00 → #f54a00 → #efb100) measured 1.92–3.58:1 on white: the ends move to
      orange-700, so every stop passes 3:1 for large text and the gradient stays (design.md § Colour). */
   --gradient-heading: linear-gradient(to left, #ca3500, rgb(245 74 0), #ca3500);
 }
+@media (min-width: 640px) {
+  :root {
+    --pad-x: 4rem;
+    --text-display: 4.5rem;
+    --text-display--line-height: 5rem;
+    --text-h2: 3.75rem;
+    --text-h2--line-height: 5rem;
+    --text-h3: 2.25rem;
+    --text-h3--line-height: 2.5rem;
+  }
+}
+@media (min-width: 768px) {
+  :root {
+    --pad-x: 6rem;
+  }
+}
 @media (min-width: 1280px) {
   :root {
     --header-h: 5rem;
+    --space-hero-top: 12rem;
   }
 }
 .surface-dark {
@@ -154,14 +179,14 @@
     background: var(--color-reveal);
     transform-origin: right;
     animation-name: reveal-box;
-    animation-duration: var(--reveal-d, 0.5s);
+    animation-duration: var(--reveal-d, var(--dur-3));
     animation-timing-function: var(--ease-in);
     animation-fill-mode: both;
     pointer-events: none;
   }
   .reveal-rise > * {
     animation-name: reveal-rise;
-    animation-duration: var(--reveal-d, 0.5s);
+    animation-duration: var(--reveal-d, var(--dur-3));
     animation-delay: 0.25s;
     animation-timing-function: var(--ease-out);
     animation-fill-mode: both;
@@ -182,19 +207,50 @@
     white-space: nowrap;
     text-decoration: none;
     transition:
-      font-weight 0.15s,
-      background-color 0.15s;
+      font-weight var(--dur-1),
+      background-color var(--dur-1);
   }
   .btn:hover,
   .btn:focus-visible {
     font-weight: 600;
   }
+  .btn:hover {
+    background: color-mix(in oklab, var(--color-primary) 90%, transparent);
+  }
   .btn-arrow {
-    transition: margin 0.15s;
+    transition: margin var(--dur-1) var(--ease-out);
   }
   .btn:hover .btn-arrow,
   .btn:focus-visible .btn-arrow {
     margin-left: 0.5rem;
+  }
+
+  /* The second action beside a primary (2025 shadcn `variant="secondary"`). */
+  .btn-secondary {
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+  }
+  .btn-secondary:hover {
+    background: color-mix(in oklab, var(--color-secondary) 80%, transparent);
+  }
+
+  /* Icon button (carousel arrows): a 44 px pill, outlined, with an sr-only label (2025: 32 px). */
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    cursor: pointer;
+    transition: background-color var(--dur-1);
+  }
+  .btn-icon:hover {
+    background: var(--color-muted);
   }
 
   .btn-shimmer {
@@ -207,11 +263,11 @@
     isolation: isolate;
     overflow: hidden;
     border: 1px solid rgb(255 255 255 / 0.1);
-    border-radius: 0.5rem;
+    border-radius: var(--radius-md);
     transform: translateZ(0);
     transition:
-      transform 0.3s ease-in-out,
-      font-weight 0.15s;
+      transform var(--dur-2) var(--ease-in-out),
+      font-weight var(--dur-1);
   }
   .btn-shimmer:active {
     transform: translateY(1px);
@@ -251,10 +307,55 @@
     border-radius: inherit;
     background: var(--color-primary);
     box-shadow: inset 0 -8px 10px #ffffff1f;
-    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow var(--dur-2) var(--ease-in-out);
   }
   .btn-shimmer:hover::after {
     box-shadow: inset 0 -6px 10px #ffffff3f;
+  }
+
+  /* Highlight (the 2025 hero highlight, rewritten as own CSS, Q23): the 2025 orange gradient sweeps in behind the
+     words like a marker. Dark ink on it stays ≥ 5:1 at every stop. */
+  .highlight {
+    padding: 0 0.25rem 0.25rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(to right, rgb(253 154 0), rgb(245 74 0), rgb(239 177 0)) no-repeat left center / 0% 100%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation-name: highlight;
+    animation-duration: var(--dur-5);
+    animation-delay: 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+
+  /* Shine border (adapted from Magic UI's ShineBorder, MIT; THIRD_PARTY_NOTICES.md): a soft multicolour glint travels
+     round the frame (14 s), only while near the viewport (data-loop) and never under reduced motion. Put it on a
+     positioned box; --shine-width and --shine-colors set the frame. */
+  .shine-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: var(--shine-width, 1px);
+    border-radius: inherit;
+    background: radial-gradient(transparent, transparent, var(--shine-colors, #000), transparent, transparent) 0 0 / 300% 300%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box exclude,
+      linear-gradient(#fff 0 0);
+    pointer-events: none;
+    animation: shine 14s linear infinite paused;
+  }
+  .shine-border.is-playing::after {
+    animation-play-state: running;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shine-border::after {
+      animation: none;
+    }
   }
 
   /* Line shadow (the 2025 LineShadowText): a hatched violet copy of the word drifts behind it. */
@@ -298,12 +399,19 @@
     [data-inview="words"]:not(.is-in) .word {
       opacity: 0;
     }
+    /* The 2025 card entrance: up from 200 px below, 125 ms apart (--i). */
+    [data-inview="rise"]:not(.is-in) {
+      transform: translateY(200px);
+    }
+  }
+  [data-inview="rise"] {
+    transition: transform var(--dur-4) var(--ease-in-out) calc(var(--i, 0) * 125ms);
   }
   [data-inview="fade"] {
-    transition: opacity 2s var(--fade-delay, 0.25s);
+    transition: opacity var(--dur-5) var(--fade-delay, 0.25s);
   }
   [data-inview="words"] .word {
-    transition: opacity 0.3s calc(var(--i) * var(--stagger, 0.05s));
+    transition: opacity var(--dur-2) calc(var(--i) * var(--stagger, 0.05s));
   }
 
   /* The "How it works" beam (the 2025 Timeline): fills with scroll, CSS scroll-driven; static full where unsupported. */
@@ -333,10 +441,14 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    animation: marquee var(--marquee-d, 40s) linear infinite;
+    animation: marquee var(--marquee-d, 40s) linear infinite paused;
   }
-  .marquee:hover .marquee-track,
-  .marquee:focus-within .marquee-track {
+  /* Runs only near the viewport (data-loop, src/scripts/inview.ts); paused on hover and focus. */
+  .marquee.is-playing .marquee-track {
+    animation-play-state: running;
+  }
+  .marquee.is-playing:hover .marquee-track,
+  .marquee.is-playing:focus-within .marquee-track {
     animation-play-state: paused;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -398,6 +510,16 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@keyframes highlight {
+  to {
+    background-size: 100% 100%;
+  }
+}
+@keyframes shine {
+  50% {
+    background-position: 100% 100%;
   }
 }
 @keyframes line-shadow {

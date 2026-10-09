@@ -7,8 +7,9 @@
 > credits: `assets.md`, `research/2026-10-09-licences.md`. Voice and labels: `product/brand.md`. Budgets:
 > `product/requirements.md`.
 > **History:** the 2025 look was built in under a week on shadcn/ui + Magic UI + Aceternity + React Bits [repo:
-> README]. P2 (2026-10-09) consolidates it from the inventory; the starting token file is the spike's
-> `web/src/styles/global.css` [repo: web/src/styles/global.css:8-35]. Rule for every change below: **objective fixes
+> README]. P2 (2026-10-09) consolidated it from the inventory into `web/src/styles/global.css`: the tokens reproduce
+> the 2025 values (stepped at Tailwind's breakpoints), so applying them moves nothing; fluid steps are proposals.
+> Every token and component renders on the review-only specimen (§ Specimen). Rule for every change below: **objective fixes
 > ship** (contrast, targets, focus, overflow, hierarchy, speed); anything that moves the look noticeably is marked
 > **proposal (comps/)** and is shown current-vs-proposed before it ships [user 2026-10-09; lessons].
 
@@ -31,8 +32,8 @@ sparkles, gradients, glows) does **not** apply here: those are yws's identity [u
 ## Tokens
 
 One file: `web/src/styles/global.css` (Tailwind 4 `@theme` for utilities + `:root` custom properties for the rest).
-`web/src/styles/tokens.test.ts` checks every text/background pair below for AA and must grow with this table
-(gradient stops, focus ring per surface, dark chrome) [repo: web/src/styles/tokens.test.ts:61-77].
+`web/src/styles/tokens.test.ts` checks every text/background pair below for AA (17 pairs: text, buttons and their
+hovers, chrome surfaces, focus ring per surface, every gradient stop); a new role adds a row [repo: web/src/lib/contrast.ts].
 
 ```css
 @theme {
@@ -56,13 +57,11 @@ One file: `web/src/styles/global.css` (Tailwind 4 `@theme` for utilities + `:roo
 
   --font-sans: "Montserrat Variable", "Montserrat Fallback", ui-sans-serif, system-ui, sans-serif;
 
-  /* Type: three fluid steps; xl / lg / base / sm stay Tailwind's (1.25 / 1.125 / 1 / 0.875 rem) */
-  --text-display: clamp(2.25rem, 1.5rem + 3.75vw, 4.5rem);               /* 36 → 72 px */
-  --text-display--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);  /* 40 → 80 px */
-  --text-h2: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);                   /* 36 → 60 px */
-  --text-h2--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);       /* 40 → 80 px */
-  --text-h3: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);                   /* 24 → 36 px */
-  --text-h3--line-height: 1.2;
+  /* Type: three steps at the 2025 phone sizes, one jump at 640 px (the :root override below);
+     xl / lg / base / sm stay Tailwind's (1.25 / 1.125 / 1 / 0.875 rem) */
+  --text-display: 2.25rem;  --text-display--line-height: 2.5rem;  /* 36 / 40 → 72 / 80 px */
+  --text-h2: 2.25rem;       --text-h2--line-height: 2.5rem;       /* 36 / 40 → 60 / 80 px */
+  --text-h3: 1.5rem;        --text-h3--line-height: 2rem;         /* 24 / 32 → 36 / 40 px */
 
   --radius-sm: 0.4rem;
   --radius-md: 0.525rem;
@@ -78,21 +77,24 @@ One file: `web/src/styles/global.css` (Tailwind 4 `@theme` for utilities + `:roo
 }
 
 :root {
-  --header-h: 5rem;
-  --pad-x: clamp(1rem, 6vw, 6rem);
+  --header-h: 4rem;            /* 64 px, 80 px from 1280 (structure.md § Header; 2025: 80 everywhere) */
+  --pad-x: 1rem;               /* 2025 .px-side: 16 → 64 px at 640 → 96 px at 768 */
   --content-max: 96rem;
   --measure: 35rem;
   --measure-hero: 25rem;
-  --space-section: clamp(5rem, 3.667rem + 6.667vw, 9rem);   /* 80 → 144 px */
-  --space-hero-top: clamp(8rem, 6.667rem + 6.667vw, 12rem); /* 128 → 192 px */
+  --space-section: 9rem;       /* 144 px, the inner pages' pb-36; home's 128 merges into it */
+  --space-hero-top: 8rem;      /* 128 → 192 px at 1280 */
 
   --dur-1: 200ms;  --dur-2: 300ms;  --dur-3: 500ms;  --dur-4: 750ms;  --dur-5: 900ms;
 
   --z-bg: -4;  --z-sticky: 40;  --z-header: 50;  --z-skip: 60;
 
   --focus-ring: var(--color-primary-strong);
-  --gradient-heading: linear-gradient(to left, rgb(253 154 0), rgb(245 74 0), rgb(239 177 0)); /* 2025: fails, § Colour */
+  --gradient-heading: linear-gradient(to left, #ca3500, rgb(245 74 0), #ca3500); /* § Colour: every stop ≥ 3:1 */
 }
+@media (min-width: 640px)  { :root { --pad-x: 4rem; /* + the large sizes of the three type steps */ } }
+@media (min-width: 768px)  { :root { --pad-x: 6rem; } }
+@media (min-width: 1280px) { :root { --header-h: 5rem; --space-hero-top: 12rem; } }
 .surface-dark { --focus-ring: #fff; }
 ```
 
@@ -135,9 +137,9 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 
 | Role | Token | Size (min → max) | Line height | Weight | Tracking | Was (2025) |
 | --- | --- | --- | --- | --- | --- | --- |
-| Page H1 (hero) | `text-display` | 36 → 72 px | 40 → 80 px line box | 900 | 0 | 30–48 → 60–96, weights 600–900 [inventory § 2] |
-| Section heading `<h2>` | `text-h2` | 36 → 60 px | 40 → 80 px | 900 | 0 | identical (15 gradient headings + Contact, all as `<h1>`) |
-| Tagline, step title, menu links | `text-h3` | 24 → 36 px | 1.2 | 700 (menu 500) | 0 | 24/36, 18–30 |
+| Page H1 (hero) | `text-display` | 36 → 72 px at 640 | 40 → 80 px | 900 | 0 | identical for Housing / About / Jobs; the other heroes keep their 2025 sizes until the H1 proposal below [inventory § 2] |
+| Section heading `<h2>` | `text-h2` | 36 → 60 px at 640 | 40 → 80 px | 900 | 0 | identical (15 gradient headings + Contact, all as `<h1>` in 2025) |
+| Tagline, step title, menu links | `text-h3` | 24 → 36 px at 640 | 32 → 40 px | 700 (menu 500) | 0 | identical for the home tagline; 18–30 for menu links |
 | Project card title, contact action, dialog title | `text-2xl` | 24 px | 1.33 | 600 (dialog 700) | 0 | same |
 | Card title | `text-xl` | 20 px | 1.4 | 600 | 0 | same |
 | Lede | `text-lg` | 18 px | 1.56 | 400 | 0 | same (`text-lg` ×29) |
@@ -146,8 +148,10 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 | Button | `text-base` | 16 px | 1.25 | 600 | 0 | 14 px, 500 → 600 on hover |
 | Nav | `text-base` | 16 px | 1.5 | 500 | 0.025 em | same, without the hover tracking change |
 
-- Sizes off this scale (`text-3xl`, `5xl`, `7xl`, `8xl`, `xs`, `hover:text-3xl`) are not used. `clamp()` maxima are
-  real: 72 / 60 / 36 px stop growing at 1280 px [derived from inventory § 2].
+- Sizes off this scale (`text-3xl`, `5xl`, `7xl`, `8xl`, `xs`, `hover:text-3xl`) are not used in new code; the
+  2025 one-offs (home H1 48 → 60, the timeline title 30 → 48) stay until their proposal ships.
+- **proposal (comps/):** fluid steps (`clamp()`: display 36 → 72, h2 36 → 60, h3 24 → 36 px, growing until 1280 px)
+  instead of the one jump at 640 px, where a 640 px phone in landscape gets the full 72 px.
 - Display-to-lede ratio: 4:1 at ≥ 1280 (72 / 18), 2:1 at 320–390 (36 / 18), the 2025 proportions.
 - `text-wrap: balance` on headings, `pretty` on ledes; boxes sized for French (it runs longer), never the English word.
 - **proposal (comps/):** one H1 weight (900) and size for every hero: the home H1 goes 48 → 36 px and the We Spark
@@ -159,12 +163,13 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 
 - **Base:** Tailwind's 4 px spacing. Stack steps in use: 0.5 · 1 · 1.5 · 2 · 3 rem (`gap-2`, `pt-4`, `pb-6`, `gap-8`,
   `gap-12`); odd steps (`gap-1.5`, `gap-2.5`, `mr-0.5`) stay inside component internals only [inventory § 3].
-- **Section rhythm:** every section `padding-block-end: var(--space-section)` (80 → 144 px; 2025: 128 home, 144
-  inner pages, 80 TEC); a page hero starts at `var(--space-hero-top)` (128 → 192 px) under the 80 px header.
-  **proposal (comps/):** Housing and Rent heroes drop from 256 to 192 px at ≥ 1280 (their CTA moves up the fold).
-- **Gutters:** `--pad-x` for header, sections and footer alike (2025 had 16/64/96 in sections, 20/64 in the nav and
-  192 px in the footer at xl). **proposal (comps/):** the spike's `clamp(1rem, 6vw, 6rem)` is narrower than 2025
-  between 640 and 1440 px (46 px at 768 vs 96).
+- **Section rhythm:** every section `padding-block-end: var(--space-section)` (144 px; 2025: 128 home, 144 inner
+  pages, 80 TEC: home's 128 merges into 144, +16 px); a page hero starts at `var(--space-hero-top)` (128, then 192 px
+  from 1280) below the fixed header (content at the 2025 height). **proposal (comps/):** a fluid rhythm (80 → 144 px)
+  so phones scroll less; Housing and Rent heroes drop from 256 to 192 px at ≥ 1280 (their CTA moves up the fold).
+- **Gutters:** `--pad-x` for header, sections and footer alike: the 2025 section gutter, 16 / 64 / 96 px (< 640 /
+  ≥ 640 / ≥ 768). 2025 had 20/64 in the nav and 192 px in the footer at xl; both merge into it. **proposal (comps/):**
+  a fluid `clamp(1rem, 6vw, 6rem)` (46 px at 768 instead of 96).
 - **Max content width:** `--content-max` centres every section's content; fields and backgrounds bleed full width.
   2025 had none (only the timeline's 80 rem). Required by the ultrawide gate; **proposal (comps/)** for the value
   (96 rem vs 80 rem, open value).
@@ -178,7 +183,7 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 - **Breakpoints:** Tailwind's sm 640 · md 768 · lg 1024 · xl 1280 · 2xl 1536. Behaviour switches live in CSS media
   queries, not `useViewportSize` (2025 had JS thresholds at 400, 600, 768, 1280 [inventory § 6]). Desktop nav from
   1280 (as 2025), menu below.
-- **Chrome:** header 5 rem, fixed; `scroll-padding-top: calc(var(--header-h) + 1rem)` so anchors (`#contact`) never
+- **Chrome:** header 4 rem below 1280 px, 5 rem above, fixed; `scroll-padding-top: calc(var(--header-h) + 1rem)` so anchors (`#contact`) never
   land under it [repo: web/src/styles/global.css:55].
 
 ## Radius, shadow, border, z
@@ -231,7 +236,9 @@ and never applied [repo: components/ui/dialog.tsx:39]).
 ## Section header pattern
 
 One component, `SectionHeader` (replaces the 21 `XHeader` files and the copy-pasted recipe [inventory § 12]), inside
-one `Section` wrapper (replaces the 25 `XSection` files):
+one `Section` wrapper (replaces the 25 `XSection` files) [repo: web/src/components/ui/SectionHeader.astro,
+web/src/components/ui/Section.astro]. Props: `id`, `title` (or slot `title` with `effect="plain"` for sparkles or line
+shadow), `align`; the lede is the default slot, the actions slot `actions`. The markup it renders:
 
 ```
 <section aria-labelledby={id} class="px-side" style="padding-block-end: var(--space-section)">
@@ -260,9 +267,9 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 
 | Variant | Look | When | Source |
 | --- | --- | --- | --- |
-| `.btn` primary | `primary` fill, dark ink, 600, 16 px, min-height 2.75 rem (44 px), padding 0.5 / 1.5 rem, `rounded-md`, `shadow-xs`; text arrow `→` (aria-hidden) nudges 0.5 rem on hover/focus over `--dur-1 --ease-out`; hover fill `primary/90`; press 1 px down | one per block: Apply, Learn more, See for yourself | [repo: web/src/styles/global.css:139-164; components/ui/button.tsx:13,27] |
+| `.btn` primary | `primary` fill, dark ink, 500 (600 on hover/focus, as 2025; proposal below), 16 px, min-height 2.75 rem (44 px), padding 0.5 / 1.5 rem, `rounded-md`, `shadow-xs`; text arrow `→` (aria-hidden) nudges 0.5 rem on hover/focus over `--dur-1 --ease-out`; hover fill `primary/90`; press 1 px down (shimmer only so far) | one per block: Apply, Learn more, See for yourself | [repo: web/src/styles/global.css:139-164; components/ui/button.tsx:13,27] |
 | `.btn-shimmer` | primary + the white spark sweeping the edge (3 s), inset highlight | the hero's first action only, at most one per page | [repo: web/src/styles/global.css:166-222] |
-| `.btn-secondary` | `secondary` fill, `secondary-foreground` text | the second action beside a primary (home Housing "Learn more" next to "Apply now") | [repo: app/(components)/housing/HousingHeader.tsx:32-41] |
+| `.btn-secondary` | `secondary` fill, `secondary-foreground` text, hover `secondary/80`; `ButtonLink secondary` | the second action beside a primary (home Housing "Learn more" next to "Apply now") | [repo: app/(components)/housing/HousingHeader.tsx:32-41] |
 | `.btn-icon` | 2.75 rem pill, outline, icon 16–20 px + sr-only label | carousel previous / next (2025: 32 px) | [repo: components/ui/carousel.tsx:188] |
 | Contact action | Lucide icon 24 px + `text-2xl` 600 label; hover underline and the label nudges 6 px; real `mailto:` (prefilled subject) / `tel:` (E.164) / copy button | contact block, owners' contact | [repo: app/(components)/contact/ContactLinks.tsx:17] |
 | Inline link | underlined at rest (not colour-only), `primary-strong` or inherit | body text, credits, footer | |
@@ -304,7 +311,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 
 ## Imagery
 
-- Real photos of YWS only (group photo, project photos, house pictures from Supabase); no stock or AI people; no fake
+- Real photos of YWS only (group photo, project photos, the 7 house pictures); no stock or AI people; no fake
   screenshots. Every CC BY asset credited in the credits dialog, "modified" when re-encoded [research: licences § 2].
 - Through the image pipeline: AVIF/WebP, real `widths` / `sizes`, ≤ 2560 px, `aspect-ratio` reserved, lazy below the
   fold; `fetchpriority="high"` only for an LCP image (the H1 is the LCP, so usually none; 2025 set it on every
@@ -356,11 +363,20 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | 3D beside the copy, poster first | 3D on the LCP path or blocking content on phones |
 | Email, phone, map and socials as the contact | Any form [user 2026-10-09] |
 
+## Specimen
+
+`/en/specimen/` and `/fr/specimen/` [repo: web/src/pages/[locale]/specimen.astro]: every colour token with its
+contrast on white and on ink, the gradient heading, the type steps with the site's own catalog strings (so the French
+page shows French box sizes), layout, radius, shadow, motion and layer tokens, the buttons on the page and on dark
+chrome, the four effects and the section header in its three alignments. Review builds only: a launch build makes no
+paths, the launch gate fails if one ships, and it is noindex, outside the sitemap and without canonical or share card
+[repo: web/scripts/launch-gate.mjs]. Shoot it with `bun run shots --paths /en/specimen/,/fr/specimen/ --full`.
+
 ## Open values (not resolved here)
 
 - Real contrast of the heading gradient and the orange-600 H1 words over the rendered glow: computed upper bounds only;
   needs pixel sampling on shots.
-- `--content-max`: 96 rem or 80 rem (comps at 1920 and 2560).
+- `--content-max`: 96 rem (in place: nothing moves below 1728 px) or 80 rem (comps at 1920 and 2560).
 - Italic: synthesized (today) or the Montserrat italic file (bytes not measured against the 100 KB font budget).
 - How three home scenes respect "one live context": mount/unmount by proximity vs one shared canvas.
 - Button label 14 px (2025) vs 16 px (spike, chosen here): confirm in the P2 screenshot diff.

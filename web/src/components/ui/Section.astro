@@ -1,0 +1,30 @@
+---
+/**
+ * A page section (wiki: design/design.md § Section header pattern): the gutters, the bottom rhythm and the content
+ * width in one place, named by its heading (`labelledby`, usually the `SectionHeader` id). Replaces the 25 2025
+ * `XSection` files.
+ */
+interface Props {
+  labelledby: string;
+  id?: string;
+  class?: string;
+}
+
+const { labelledby, id, class: className } = Astro.props;
+---
+
+<section id={id} aria-labelledby={labelledby} class:list={["section px-side", className]}>
+  <div class="section-inner">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block-end: var(--space-section);
+  }
+  .section-inner {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+</style>

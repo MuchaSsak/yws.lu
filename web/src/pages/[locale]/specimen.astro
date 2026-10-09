@@ -1,0 +1,432 @@
+---
+/**
+ * The design specimen (wiki: design/design.md § Specimen): every token and component of the system, as built, in each
+ * locale so boxes are checked against French. Review builds only: a launch build makes no paths, the launch gate fails
+ * if one ships, and it is noindex, out of the sitemap and without a canonical. The page's own labels are English
+ * tooling text (lang="en"); the samples are the site's real catalog strings, so /fr/specimen/ shows the French.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import css from "~/styles/global.css?raw";
+
+import LineShadow from "~/components/effects/LineShadow.astro";
+import Reveal from "~/components/effects/Reveal.astro";
+import Sparkles from "~/components/effects/Sparkles.astro";
+import WordFade from "~/components/effects/WordFade.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import SocialIcon from "~/components/ui/SocialIcon.astro";
+import { ORGANISATION } from "~/data/organisation";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { colourTokens, contrast, hex, rgb, themeOf, WHITE } from "~/lib/contrast";
+import { LOCALES } from "~/lib/locales";
+import { pathTo } from "~/lib/routes";
+import { isLaunchBuild } from "../../../scripts/launch.mjs";
+
+export const getStaticPaths = () => (isLaunchBuild() ? [] : LOCALES.map((locale) => ({ params: { locale } })));
+
+const locale = Astro.locals.locale;
+const foreground = rgb(colourTokens(themeOf(css)).find(([name]) => name === "foreground")?.[1] ?? "#000000");
+const colours = colourTokens(themeOf(css)).map(([name, value]) => {
+  const colour = rgb(value);
+  return {
+    name,
+    value,
+    hex: hex(colour),
+    onWhite: contrast(colour, WHITE).toFixed(2),
+    onInk: contrast(colour, foreground).toFixed(2),
+  };
+});
+/** `--name: value` pairs of the unlayered `:root` blocks, phone first, then each breakpoint's overrides. */
+const rootTokens = (prefix: string) =>
+  [...css.matchAll(new RegExp(`--(${prefix}[\\w-]*):\\s*([^;]+);`, "g"))].map(([, name, value]) => ({
+    name,
+    value: value?.trim(),
+  }));
+const layout = ["header-h", "pad-x", "content-max", "measure", "space-"].flatMap(rootTokens);
+const durations = rootTokens("dur-");
+const easings = rootTokens("ease-");
+const layers = rootTokens("z-");
+const radii = rootTokens("radius-");
+
+const type = [
+  {
+    token: "text-display",
+    use: "page H1 (hero)",
+    size: "36 → 72 px at 640",
+    weight: "font-black",
+    sample: t`Looking for housing?`,
+  },
+  {
+    token: "text-h2",
+    use: "section heading <h2>",
+    size: "36 → 60 px at 640",
+    weight: "font-black",
+    sample: t`Who Gets Priority?`,
+  },
+  {
+    token: "text-h3",
+    use: "tagline, step title",
+    size: "24 → 36 px at 640",
+    weight: "font-bold",
+    sample: t`Here's how it works`,
+  },
+  {
+    token: "text-2xl",
+    use: "project card title, contact action",
+    size: "24 px",
+    weight: "font-semibold",
+    sample: t`Personal Interview`,
+  },
+  { token: "text-xl", use: "card title", size: "20 px", weight: "font-semibold", sample: t`Our Selection Process` },
+  {
+    token: "text-lg",
+    use: "lede",
+    size: "18 px",
+    weight: "font-normal",
+    sample: t`Are you between 18 and 34 and in need of stable, affordable housing in Luxembourg?`,
+  },
+  {
+    token: "text-base",
+    use: "body",
+    size: "16 px",
+    weight: "font-normal",
+    sample: t`Start by completing a short application form. This helps us understand your situation and what kind of housing you need.`,
+  },
+  {
+    token: "text-sm",
+    use: "small print",
+    size: "14 px",
+    weight: "font-normal",
+    sample: t`During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you.`,
+  },
+];
+const lede = t`We prioritize young people in urgent situations — like eviction or sudden loss of income. We also check for basic financial stability to ensure long-term housing. We aim to create a respectful and balanced living environment, including gender diversity when possible. Due to high demand and limited space, we can't help everyone right away — but we review each request with care and responsibility.`;
+const your = t({ message: "your", context: "Rent out [your] property" });
+const property = t({ message: "property", context: "Rent out your [property]" });
+const socials = [
+  { id: "facebook", label: "Facebook" },
+  { id: "instagram", label: "Instagram" },
+  { id: "linkedin", label: "LinkedIn" },
+] as const;
+---
+
+<BaseLayout
+  route={null}
+  title="Design specimen"
+  description="Every token and component of the yws design system as built, for review builds only (not shipped)."
+  noindex
+>
+  <div class="specimen px-side" lang="en">
+    <h1 class="text-display font-black">Design specimen</h1>
+    <p class="specimen-intro text-lg">
+      Every token and component of the yws design system, as built (wiki: design/design.md). Review builds only: noindex, out of
+      the sitemap, never in a launch build. Samples are the site's catalog strings, so the
+      <a href={locale === "en" ? "/fr/specimen/" : "/en/specimen/"} class="specimen-link">
+        {locale === "en" ? "French specimen" : "English specimen"}
+      </a>{" "}
+      shows the other locale's box sizes.
+    </p>
+
+    <section aria-labelledby="sp-colour">
+      <h2 id="sp-colour" class="specimen-h2">
+        Colour
+      </h2>
+      <p class="specimen-note">
+        Ratios are WCAG 2.2 contrast against white and against foreground ink; the AA pairs are unit-tested
+        (src/styles/tokens.test.ts).
+      </p>
+      <ul class="swatches" role="list">
+        {colours.map((colour) => (
+          <li class="swatch">
+            <span class="swatch-chip" style={`background: ${colour.value}`} />
+            <code>--color-{colour.name}</code>
+            <span class="specimen-note">
+              {colour.hex} · on white {colour.onWhite} · on ink {colour.onInk}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="specimen-note">Heading gradient (every stop ≥ 3:1 on white):</p>
+      <p class="text-h2 text-orange-gradient font-black" lang={locale}>{t`Who Gets Priority?`}</p>
+    </section>
+
+    <section aria-labelledby="sp-type">
+      <h2 id="sp-type" class="specimen-h2">
+        Type
+      </h2>
+      <p class="specimen-note">Montserrat Variable; weights 900 · 700 · 600 · 500 · 400. Phone size, then the 640 px step.</p>
+      <dl class="type-rows">
+        {type.map((row) => (
+          <div class="type-row">
+            <dt>
+              <code>{row.token}</code>
+              <span class="specimen-note">
+                {row.use} · {row.size} · {row.weight}
+              </span>
+            </dt>
+            <dd class:list={[row.token, row.weight]} lang={locale}>
+              {row.sample}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="sp-layout">
+      <h2 id="sp-layout" class="specimen-h2">
+        Layout and spacing
+      </h2>
+      <p class="specimen-note">Every value in source order: the phone value first, then the overrides at 640, 768 and 1280 px.</p>
+      <ul class="token-list" role="list">
+        {layout.map((token) => (
+          <li>
+            <code>--{token.name}</code> <span class="specimen-note">{token.value}</span>
+            <span class="bar" style={`width: min(100%, ${token.value})`} />
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="sp-surface">
+      <h2 id="sp-surface" class="specimen-h2">
+        Radius and shadow
+      </h2>
+      <ul class="tiles" role="list">
+        {radii.map((token) => (
+          <li class="tile" style={`border-radius: ${token.value}`}>
+            <code>{token.name}</code>
+            <span class="specimen-note">{token.value}</span>
+          </li>
+        ))}
+      </ul>
+      <ul class="tiles" role="list">
+        {["shadow-xs", "shadow-sm", "shadow-md", "shadow-lg"].map((shadow) => (
+          <li class:list={["tile rounded-xl", shadow]}>
+            <code>{shadow}</code>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="sp-motion">
+      <h2 id="sp-motion" class="specimen-h2">
+        Motion and layers
+      </h2>
+      <div class="columns">
+        <ul class="token-list" role="list">
+          {durations.map((token) => (
+            <li>
+              <code>--{token.name}</code> <span class="specimen-note">{token.value}</span>
+            </li>
+          ))}
+        </ul>
+        <ul class="token-list" role="list">
+          {easings.map((token) => (
+            <li>
+              <code>--{token.name}</code> <span class="specimen-note">{token.value}</span>
+            </li>
+          ))}
+        </ul>
+        <ul class="token-list" role="list">
+          {layers.map((token) => (
+            <li>
+              <code>--{token.name}</code> <span class="specimen-note">{token.value}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="sp-buttons">
+      <h2 id="sp-buttons" class="specimen-h2">
+        Buttons and links
+      </h2>
+      <p class="specimen-note">Tab through to see the focus ring: orange-700 on the page, white on dark chrome.</p>
+      <div class="row" lang={locale}>
+        <ButtonLink href={pathTo(locale, "housing")}>{t`Learn more`}</ButtonLink>
+        <ButtonLink href={pathTo(locale, "housing")} secondary>{t`Learn more`}</ButtonLink>
+        <ButtonLink href={ORGANISATION.links.applyForHousing} shimmer external>{t`Apply now`}</ButtonLink>
+        <a href={pathTo(locale, "owners")} class="specimen-link">{t`Rent your property`}</a>
+      </div>
+      <div class="row surface-dark dark-plate" lang={locale}>
+        <ButtonLink href={pathTo(locale, "housing")}>{t`Learn more`}</ButtonLink>
+        {socials.map((social) => (
+          <a href="#sp-buttons" class="social">
+            <SocialIcon id={social.id} />
+            {social.label}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="sp-effects">
+      <h2 id="sp-effects" class="specimen-h2">
+        Effects
+      </h2>
+      <p class="specimen-note">One title effect per heading. Reduced motion: the final state at once, loops off.</p>
+      <div class="effects" lang={locale}>
+        <Reveal duration={0.5}>
+          <p class="text-h3 font-bold">Reveal: {t`Looking for housing?`}</p>
+        </Reveal>
+        <p class="text-h3 font-bold">
+          LineShadow: {t`Rent out`} <LineShadow class="text-orange-600 italic" text={your} />{" "}
+          <LineShadow class="text-orange-600 italic" text={property} />
+        </p>
+        <p class="text-h3 font-bold">
+          Sparkles: <Sparkles class="font-normal text-orange-600 italic">{t`better future`}</Sparkles>
+        </p>
+        <WordFade class="text-lg" duration={0.65} text={lede} />
+      </div>
+    </section>
+
+    <section aria-labelledby="sp-sections">
+      <h2 id="sp-sections" class="specimen-h2">
+        Section header
+      </h2>
+      <p class="specimen-note">Centred below 1280 px; start / end lean toward the visual from 1280 px.</p>
+    </section>
+  </div>
+
+  {(["center", "start", "end"] as const).map((align) => (
+    <Section labelledby={`sp-header-${align}`} class="specimen-section">
+      <SectionHeader id={`sp-header-${align}`} title={t`Who Gets Priority?`} align={align}>
+        <WordFade duration={0.65} text={lede} />
+        <div slot="actions">
+          <ButtonLink href={ORGANISATION.links.applyForHousing} external>
+            {t`Apply now`}
+          </ButtonLink>
+        </div>
+      </SectionHeader>
+    </Section>
+  ))}
+</BaseLayout>
+
+<style>
+  .specimen {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-top: var(--space-hero-top);
+  }
+  .specimen-intro {
+    max-width: var(--measure);
+    padding-block: 1rem 3rem;
+  }
+  .specimen section {
+    padding-bottom: 4rem;
+  }
+  .specimen-h2 {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 1rem;
+    font-size: var(--text-2xl);
+    font-weight: 700;
+  }
+  .specimen-note {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+  .specimen-link {
+    color: var(--color-primary-strong);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  code {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 1rem;
+    margin-block: 1rem 2rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .swatch-chip {
+    height: 4rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .type-rows {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .type-row {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .type-row dt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+  .type-row dd {
+    margin: 0;
+    max-width: 50rem;
+  }
+  .token-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .bar {
+    display: block;
+    height: 0.5rem;
+    margin-top: 0.25rem;
+    border-radius: 9999px;
+    background: var(--color-primary);
+  }
+  .tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 9rem;
+    height: 6rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+  }
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  .dark-plate {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-foreground);
+    color: #fff;
+  }
+  .social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    color: inherit;
+    font-weight: 500;
+  }
+  .effects {
+    display: grid;
+    gap: 2rem;
+    max-width: 50rem;
+  }
+</style>

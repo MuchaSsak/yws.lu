@@ -7,7 +7,9 @@
  * and the sitemap; hreflang that isn't reciprocal; JSON-LD that doesn't parse; a share image or its alt missing; a
  * new-tab link that doesn't say so; a raster image that isn't WebP/AVIF (favicons and share images aside); any <form>
  * (no forms, ever [user 2026-10-09]).
- * A launch build (scripts/launch.mjs) also fails on any PLACEHOLDER marker and on wrong robots values.
+ * The 404 and the review-only design specimen have no canonical, hreflang or share card by design.
+ * A launch build (scripts/launch.mjs) also fails on any PLACEHOLDER marker, on wrong robots values and on a review-only
+ * page in the output.
  *
  *   node scripts/launch-gate.mjs [--launch]
  */
@@ -30,6 +32,8 @@ const DESCRIPTION_MAX = 160; // target ≤ 155 (warned), hard cap 160
 /** Pages kept out of the index on purpose (site/seo.md § Crawl): legal pages, the 404s, the root safety net. */
 const NOINDEX =
   /^(index\.html|404\.html|(en|fr)\/404\/index\.html|(en|fr)\/(privacy-policy|politique-de-confidentialite|legal-notice|mentions-legales)\/index\.html)$/;
+/** Pages built only in review builds (design/design.md § Specimen): never in a launch build. */
+const REVIEW_ONLY = /^(en|fr)\/specimen\/index\.html$/;
 
 function* walk(dir) {
   for (const name of readdirSync(dir)) {
@@ -85,6 +89,7 @@ for (const [file, source] of html) {
   const page = name(file);
   const stub = page === "index.html";
   const notFound = /(^|\/)404(\/index)?\.html$/.test(page);
+  const uncrawled = notFound || REVIEW_ONLY.test(page);
   robotsOf.set(page, /<meta name="robots" content="([^"]+)"/.exec(source)?.[1] ?? "");
   const title = decode(/<title>([^<]*)<\/title>/.exec(source)?.[1] ?? "");
   if (!title) errors.push(`${page}: no <title>`);
@@ -99,7 +104,7 @@ for (const [file, source] of html) {
   const h1s = (source.match(/<h1[\s>]/g) ?? []).length;
   if (h1s !== 1) errors.push(`${page}: ${h1s} <h1> (exactly one)`);
   if (/<form[\s>]/i.test(source)) errors.push(`${page}: has a <form> (no forms, ever)`);
-  if (!notFound) {
+  if (!uncrawled) {
     const canonical = /<link rel="canonical" href="([^"]+)"/.exec(source)?.[1];
     if (!canonical) errors.push(`${page}: no canonical`);
     const alternates = [...source.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map(([, lang, href]) => ({
@@ -117,7 +122,7 @@ for (const [file, source] of html) {
     origins.add(new URL(url).origin);
   const image = /<meta property="og:image" content="([^"]+)"/.exec(source)?.[1];
   if (!image) {
-    if (!notFound) errors.push(`${page}: no og:image`);
+    if (!uncrawled) errors.push(`${page}: no og:image`);
   } else if (!existsSync(join(DIST, new URL(image).pathname)))
     errors.push(`${page}: share image ${new URL(image).pathname} not built (bun run og)`);
   if (image && !/<meta property="og:image:alt" content="[^"]{5,}"/.test(source)) errors.push(`${page}: no og:image:alt`);
@@ -178,6 +183,7 @@ for (const dir of ["src", "public"]) {
 if (launch) {
   errors.push(...markers.map((m) => `placeholder in a launch build: ${m}`));
   for (const [page, robots] of robotsOf) {
+    if (REVIEW_ONLY.test(page)) errors.push(`${page}: review-only page in a launch build`);
     const hidden = NOINDEX.test(page);
     if (!hidden && !robots.startsWith("index")) errors.push(`${page}: robots "${robots}" in a launch build`);
     if (hidden && !robots.startsWith("noindex")) errors.push(`${page}: should be noindex`);

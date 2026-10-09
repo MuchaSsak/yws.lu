@@ -2,90 +2,54 @@ import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
+import { BLACK, colourTokens, contrast, over, rgb, themeOf, WHITE, type Rgb } from "~/lib/contrast";
+
 /**
- * Every text/background pair the design uses meets WCAG 2.2 AA (wiki: design/design.md § Colour). Values are read
- * from global.css `@theme`, so a token change that breaks contrast fails here before it reaches a screenshot.
+ * Every text/background pair the design uses meets WCAG 2.2 AA (wiki: design/design.md § Colour roles). Values are read
+ * from global.css `@theme`, so a token change that breaks contrast fails here before it reaches a screenshot. A new
+ * pair in design.md's table gets a row here.
  */
 const css = readFileSync(new URL("./global.css", import.meta.url), "utf8");
-const theme = css.slice(css.indexOf("@theme {"), css.indexOf("}", css.indexOf("@theme {")));
-const token = (name: string): string => {
-  const match = new RegExp(`--color-${name}:\\s*([^;]+);`).exec(theme);
-  if (!match?.[1]) throw new Error(`token --color-${name} not found`);
-  return match[1].trim();
+const tokens = new Map(colourTokens(themeOf(css)));
+const token = (name: string): Rgb => {
+  const value = tokens.get(name);
+  if (!value) throw new Error(`token --color-${name} not found`);
+  return rgb(value);
 };
 
-type Rgb = [number, number, number];
-
-/** sRGB channels 0..1 from `#rrggbb` or `oklch(L C H)` (L as 0..1 or %). */
-function rgb(value: string): Rgb {
-  if (value.startsWith("#")) {
-    const hex = value.slice(1);
-    return [0, 2, 4].map((i) => Number.parseInt(hex.slice(i, i + 2), 16) / 255) as Rgb;
-  }
-  const parts = /oklch\(\s*([\d.]+)(%?)\s+([\d.]+)\s+([\d.]+)\s*\)/.exec(value);
-  if (!parts) throw new Error(`unsupported colour ${value}`);
-  const l = Number(parts[1]) / (parts[2] ? 100 : 1);
-  const c = Number(parts[3]);
-  const h = (Number(parts[4]) * Math.PI) / 180;
-  const a = c * Math.cos(h);
-  const b = c * Math.sin(h);
-  const l_ = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3;
-  const m_ = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3;
-  const s_ = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
-  const linear = [
-    4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
-    -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
-    -0.0041960863 * l_ - 0.7034186147 * m_ + 1.707614701 * s_,
-  ];
-  return linear.map((v) => {
-    const clamped = Math.min(1, Math.max(0, v));
-    return clamped <= 0.0031308 ? 12.92 * clamped : 1.055 * clamped ** (1 / 2.4) - 0.055;
-  }) as Rgb;
-}
-
-const luminance = ([r, g, b]: Rgb) => {
-  const lin = (v: number) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-};
-const contrast = (fg: Rgb, bg: Rgb) => {
-  const [hi, lo] = [luminance(fg), luminance(bg)].sort((x, y) => y - x) as [number, number];
-  return (hi + 0.05) / (lo + 0.05);
-};
-/** `fg` at `alpha` over `bg` (for the translucent header). */
-const over = (fg: Rgb, alpha: number, bg: Rgb): Rgb => fg.map((v, i) => v * alpha + (bg[i] as number) * (1 - alpha)) as Rgb;
-
-const WHITE: Rgb = [1, 1, 1];
-const BLACK: Rgb = [0, 0, 0];
+const VIGNETTE = rgb("#fafafa");
+const HEADER = over(BLACK, 0.6, WHITE);
+const MENU = over(BLACK, 0.88, WHITE);
 
 // [text, background, minimum ratio, where it is used]
-const PAIRS: [string, string, number, string][] = [
-  ["foreground", "background", 4.5, "body text"],
-  ["muted-foreground", "background", 4.5, "secondary text"],
-  ["primary-foreground", "primary", 4.5, "buttons"],
-  ["secondary-foreground", "secondary", 4.5, "secondary buttons"],
-  ["ink-orange", "background", 4.5, "orange text on white"],
-  ["primary-strong", "background", 3, "focus ring (non-text, 3:1)"],
+const PAIRS: [string, () => Rgb, () => Rgb, number][] = [
+  ["body text on white", () => token("foreground"), () => token("background"), 4.5],
+  ["body text on the vignette edge", () => token("foreground"), () => VIGNETTE, 4.5],
+  ["secondary text", () => token("muted-foreground"), () => token("background"), 4.5],
+  ["primary button", () => token("primary-foreground"), () => token("primary"), 4.5],
+  ["primary button hover (primary/90)", () => token("primary-foreground"), () => over(token("primary"), 0.9, WHITE), 4.5],
+  ["secondary button", () => token("secondary-foreground"), () => token("secondary"), 4.5],
+  ["secondary button hover (secondary/80)", () => token("secondary-foreground"), () => over(token("secondary"), 0.8, WHITE), 4.5],
+  ["orange words (primary-strong)", () => token("primary-strong"), () => token("background"), 4.5],
+  ["icons and small orange text (ink-orange)", () => token("ink-orange"), () => token("background"), 4.5],
+  ["violet text", () => token("violet"), () => token("background"), 4.5],
+  ["header text (white on black/60)", () => WHITE, () => HEADER, 4.5],
+  ["menu text (white on black/88)", () => WHITE, () => MENU, 4.5],
+  ["footer text (white on foreground)", () => WHITE, () => token("foreground"), 4.5],
+  ["footer headings (primary on foreground)", () => token("primary"), () => token("foreground"), 4.5],
+  ["focus ring on the page (primary-strong, 3:1)", () => token("primary-strong"), () => token("background"), 3],
+  ["focus ring on dark chrome (white on black/60, 3:1)", () => WHITE, () => HEADER, 3],
 ];
 
 describe("colour tokens meet WCAG AA", () => {
-  it.each(PAIRS)("%s on %s ≥ %d:1 (%s)", (fg, bg, min) => {
-    expect(contrast(rgb(token(fg)), rgb(token(bg)))).toBeGreaterThanOrEqual(min);
-  });
-
-  it("header text: white on black/60 over the lightest page background ≥ 4.5:1", () => {
-    expect(contrast(WHITE, over(BLACK, 0.6, rgb(token("background"))))).toBeGreaterThanOrEqual(4.5);
+  it.each(PAIRS)("%s", (_, fg, bg, min) => {
+    expect(contrast(fg(), bg())).toBeGreaterThanOrEqual(min);
   });
 
   it("every stop of the heading gradient is ≥ 3:1 on white (large text)", () => {
     const gradient = /--gradient-heading:\s*([^;]+);/.exec(css)?.[1] ?? "";
-    const stops = [...gradient.matchAll(/#[0-9a-f]{6}|rgb\(\s*(\d+)\s+(\d+)\s+(\d+)\s*\)/gi)].map((m): Rgb =>
-      m[0].startsWith("#") ? rgb(m[0]) : ([Number(m[1]) / 255, Number(m[2]) / 255, Number(m[3]) / 255] as Rgb),
-    );
+    const stops = [...gradient.matchAll(/#[0-9a-f]{6}|rgb\(\s*\d+\s+\d+\s+\d+\s*\)/gi)].map((m) => rgb(m[0]));
     expect(stops.length).toBeGreaterThanOrEqual(2);
     for (const stop of stops) expect(contrast(stop, WHITE)).toBeGreaterThanOrEqual(3);
-  });
-
-  it("the focus ring on dark chrome (white on black/60) is ≥ 3:1", () => {
-    expect(contrast(WHITE, over(BLACK, 0.6, WHITE))).toBeGreaterThanOrEqual(3);
   });
 });

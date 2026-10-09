@@ -5,6 +5,8 @@
  */
 import { t } from "lingui-for-astro/macro";
 
+import Section from "~/components/ui/Section.astro";
+
 const steps = [
   {
     title: t`Fill Out the Form`,
@@ -25,7 +27,7 @@ const steps = [
 ];
 ---
 
-<section class="px-side pb-36" aria-labelledby="how-it-works">
+<Section labelledby="how-it-works">
   <div class="w-full md:px-10" style="view-timeline-name: --timeline">
     <div class="relative mx-auto max-w-7xl">
       <h2 id="how-it-works" class="text-orange-gradient px-4 pb-14 text-3xl font-black sm:text-5xl sm:leading-20">
@@ -34,7 +36,7 @@ const steps = [
       <ol class="flex flex-col gap-20">
         {steps.map((step) => (
           <li class="flex justify-start md:gap-10">
-            <div class="sticky top-40 z-40 flex max-w-xs flex-col self-start md:w-full md:flex-row lg:max-w-sm">
+            <div class="sticky top-40 z-(--z-sticky) flex max-w-xs flex-col self-start md:w-full md:flex-row lg:max-w-sm">
               <div class="absolute left-3 flex size-10 items-center justify-center rounded-full" aria-hidden="true">
                 <div class="size-4 rounded-full border border-muted-foreground bg-background" />
               </div>
@@ -42,7 +44,7 @@ const steps = [
             </div>
             <div class="relative w-full pr-4 pl-20 md:pl-4">
               <h3 class="mb-4 text-left text-2xl font-bold md:hidden">{step.title}</h3>
-              <p class="mb-8 text-neutral-800">{step.text}</p>
+              <p class="mb-8 text-foreground">{step.text}</p>
             </div>
           </li>
         ))}
@@ -55,4 +57,4 @@ const steps = [
       </div>
     </div>
   </div>
-</section>
+</Section>

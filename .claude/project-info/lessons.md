@@ -29,6 +29,7 @@
 - Reading a WebGL program's link status blocks until it compiles: keep programs small, compile with `KHR_parallel_shader_compile`, measure the longest frame gap cold - 2026-10-09.
 - Flag emoji render as two letters on Windows: language switchers use text labels (English / Français), never flag emoji - 2026-10-06.
 - A server-rendered page needs its metadata on the server: a helper that returns `undefined` when `window` is missing ships no `<title>` at all (the 2025 site) - 2026-10-09.
+- Tailwind 4 emits a `@theme` variable only when the source names it (a utility or a literal `var(--name)`): a name built at runtime (`` var(--color-${name}) ``) is undefined, and `--shadow-*` never is (shadow utilities inline it): print values or give a fallback - 2026-10-09.
 
 ### Privacy of inputs
 - Never type a key, id or URL from memory: copy it mechanically from its source file (a script), or it is invented - 2026-10-09.
@@ -49,5 +50,7 @@
 - A busy machine fakes regressions: run Lighthouse alone (no shots, builds or agents' scripts in parallel), check the load, rerun - 2026-10-07.
 - The PageSpeed Insights API without a key hits "Quota exceeded" at once: use the PSI web UI, or set `PSI_API_KEY` - 2026-10-09.
 - Another session or the owner may run a dev server on :3000: use your own port (3100 Next, 4322 Astro), never kill a process you didn't start, never wipe `.next` under a running dev server - 2026-10-09.
+- A `next dev` writes into `.next`: it cut the route manifest to `/page`, and the next `next start` answered 500 on every other route without a log line (the re-capture overwrote good P0 shots with error pages). Captures now preflight every page's status; rebuild before serving a baseline - 2026-10-09.
+- QA page walks jump with `scrollTo({ top, behavior: "instant" })`: under `scroll-behavior: smooth` a plain `scrollTo(0, y)` animates, the walk never gets down the page, and lazy images and in-view text shoot blank - 2026-10-09.
 - WebSearch has a budget shared by parallel agents; prefer WebFetch of known URLs, then Playwright - 2026-10-05.
 - A "faithful port" of a copied component keeps its licence. Before porting an effect, check `research/2026-10-09-licences.md`: Aceternity, GSAP and React Bits code is rewritten from the idea, not translated line by line (Q23) - 2026-10-09.

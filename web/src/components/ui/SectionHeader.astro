@@ -1,0 +1,73 @@
+---
+/**
+ * The one section header (wiki: design/design.md § Section header pattern): an `<h2>` in the orange gradient, the lede
+ * (default slot, kept to the measure) and the actions (slot "actions"). Replaces the 21 2025 `XHeader` files and their
+ * copy-pasted recipe. `align` applies from 1280 px, where a split section's text leans toward its visual; below that
+ * the header is centred. One title effect at most: pass `effect="plain"` and put Sparkles or LineShadow in slot
+ * "title" instead of the gradient.
+ */
+interface Props {
+  id: string;
+  title?: string;
+  align?: "center" | "start" | "end";
+  effect?: "gradient" | "plain";
+  class?: string;
+}
+
+const { id, title, align = "center", effect = "gradient", class: className } = Astro.props;
+---
+
+<header class:list={["section-header", className]} data-align={align}>
+  <h2 id={id} class:list={["text-h2 font-black text-balance", effect === "gradient" && "text-orange-gradient"]}>
+    <slot name="title">{title}</slot>
+  </h2>
+  {Astro.slots.has("default") && (
+    <div class="section-lede">
+      <slot />
+    </div>
+  )}
+  {Astro.slots.has("actions") && (
+    <div class="section-actions">
+      <slot name="actions" />
+    </div>
+  )}
+</header>
+
+<style>
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .section-lede {
+    max-width: var(--measure);
+    padding-top: 1rem;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    text-wrap: pretty;
+  }
+  .section-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+  @media (min-width: 1280px) {
+    .section-header[data-align="start"] {
+      align-items: flex-start;
+      text-align: start;
+    }
+    .section-header[data-align="end"] {
+      align-items: flex-end;
+      text-align: end;
+    }
+    .section-header[data-align="start"] .section-actions {
+      justify-content: flex-start;
+    }
+    .section-header[data-align="end"] .section-actions {
+      justify-content: flex-end;
+    }
+  }
+</style>
