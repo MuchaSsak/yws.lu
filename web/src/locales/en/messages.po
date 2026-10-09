@@ -151,7 +151,7 @@ msgstr "As part of <0>V – Comprehensive Guide to Best Practices in Mobile Lear
 msgid "better future"
 msgstr "better future"
 
-#: src/components/layout/CreditsDialog.astro
+#: src/components/layout/CreditLine.astro
 msgctxt "credits: <title> by <author>"
 msgid "by"
 msgstr "by"
@@ -198,6 +198,10 @@ msgstr "Conference programme"
 #: src/lib/not-found.ts
 msgid "Contact us"
 msgstr "Contact us"
+
+#: src/components/legal/LegalPage.astro
+msgid "Contents"
+msgstr "Contents"
 
 #: src/components/layout/CreditsDialog.astro
 msgid "Credits 💖"
@@ -399,7 +403,7 @@ msgstr "Ministry of Justice"
 msgid "Moderation:"
 msgstr "Moderation:"
 
-#: src/components/layout/CreditsDialog.astro
+#: src/components/layout/CreditLine.astro
 msgctxt "credits: the model was changed"
 msgid "modified (optimised for the web)"
 msgstr "modified (optimised for the web)"

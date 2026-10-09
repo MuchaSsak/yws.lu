@@ -151,7 +151,7 @@ msgstr "Dans le cadre de <0>V – Comprehensive Guide to Best Practices in Mobil
 msgid "better future"
 msgstr "avenir meilleur"
 
-#: src/components/layout/CreditsDialog.astro
+#: src/components/layout/CreditLine.astro
 msgctxt "credits: <title> by <author>"
 msgid "by"
 msgstr "par"
@@ -198,6 +198,10 @@ msgstr "Programme de la conférence"
 #: src/lib/not-found.ts
 msgid "Contact us"
 msgstr "Contactez-nous"
+
+#: src/components/legal/LegalPage.astro
+msgid "Contents"
+msgstr "Sommaire"
 
 #: src/components/layout/CreditsDialog.astro
 msgid "Credits 💖"
@@ -399,7 +403,7 @@ msgstr "Ministère de la Justice"
 msgid "Moderation:"
 msgstr "Modération :"
 
-#: src/components/layout/CreditsDialog.astro
+#: src/components/layout/CreditLine.astro
 msgctxt "credits: the model was changed"
 msgid "modified (optimised for the web)"
 msgstr "modifié (optimisé pour le web)"

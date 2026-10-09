@@ -124,11 +124,17 @@ copyright, links), noindex; the client fills the `PLACEHOLDER` rows below.
 ## Privacy policy: required contents (GDPR art. 13, CNPD guide for associations)
 
 Pages `privacy-policy` / `politique-de-confidentialite`; footer link on every page; en + fr say the same thing
-(client review of both). Plain language (art. 12), which matters for a young audience. **Built 2026-10-09** as
-`web/src/content/legal/{en,fr}/privacy.md`: who is responsible, what the site does not do (no forms, analytics,
-cookies or local storage; self-hosted font and models), each activity with its own legal-basis and retention
-`PLACEHOLDER`, recipients, transfers, rights + CNPD, automated decisions, changes. Zoom is not listed: the TEC Q&A is
-past and the site links no Zoom room.
+(client review of both). Plain language (art. 12), which matters for a young audience. **Rewritten 2026-10-09 as a formal notice
+for the Website only** [user 2026-10-09: "lawyer grade", purely legal, not indexed] in
+`web/src/content/legal/{en,fr}/privacy.md`, 14 numbered sections: scope (data given through Google Forms or by other
+channels is outside it, with its own art. 13/14 information), framework (GDPR; the laws of 1 August 2018 and 30 May
+2005, titles copied from cnpd.public.lu), controller, the Website's characteristics, five activities each with data,
+purposes, basis, recipients and retention criteria (hosting; the Google map with joint control limited to collection
+and transmission, *Fashion ID*; correspondence via `mailto:`/`tel:`; links; photos of people), recipients, transfers,
+device storage, security (the headers in `vercel.json`), rights (arts. 15–20, 7(3), 12(3)(5)(6), 26(3)) with the right
+to object set apart (art. 21(4), a callout), complaint (art. 77, CNPD), art. 22, children, changes, French prevailing,
+Luxembourg law. Proposed bases and retention criteria are drafting choices for the client's approval
+(`placeholders.md`); 5 markers per locale remain. Not legal advice: a Luxembourg lawyer may review before launch.
 
 | Art. 13 item | yws.lu content | Status |
 | --- | --- | --- |
