@@ -2,7 +2,7 @@
 /**
  * Looking for housing? (wiki: site/structure.md § Home 4): furnished rooms, the quick form; "Learn more" → the housing
  * page (secondary), "Apply now" → the Google Form (primary, new tab). From 1280 px the 2025 wardrobe swings beside it
- * (ToyScene) and the header leans left; below, the header is centred alone, as in 2025.
+ * (ToyScene) and the header leans left; below, its still poster sits above the centred header (2025 showed nothing).
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -18,7 +18,7 @@ const locale = Astro.locals.locale;
 ---
 
 <Section id="looking-for-housing" labelledby="looking-for-housing-title" split>
-  <ToyScene toy="wardrobe" class="max-xl:hidden xl:h-[36rem]" />
+  <ToyScene toy="wardrobe" class="h-72 sm:h-80 xl:h-[36rem]" />
   <SectionHeader id="looking-for-housing-title" title={t`Looking for housing?`} align="start">
     <div class="flex flex-col gap-2">
       <WordFade

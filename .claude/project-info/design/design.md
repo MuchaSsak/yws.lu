@@ -341,7 +341,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | --- | --- | --- |
 | Where | home only: hero house, Housing wardrobe, Projects rocket | the 2025 scenes [inventory § 10] |
 | When | after `load` + idle, when the box is within 200 px of the viewport, from 1280 px (as 2025) | text first [repo: web/src/components/three/ToyScene.astro] |
-| Below 1280 | **proposal (comps/):** the still poster (2025 showed nothing) | same feel on phones at zero WebGL cost |
+| Below 1280 | the wardrobe's and rocket's still posters (lazy, 28 / 33 KB, scaled 1.3 inside a clipped box) above / below their headers [2026-10-09]; the hero house stays desktop-only so the H1 remains the phone LCP (2025 showed nothing) | same feel on phones at zero WebGL cost |
 | Weight | 3D chunk ≤ 300 KB gz; each model ≤ 2 MB after meshopt + WebP 1024 px (house 105 KB, wardrobe 178 KB from 1.46 MB, rocket 667 KB from 6.10 MB) | budgets [product/requirements.md] |
 | Fallback | transparent WebP poster at the final pose in a CSS-sized box (no CLS), shown before load, under reduced motion, without WebGL; no orange wireframe Suspense cube | [repo: web/scripts/poster.mjs] |
 | Contexts | the home's three toys share one worker (three.js loads once) with a WebGL context each, created only near the screen from 1280 px; each draws only while on screen (browsers allow about 16 live contexts) [decision 2026-10-09] | three.md § Rules |

@@ -1,8 +1,8 @@
 ---
 /**
  * Youth-Led Projects! (wiki: site/structure.md § Home 5): residents run their own projects; "See for yourself" → the
- * projects page. From 1280 px the 2025 cosmonaut rides the rocket beside it (ToyScene); below, the header is centred
- * alone, as in 2025.
+ * projects page. From 1280 px the 2025 cosmonaut rides the rocket beside it (ToyScene); below, its still poster
+ * follows the centred header (2025 showed nothing).
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -32,5 +32,5 @@ const locale = Astro.locals.locale;
       <ButtonLink href={pathTo(locale, "projects")}>{t`See for yourself`}</ButtonLink>
     </div>
   </SectionHeader>
-  <ToyScene toy="rocket" class="max-xl:hidden xl:h-[36rem]" />
+  <ToyScene toy="rocket" class="mt-8 h-72 sm:h-80 xl:mt-0 xl:h-[36rem]" />
 </Section>
