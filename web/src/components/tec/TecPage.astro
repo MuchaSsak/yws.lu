@@ -1,0 +1,185 @@
+---
+/**
+ * TEC conference (wiki: site/structure.md § TEC conference): the 2025 page in its order, told as a past event (Q8,
+ * placeholders.md § New copy): the hero, the globe, why it mattered, the programme as a record, the practical facts
+ * (the registration card and the recording promise are gone), what was presented, who it was for, and the
+ * resources at tecpractices.eu as the one action. No Event markup (past; design-references.md § TEC Conference).
+ */
+import { t, Trans } from "lingui-for-astro/macro";
+
+import FeatureCard from "~/components/ui/FeatureCard.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import Icon from "~/components/ui/Icon.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import TecGlobe from "~/components/tec/TecGlobe.astro";
+import TecHero from "~/components/tec/TecHero.astro";
+import { ORGANISATION } from "~/data/organisation";
+import { TEC_CONFERENCE } from "~/data/tec";
+import { formatDate } from "~/lib/format";
+
+const date = formatDate(TEC_CONFERENCE.date, Astro.locals.locale);
+const programme = [
+  {
+    icon: "mail-plus",
+    label: t`Closing invitation:`,
+    text: t`an open call to continue contributing and stay connected with the initiative.`,
+  },
+  { icon: "star", label: t`Moderation:`, text: "Youth Work Synergy" },
+  {
+    icon: "presentation",
+    label: t`Introduction to the process:`,
+    text: t`the project and the website, presented by Youth Work Synergy (YWS)`,
+  },
+  {
+    icon: "notebook-text",
+    label: t`The power and language of 25 years of the TEC cycle:`,
+    text: t`Research presentation by Ninfea`,
+  },
+] as const;
+---
+
+<TecHero />
+<TecGlobe />
+
+<Section labelledby="tec-why">
+  <SectionHeader id="tec-why" title={t`Why this conference matters`}>
+    <div class="tec-copy">
+      <p>
+        {t`In a world where more and more people of all ages are on the move, professionals need meaningful tools to support processes of transition, adaptation, reflection, and inclusion.`}
+      </p>
+      <p>
+        {t`For around 25 years, the TEC community has developed methods that help young people involved in international mobility to manage change, reflect on their experiences, strengthen interpersonal and intercultural skills, navigate challenges, and plan their next steps.`}
+      </p>
+      <p>
+        {t`These approaches are not only relevant to Erasmus+ and volunteering programmes. They can also inspire a much wider range of professionals working in education, youth work, mobility, reception, and community support.`}
+      </p>
+      <p>
+        {t`This conference was an opportunity to explore that legacy and discover how it has been transformed into practical, accessible resources for others through V – Comprehensive Guide to Best Practices in Mobile Learning for Adults.`}
+      </p>
+    </div>
+  </SectionHeader>
+</Section>
+
+<Section labelledby="tec-programme">
+  <SectionHeader id="tec-programme" title={t`Conference programme`}>
+    <p>{t`The programme of the conference was as follows:`}</p>
+  </SectionHeader>
+  <ul class="tec-programme" role="list">
+    {programme.map((item) => (
+      <li>
+        <span class="tec-programme-label">
+          <Icon name={item.icon} class="tec-programme-icon" />
+          {item.label}
+        </span>{" "}
+        {item.text}
+      </li>
+    ))}
+  </ul>
+</Section>
+
+<Section labelledby="tec-qa">
+  <SectionHeader id="tec-qa" title={t`Q&A`}>
+    <p>{t`Frequently asked questions and practical information`}</p>
+  </SectionHeader>
+  <ul class="feature-cards" role="list">
+    <FeatureCard icon="calendar-1" title={t`Time and date`} index={0} compact>{t`${date}, 14:30–15:30`}</FeatureCard>
+    <FeatureCard icon="headset" title={t`Format`} index={1} compact>{t`Online via Zoom.`}</FeatureCard>
+  </ul>
+</Section>
+
+<Section labelledby="tec-presented">
+  <SectionHeader id="tec-presented" title={t`What we presented`}>
+    <div class="tec-copy">
+      <p>
+        <Trans>
+          As part of <strong>V – Comprehensive Guide to Best Practices in Mobile Learning for Adults</strong>, we have researched
+          the origins, language, and long-term value of the TEC cycle, created a collaborative online platform where TEC
+          practitioners have shared successful practices, and developed a publication gathering good practices for people working
+          in mobility and with people on the move.
+        </Trans>
+      </p>
+      <p>
+        {t`The result is a set of resources designed to help professionals and volunteers support learning, integration, wellbeing, and future planning.`}
+      </p>
+    </div>
+  </SectionHeader>
+</Section>
+
+<Section labelledby="tec-audience">
+  <SectionHeader id="tec-audience" title={t`Who was it for?`}>
+    <div class="tec-copy">
+      <p>
+        {t`This conference was for youth workers, trainers and facilitators, volunteers, professionals working in mobility programmes, organisations welcoming people in transition or on the move, and anyone interested in non-formal learning, reflection, and inclusion.`}
+      </p>
+      <p>
+        {t`Whether you are already familiar with TEC or discovering it for the first time, the resources at tecpractices.eu offer insights, inspiration, and practical tools.`}
+      </p>
+    </div>
+  </SectionHeader>
+</Section>
+
+<Section labelledby="tec-next">
+  <SectionHeader id="tec-next" title={t`Join the conversation`}>
+    <div class="tec-copy">
+      <p>
+        {t`This closing conference was also a beginning: a chance to continue sharing, using, and building on the knowledge developed through the TEC tradition.`}
+      </p>
+      <p>
+        <Trans>
+          We <strong>invite you</strong> to explore the resources developed through V – Comprehensive Guide to Best Practices in
+          Mobile Learning for Adults, and to become part of the conversation.
+        </Trans>
+      </p>
+      <p>
+        {t`For any questions, please contact:`}{" "}
+        <a class="tec-link" href={`mailto:${ORGANISATION.email}`}>
+          {ORGANISATION.email}
+        </a>
+      </p>
+    </div>
+    <ButtonLink slot="actions" href={ORGANISATION.links.tecPractices} external>{t`Visit tecpractices.eu`}</ButtonLink>
+  </SectionHeader>
+</Section>
+
+<style>
+  .tec-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tec-copy :global(strong) {
+    color: var(--color-primary-strong);
+    font-weight: 600;
+  }
+  .tec-link {
+    color: var(--color-primary-strong);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  /* The 2025 list: 20 px, rows split by a rule, half the width from 640 px. */
+  .tec-programme {
+    display: flex;
+    flex-direction: column;
+    max-width: 40rem;
+    margin-inline: auto;
+    padding-top: 1.5rem;
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+  }
+  .tec-programme li {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .tec-programme li:last-child {
+    border-bottom: 0;
+  }
+  .tec-programme-label {
+    font-weight: 600;
+  }
+  .tec-programme-label :global(.tec-programme-icon) {
+    display: inline-block;
+    margin-right: 0.25rem;
+    vertical-align: -0.2em;
+  }
+</style>

@@ -1,0 +1,303 @@
+---
+/**
+ * TEC conference, section 2 (wiki: site/structure.md § TEC conference 2): why the project opened up the TEC methods,
+ * what the conference launched, and the three partner countries, over a dotted globe.
+ *
+ * The globe is cobe (MIT) with the 2025 Magic UI settings, now marking the partner countries (2025: the demo's ten
+ * world cities). Text first: a CSS sphere holds its place; cobe loads when the page is idle and the globe is near the
+ * screen, fades in, turns only while on screen, and under reduced motion draws one still frame. It grows a little as
+ * the page scrolls on wide screens (2025: scale 1 → 1.3 over the first 300 px; CSS scroll-driven here). The 2025 React Bits Folder is
+ * own CSS: a folder whose sheets name the countries (no flag emoji: lessons.md).
+ */
+import { t, Trans } from "lingui-for-astro/macro";
+
+import { TEC_COUNTRIES } from "~/data/tec";
+import { getI18n } from "~/lib/i18n";
+
+const i18n = getI18n(Astro.locals.locale);
+const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, size: 0.08 })));
+---
+
+<section class="tec-globe px-side" aria-label={t`About the project`}>
+  <div class="tec-globe-grid">
+    <p class="tec-globe-text">
+      <Trans>
+        For many years, the methodologies used by <em>TEC trainers</em> in international mobility and volunteering programmes have
+        remained largely within a <em>specialised community of trainers and National Agencies</em>. Through this project, we
+        wanted to open up that knowledge, document its roots, and make its practical wisdom accessible to a wider audience.
+      </Trans>
+    </p>
+    <div class="tec-folder" data-loop>
+      <p class="tec-folder-label" id="tec-countries">{t`Carried out by…`}</p>
+      <ul class="tec-folder-sheets" role="list" aria-labelledby="tec-countries">
+        {TEC_COUNTRIES.map((country) => (
+          <li>{i18n._(country.name)}</li>
+        ))}
+      </ul>
+    </div>
+    <p class="tec-globe-text tec-globe-text-end">
+      <Trans>
+        During this <em>one-hour online conference</em>, we launched the results of V – Comprehensive Guide to Best Practices in
+        Mobile Learning for Adults, presented the new website, and introduced the publication developed through this work.
+      </Trans>
+    </p>
+    <div class="tec-globe-sphere" data-tec-globe data-markers={markers} aria-hidden="true">
+      <canvas></canvas>
+    </div>
+  </div>
+</section>
+
+<script>
+  import type createGlobe from "cobe";
+
+  const host = document.querySelector<HTMLElement>("[data-tec-globe]");
+  const canvas = host?.querySelector("canvas");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Europe in front (cobe's angles for a longitude: π − (λ − π/2)), tilted to show the north as in 2025.
+  const START_PHI = Math.PI - ((10 * Math.PI) / 180 - Math.PI / 2);
+
+  let globe: ReturnType<typeof createGlobe> | undefined;
+  let onScreen = false;
+  let loading = false;
+
+  const start = async () => {
+    if (!host || !canvas || loading) return;
+    loading = true;
+    const { default: create } = await import("cobe");
+    let phi = START_PHI;
+    let width = canvas.offsetWidth;
+    addEventListener("resize", () => (width = canvas.offsetWidth));
+    const instance = create(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi,
+      theta: 0.3,
+      dark: 0,
+      diffuse: 0.4,
+      mapSamples: 16000,
+      mapBrightness: 1.2,
+      baseColor: [1, 1, 1],
+      markerColor: [251 / 255, 100 / 255, 21 / 255],
+      glowColor: [1, 1, 1],
+      markers: JSON.parse(host.dataset.markers ?? "[]"),
+      onRender: (state) => {
+        if (!still) phi += 0.005;
+        state.phi = phi;
+        state.width = width * 2;
+        state.height = width * 2;
+      },
+    });
+    globe = instance;
+    requestAnimationFrame(() => (host.dataset.ready = ""));
+    // Reduced motion: one still frame, then the loop stops.
+    if (still) setTimeout(() => instance.toggle(false), 300);
+    else instance.toggle(onScreen);
+  };
+
+  const watch = () => {
+    if (!host) return;
+    new IntersectionObserver(
+      (entries) => {
+        onScreen = entries.some((entry) => entry.isIntersecting);
+        if (onScreen && !loading) void start();
+        else if (!still) globe?.toggle(onScreen);
+      },
+      { rootMargin: "200px" },
+    ).observe(host);
+  };
+  const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(watch, { timeout: 3000 }) : setTimeout(watch, 300));
+
+  if (document.readyState === "complete") idle();
+  else addEventListener("load", idle, { once: true });
+</script>
+
+<style>
+  /* 2025: 192 px top and bottom from 1280; 64 above and 128 below on smaller screens. */
+  .tec-globe {
+    position: relative;
+    padding-block: 4rem 8rem;
+    overflow-x: clip;
+  }
+  @media (min-width: 1280px) {
+    .tec-globe {
+      padding-block: 12rem;
+    }
+  }
+  .tec-globe-grid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+  }
+  /* Three columns from 1280: at 1024 the side columns were 290 px and their text ran over the dotted map. */
+  @media (min-width: 1280px) {
+    .tec-globe-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2rem;
+    }
+  }
+  .tec-globe-text {
+    position: relative;
+    z-index: 1;
+    max-width: 30rem;
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 600;
+  }
+  .tec-globe-text :global(em) {
+    color: var(--color-primary-strong);
+    font-style: normal;
+  }
+  @media (min-width: 1280px) {
+    .tec-globe-text-end {
+      justify-self: end;
+      text-align: right;
+    }
+  }
+
+  /* The globe: behind the folder from 1280 (as in 2025), after the text below that; the canvas fades in. */
+  .tec-globe-sphere {
+    position: relative;
+    width: min(100%, 24rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fff 0%, #f4f4f5 55%, #e4e4e7 100%);
+    box-shadow: 0 0 4rem rgb(255 255 255 / 0.9);
+  }
+  @media (min-width: 1280px) {
+    .tec-globe-sphere {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 36rem;
+      margin: 0;
+      translate: -50% -50%;
+    }
+  }
+  .tec-globe-sphere canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    contain: layout paint size;
+  }
+  .tec-globe-sphere[data-ready] {
+    background: none;
+    box-shadow: none;
+  }
+  .tec-globe-sphere[data-ready] canvas {
+    opacity: 1;
+  }
+  /* The scroll growth only where the globe sits behind the text with room around it. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 1280px) {
+      .tec-globe-sphere {
+        animation-name: tec-globe-grow;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: scroll(root);
+        animation-range: 0 300px;
+      }
+    }
+  }
+  @keyframes tec-globe-grow {
+    to {
+      scale: 1.3;
+    }
+  }
+  /* The folder (own CSS for the 2025 React Bits Folder): tab, sheets naming the countries, front with the label. */
+  .tec-folder {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 12rem;
+    padding-top: 4.5rem;
+    animation: tec-folder-sway 15s ease-in-out infinite alternate paused;
+  }
+  .tec-folder.is-playing {
+    animation-play-state: running;
+  }
+  .tec-folder::before {
+    content: "";
+    position: absolute;
+    top: 3.75rem;
+    left: 0;
+    width: 40%;
+    height: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: #e6a700;
+  }
+  .tec-folder-label {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    height: 6.5rem;
+    padding: 1rem;
+    border-radius: 0 0.75rem 0.75rem;
+    background: #ffb900;
+    box-shadow: 0 -1px 0 rgb(0 0 0 / 0.08);
+    color: #000;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .tec-folder-sheets {
+    position: absolute;
+    inset: 1rem 0.75rem auto;
+    z-index: 1;
+    height: 6rem;
+  }
+  .tec-folder-sheets li {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 5.5rem;
+    height: 5rem;
+    padding-top: 0.5rem;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+    color: #000;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-align: center;
+  }
+  .tec-folder-sheets li:nth-child(1) {
+    transform: translate(-140%, 1rem) rotate(-14deg);
+  }
+  .tec-folder-sheets li:nth-child(2) {
+    z-index: 1;
+    transform: translate(-50%, 0);
+  }
+  .tec-folder-sheets li:nth-child(3) {
+    transform: translate(40%, 1rem) rotate(14deg);
+  }
+  @keyframes tec-folder-sway {
+    0% {
+      transform: rotate(-2.5deg) scale(0.95);
+    }
+    25% {
+      transform: rotate(2.5deg) scale(1.05);
+    }
+    50% {
+      transform: rotate(-1.5deg) scale(0.975);
+    }
+    75% {
+      transform: rotate(1.5deg) scale(1.025);
+    }
+    100% {
+      transform: rotate(-2.5deg) scale(0.95);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tec-folder {
+      animation: none;
+    }
+  }
+</style>

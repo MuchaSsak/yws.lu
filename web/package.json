@@ -39,6 +39,7 @@
     "@react-three/fiber": "9.8.1",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.3.8",
+    "cobe": "0.6.5",
     "lingui-for-astro": "0.7.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",

@@ -89,6 +89,9 @@ April–May 2026 past: Q9) · Girlssective (`#girlssective`) · Projet V Mobile 
 4 Conference programme · 5 Q&A (time, format, registration) · 6 What we will present · 7 Who is it for? · 8 Join us!
 (email + Zoom). Revamp (Q8 [assumption]): past tense; every Zoom CTA becomes **Visit tecpractices.eu** ↗ (primary in
 the hero, again at the end); the registration card goes; no claim about a recording; no Event markup; new French page.
+Built [repo: web/src/components/tec/]: a line "This event took place on 9 April 2026." above the H1; headings 6–8 become
+"What we presented" · "Who was it for?" · "Join the conversation"; the Q&A keeps time and format as compact cards; the
+poster is the client's banner (alt says what it shows; 2025's alt named the group photo); "Ninfea" kept as written.
 
 **404** (`404.html`; Vercel serves it with status 404 for any unknown path): one bilingual page, no JS
 [assumption]: H1 "Page not found · Page introuvable", a line per language (`lang="fr"` on the French), links to both

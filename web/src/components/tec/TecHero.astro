@@ -1,0 +1,274 @@
+---
+/**
+ * TEC conference, the hero (wiki: site/structure.md § TEC conference 1): a line saying the event is past (Q8), the H1
+ * with violet sparkles, the quote, what the conference was, its facts, and one action, "Visit tecpractices.eu"; the
+ * conference poster on the right in an orange "electric" frame that sways as in 2025.
+ *
+ * Own code for the 2025 React Bits effects (Q23, design/design.md § Components): the WebGL LightPillar is a CSS light
+ * band in the colours it showed (blue blended by `exclusion` on white came out orange to yellow), the ElectricBorder
+ * an orange line whose glow flickers; both move only while on screen (data-loop) and never under reduced motion. The
+ * 2025 SplashCursor and the hover Lens are not ported (design.md: they paint over the text / have no tap twin).
+ */
+import { Image } from "astro:assets";
+import { t } from "lingui-for-astro/macro";
+
+import Reveal from "~/components/effects/Reveal.astro";
+import Sparkles from "~/components/effects/Sparkles.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import poster from "~/assets/projects/tec-conference-poster.png";
+import { ORGANISATION } from "~/data/organisation";
+import { TEC_CONFERENCE } from "~/data/tec";
+import { formatDate } from "~/lib/format";
+
+const date = formatDate(TEC_CONFERENCE.date, Astro.locals.locale);
+const alt = t`The conference poster: “Much More Than A Method!”, an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and “Co-funded by the European Union”`;
+---
+
+<section class="tec-hero px-side" aria-labelledby="tec-title">
+  <div class="tec-pillar" data-loop aria-hidden="true"></div>
+  <div class="tec-hero-text">
+    <p class="tec-past">{t`This event took place on ${date}.`}</p>
+    <Reveal duration={0.75}>
+      <h1 id="tec-title" class="tec-title">
+        <Sparkles>{t`Much More Than a Method`}</Sparkles>
+      </h1>
+    </Reveal>
+    <Reveal duration={1}>
+      <p class="tec-quote">
+        {t`“Sharing the wisdom of the Training & Evaluation Cycle of international volunteering programmes”`}
+      </p>
+    </Reveal>
+    <Reveal duration={1}>
+      <p class="tec-lede">
+        {t`The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults showed how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move.`}
+      </p>
+    </Reveal>
+    <Reveal duration={1.1}>
+      <ul class="tec-facts" role="list">
+        <li>{t`Learning for adults`}</li>
+        <li>{t`${date}, 14:30–15:30`}</li>
+        <li>{t`Held online on Zoom`}</li>
+      </ul>
+    </Reveal>
+    <div class="tec-hero-action">
+      <ButtonLink href={ORGANISATION.links.tecPractices} external>{t`Visit tecpractices.eu`}</ButtonLink>
+    </div>
+  </div>
+  <div class="tec-poster" data-loop>
+    <div class="tec-poster-frame">
+      <Image
+        src={poster}
+        alt={alt}
+        widths={[256, 400, 512, 800]}
+        sizes="(min-width: 1024px) 400px, 256px"
+        loading="eager"
+        class="tec-poster-image"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The 2025 hero: 128 px from the top (192 from 1280); text and poster side by side from 1024, stacked below. */
+  .tec-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding-top: var(--space-hero-top);
+    padding-bottom: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .tec-hero {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+  }
+  .tec-hero-text {
+    display: flex;
+    flex-direction: column;
+    max-width: 40rem;
+  }
+  .tec-past {
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background: var(--color-background);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+  .tec-title {
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    font-weight: 700;
+  }
+  .tec-quote,
+  .tec-lede,
+  .tec-facts {
+    max-width: var(--measure-hero);
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+  /* 2025: italic at 50 % opacity (2.4:1 over the glow); the muted colour keeps it quieter at AA. */
+  .tec-quote {
+    padding-top: 1rem;
+    color: var(--color-muted-foreground);
+    font-style: italic;
+  }
+  .tec-lede {
+    padding-block: 1rem;
+  }
+  .tec-facts {
+    padding-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .tec-facts li::before {
+    content: "> ";
+  }
+  .tec-hero-action {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* The poster: 256 px on phones (right-aligned, as in 2025), 400 px from 1024. */
+  .tec-poster {
+    align-self: flex-end;
+    margin-right: 1rem;
+    animation: tec-sway 15s ease-in-out infinite alternate paused;
+  }
+  @media (min-width: 1024px) {
+    .tec-poster {
+      align-self: flex-start;
+      margin-right: 0;
+      animation-duration: 10s;
+    }
+  }
+  .tec-poster.is-playing {
+    animation-play-state: running;
+  }
+  .tec-poster-frame {
+    position: relative;
+    padding: 0.75rem;
+    border: 2px solid #fa8534;
+    border-radius: 2rem;
+    box-shadow: 0 0 0.75rem rgb(250 133 52 / 0.5);
+  }
+  /* The flicker: an opacity loop on a glow layer (compositor only). */
+  .tec-poster-frame::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    box-shadow:
+      0 0 1.5rem 0.25rem rgb(250 133 52 / 0.65),
+      inset 0 0 1rem rgb(250 133 52 / 0.35);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: tec-flicker 2.4s steps(1) infinite paused;
+  }
+  .tec-poster.is-playing .tec-poster-frame::after {
+    animation-play-state: running;
+  }
+  .tec-poster-image {
+    display: block;
+    width: 16rem;
+    height: auto;
+    border-radius: var(--radius-2xl);
+  }
+  @media (min-width: 1024px) {
+    .tec-poster-image {
+      width: 25rem;
+    }
+  }
+  @keyframes tec-sway {
+    0% {
+      transform: rotate(-5deg) scale(0.9);
+    }
+    25% {
+      transform: rotate(5deg) scale(1.05);
+    }
+    50% {
+      transform: rotate(-3deg) scale(0.95);
+    }
+    75% {
+      transform: rotate(3deg) scale(1.025);
+    }
+    100% {
+      transform: rotate(-5deg) scale(0.9);
+    }
+  }
+  @keyframes tec-flicker {
+    0%,
+    40%,
+    48%,
+    100% {
+      opacity: 0.5;
+    }
+    44% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 0.75;
+    }
+  }
+
+  /* The light band behind the hero, fading out at the bottom of the first screen. */
+  .tec-pillar {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: var(--z-bg);
+    height: 100svh;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, #000 10%, transparent);
+  }
+  .tec-pillar::before,
+  .tec-pillar::after {
+    content: "";
+    position: absolute;
+    top: -25%;
+    left: 52%;
+    height: 150%;
+    border-radius: 50%;
+    will-change: transform;
+  }
+  .tec-pillar::before {
+    width: 22rem;
+    background: linear-gradient(to bottom, rgb(207 55 0 / 0.3), rgb(235 198 0 / 0.35));
+    filter: blur(56px);
+    transform: translateX(-50%) rotate(25deg);
+    animation: tec-pillar 18s ease-in-out infinite alternate paused;
+  }
+  .tec-pillar::after {
+    width: 5rem;
+    background: linear-gradient(to bottom, rgb(255 120 32 / 0.35), rgb(255 210 48 / 0.3));
+    filter: blur(18px);
+    transform: translateX(-30%) rotate(20deg);
+    animation: tec-pillar 12s ease-in-out infinite alternate-reverse paused;
+  }
+  .tec-pillar.is-playing::before,
+  .tec-pillar.is-playing::after {
+    animation-play-state: running;
+  }
+  @keyframes tec-pillar {
+    from {
+      transform: translateX(-60%) rotate(22deg);
+    }
+    to {
+      transform: translateX(-40%) rotate(28deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tec-poster,
+    .tec-poster-frame::after,
+    .tec-pillar::before,
+    .tec-pillar::after {
+      animation: none;
+    }
+  }
+</style>

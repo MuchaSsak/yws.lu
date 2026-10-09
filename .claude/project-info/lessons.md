@@ -31,6 +31,7 @@
 - A server-rendered page needs its metadata on the server: a helper that returns `undefined` when `window` is missing ships no `<title>` at all (the 2025 site) - 2026-10-09.
 - Tailwind 4 emits a `@theme` variable only when the source names it (a utility or a literal `var(--name)`): a name built at runtime (`` var(--color-${name}) ``) is undefined, and `--shadow-*` never is (shadow utilities inline it): print values or give a fallback - 2026-10-09.
 - A grid `repeat(auto-fill, minmax(a, b))` counts its columns from `b` when `b` is fixed: a 15rem max gave one photo per row on a phone. Thumbnails that should go two to a row: flex-wrap with items `min(width, 50% - gap/2)` - 2026-10-09.
+- `scale`/`transform` grows the scrollable area: the TEC globe's scroll-driven 1.3× pushed a 390 px page to 428 px. Scale only where there is room (or `overflow-x: clip` the section) and measure `scrollWidth` after scrolling to the end - 2026-10-09.
 
 ### Privacy of inputs
 - Never type a key, id or URL from memory: copy it mechanically from its source file (a script), or it is invented - 2026-10-09.

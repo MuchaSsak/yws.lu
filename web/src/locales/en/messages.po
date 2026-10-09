@@ -7,6 +7,10 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
+#: src/components/tec/TecHero.astro
+msgid "“Sharing the wisdom of the Training & Evaluation Cycle of international volunteering programmes”"
+msgstr "“Sharing the wisdom of the Training & Evaluation Cycle of international volunteering programmes”"
+
 #: src/components/projects/ProjectCard.astro
 msgid "(in English)"
 msgstr "(in English)"
@@ -19,6 +23,11 @@ msgstr "(in French)"
 #: src/components/ui/NewTab.astro
 msgid "(opens in a new tab)"
 msgstr "(opens in a new tab)"
+
+#: src/components/tec/TecHero.astro
+#: src/components/tec/TecPage.astro
+msgid "{date}, 14:30–15:30"
+msgstr "{date}, 14:30–15:30"
 
 #: src/lib/meta.ts
 msgid "A Luxembourg non-profit (ASBL) with Gestion Locative Sociale (GLS) status, working with the Ministry of Housing to solve the youth housing crisis."
@@ -60,6 +69,10 @@ msgstr "A YWS shared house in Luxembourg: a white detached house among fields, s
 msgid "A YWS shared house in Luxembourg: a white house with a dark tiled roof, a lawn and a fir tree"
 msgstr "A YWS shared house in Luxembourg: a white house with a dark tiled roof, a lawn and a fir tree"
 
+#: src/components/tec/TecGlobe.astro
+msgid "About the project"
+msgstr "About the project"
+
 #: src/components/about/AboutHero.astro
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
@@ -95,6 +108,10 @@ msgstr "All rights reserved"
 msgid "All tenants are monitored and supported by trained social workers throughout the lease. If any issue arises, our professional team intervenes directly."
 msgstr "All tenants are monitored and supported by trained social workers throughout the lease. If any issue arises, our professional team intervenes directly."
 
+#: src/components/tec/TecPage.astro
+msgid "an open call to continue contributing and stay connected with the initiative."
+msgstr "an open call to continue contributing and stay connected with the initiative."
+
 #: src/components/home/PartnerStrip.astro
 msgid "André Losch Fondation"
 msgstr "André Losch Fondation"
@@ -125,6 +142,10 @@ msgstr "Are you between 18 and 34 and in need of stable, affordable housing in L
 msgid "As a landlord, you benefit from a 90% tax exemption on net rental income. This significantly offsets the fact that the rent is typically 30–40% lower than private market rates."
 msgstr "As a landlord, you benefit from a 90% tax exemption on net rental income. This significantly offsets the fact that the rent is typically 30–40% lower than private market rates."
 
+#: src/components/tec/TecPage.astro
+msgid "As part of <0>V – Comprehensive Guide to Best Practices in Mobile Learning for Adults</0>, we have researched the origins, language, and long-term value of the TEC cycle, created a collaborative online platform where TEC practitioners have shared successful practices, and developed a publication gathering good practices for people working in mobility and with people on the move."
+msgstr "As part of <0>V – Comprehensive Guide to Best Practices in Mobile Learning for Adults</0>, we have researched the origins, language, and long-term value of the TEC cycle, created a collaborative online platform where TEC practitioners have shared successful practices, and developed a publication gathering good practices for people working in mobility and with people on the move."
+
 #: src/components/home/HomeHero.astro
 #: src/pages/[locale]/specimen.astro
 msgid "better future"
@@ -147,9 +168,17 @@ msgstr "By working with us, you're not only helping build someone's future — y
 msgid "Call us"
 msgstr "Call us"
 
+#: src/components/tec/TecGlobe.astro
+msgid "Carried out by…"
+msgstr "Carried out by…"
+
 #: src/components/layout/CreditsDialog.astro
 msgid "Cheers to them!"
 msgstr "Cheers to them!"
+
+#: src/components/tec/TecPage.astro
+msgid "Closing invitation:"
+msgstr "Closing invitation:"
 
 #: src/components/about/OurMission.astro
 msgid "Coaching"
@@ -158,6 +187,10 @@ msgstr "Coaching"
 #: src/components/home/HousingTeaser.astro
 msgid "Complete our quick form and we'll contact you as soon as a place becomes available."
 msgstr "Complete our quick form and we'll contact you as soon as a place becomes available."
+
+#: src/components/tec/TecPage.astro
+msgid "Conference programme"
+msgstr "Conference programme"
 
 #: src/components/home/ContactSection.astro
 #: src/components/layout/SiteFooter.astro
@@ -169,6 +202,10 @@ msgstr "Contact us"
 #: src/components/layout/CreditsDialog.astro
 msgid "Credits 💖"
 msgstr "Credits 💖"
+
+#: src/components/tec/TecGlobe.astro
+msgid "During this <0>one-hour online conference</0>, we launched the results of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults, presented the new website, and introduced the publication developed through this work."
+msgstr "During this <0>one-hour online conference</0>, we launched the results of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults, presented the new website, and introduced the publication developed through this work."
 
 #: src/components/housing/HowItWorks.astro
 #: src/pages/[locale]/specimen.astro
@@ -183,9 +220,33 @@ msgstr "European Solidarity Corps"
 msgid "Fill Out the Form"
 msgstr "Fill Out the Form"
 
+#: src/components/tec/TecPage.astro
+msgid "For any questions, please contact:"
+msgstr "For any questions, please contact:"
+
+#: src/components/tec/TecPage.astro
+msgid "For around 25 years, the TEC community has developed methods that help young people involved in international mobility to manage change, reflect on their experiences, strengthen interpersonal and intercultural skills, navigate challenges, and plan their next steps."
+msgstr "For around 25 years, the TEC community has developed methods that help young people involved in international mobility to manage change, reflect on their experiences, strengthen interpersonal and intercultural skills, navigate challenges, and plan their next steps."
+
+#: src/components/tec/TecGlobe.astro
+msgid "For many years, the methodologies used by <0>TEC trainers</0> in international mobility and volunteering programmes have remained largely within a <1>specialised community of trainers and National Agencies</1>. Through this project, we wanted to open up that knowledge, document its roots, and make its practical wisdom accessible to a wider audience."
+msgstr "For many years, the methodologies used by <0>TEC trainers</0> in international mobility and volunteering programmes have remained largely within a <1>specialised community of trainers and National Agencies</1>. Through this project, we wanted to open up that knowledge, document its roots, and make its practical wisdom accessible to a wider audience."
+
+#: src/components/tec/TecPage.astro
+msgid "Format"
+msgstr "Format"
+
 #: src/data/projects.ts
 msgid "Four people in front of the Locked Out title on the cinema screen"
 msgstr "Four people in front of the Locked Out title on the cinema screen"
+
+#: src/components/tec/TecPage.astro
+msgid "Frequently asked questions and practical information"
+msgstr "Frequently asked questions and practical information"
+
+#: src/data/tec.ts
+msgid "Germany"
+msgstr "Germany"
 
 #: src/components/home/PartnerStrip.astro
 msgid "Gestion locative sociale"
@@ -202,6 +263,10 @@ msgstr "Give youth a chance for a"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Guaranteed Rent"
 msgstr "Guaranteed Rent"
+
+#: src/components/tec/TecHero.astro
+msgid "Held online on Zoom"
+msgstr "Held online on Zoom"
 
 #: src/components/projects/ProjectsPage.astro
 msgid "Here's a showcase of projects we've helped to bring to life."
@@ -221,6 +286,10 @@ msgstr "Homepage"
 msgid "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
 msgstr "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
 
+#: src/components/tec/TecPage.astro
+msgid "In a world where more and more people of all ages are on the move, professionals need meaningful tools to support processes of transition, adaptation, reflection, and inclusion."
+msgstr "In a world where more and more people of all ages are on the move, professionals need meaningful tools to support processes of transition, adaptation, reflection, and inclusion."
+
 #: src/components/about/AboutHero.astro
 msgid "In Luxembourg, hundreds of young people are struggling to find a place to live. Rents are high, requirements are strict, and for many aged 18–34, securing housing without family support is simply out of reach. That's where we come in."
 msgstr "In Luxembourg, hundreds of young people are struggling to find a place to live. Rents are high, requirements are strict, and for many aged 18–34, securing housing without family support is simply out of reach. That's where we come in."
@@ -228,6 +297,18 @@ msgstr "In Luxembourg, hundreds of young people are struggling to find a place t
 #: src/components/owners/OwnersContact.astro
 msgid "Interested in renting your property to us?"
 msgstr "Interested in renting your property to us?"
+
+#: src/components/tec/TecPage.astro
+msgid "Introduction to the process:"
+msgstr "Introduction to the process:"
+
+#: src/data/tec.ts
+msgid "Italy"
+msgstr "Italy"
+
+#: src/components/tec/TecPage.astro
+msgid "Join the conversation"
+msgstr "Join the conversation"
 
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
@@ -245,6 +326,10 @@ msgstr "Lead Developer"
 #: src/pages/[locale]/specimen.astro
 msgid "Learn more"
 msgstr "Learn more"
+
+#: src/components/tec/TecHero.astro
+msgid "Learning for adults"
+msgstr "Learning for adults"
 
 #: src/components/layout/SiteFooter.astro
 msgid "Legal notice"
@@ -274,6 +359,10 @@ msgstr "Looking for housing"
 msgid "Looking for housing?"
 msgstr "Looking for housing?"
 
+#: src/data/tec.ts
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
 #: src/components/layout/SiteHeader.astro
 msgid "Main"
 msgstr "Main"
@@ -294,10 +383,18 @@ msgstr "Ministry of Housing and Spatial Planning"
 msgid "Ministry of Justice"
 msgstr "Ministry of Justice"
 
+#: src/components/tec/TecPage.astro
+msgid "Moderation:"
+msgstr "Moderation:"
+
 #: src/components/layout/CreditsDialog.astro
 msgctxt "credits: the model was changed"
 msgid "modified (optimised for the web)"
 msgstr "modified (optimised for the web)"
+
+#: src/components/tec/TecHero.astro
+msgid "Much More Than a Method"
+msgstr "Much More Than a Method"
 
 #: src/components/about/RealImpact.astro
 msgid "Next picture"
@@ -311,6 +408,10 @@ msgstr "Office"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Ongoing Tenant Support"
 msgstr "Ongoing Tenant Support"
+
+#: src/components/tec/TecPage.astro
+msgid "Online via Zoom."
+msgstr "Online via Zoom."
 
 #: src/components/home/ContactSection.astro
 #: src/components/layout/SiteFooter.astro
@@ -399,6 +500,10 @@ msgstr "Property Maintenance"
 msgid "Providing affordable housing, we help youth to find a place which they can actually afford, right here in Luxembourg."
 msgstr "Providing affordable housing, we help youth to find a place which they can actually afford, right here in Luxembourg."
 
+#: src/components/tec/TecPage.astro
+msgid "Q&A"
+msgstr "Q&A"
+
 #: src/components/about/RealImpact.astro
 #: src/components/layout/SiteFooter.astro
 msgid "Real impact"
@@ -454,6 +559,10 @@ msgstr "Renting my property"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 msgstr "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
+
+#: src/components/tec/TecPage.astro
+msgid "Research presentation by Ninfea"
+msgstr "Research presentation by Ninfea"
 
 #: src/data/projects.ts
 msgid "Safe Paths Luxembourg workshop poster"
@@ -522,13 +631,37 @@ msgstr "The audience in the red seats of a cinema at a Locked Out event"
 msgid "The closing conference"
 msgstr "The closing conference"
 
+#: src/components/tec/TecHero.astro
+msgid "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults showed how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move."
+msgstr "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults showed how the knowledge, methods, and practices developed through the Training & Evaluation Cycle (TEC) can support professionals and volunteers working with people on the move."
+
 #: src/lib/meta.ts
 msgid "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
 msgstr "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
 
+#: src/components/tec/TecHero.astro
+msgid "The conference poster: “Much More Than A Method!”, an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and “Co-funded by the European Union”"
+msgstr "The conference poster: “Much More Than A Method!”, an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and “Co-funded by the European Union”"
+
 #: src/components/home/ContactSection.astro
 msgid "The map loads from Google Maps when you ask for it."
 msgstr "The map loads from Google Maps when you ask for it."
+
+#: src/components/tec/TecPage.astro
+msgid "The power and language of 25 years of the TEC cycle:"
+msgstr "The power and language of 25 years of the TEC cycle:"
+
+#: src/components/tec/TecPage.astro
+msgid "The programme of the conference was as follows:"
+msgstr "The programme of the conference was as follows:"
+
+#: src/components/tec/TecPage.astro
+msgid "the project and the website, presented by Youth Work Synergy (YWS)"
+msgstr "the project and the website, presented by Youth Work Synergy (YWS)"
+
+#: src/components/tec/TecPage.astro
+msgid "The result is a set of resources designed to help professionals and volunteers support learning, integration, wellbeing, and future planning."
+msgstr "The result is a set of resources designed to help professionals and volunteers support learning, integration, wellbeing, and future planning."
 
 #: src/components/home/ProjectsTeaser.astro
 msgid "The young people living in our houses don't just find a place to live — they find space to grow."
@@ -538,10 +671,34 @@ msgstr "The young people living in our houses don't just find a place to live �
 msgid "The Youth Work Synergy group, about twenty people cheering outdoors"
 msgstr "The Youth Work Synergy group, about twenty people cheering outdoors"
 
+#: src/components/tec/TecPage.astro
+msgid "These approaches are not only relevant to Erasmus+ and volunteering programmes. They can also inspire a much wider range of professionals working in education, youth work, mobility, reception, and community support."
+msgstr "These approaches are not only relevant to Erasmus+ and volunteering programmes. They can also inspire a much wider range of professionals working in education, youth work, mobility, reception, and community support."
+
+#: src/components/tec/TecPage.astro
+msgid "This closing conference was also a beginning: a chance to continue sharing, using, and building on the knowledge developed through the TEC tradition."
+msgstr "This closing conference was also a beginning: a chance to continue sharing, using, and building on the knowledge developed through the TEC tradition."
+
+#: src/components/tec/TecPage.astro
+msgid "This conference was an opportunity to explore that legacy and discover how it has been transformed into practical, accessible resources for others through V – Comprehensive Guide to Best Practices in Mobile Learning for Adults."
+msgstr "This conference was an opportunity to explore that legacy and discover how it has been transformed into practical, accessible resources for others through V – Comprehensive Guide to Best Practices in Mobile Learning for Adults."
+
+#: src/components/tec/TecPage.astro
+msgid "This conference was for youth workers, trainers and facilitators, volunteers, professionals working in mobility programmes, organisations welcoming people in transition or on the move, and anyone interested in non-formal learning, reflection, and inclusion."
+msgstr "This conference was for youth workers, trainers and facilitators, volunteers, professionals working in mobility programmes, organisations welcoming people in transition or on the move, and anyone interested in non-formal learning, reflection, and inclusion."
+
+#: src/components/tec/TecHero.astro
+msgid "This event took place on {date}."
+msgstr "This event took place on {date}."
+
 #: src/lib/not-found.ts
 msgctxt "404 lead"
 msgid "This page does not exist or has moved."
 msgstr "This page does not exist or has moved."
+
+#: src/components/tec/TecPage.astro
+msgid "Time and date"
+msgstr "Time and date"
 
 #: src/components/about/AboutHero.astro
 #: src/components/home/HomeHero.astro
@@ -559,6 +716,15 @@ msgstr "Two participants reading the handouts at the Get Your Home workshop whil
 #: src/data/projects.ts
 msgid "Two participants reading the workshop handouts"
 msgstr "Two participants reading the workshop handouts"
+
+#: src/components/tec/TecHero.astro
+#: src/components/tec/TecPage.astro
+msgid "Visit tecpractices.eu"
+msgstr "Visit tecpractices.eu"
+
+#: src/components/tec/TecPage.astro
+msgid "We <0>invite you</0> to explore the resources developed through V – Comprehensive Guide to Best Practices in Mobile Learning for Adults, and to become part of the conversation."
+msgstr "We <0>invite you</0> to explore the resources developed through V – Comprehensive Guide to Best Practices in Mobile Learning for Adults, and to become part of the conversation."
 
 #: src/components/owners/WhyRentToUs.astro
 msgid "We also ensure full insurance coverage against unexpected events and take full responsibility for maintenance and tenant supervision."
@@ -620,10 +786,18 @@ msgstr "We turn empty houses into real homes — and change lives in the process
 msgid "We're here to help"
 msgstr "We're here to help"
 
+#: src/components/tec/TecPage.astro
+msgid "What we presented"
+msgstr "What we presented"
+
 #: src/lib/not-found.ts
 msgctxt "404 links heading"
 msgid "Where to go from here:"
 msgstr "Where to go from here:"
+
+#: src/components/tec/TecPage.astro
+msgid "Whether you are already familiar with TEC or discovering it for the first time, the resources at tecpractices.eu offer insights, inspiration, and practical tools."
+msgstr "Whether you are already familiar with TEC or discovering it for the first time, the resources at tecpractices.eu offer insights, inspiration, and practical tools."
 
 #: src/components/owners/WhyRentToUs.astro
 msgid "Whether your house needs light repairs or full renovation, we can manage the work professionally and at fair cost, always with your agreement. We prepare each property for sale, long-term use and fully furnish it."
@@ -635,6 +809,10 @@ msgstr "Whether your house needs light repairs or full renovation, we can manage
 msgid "Who Gets Priority?"
 msgstr "Who Gets Priority?"
 
+#: src/components/tec/TecPage.astro
+msgid "Who was it for?"
+msgstr "Who was it for?"
+
 #: src/components/home/WhoWeAre.astro
 #: src/components/layout/SiteFooter.astro
 msgid "Who we are"
@@ -644,6 +822,10 @@ msgstr "Who we are"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Why Rent to Us?"
 msgstr "Why Rent to Us?"
+
+#: src/components/tec/TecPage.astro
+msgid "Why this conference matters"
+msgstr "Why this conference matters"
 
 #: src/data/projects.ts
 msgid "Workshop handouts on a table at Get Your Home"

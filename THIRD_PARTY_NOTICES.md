@@ -31,6 +31,8 @@ asset and dependency inventory is `.claude/project-info/design/assets.md`.
 | `@use-gesture/react`, `@use-gesture/core` | 10.3.1 | drag in `PresentationControls` | Copyright (c) 2018-present Paul Henschel <drcmda@gmail.com> | https://use-gesture.netlify.app |
 | `maath` | 0.10.8 | easing in `PresentationControls` | Copyright © 2026 Isaac Mason (upstream LICENSE; the package has none) | https://github.com/pmndrs/maath |
 | `@babel/runtime` | 7.29.10 | helpers used by drei | Copyright (c) 2014-present Sebastian McKenzie and other contributors | https://babel.dev/docs/en/next/babel-runtime |
+| cobe (`cobe`) | 0.6.5 | the TEC page's dotted globe (`web/src/components/tec/TecGlobe.astro`) | Copyright (c) 2021 Shu Ding | https://github.com/shuding/cobe |
+| `phenomenon` | 1.6.0 | cobe's WebGL renderer | Copyright (c) 2019 Colin van Eenige | https://github.com/vaneenige/phenomenon |
 | `simplex-noise` | 4.0.3 | the housing hero's particle streaks (`web/src/scripts/flow-field.ts`, own code) | Copyright (c) 2018 Jonas Wagner | https://github.com/jwagner/simplex-noise.js |
 | Tailwind CSS (`tailwindcss`) | 4.3.3 | generated stylesheet (keeps Tailwind's "MIT License" banner) | Copyright (c) Tailwind Labs, Inc. | https://tailwindcss.com |
 | Vite (via Astro) | 8.3.4 | small runtime helpers it may emit (e.g. for dynamic imports) | Copyright (c) 2019-present, VoidZero Inc. and Vite contributors | https://vite.dev |
@@ -44,8 +46,7 @@ contributors., MIT).
 
 | Work | Copyright | Where | Source |
 | --- | --- | --- | --- |
-| Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton, WarpBackground, ShineBorder) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`), the warp tunnel in `web/src/components/home/WhoWeAre.astro`, the `.shine-border` styles | https://github.com/magicuidesign/magicui |
-| WebGL Fluid Simulation, by Pavel Dobryakov | Copyright (c) 2017 Pavel Dobryakov | **conditional**: only if the TEC page's fluid cursor is kept and rebuilt from this original (the 2025 `SplashCursor` derived from it); not in `web/` today; remove this row if the effect is dropped | https://github.com/PavelDoGreat/WebGL-Fluid-Simulation |
+| Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton, WarpBackground, ShineBorder, Globe) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`), the warp tunnel in `web/src/components/home/WhoWeAre.astro`, the `.shine-border` styles, the globe settings in `web/src/components/tec/TecGlobe.astro` | https://github.com/magicuidesign/magicui |
 
 ## Icons (ISC)
 
