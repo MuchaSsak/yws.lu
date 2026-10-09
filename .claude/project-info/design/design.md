@@ -237,7 +237,10 @@ and never applied [repo: components/ui/dialog.tsx:39]).
   `content-visibility: auto` with an intrinsic **height** (`contain-intrinsic-height`: the `-size` shorthand sets the
   width too, and a skipped 1400 px-wide project chapter widened a phone page), so the off-screen page skips layout, including the re-layout when
   the web font swaps in; its paint containment clips anything that overflows the box, so decorations stay inside, and a
-  card's rise entrance is clipped at its section's edge for its half second.
+  card's rise entrance is clipped at its section's edge for its half second. Anchor jumps (`/en/#contact`, the legal
+  contents, the footer's section links) would land off target while the sections above stand at their estimates
+  (552 px past `#contact`): `scripts/anchor-jumps.ts` draws every section for a jump (`html[data-jump]`), then lets
+  them skip again at their remembered height (e2e `chrome.spec.ts`, three engines).
   **proposal (comps/):** one site-wide "Pause animations" control (footer) for loops longer than 5 s (WCAG 2.2.2);
   the marquee already pauses on hover and focus.
 - **Menu:** bars → cross (300 ms), the sheet drops in (opacity + 12 px + a top-down clip, 320 ms ease-out), links

@@ -85,7 +85,8 @@ const mapLabel = t`Open in Google Maps`;
       </nav>
     ))}
 
-    <section class="footer-col footer-contact" aria-labelledby="footer-contact">
+    <!-- A column, not a landmark: the home page's contact section has the same name (axe landmark-unique). -->
+    <div class="footer-col footer-contact">
       <h2 id="footer-contact">{t`Contact us`}</h2>
       <address>
         <ul>
@@ -132,7 +133,7 @@ const mapLabel = t`Open in Google Maps`;
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   </div>
 
   <div class="footer-bottom">

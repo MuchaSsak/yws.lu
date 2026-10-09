@@ -127,6 +127,10 @@
   html.menu-open {
     overflow: hidden;
   }
+  /* An anchor jump draws every section first, so it lands on its target (scripts/anchor-jumps.ts). */
+  html[data-jump] * {
+    content-visibility: visible !important;
+  }
   ::selection {
     background-color: rgb(216 111 62 / 0.25);
   }

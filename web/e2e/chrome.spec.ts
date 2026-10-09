@@ -1,6 +1,7 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 import { ORGANISATION } from "../src/data/organisation";
+import { pathTo } from "../src/lib/routes";
 import { HOMES, PAGES } from "./routes";
 
 /**
@@ -93,5 +94,41 @@ for (const path of HOMES) {
       await expect(button).toHaveAttribute("data-copied", "");
       if (readBack) expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(value);
     }
+  });
+}
+
+/**
+ * Anchor jumps land on their target (scripts/anchor-jumps.ts). Sections skip layout off screen and stand at an
+ * estimated height until drawn, which once put `/en/#contact` 552 px past its section: the target's top must sit at the
+ * scroll padding (just under the sticky header), within a few pixels.
+ */
+const offTarget = (page: Page, selector: string) =>
+  page.locator(selector).evaluate((el) => {
+    const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+    return Math.abs(Math.round(el.getBoundingClientRect().top - padding));
+  });
+
+for (const [path, selector] of [
+  ["/en/#contact", "#contact"],
+  ["/fr/#contact", "#contact"],
+  ["/en/about-us/#real-impact", "#real-impact"],
+  ["/en/youth-housing/#who-gets-priority", "#who-gets-priority"],
+] as const) {
+  test(`a link from another page lands on its section ${path}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(path);
+    await expect.poll(() => offTarget(page, selector), { timeout: 5000 }).toBeLessThanOrEqual(4);
+  });
+}
+
+for (const locale of ["en", "fr"] as const) {
+  test(`a legal contents link lands on its heading ${locale}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(pathTo(locale, "privacy"));
+    const link = page.locator("[data-legal-toc] a").nth(6);
+    const hash = await link.getAttribute("href");
+    await link.click();
+    // The ids start with a digit ("7-…"): select by attribute, not `#7-…`.
+    await expect.poll(() => offTarget(page, `[id="${hash?.slice(1)}"]`), { timeout: 5000 }).toBeLessThanOrEqual(4);
   });
 }

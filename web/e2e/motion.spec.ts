@@ -1,8 +1,25 @@
-import { expect, test } from "@playwright/test";
+import { expect, type Locator, type Page, test } from "@playwright/test";
 
 import { STATISTICS } from "../src/data/statistics";
 import { pathTo } from "../src/lib/routes";
 import { PAGES } from "./routes";
+
+/**
+ * Scrolls a box onto the screen with the wheel, as a reader gets there. `scrollIntoViewIfNeeded` jumps, and a jump into
+ * a section that skips layout off screen (`content-visibility: auto`) lands off target in Chromium and does not move at
+ * all in WebKit; scrolling through draws each section as it comes near.
+ */
+async function scrollOnScreen(page: Page, locator: Locator) {
+  const height = page.viewportSize()?.height ?? 720;
+  for (let step = 0; step < 80; step++) {
+    const { top, bottom } = await locator.evaluate((el) => el.getBoundingClientRect().toJSON() as DOMRect);
+    // On screen: 60 % of the box, or of the screen for a box taller than it (the counters' own threshold).
+    if (Math.min(bottom, height) - Math.max(top, 0) >= 0.6 * Math.min(bottom - top, height)) return;
+    await page.mouse.wheel(0, Math.max(-600, Math.min(600, top - height / 3)));
+    await page.waitForTimeout(50);
+  }
+  throw new Error("scrollOnScreen: the box never reached the screen");
+}
 
 /**
  * Reduced motion (design.md § Motion, requirements.md F09): the final state, nothing left hidden, no 3D scene loaded
@@ -63,7 +80,7 @@ for (const [name, route, box] of [
     page.on("console", (message) => message.type() === "error" && errors.push(message.text()));
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(pathTo("en", route));
-    await page.locator(box).scrollIntoViewIfNeeded();
+    await scrollOnScreen(page, page.locator(box));
     await expect(page.locator(box)).toHaveAttribute("data-ready", "", { timeout: 30_000 });
     await expect(page.locator(`${box} canvas`)).toHaveCount(1);
     expect(errors).toEqual([]);
@@ -76,7 +93,7 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     await page.emulateMedia({ reducedMotion });
     await page.goto(pathTo("en", "about"));
     const tiles = page.locator(".impact-tiles [data-count]");
-    await tiles.first().scrollIntoViewIfNeeded();
+    await scrollOnScreen(page, tiles.first());
     const { sharedHouses, youngPeopleHoused, waitingList } = STATISTICS;
     await expect(tiles).toHaveText([String(sharedHouses), String(youngPeopleHoused), String(waitingList)], { timeout: 5000 });
   });
