@@ -1,0 +1,107 @@
+---
+/**
+ * The one 404 (wiki: site/structure.md § 404, site/seo.md § Crawl). Vercel serves `dist/404.html` with status 404 for
+ * every unknown path in either language, so the page speaks both: one H1, an English block and a French block
+ * (`lang="fr"`), each with the main journeys of its locale. Noindex, no canonical, no hreflang, no share card; the
+ * header and footer are the default locale's. Heading and lead are new copy (placeholders.md).
+ */
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { getI18n } from "~/lib/i18n";
+import { DEFAULT_LOCALE, LOCALES } from "~/lib/locales";
+import { NOT_FOUND } from "~/lib/not-found";
+import { pathTo } from "~/lib/routes";
+
+const blocks = [DEFAULT_LOCALE, ...LOCALES.filter((locale) => locale !== DEFAULT_LOCALE)].map((locale) => {
+  const i18n = getI18n(locale);
+  return {
+    locale,
+    heading: i18n._(NOT_FOUND.heading),
+    lead: i18n._(NOT_FOUND.lead),
+    prompt: i18n._(NOT_FOUND.prompt),
+    links: NOT_FOUND.links.map((link) => ({ href: pathTo(locale, link.route, link.hash), label: i18n._(link.label) })),
+  };
+});
+const title = blocks.map((block) => block.heading).join(" · ");
+const description = blocks.map((block) => block.lead).join(" ");
+---
+
+<BaseLayout route={null} title={title} description={description} noindex>
+  <section class="not-found px-side">
+    <h1>
+      {blocks.map((block, index) => (
+        <>
+          {index > 0 && <span aria-hidden="true"> · </span>}
+          <span lang={block.locale === DEFAULT_LOCALE ? undefined : block.locale}>{block.heading}</span>
+        </>
+      ))}
+    </h1>
+    <div class="not-found-blocks">
+      {blocks.map((block) => (
+        <div lang={block.locale === DEFAULT_LOCALE ? undefined : block.locale}>
+          <p class="not-found-lead">{block.lead}</p>
+          <h2>{block.prompt}</h2>
+          <ul>
+            {block.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-top: var(--space-hero-top);
+    padding-bottom: var(--space-section);
+  }
+  h1 {
+    max-width: 40rem;
+    font-size: var(--text-h2);
+    font-weight: 800;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .not-found-blocks {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .not-found-blocks {
+      grid-template-columns: repeat(2, minmax(0, var(--measure)));
+      gap: 4rem;
+    }
+  }
+  .not-found-lead {
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+  h2 {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  ul {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+</style>

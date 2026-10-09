@@ -17,7 +17,9 @@ for (const { id, locale, path } of PAGES) {
     expect(new URL(canonical!).pathname).toBe(path);
     const hreflangs = await page
       .locator('link[rel="alternate"][hreflang]')
-      .evaluateAll((links) => links.map((link) => `${link.getAttribute("hreflang")} ${new URL(link.getAttribute("href")!).pathname}`));
+      .evaluateAll((links) =>
+        links.map((link) => `${link.getAttribute("hreflang")} ${new URL(link.getAttribute("href")!).pathname}`),
+      );
     expect(hreflangs).toEqual([
       ...LOCALES.map((other) => `${other} ${pathTo(other, id)}`),
       `x-default ${id === "home" ? "/" : pathTo(DEFAULT_LOCALE, id)}`,
@@ -33,13 +35,16 @@ for (const { id, locale, path } of PAGES) {
   test(`switcher keeps the page ${path}`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(path);
+    // The header shows the other language(s) by name; the menu lists every language, the current one marked.
+    const others = LOCALES.filter((other) => other !== locale);
     const links = page.locator("header [data-lang-switch] a");
-    await expect(links).toHaveCount(LOCALES.length);
     const seen = await links.evaluateAll((all) =>
       all.map((a) => `${a.getAttribute("hreflang")} ${a.getAttribute("href")} ${a.textContent!.replace(/\s+/g, " ").trim()}`),
     );
-    expect(seen).toEqual(LOCALES.map((other) => `${other} ${pathTo(other, id)} ${AUTONYMS[other]}`));
-    await expect(page.locator(`header [data-lang-switch] a[hreflang="${locale}"]`)).toHaveAttribute("aria-current", "page");
+    expect(seen).toEqual(others.map((other) => `${other} ${pathTo(other, id)} ${AUTONYMS[other]}`));
+    const menu = page.locator("#site-menu a[hreflang]");
+    await expect(menu).toHaveCount(LOCALES.length);
+    await expect(page.locator(`#site-menu a[hreflang="${locale}"]`)).toHaveAttribute("aria-current", "page");
   });
 }
 
@@ -57,12 +62,18 @@ for (const route of ROUTES) {
   });
 }
 
-test("the 404 answers 404, is noindex and speaks the visitor's language", async ({ page }) => {
-  const en = await page.goto("/en/does-not-exist/");
-  expect(en?.status()).toBe(404);
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-  await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await page.goto("/fr/page-introuvable/");
-  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  await expect(page.locator("h1:visible")).toHaveCount(1);
+test("the 404 answers 404, is noindex and speaks both languages", async ({ page }) => {
+  for (const path of ["/en/does-not-exist/", "/fr/page-introuvable/"]) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+    await expect(page.locator("h1:visible")).toHaveCount(1);
+    await expect(page.locator("html")).toHaveAttribute("lang", DEFAULT_LOCALE);
+    // Every other language has its own block, marked with its lang, linking to its own home.
+    for (const other of LOCALES.filter((l) => l !== DEFAULT_LOCALE)) {
+      await expect(page.locator(`main [lang="${other}"] a[href="${pathTo(other, "home")}"]`)).toHaveCount(1);
+    }
+    await expect(page.locator(`main a[href="${pathTo(DEFAULT_LOCALE, "home")}"]`)).toHaveCount(1);
+  }
 });

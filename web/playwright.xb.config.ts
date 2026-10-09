@@ -10,7 +10,11 @@ import base from "./playwright.config";
 export default defineConfig({
   ...base,
   projects: [
-    { name: "firefox", use: { ...devices["Desktop Firefox"] }, testMatch: /(chrome|i18n|redirects|motion|a11y|text-fit)\.spec\.ts/ },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+      testMatch: /(chrome|i18n|redirects|motion|a11y|text-fit)\.spec\.ts/,
+    },
     { name: "webkit", use: { ...devices["Desktop Safari"] }, testMatch: /(chrome|i18n|redirects|motion|layout)\.spec\.ts/ },
   ],
 });

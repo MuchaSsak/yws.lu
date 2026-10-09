@@ -16,6 +16,7 @@ import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { isLaunchBuild } from "./launch.mjs";
+import { cardOf, ogHash } from "./og-manifest.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
@@ -27,7 +28,8 @@ if (!existsSync(join(DIST, "en", "index.html"))) {
 const TITLE_MAX = 65; // target ≤ 60 (warned), hard cap 65
 const DESCRIPTION_MAX = 160; // target ≤ 155 (warned), hard cap 160
 /** Pages kept out of the index on purpose (site/seo.md § Crawl): legal pages, the 404s, the root safety net. */
-const NOINDEX = /^(index\.html|404\.html|(en|fr)\/404\/index\.html|(en|fr)\/(privacy-policy|politique-de-confidentialite|legal-notice|mentions-legales)\/index\.html)$/;
+const NOINDEX =
+  /^(index\.html|404\.html|(en|fr)\/404\/index\.html|(en|fr)\/(privacy-policy|politique-de-confidentialite|legal-notice|mentions-legales)\/index\.html)$/;
 
 function* walk(dir) {
   for (const name of readdirSync(dir)) {
@@ -39,10 +41,16 @@ function* walk(dir) {
 const pages = [...walk(DIST)].filter((file) => file.endsWith(".html"));
 const name = (file) => relative(DIST, file).replaceAll("\\", "/");
 const html = new Map(pages.map((file) => [file, readFileSync(file, "utf8")]));
-const decode = (value) => value.replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+const decode = (value) =>
+  value
+    .replace(/&amp;/g, "&")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"');
 
 const errors = [];
 const warnings = [];
+const ogManifestPath = join(ROOT, "public", "og", "manifest.json");
+const ogManifest = existsSync(ogManifestPath) ? JSON.parse(readFileSync(ogManifestPath, "utf8")) : {};
 
 // 1. Links, assets and anchors resolve to a file in dist/ (and the id on that page).
 const ids = new Map();
@@ -57,14 +65,15 @@ const target = (path) => {
 };
 for (const [file, source] of html) {
   const body = source.replace(/<script[\s\S]*?<\/script>/g, "");
-  const pagePath = `/${relative(DIST, dirname(file)).replaceAll("\\", "/")}/`.replace(/^\/\.?\/$/, "/").replace(/^\/\//, "/");
   for (const [, url] of body.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
     if (!/^[/#]/.test(url) || url.startsWith("//")) continue;
     const [rest, hash = ""] = url.split("#");
-    const path = (rest ?? "").split("?")[0] || pagePath;
-    const found = target(path);
+    const path = (rest ?? "").split("?")[0];
+    // A bare `#id` points into this very file (404.html is not its folder's index.html).
+    const found = path ? target(path) : file;
     if (!found) errors.push(`${name(file)}: ${url} (no file)`);
-    else if (hash && found.endsWith(".html") && !idsOf(found).has(decodeURIComponent(hash))) errors.push(`${name(file)}: ${url} (no #${hash})`);
+    else if (hash && found.endsWith(".html") && !idsOf(found).has(decodeURIComponent(hash)))
+      errors.push(`${name(file)}: ${url} (no #${hash})`);
   }
 }
 
@@ -84,7 +93,8 @@ for (const [file, source] of html) {
   if (stub) continue;
   const description = decode(/<meta name="description" content="([^"]*)"/.exec(source)?.[1] ?? "");
   if (description.length < 50) errors.push(`${page}: description missing or under 50 chars`);
-  else if (description.length > DESCRIPTION_MAX) errors.push(`${page}: description ${description.length} chars (cap ${DESCRIPTION_MAX})`);
+  else if (description.length > DESCRIPTION_MAX)
+    errors.push(`${page}: description ${description.length} chars (cap ${DESCRIPTION_MAX})`);
   else if (description.length > 155) warnings.push(`${page}: description ${description.length} chars (target 155)`);
   const h1s = (source.match(/<h1[\s>]/g) ?? []).length;
   if (h1s !== 1) errors.push(`${page}: ${h1s} <h1> (exactly one)`);
@@ -92,17 +102,28 @@ for (const [file, source] of html) {
   if (!notFound) {
     const canonical = /<link rel="canonical" href="([^"]+)"/.exec(source)?.[1];
     if (!canonical) errors.push(`${page}: no canonical`);
-    const alternates = [...source.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map(([, lang, href]) => ({ lang, href }));
+    const alternates = [...source.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map(([, lang, href]) => ({
+      lang,
+      href,
+    }));
     if (!alternates.some((a) => a.lang === "x-default")) errors.push(`${page}: no hreflang x-default`);
-    if (canonical && !alternates.some((a) => a.href === canonical)) errors.push(`${page}: hreflang doesn't include the page itself`);
+    if (canonical && !alternates.some((a) => a.href === canonical))
+      errors.push(`${page}: hreflang doesn't include the page itself`);
     alternatesOf.set(canonical, alternates);
   }
-  for (const [, url] of source.matchAll(/<(?:link rel="(?:canonical|alternate)"[^>]*?|meta property="og:url"[^>]*?) (?:href|content)="(https?:\/\/[^"]+)"/g))
+  for (const [, url] of source.matchAll(
+    /<(?:link rel="(?:canonical|alternate)"[^>]*?|meta property="og:url"[^>]*?) (?:href|content)="(https?:\/\/[^"]+)"/g,
+  ))
     origins.add(new URL(url).origin);
   const image = /<meta property="og:image" content="([^"]+)"/.exec(source)?.[1];
-  if (!image) errors.push(`${page}: no og:image`);
-  else if (!existsSync(join(DIST, new URL(image).pathname))) errors.push(`${page}: share image ${new URL(image).pathname} not built (bun run og)`);
+  if (!image) {
+    if (!notFound) errors.push(`${page}: no og:image`);
+  } else if (!existsSync(join(DIST, new URL(image).pathname)))
+    errors.push(`${page}: share image ${new URL(image).pathname} not built (bun run og)`);
   if (image && !/<meta property="og:image:alt" content="[^"]{5,}"/.test(source)) errors.push(`${page}: no og:image:alt`);
+  const card = cardOf(source);
+  if (card && ogManifest[card.path.replace(/^\/og\//, "")]?.hash !== ogHash(card))
+    errors.push(`${page}: share image ${card.path} is stale or missing (bun run og)`);
   for (const [, json] of source.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try {
       const data = JSON.parse(json);
@@ -112,7 +133,8 @@ for (const [file, source] of html) {
     }
   }
   for (const [tag, body] of source.matchAll(/<a\b[^>]*target="_blank"[^>]*>([\s\S]*?)<\/a>/g))
-    if (!/class="sr-only"/.test(body ?? "")) errors.push(`${page}: ${/href="([^"]+)"/.exec(tag)?.[1]} opens a new tab without saying so`);
+    if (!/class="sr-only"/.test(body ?? ""))
+      errors.push(`${page}: ${/href="([^"]+)"/.exec(tag)?.[1]} opens a new tab without saying so`);
   for (const [, value] of source.matchAll(/<(?:img|source)\b[^>]*?\s(?:src|srcset)="([^"]+)"/g))
     for (const url of value.split(",").map((part) => part.trim().split(/\s+/)[0] ?? ""))
       if (/\.(png|jpe?g|gif)(\?|$)/i.test(url) && !/\/(og|icons)\//.test(url)) errors.push(`${page}: ${url} is not WebP/AVIF`);
@@ -130,11 +152,14 @@ for (const [canonical, alternates] of alternatesOf) {
 
 // 4. Crawl files.
 const robotsTxt = join(DIST, "robots.txt");
-if (!existsSync(robotsTxt) || !/^Sitemap: https?:\/\//m.test(readFileSync(robotsTxt, "utf8"))) errors.push("robots.txt missing or without a Sitemap line");
+if (!existsSync(robotsTxt) || !/^Sitemap: https?:\/\//m.test(readFileSync(robotsTxt, "utf8")))
+  errors.push("robots.txt missing or without a Sitemap line");
 const sitemaps = readdirSync(DIST).filter((file) => /^sitemap.*\.xml$/.test(file));
 if (!sitemaps.includes("sitemap-index.xml")) errors.push("sitemap-index.xml missing");
-for (const map of sitemaps) for (const [, url] of readFileSync(join(DIST, map), "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)) origins.add(new URL(url).origin);
-if (origins.size > 1) errors.push(`more than one origin across canonicals, hreflang, og:url and the sitemap: ${[...origins].join(", ")}`);
+for (const map of sitemaps)
+  for (const [, url] of readFileSync(join(DIST, map), "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)) origins.add(new URL(url).origin);
+if (origins.size > 1)
+  errors.push(`more than one origin across canonicals, hreflang, og:url and the sitemap: ${[...origins].join(", ")}`);
 
 // 5. Launch only: placeholders and robots.
 const launch = isLaunchBuild();
@@ -145,7 +170,8 @@ for (const dir of ["src", "public"]) {
     readFileSync(file, "utf8")
       .split("\n")
       .forEach((line, index) => {
-        if (/PLACEHOLDER/.test(line)) markers.push(`${relative(ROOT, file).replaceAll("\\", "/")}:${index + 1}: ${line.trim().slice(0, 110)}`);
+        if (/PLACEHOLDER/.test(line))
+          markers.push(`${relative(ROOT, file).replaceAll("\\", "/")}:${index + 1}: ${line.trim().slice(0, 110)}`);
       });
   }
 }

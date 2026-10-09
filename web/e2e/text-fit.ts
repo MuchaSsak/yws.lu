@@ -14,8 +14,10 @@ import type { Page } from "@playwright/test";
 export async function textFitProblems(page: Page): Promise<string[]> {
   return page.evaluate(() => {
     const problems: string[] = [];
-    const label = (el: Element) => `${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ""} "${(el.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 40)}"`;
-    const skip = (el: Element) => !!el.closest('[aria-hidden="true"], .sr-only, .sr-only-focusable, [data-marquee], script, style, noscript, template');
+    const label = (el: Element) =>
+      `${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ""} "${(el.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 40)}"`;
+    const skip = (el: Element) =>
+      !!el.closest('[aria-hidden="true"], .sr-only, .sr-only-focusable, [data-marquee], script, style, noscript, template');
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode: (node) => ((node.textContent ?? "").trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT),
     });
@@ -31,7 +33,10 @@ export async function textFitProblems(page: Page): Promise<string[]> {
       const own = el.getBoundingClientRect();
       const style = getComputedStyle(el);
       // clipped
-      if ((["hidden", "clip", "auto", "scroll"].includes(style.overflowX) || style.textOverflow === "ellipsis") && el.scrollWidth > el.clientWidth + 1)
+      if (
+        (["hidden", "clip", "auto", "scroll"].includes(style.overflowX) || style.textOverflow === "ellipsis") &&
+        el.scrollWidth > el.clientWidth + 1
+      )
         problems.push(`clipped: ${label(el)} (${el.scrollWidth} > ${el.clientWidth})`);
       for (const r of rects) {
         if (r.right > own.right + 2 || r.left < own.left - 2) {

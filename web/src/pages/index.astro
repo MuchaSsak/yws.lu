@@ -18,19 +18,17 @@ const target = pathTo(DEFAULT_LOCALE, "home");
     <meta name="robots" content="noindex, follow" />
     <meta http-equiv="refresh" content={`0; url=${target}`} />
     <title>Youth Work Synergy</title>
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32" />
   </head>
   <body>
     <ul>
-      {
-        LOCALES.map((locale) => (
-          <li>
-            <a href={pathTo(locale, "home")} hreflang={locale} lang={locale}>
-              Youth Work Synergy ({AUTONYMS[locale]})
-            </a>
-          </li>
-        ))
-      }
+      {LOCALES.map((locale) => (
+        <li>
+          <a href={pathTo(locale, "home")} hreflang={locale} lang={locale}>
+            Youth Work Synergy ({AUTONYMS[locale]})
+          </a>
+        </li>
+      ))}
     </ul>
   </body>
 </html>

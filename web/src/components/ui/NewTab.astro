@@ -1,0 +1,9 @@
+---
+/**
+ * Says to screen readers that a link opens a new tab (WCAG 3.2.5 advice; the launch gate checks every
+ * `target="_blank"` link has it). Put it inside the link, after the visible label.
+ */
+import { t } from "lingui-for-astro/macro";
+---
+
+<span class="sr-only"> {t`(opens in a new tab)`}</span>

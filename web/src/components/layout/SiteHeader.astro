@@ -1,91 +1,350 @@
 ---
 /**
- * The header (wiki: site/structure.md § Header): logo, the journeys, the language switch, the phone menu.
- * Static HTML; the menu is a small script. Every journey is one tap away on a phone.
+ * The header (wiki: site/structure.md § Header, design/design.md § Components). The 2025 dark bar, now dark enough
+ * for white text (black/60 + blur: 5.7:1; 2025 black/25: 1.8:1). Every width: logo, the primary "Apply" (→ the housing
+ * page, eligibility first: Q26 default) and the other language as a text link. Wide screens: the journeys inline.
+ * Narrower: a "Menu" disclosure holding every journey, contact actions and both languages; while it is open the rest
+ * of the page is `inert` (focus stays in the header), Escape closes it and focus returns to the button.
+ * The inline nav needs more room in French: it appears from 1280 px in English and 1600 px in French (both measured
+ * by the header-fit e2e check), the menu below that.
  */
 import { t } from "lingui-for-astro/macro";
 
+import logo from "~/assets/brand/logo.png";
+import { Image } from "astro:assets";
 import { ORGANISATION } from "~/data/organisation";
 import { AUTONYMS, LOCALES } from "~/lib/locales";
 import { pathTo, type RouteId } from "~/lib/routes";
 
 interface Props {
-  route: RouteId;
+  route: RouteId | null;
 }
 
 const { route } = Astro.props;
 const locale = Astro.locals.locale;
-const nav = [
-  { href: pathTo(locale, "about"), label: t`About us`, current: route === "about" },
-  { href: pathTo(locale, "housing"), label: t`Apply for housing`, current: route === "housing" },
-  { href: pathTo(locale, "owners"), label: t`Rent your property`, current: route === "owners" },
-  { href: pathTo(locale, "projects"), label: t`We Spark Projects`, current: route === "projects" },
-  { href: pathTo(locale, "home", "contact"), label: t`Contact us`, current: false },
-  { href: pathTo(locale, "tec"), label: t`TEC Conference`, current: route === "tec" },
+const here = route ?? "home";
+const nav: { id: RouteId; href: string; label: string; hash?: string }[] = [
+  { id: "about", href: pathTo(locale, "about"), label: t`About us` },
+  { id: "owners", href: pathTo(locale, "owners"), label: t`Rent your property` },
+  { id: "projects", href: pathTo(locale, "projects"), label: t`We Spark Projects` },
+  { id: "tec", href: pathTo(locale, "tec"), label: t`TEC Conference` },
+  { id: "home", href: pathTo(locale, "home", "contact"), label: t`Contact us`, hash: "contact" },
 ];
-const menuLabel = t`Menu`;
+const apply = {
+  href: pathTo(locale, "housing"),
+  label: t`Apply for housing`,
+  short: t({ message: "Apply", context: "header button on phones, short for Apply for housing" }),
+};
+const others = LOCALES.filter((other) => other !== locale);
+const call = ORGANISATION.phones[0]!;
 ---
 
-<header class="site-header fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between gap-8 bg-black/60 px-5 font-medium tracking-wide text-white backdrop-blur-sm sm:px-16">
-  <a href={pathTo(locale, "home")} class="shrink-0 transition-transform hover:scale-105">
-    <img src="/logo.png" alt={ORGANISATION.name} width="80" height="53" />
-  </a>
-  <nav aria-label={t`Main`} class="max-xl:hidden">
-    <ul class="flex items-center gap-6">
-      {
-        nav.map((item) => (
+<header class="site-header surface-dark" data-site-header>
+  <div class="site-header-row">
+    <a href={pathTo(locale, "home")} class="site-logo" aria-label={ORGANISATION.name}>
+      <Image src={logo} alt="" width={84} height={56} loading="eager" fetchpriority="high" format="webp" densities={[1, 2]} />
+    </a>
+
+    <nav class="site-nav" aria-label={t`Main`}>
+      <ul>
+        {nav.map((item) => (
           <li>
-            <a href={item.href} aria-current={item.current ? "page" : undefined} class="p-1 hover:underline">
+            <a href={item.href} aria-current={!item.hash && item.id === here ? "page" : undefined}>
               {item.label}
             </a>
           </li>
-        ))
-      }
-    </ul>
-  </nav>
-  <div class="flex items-center gap-4">
-    <ul class="flex gap-3 text-sm" aria-label={t`Language`}>
-      {
-        LOCALES.map((other) => (
-          <li>
-            <a
-              href={pathTo(other, route)}
-              hreflang={other}
-              lang={other}
-              aria-current={other === locale ? "true" : undefined}
-              class:list={["p-1", other === locale ? "underline underline-offset-4" : "opacity-90 hover:underline"]}
-            >
-              {AUTONYMS[other]}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <button type="button" class="menu-button rounded-md border border-white/60 px-3 py-2 xl:hidden" aria-expanded="false" aria-controls="site-menu">
-      {menuLabel}
-    </button>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-actions">
+      <a href={apply.href} class="btn site-apply" aria-current={here === "housing" ? "page" : undefined}>
+        <span class="apply-long">{apply.label}</span>
+        <span class="apply-short">{apply.short}</span>
+      </a>
+      <div class="site-lang" data-lang-switch>
+        {others.map((other) => (
+          <a href={pathTo(other, here)} hreflang={other} lang={other}>
+            {AUTONYMS[other]}
+          </a>
+        ))}
+      </div>
+      <button type="button" class="site-menu-button" aria-expanded="false" aria-controls="site-menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span>{t`Menu`}</span>
+      </button>
+    </div>
   </div>
-  <nav id="site-menu" aria-label={t`Main`} class="menu-panel absolute inset-x-0 top-20 hidden bg-black/85 px-5 py-6 backdrop-blur xl:hidden">
-    <ul class="flex flex-col items-end gap-6 text-xl">
-      {
-        nav.map((item) => (
+
+  <div id="site-menu" class="site-menu" hidden>
+    <nav aria-label={t`Main`}>
+      <ul class="site-menu-journeys">
+        <li>
+          <a href={apply.href} class="btn" aria-current={here === "housing" ? "page" : undefined}>
+            {apply.label}
+          </a>
+        </li>
+        {nav.map((item) => (
           <li>
-            <a href={item.href} aria-current={item.current ? "page" : undefined} class="hover:text-primary">
+            <a href={item.href} aria-current={!item.hash && item.id === here ? "page" : undefined}>
               {item.label}
             </a>
           </li>
-        ))
-      }
+        ))}
+      </ul>
+    </nav>
+    <ul class="site-menu-contact">
+      <li>
+        <a href={`tel:${call.e164}`}>
+          {t`Call us`} <span class="nowrap">+352 {call.display}</span>
+        </a>
+      </li>
+      <li>
+        <a href={`mailto:${ORGANISATION.email}`}>{ORGANISATION.email}</a>
+      </li>
     </ul>
-  </nav>
+    <ul class="site-menu-lang" aria-label={t`Language`}>
+      {LOCALES.map((other) => (
+        <li>
+          <a href={pathTo(other, here)} hreflang={other} lang={other} aria-current={other === locale ? "page" : undefined}>
+            {AUTONYMS[other]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
 
 <script>
-  const button = document.querySelector<HTMLButtonElement>(".menu-button");
-  const panel = document.getElementById("site-menu");
-  button?.addEventListener("click", () => {
-    const open = button.getAttribute("aria-expanded") !== "true";
+  const header = document.querySelector<HTMLElement>("[data-site-header]")!;
+  const button = header.querySelector<HTMLButtonElement>(".site-menu-button")!;
+  const menu = document.getElementById("site-menu")!;
+  const outside = () => [...document.body.children].filter((el) => el !== header && el.tagName !== "SCRIPT") as HTMLElement[];
+
+  const setOpen = (open: boolean, restoreFocus = true) => {
     button.setAttribute("aria-expanded", String(open));
-    panel?.classList.toggle("hidden", !open);
+    menu.hidden = !open;
+    header.toggleAttribute("data-open", open);
+    document.documentElement.classList.toggle("menu-open", open);
+    for (const el of outside()) el.inert = open;
+    if (open) menu.querySelector<HTMLElement>("a")?.focus();
+    else if (restoreFocus) button.focus();
+  };
+
+  button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"));
+  header.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !menu.hidden) setOpen(false);
+  });
+  // A link to a place on this page (Contact) closes the menu so the page can scroll there.
+  menu.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest("a")) setOpen(false, false);
+  });
+  // Growing past the menu breakpoint with the menu open must not leave the page inert.
+  addEventListener("resize", () => {
+    if (!menu.hidden && getComputedStyle(button).display === "none") setOpen(false, false);
   });
 </script>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    color: #fff;
+    background: rgb(0 0 0 / 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .site-header-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 2rem);
+    height: var(--header-h);
+    max-width: calc(var(--content-max) + 2 * var(--pad-x));
+    margin-inline: auto;
+    padding-inline: var(--pad-x);
+  }
+  .site-logo {
+    display: block;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+  .site-logo:hover,
+  .site-logo:focus-visible {
+    transform: scale(1.05);
+  }
+  .site-logo img {
+    display: block;
+    width: 3.75rem;
+    height: auto;
+  }
+  .site-nav {
+    display: none;
+    flex: 1;
+  }
+  .site-nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(0.75rem, 1.4vw, 1.75rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .site-nav a,
+  .site-lang a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.25rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    white-space: nowrap;
+    text-underline-offset: 0.35em;
+  }
+  .site-nav a:hover,
+  .site-nav a:focus-visible,
+  .site-nav a[aria-current="page"],
+  .site-lang a:hover,
+  .site-lang a:focus-visible {
+    text-decoration: underline;
+  }
+  .site-nav a[aria-current="page"] {
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 2px;
+  }
+  .site-actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    margin-left: auto;
+  }
+  .site-apply {
+    min-height: 2.5rem;
+    padding-inline: 1rem;
+  }
+  .apply-long {
+    display: none;
+  }
+  .site-lang {
+    display: none;
+  }
+  .site-menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .site-menu-button[aria-expanded="true"] {
+    background: rgb(255 255 255 / 0.15);
+  }
+  .site-menu {
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    padding: 1.25rem var(--pad-x) 2rem;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+    background: rgb(0 0 0 / 0.88);
+  }
+  .site-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .site-menu-journeys {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .site-menu-journeys a:not(.btn) {
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .site-menu-journeys .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .site-menu a[aria-current="page"]:not(.btn) {
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+  .site-menu-contact {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 1.25rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+  }
+  .site-menu-contact a,
+  .site-menu-lang a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+  .site-menu-lang {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.75rem !important;
+  }
+  .site-menu-lang a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-color: var(--color-primary);
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  @media (min-width: 640px) {
+    .site-lang {
+      display: block;
+    }
+    .apply-long {
+      display: inline;
+    }
+    .apply-short {
+      display: none;
+    }
+    .site-logo img {
+      width: 4.5rem;
+    }
+  }
+  /* The inline nav: from where each locale's labels fit on one row. */
+  @media (min-width: 1280px) {
+    :global(html[lang="en"]) .site-nav {
+      display: block;
+    }
+    :global(html[lang="en"]) .site-menu-button,
+    :global(html[lang="en"]) .site-menu {
+      display: none;
+    }
+    .site-logo img {
+      width: 5.25rem;
+    }
+  }
+  @media (min-width: 1600px) {
+    :global(html[lang="fr"]) .site-nav {
+      display: block;
+    }
+    :global(html[lang="fr"]) .site-menu-button,
+    :global(html[lang="fr"]) .site-menu {
+      display: none;
+    }
+  }
+</style>

@@ -42,6 +42,6 @@ describe("legacy redirects", () => {
   });
 
   it("are current in vercel.json (run `bun run vercel:config`)", () => {
-    expect(readFileSync(new URL("../../vercel.json", import.meta.url), "utf8")).toBe(vercelJson());
+    expect(readFileSync(new URL("../../../vercel.json", import.meta.url), "utf8")).toBe(vercelJson());
   });
 });

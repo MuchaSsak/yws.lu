@@ -16,7 +16,7 @@ const args = process.argv.slice(2);
 const base = args.includes("--base") ? args[args.indexOf("--base") + 1] : "http://localhost:4322";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-const POSTERS = [{ page: "/en/", host: "[data-house-scene]", out: "public/posters/house.webp", width: 960 }];
+const POSTERS = [{ page: "/en/?poster", host: "[data-house-scene]", out: "public/posters/house.webp", width: 960 }];
 
 const browser = await chromium.launch({ args: ["--use-angle=d3d11", "--enable-gpu", "--ignore-gpu-blocklist"] });
 try {
@@ -30,7 +30,13 @@ try {
     });
     // Two more frames so the model is drawn, then hide the old poster so it can't leak into the new one.
     await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
-    await page.addStyleTag({ content: ".house-poster { display: none !important }" });
+    // Only the scene may reach the PNG: the page background (glow, grid) and every other layer are hidden.
+    await page.addStyleTag({
+      content: `html, body { background: transparent !important }
+        body *, body *::before, body *::after { visibility: hidden !important }
+        ${poster.host}, ${poster.host} * { visibility: visible !important }
+        .house-poster { display: none !important }`,
+    });
     const png = await host.screenshot({ omitBackground: true, animations: "disabled" });
     const out = resolve(root, poster.out);
     mkdirSync(dirname(out), { recursive: true });

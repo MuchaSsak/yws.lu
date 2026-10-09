@@ -1,8 +1,9 @@
 /**
- * Writes vercel.json from the route map (wiki: site/seo.md § Redirects, tech/usage/astro.md § Hosting). The site is
- * static, so the host does what Astro can't: the `/` language redirect (307), the old-URL 308s, trailing slashes,
- * cache and security headers. Run `bun run vercel:config` after changing routes.ts; routes.test.ts fails while the
- * committed file differs from this output.
+ * Writes the repo-root vercel.json from the route map (wiki: tech/technologies.md § Hosting, site/seo.md § Redirects).
+ * The site is static, so the host does what Astro can't: the `/` language redirect (307), the old-URL 308s, trailing
+ * slashes, cache and security headers. It sits at the repo root and builds `web/`, so the Vercel project keeps its
+ * Root Directory (no owner step). Run `bun run vercel:config` after changing routes.ts; the build and routes.test.ts
+ * fail while the committed file differs from this output.
  *
  *   bun scripts/vercel-config.ts          write vercel.json
  *   bun scripts/vercel-config.ts --check  exit 1 if vercel.json is stale
@@ -13,7 +14,7 @@ import { fileURLToPath } from "node:url";
 import { DEFAULT_LOCALE } from "../src/lib/locales";
 import { LEGACY, pathTo } from "../src/lib/routes";
 
-const FILE = fileURLToPath(new URL("../vercel.json", import.meta.url));
+const FILE = fileURLToPath(new URL("../../vercel.json", import.meta.url));
 
 interface Redirect {
   source: string;
@@ -39,9 +40,9 @@ export function vercelConfig() {
   return {
     $schema: "https://openapi.vercel.sh/vercel.json",
     framework: "astro",
-    installCommand: "bun install --frozen-lockfile",
-    buildCommand: "bun run build",
-    outputDirectory: "dist",
+    installCommand: "cd web && bun install --frozen-lockfile",
+    buildCommand: "cd web && bun run build",
+    outputDirectory: "web/dist",
     trailingSlash: true,
     redirects: [
       // `/` by the browser's first language; temporary, so search engines keep both locale homes (site/i18n.md § Root).
@@ -52,6 +53,8 @@ export function vercelConfig() {
         permanent: false,
       },
       { source: "/", destination: pathTo(DEFAULT_LOCALE, "home"), permanent: false },
+      // The conventional sitemap URL (404 on the 2025 site) → the index Astro writes.
+      { source: "/sitemap.xml", destination: "/sitemap-index.xml", permanent: true },
       ...legacyRedirects(),
     ] satisfies Redirect[],
     headers: [

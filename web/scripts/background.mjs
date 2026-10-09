@@ -44,8 +44,12 @@ for (const { name, width, height } of SIZES) {
   );
   // Keep the margin: the blur spreads past the box on the page too (BodyBackground.astro insets the image by it).
   const png = await page.screenshot({ omitBackground: true });
-  await sharp(png).webp({ quality: 70, alphaQuality: 70, effort: 6 }).toFile(join(OUT, `aurora-${name}.webp`));
-  console.log(`bg/aurora-${name}.webp: box ${width}x${height}, margin ${margin}px (inset ${((margin / width) * 100).toFixed(1)}% / ${((margin / height) * 100).toFixed(1)}%)`);
+  await sharp(png)
+    .webp({ quality: 70, alphaQuality: 70, effort: 6 })
+    .toFile(join(OUT, `aurora-${name}.webp`));
+  console.log(
+    `bg/aurora-${name}.webp: box ${width}x${height}, margin ${margin}px (inset ${((margin / width) * 100).toFixed(1)}% / ${((margin / height) * 100).toFixed(1)}%)`,
+  );
   await page.close();
 }
 await browser.close();

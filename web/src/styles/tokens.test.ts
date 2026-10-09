@@ -75,4 +75,17 @@ describe("colour tokens meet WCAG AA", () => {
   it("header text: white on black/60 over the lightest page background ≥ 4.5:1", () => {
     expect(contrast(WHITE, over(BLACK, 0.6, rgb(token("background"))))).toBeGreaterThanOrEqual(4.5);
   });
+
+  it("every stop of the heading gradient is ≥ 3:1 on white (large text)", () => {
+    const gradient = /--gradient-heading:\s*([^;]+);/.exec(css)?.[1] ?? "";
+    const stops = [...gradient.matchAll(/#[0-9a-f]{6}|rgb\(\s*(\d+)\s+(\d+)\s+(\d+)\s*\)/gi)].map((m): Rgb =>
+      m[0].startsWith("#") ? rgb(m[0]) : ([Number(m[1]) / 255, Number(m[2]) / 255, Number(m[3]) / 255] as Rgb),
+    );
+    expect(stops.length).toBeGreaterThanOrEqual(2);
+    for (const stop of stops) expect(contrast(stop, WHITE)).toBeGreaterThanOrEqual(3);
+  });
+
+  it("the focus ring on dark chrome (white on black/60) is ≥ 3:1", () => {
+    expect(contrast(WHITE, over(BLACK, 0.6, WHITE))).toBeGreaterThanOrEqual(3);
+  });
 });

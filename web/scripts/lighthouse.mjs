@@ -54,18 +54,29 @@ if (!base) {
 
 const chrome = await chromeLauncher.launch({
   chromePath: process.env.CHROME_PATH ?? chromium.executablePath(),
-  chromeFlags: ["--headless=new", "--no-sandbox", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"],
+  chromeFlags: [
+    "--headless=new",
+    "--no-sandbox",
+    "--use-angle=swiftshader",
+    "--enable-unsafe-swiftshader",
+    "--ignore-gpu-blocklist",
+  ],
 });
 
 async function audit(url, mode, locale) {
   const settings = { skipAudits: ["is-crawlable"], output: "json", logLevel: "error", locale };
   const config =
-    mode === "desktop" ? { ...desktopConfig, settings: { ...desktopConfig.settings, ...settings } } : { extends: "lighthouse:default", settings };
+    mode === "desktop"
+      ? { ...desktopConfig, settings: { ...desktopConfig.settings, ...settings } }
+      : { extends: "lighthouse:default", settings };
   const result = await lighthouse(url, { port: chrome.port, ...settings }, config);
   const { categories, audits, runtimeError } = result.lhr;
   if (argv.includes("--save")) {
     mkdirSync(join(ROOT, "lighthouse"), { recursive: true });
-    writeFileSync(join(ROOT, "lighthouse", `${new URL(url).pathname.replace(/\//g, "_")}-${mode}.json`), JSON.stringify(result.lhr));
+    writeFileSync(
+      join(ROOT, "lighthouse", `${new URL(url).pathname.replace(/\//g, "_")}-${mode}.json`),
+      JSON.stringify(result.lhr),
+    );
   }
   if (runtimeError) throw new Error(`${url}: ${runtimeError.code} ${runtimeError.message}`);
   const summary = Object.fromEntries((audits["resource-summary"]?.details?.items ?? []).map((i) => [i.resourceType, i]));
@@ -103,7 +114,8 @@ try {
         const lower = ["lcp", "cls", "tbt"].includes(key);
         if (lower ? row[key] > bar : row[key] < bar) misses.push(`${path} ${mode} ${key} ${row[key]} (target ${bar})`);
         const floor = FLOOR[key];
-        if (floor !== undefined && (lower ? row[key] > floor : row[key] < floor)) belowFloor.push(`${path} ${mode} ${key} ${row[key]} (floor ${floor})`);
+        if (floor !== undefined && (lower ? row[key] > floor : row[key] < floor))
+          belowFloor.push(`${path} ${mode} ${key} ${row[key]} (floor ${floor})`);
       }
     }
   }
@@ -130,13 +142,18 @@ for (const row of rows) {
   );
 }
 mkdirSync(join(ROOT, "lighthouse"), { recursive: true });
-writeFileSync(join(ROOT, "lighthouse", "summary.json"), JSON.stringify({ at: new Date().toISOString(), runs, rows, misses, belowFloor }, null, 2));
+writeFileSync(
+  join(ROOT, "lighthouse", "summary.json"),
+  JSON.stringify({ at: new Date().toISOString(), runs, rows, misses, belowFloor }, null, 2),
+);
 if (misses.length) console.error(`\n${misses.length} target miss(es):\n  ${misses.join("\n  ")}`);
 // Performance may plateau between floor and target (record the reason in memory/slice-costs.md); everything else is a
 // hard miss.
 const hard = misses.filter((miss) => !/ (performance|lcp|tbt) /.test(miss)).concat(belowFloor);
 if (hard.length) {
-  console.error(`\n${hard.length} hard miss(es) (a11y/bp/seo/cls under 100/over budget, or perf/LCP/TBT past the floor):\n  ${hard.join("\n  ")}`);
+  console.error(
+    `\n${hard.length} hard miss(es) (a11y/bp/seo/cls under 100/over budget, or perf/LCP/TBT past the floor):\n  ${hard.join("\n  ")}`,
+  );
   process.exit(1);
 }
 console.log(`\n${rows.length} rows: ${misses.length ? "within the floors (targets missed above)" : "all within the targets"}.`);

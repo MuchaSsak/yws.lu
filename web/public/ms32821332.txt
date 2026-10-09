@@ -1,0 +1,5 @@
+﻿{
+  "Description": "Fichier de vérification de la propriété du domaine pour Microsoft 365 : placer dans la racine du site web",
+  "Domain": "yws.lu",
+  "Id": "dbfa1c1c-6db6-4495-8946-abd325fecf69"
+}

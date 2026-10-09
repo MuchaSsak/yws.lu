@@ -41,7 +41,11 @@ try {
   for (const width of widths) {
     const height = width < 700 ? 844 : width < 1100 ? 1024 : width < 2000 ? 1080 : 1440;
     const scale = full ? 1 : width < 700 ? 2 : 1;
-    const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: scale, reducedMotion: reduced ? "reduce" : "no-preference" });
+    const page = await browser.newPage({
+      viewport: { width, height },
+      deviceScaleFactor: scale,
+      reducedMotion: reduced ? "reduce" : "no-preference",
+    });
     for (const path of paths) {
       await page.goto(base + path, { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);
@@ -65,7 +69,9 @@ try {
       if (accept && (width === 1920 || width === 390) && !reduced) {
         const keep = join(REPO, "screenshots", slug(path));
         mkdirSync(keep, { recursive: true });
-        await sharp(file).webp({ quality: 74 }).toFile(join(keep, `${name}.webp`));
+        await sharp(file)
+          .webp({ quality: 74 })
+          .toFile(join(keep, `${name}.webp`));
       }
       if (overflow > 0) overflowing++;
       console.log(`${slug(path)} ${name}${overflow > 0 ? ` OVERFLOW ${overflow}px` : ""}`);

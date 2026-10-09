@@ -24,7 +24,8 @@ describe("CSS", () => {
     for (const file of files(SRC)) {
       const css = readFileSync(file, "utf8");
       for (const [block] of css.matchAll(/\{[^{}]*animation-timeline[^{}]*\}/g))
-        if (/(^|[\s;{])animation\s*:/.test(block)) offenders.push(`${file.slice(SRC.length)}: ${block.replace(/\s+/g, " ").slice(0, 90)}`);
+        if (/(^|[\s;{])animation\s*:/.test(block))
+          offenders.push(`${file.slice(SRC.length)}: ${block.replace(/\s+/g, " ").slice(0, 90)}`);
     }
     expect(offenders).toEqual([]);
   });

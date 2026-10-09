@@ -16,7 +16,10 @@ for (const route of ROUTES) {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow, "horizontal overflow (px)").toBeLessThanOrEqual(0);
       const widest = await page.evaluate(() =>
-        Math.max(0, ...[...document.querySelectorAll("main :is(h1, h2, h3, p, li, dd)")].map((el) => el.getBoundingClientRect().width)),
+        Math.max(
+          0,
+          ...[...document.querySelectorAll("main :is(h1, h2, h3, p, li, dd)")].map((el) => el.getBoundingClientRect().width),
+        ),
       );
       expect(widest, "widest text block (px)").toBeLessThanOrEqual(1440);
     });

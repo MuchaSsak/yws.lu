@@ -22,7 +22,8 @@ describe("organisation facts", () => {
 
   it("email and every link are real absolute URLs", () => {
     expect(ORGANISATION.email).toMatch(/^[^@\s]+@yws\.lu$/);
-    for (const social of ORGANISATION.socials) expect(social.href).toMatch(/^https:\/\/www\.(facebook|instagram|linkedin)\.com\//);
+    for (const social of ORGANISATION.socials)
+      expect(social.href).toMatch(/^https:\/\/www\.(facebook|instagram|linkedin)\.com\//);
     for (const link of Object.values(ORGANISATION.links)) expect(link).toMatch(/^https:\/\//);
   });
 });

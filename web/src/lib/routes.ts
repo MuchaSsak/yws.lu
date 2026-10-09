@@ -26,6 +26,9 @@ export const ROUTE_IDS = Object.keys(ROUTES) as RouteId[];
  */
 export const READY: readonly RouteId[] = ["home", "housing"];
 
+/** Routes search engines may index (sitemap, robots meta); the legal pages are `noindex, follow` (site/seo.md § Crawl). */
+export const INDEXABLE: readonly RouteId[] = ["home", "housing", "owners", "about", "projects", "tec"];
+
 /** `/fr/logement-jeunes/` for (`fr`, "housing"). A `#hash` may follow. */
 export function pathTo(locale: Locale, id: RouteId, hash?: string): string {
   const slug = ROUTES[id][locale];

@@ -19,7 +19,7 @@ const opt = (name, fallback) => {
 };
 const root = resolve(opt("dir", "dist"));
 const port = Number(opt("port", "4322"));
-const config = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8"));
+const config = JSON.parse(readFileSync(new URL("../../vercel.json", import.meta.url), "utf8"));
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",

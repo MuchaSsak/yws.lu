@@ -37,11 +37,9 @@ export const ORGANISATION = {
   ],
   since: 2023,
   links: {
-    applyForHousing:
-      "https://docs.google.com/forms/d/e/1FAIpQLSeak3NN_4Ds3Iv7q8kCcJC7us8QsNb3FD2wZi1ausdO0mMstA/viewform",
+    applyForHousing: "https://docs.google.com/forms/d/e/1FAIpQLSeak3NN_4Ds3Iv7q8kCcJC7us8QsNb3FD2wZi1ausdO0mMstA/viewform",
     housesMap: "https://www.google.com/maps/d/u/0/edit?mid=1aPvVQqtHy7bmTQoetB5RWpCkIUjlEOg&usp=sharing",
     tecPractices: "https://tecpractices.eu/web/",
     tecZoom: "https://us06web.zoom.us/meeting/register/9XF6fSz_SuuP-9CLQ19ldw#/",
   },
 } as const;
-

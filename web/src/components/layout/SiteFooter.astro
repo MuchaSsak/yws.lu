@@ -1,28 +1,281 @@
 ---
 /**
- * The footer (wiki: site/structure.md § Footer). Spike version: facts from the one data source, real links.
+ * The footer (wiki: site/structure.md § Footer). Static at the end of the page (2025: sticky + blur over the content),
+ * one data source (organisation.ts, routes.ts, the catalogs), real headings, every fact a tap: each phone its own
+ * `tel:`, the email a `mailto:`, each address with its map, socials named. The credits dialog is a native <dialog>.
  */
 import { t } from "lingui-for-astro/macro";
+import { Image } from "astro:assets";
 
+import logo from "~/assets/brand/logo.png";
+import CreditsDialog from "~/components/layout/CreditsDialog.astro";
+import NewTab from "~/components/ui/NewTab.astro";
+import SocialIcon from "~/components/ui/SocialIcon.astro";
 import { ORGANISATION } from "~/data/organisation";
-import { type RouteId } from "~/lib/routes";
+import { getI18n } from "~/lib/i18n";
+import { AUTONYMS, LOCALES } from "~/lib/locales";
+import { MISSION } from "~/lib/meta";
+import { pathTo, type RouteId } from "~/lib/routes";
 
 interface Props {
-  route: RouteId;
+  route: RouteId | null;
 }
 
+const { route } = Astro.props;
+const locale = Astro.locals.locale;
+const here = route ?? "home";
 const year = new Date().getFullYear();
-const rights = t`All rights reserved`;
+
+const columns = [
+  {
+    id: "footer-housing",
+    title: t`Looking for housing`,
+    links: [
+      { href: pathTo(locale, "housing"), label: t`Apply for housing` },
+      { href: pathTo(locale, "housing", "how-it-works"), label: t`Here's how it works` },
+      { href: pathTo(locale, "housing", "who-gets-priority"), label: t`Who Gets Priority?` },
+    ],
+  },
+  {
+    id: "footer-owners",
+    title: t`Rent your property`,
+    links: [
+      { href: pathTo(locale, "owners"), label: t`Rent Out Your Property` },
+      { href: pathTo(locale, "owners", "why-rent-to-us"), label: t`Why Rent to Us?` },
+    ],
+  },
+  {
+    id: "footer-about",
+    title: t`Who we are`,
+    links: [
+      { href: pathTo(locale, "about"), label: t`About us` },
+      { href: pathTo(locale, "about", "real-impact"), label: t`Real impact` },
+      { href: pathTo(locale, "projects"), label: t`We Spark Projects` },
+      { href: pathTo(locale, "tec"), label: t`TEC Conference` },
+    ],
+  },
+];
+const office = ORGANISATION.office;
+const seat = ORGANISATION.seat;
+const officeLabel = t({ message: "Office", context: "footer address label" });
+const seatLabel = t({ message: "Registered office (postal address)", context: "footer address label" });
+const mapLabel = t`Open in Google Maps`;
 ---
 
-<footer class="bg-foreground/90 px-5 py-6 text-white sm:px-16 xl:px-48">
-  <p>©{year} {ORGANISATION.legalName}. {rights}.</p>
-  <address class="not-italic text-white/85">
-    <a href={ORGANISATION.office.maps} class="hover:underline">
-      {ORGANISATION.office.label} : {ORGANISATION.office.street} {ORGANISATION.office.postalCode} {ORGANISATION.office.locality}
-    </a>
-    <br />
-    <a href={`mailto:${ORGANISATION.email}`} class="hover:underline">{ORGANISATION.email}</a>
-    {ORGANISATION.phones.map((phone) => <a href={`tel:${phone.e164}`} class="ml-3 hover:underline">{phone.display}</a>)}
-  </address>
+<footer class="site-footer surface-dark">
+  <div class="site-footer-inner">
+    <div class="footer-org">
+      <a href={pathTo(locale, "home")} class="footer-logo" aria-label={ORGANISATION.name}>
+        <Image src={logo} alt="" width={96} height={64} format="webp" densities={[1, 2]} />
+      </a>
+      <p class="footer-mission">{getI18n(locale)._(MISSION)}</p>
+      <p class="footer-legal-name">{ORGANISATION.legalName}</p>
+    </div>
+
+    {columns.map((column) => (
+      <nav class="footer-col" aria-labelledby={column.id}>
+        <h2 id={column.id}>{column.title}</h2>
+        <ul>
+          {column.links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+
+    <section class="footer-col footer-contact" aria-labelledby="footer-contact">
+      <h2 id="footer-contact">{t`Contact us`}</h2>
+      <address>
+        <ul>
+          <li>
+            <a href={`mailto:${ORGANISATION.email}`}>{ORGANISATION.email}</a>
+          </li>
+          {ORGANISATION.phones.map((phone) => (
+            <li>
+              <a href={`tel:${phone.e164}`}>+352 {phone.display}</a>
+            </li>
+          ))}
+          <li class="footer-place">
+            <span class="footer-place-label">{officeLabel}</span>
+            <span>{office.street}</span>
+            <span>
+              {office.postalCode} {office.locality}
+            </span>
+            <a href={office.maps} target="_blank" rel="noopener">
+              {mapLabel}
+              <NewTab />
+            </a>
+          </li>
+          <li class="footer-place">
+            <span class="footer-place-label">{seatLabel}</span>
+            <span>{seat.street}</span>
+            <span>
+              {seat.postalCode} {seat.locality}
+            </span>
+            <a href={seat.maps} target="_blank" rel="noopener">
+              {mapLabel}
+              <NewTab />
+            </a>
+          </li>
+        </ul>
+      </address>
+      <ul class="footer-socials">
+        {ORGANISATION.socials.map((social) => (
+          <li>
+            <a href={social.href} target="_blank" rel="noopener me">
+              <SocialIcon id={social.id} />
+              <span>{social.name}</span>
+              <NewTab />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+      ©{year} {ORGANISATION.legalName}. {t`All rights reserved`}.
+    </p>
+    <ul class="footer-bottom-links">
+      <li>
+        <a href={pathTo(locale, "privacy")}>{t`Privacy policy`}</a>
+      </li>
+      <li>
+        <a href={pathTo(locale, "legal")}>{t`Legal notice`}</a>
+      </li>
+      <li>
+        <CreditsDialog />
+      </li>
+    </ul>
+    <ul class="footer-lang" aria-label={t`Language`}>
+      {LOCALES.map((other) => (
+        <li>
+          <a href={pathTo(other, here)} hreflang={other} lang={other} aria-current={other === locale ? "page" : undefined}>
+            {AUTONYMS[other]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-section);
+    padding: 3rem var(--pad-x) 1.5rem;
+    background: var(--color-foreground);
+    color: #fff;
+  }
+  .site-footer-inner,
+  .footer-bottom {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+  .site-footer-inner {
+    display: grid;
+    gap: 2.5rem 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+  .footer-org {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+  }
+  .footer-logo {
+    width: fit-content;
+    border-radius: var(--radius-sm);
+  }
+  .footer-logo img {
+    display: block;
+    width: 6rem;
+    height: auto;
+  }
+  .footer-mission {
+    max-width: 22rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+  .footer-legal-name {
+    font-weight: 600;
+  }
+  .footer-col h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+  }
+  .footer-col ul,
+  .footer-bottom ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .footer-col li + li {
+    margin-top: 0.25rem;
+  }
+  .footer-col a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2rem;
+    text-decoration: underline;
+    text-decoration-color: rgb(255 255 255 / 0.35);
+    text-underline-offset: 0.25em;
+  }
+  .footer-col a:hover,
+  .footer-col a:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  address {
+    font-style: normal;
+  }
+  .footer-place {
+    display: grid;
+    margin-top: 0.75rem !important;
+    line-height: 1.5;
+  }
+  .footer-place-label {
+    font-weight: 600;
+  }
+  .footer-place a {
+    width: fit-content;
+  }
+  .footer-socials {
+    margin-top: 1rem !important;
+  }
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+    font-size: 0.9375rem;
+  }
+  .footer-bottom p {
+    margin-right: auto;
+  }
+  .footer-bottom-links,
+  .footer-lang {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+  }
+  .footer-bottom a,
+  .footer-bottom :global(button) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+  .footer-lang a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-color: var(--color-primary);
+  }
+</style>

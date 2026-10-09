@@ -21,15 +21,13 @@ const property = t({ message: "property", context: "Rent out your [property]" })
   <div class="flex flex-col items-start">
     <Reveal duration={0.5}>
       <h1 class="pb-4 text-5xl font-bold sm:text-6xl">
-        {t`Rent out`}{" "}
-        <LineShadow class="text-orange-600 italic" text={your} />{" "}
+        {t`Rent out`} <LineShadow class="text-orange-600 italic" text={your} />{" "}
         <LineShadow class="pr-4 text-orange-600 italic" text={property} />
       </h1>
     </Reveal>
     <Reveal rise duration={0.75}>
       <p class="text-2xl font-bold sm:text-4xl md:w-max">
-        {t`Give youth a chance for a`}{" "}
-        <Sparkles class="pr-4 font-normal text-orange-600 italic">{t`better future`}</Sparkles>
+        {t`Give youth a chance for a`} <Sparkles class="pr-4 font-normal text-orange-600 italic">{t`better future`}</Sparkles>
       </p>
     </Reveal>
     <Reveal rise duration={1}>

@@ -17,9 +17,13 @@ const stagger = duration / Math.ceil(words.length / 2);
 ---
 
 <Tag class={className} data-inview="words" style={`--stagger: ${stagger.toFixed(4)}s`}>
-  {
-    words.map((word, index) =>
-      /^\s+$/.test(word) ? word : <span class="word" style={`--i: ${index / 2}`}>{word}</span>,
-    )
-  }
+  {words.map((word, index) =>
+    /^\s+$/.test(word) ? (
+      word
+    ) : (
+      <span class="word" style={`--i: ${index / 2}`}>
+        {word}
+      </span>
+    ),
+  )}
 </Tag>

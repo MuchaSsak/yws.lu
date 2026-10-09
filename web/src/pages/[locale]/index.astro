@@ -1,19 +1,17 @@
 ---
-/** Home, once per locale (wiki: site/structure.md § Home). Spike scope: the hero and the partner strip. */
-import { t } from "lingui-for-astro/macro";
-
+/**
+ * Home, once per locale (wiki: site/structure.md § Home). Title and description come from the metadata table
+ * (src/lib/meta.ts). Spike scope: the hero and the partner strip.
+ */
 import HomeHero from "~/components/home/HomeHero.astro";
 import PartnerStrip from "~/components/home/PartnerStrip.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { localeStaticPaths } from "~/lib/routes";
 
 export const getStaticPaths = localeStaticPaths;
-
-const title = t({ message: "Youth Work Synergy", context: "home page title" });
-const description = t`Youth Work Synergy (YWS) is a non-profit organization in Luxembourg that transforms empty homes into safe, affordable shared housing for young people aged 18–34. Partner with us to rent out your property and benefit from guaranteed rent, tax advantages, and professional maintenance — while making a real social impact.`;
 ---
 
-<BaseLayout title={title} description={description} route="home" home>
+<BaseLayout route="home">
   <HomeHero />
   <PartnerStrip />
 </BaseLayout>

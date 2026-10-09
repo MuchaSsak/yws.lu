@@ -33,7 +33,7 @@ test("the H1 is painted in the first frame (no entrance hides the LCP)", async (
     await page.goto(path, { waitUntil: "commit" });
     await page.locator("h1").waitFor();
     const opacity = await page.locator("h1").evaluate((h1) => {
-      let el: HTMLElement | null = h1;
+      let el: Element | null = h1;
       let value = 1;
       while (el) {
         value *= Number(getComputedStyle(el).opacity);

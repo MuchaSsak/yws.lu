@@ -20,10 +20,16 @@ const newTab = t`(opens in a new tab)`;
 <a
   href={href}
   class:list={["btn", shimmer && "btn-shimmer", className]}
-  {...external ? { target: "_blank", rel: "noopener" } : {}}
+  {...(external ? { target: "_blank", rel: "noopener" } : {})}
 >
-  {shimmer && <span class="btn-shimmer-spark" aria-hidden="true"><span /></span>}
+  {shimmer && (
+    <span class="btn-shimmer-spark" aria-hidden="true">
+      <span />
+    </span>
+  )}
   <slot />
-  <span class="btn-arrow" aria-hidden="true">→</span>
+  <span class="btn-arrow" aria-hidden="true">
+    →
+  </span>
   {external && <span class="sr-only">{newTab}</span>}
 </a>

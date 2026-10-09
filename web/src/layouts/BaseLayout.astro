@@ -1,7 +1,9 @@
 ---
 /**
- * Every page's document: head (SEO, hreflang, share card), skip link, header, main, footer.
- * Wiki: site/seo.md § Metadata rules, site/i18n.md, design/design.md.
+ * Every page's document: head (SEO, hreflang, share card, JSON-LD), skip link, header, main, footer.
+ * Wiki: site/seo.md § Metadata rules, site/i18n.md, design/design.md. Title and description come from the metadata
+ * table (src/lib/meta.ts) for routed pages; the 404 passes its own. Robots: indexable only in a launch build
+ * (scripts/launch.mjs), never for legal pages and the 404.
  */
 import "@fontsource-variable/montserrat/wght.css";
 import "~/styles/global.css";
@@ -13,27 +15,43 @@ import { t } from "lingui-for-astro/macro";
 import BodyBackground from "~/components/layout/BodyBackground.astro";
 import SiteFooter from "~/components/layout/SiteFooter.astro";
 import SiteHeader from "~/components/layout/SiteHeader.astro";
-import { ORGANISATION } from "~/data/organisation";
+import { getI18n } from "~/lib/i18n";
 import { LOCALES, OG_LOCALES } from "~/lib/locales";
-import { alternates, pathTo, type RouteId } from "~/lib/routes";
+import { fullTitle, META, MISSION, SITE_NAME } from "~/lib/meta";
+import { alternates, INDEXABLE, pathTo, type RouteId } from "~/lib/routes";
+import { schemaGraph } from "~/lib/schema";
+import { isLaunchBuild } from "../../scripts/launch.mjs";
 
 interface Props {
-  /** The page part of the title; the home page passes its full title with `home`. */
-  title: string;
-  description: string;
-  /** The route this page is; null for pages without a canonical (404). */
+  /** The route this page is; null for pages without a canonical (the 404). */
   route: RouteId | null;
-  home?: boolean;
+  /** Only for pages outside the metadata table (the 404). */
+  title?: string;
+  description?: string;
   noindex?: boolean;
 }
 
-const { title, description, route, home = false, noindex = false } = Astro.props;
+const { route, noindex = false } = Astro.props;
 const locale = Astro.locals.locale;
+const i18n = getI18n(locale);
 const site = Astro.site ?? new URL("https://www.yws.lu");
+const origin = site.origin;
+const meta = route ? META[route] : null;
+const pageTitle = meta ? i18n._(meta.title) : (Astro.props.title ?? SITE_NAME);
+const description = meta ? i18n._(meta.description) : (Astro.props.description ?? "");
+const title = fullTitle(pageTitle, meta?.full ?? false);
 const canonical = route === null ? null : new URL(pathTo(locale, route), site).href;
 const links = route === null ? [] : alternates(site, route);
-const fullTitle = home ? title : `${title} | ${ORGANISATION.name}`;
-const robots = noindex ? "noindex, follow" : "index, follow, max-image-preview:large";
+const hidden = noindex || route === null || !INDEXABLE.includes(route);
+const robots = isLaunchBuild() && !hidden ? "index, follow, max-image-preview:large" : "noindex, follow";
+const ogImage = route ? `${origin}/og/${locale}-${route}.png` : null;
+const ogAlt = `${pageTitle} – ${SITE_NAME}`;
+const mission = i18n._(MISSION);
+const jsonLd = route
+  ? schemaGraph({ site: origin, locale, route, name: pageTitle, description, mission, ...(ogImage ? { image: ogImage } : {}) })
+  : null;
+const googleVerification = import.meta.env.GOOGLE_SITE_VERIFICATION as string | undefined;
+const bingVerification = import.meta.env.BING_SITE_VERIFICATION as string | undefined;
 ---
 
 <!doctype html>
@@ -41,34 +59,70 @@ const robots = noindex ? "noindex, follow" : "index, follow, max-image-preview:l
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ff6900" />
-    <title>{fullTitle}</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     {canonical && <link rel="canonical" href={canonical} />}
-    {links.map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
+    {links.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
     <link rel="preload" href={montserratLatin} as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta name="theme-color" content="#ff6900" />
+    <!-- The client's 32 px icon only: larger icons, apple-touch-icon and a manifest wait for a master (Q33). -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={ORGANISATION.name} />
-    <meta property="og:title" content={fullTitle} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={meta?.full ? title : pageTitle} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={ogAlt} />
+      </>
+    )}
     <meta property="og:locale" content={OG_LOCALES[locale]} />
-    {LOCALES.filter((other) => other !== locale).map((other) => <meta property="og:locale:alternate" content={OG_LOCALES[other]} />)}
+    {LOCALES.filter((other) => other !== locale).map((other) => (
+      <meta property="og:locale:alternate" content={OG_LOCALES[other]} />
+    ))}
     <meta name="twitter:card" content="summary_large_image" />
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+    {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <slot name="head" />
   </head>
   <body>
-    <a href="#main" class="sr-only-focusable fixed top-3 left-3 z-[60] rounded-md bg-foreground px-4 py-3 font-bold text-background">{t`Skip to content`}</a>
+    <a href="#main" class="sr-only-focusable skip-link">{t`Skip to content`}</a>
     <BodyBackground />
-    <SiteHeader route={route ?? "home"} />
-    <main id="main" tabindex="-1" class="outline-none">
+    <SiteHeader route={route} />
+    <main id="main" tabindex="-1">
       <slot />
     </main>
-    <SiteFooter route={route ?? "home"} />
+    <SiteFooter route={route} />
     <script>
       import "~/scripts/inview";
     </script>
   </body>
 </html>
+
+<style is:global>
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 60;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-foreground);
+    color: var(--color-background);
+    font-weight: 700;
+    --focus-ring: #fff;
+  }
+  main:focus {
+    outline: none;
+  }
+</style>

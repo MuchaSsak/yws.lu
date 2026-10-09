@@ -23,14 +23,24 @@
 
   --font-sans: "Montserrat Variable", "Montserrat Fallback", ui-sans-serif, system-ui, sans-serif;
 
+  /* Type: three fluid steps (real maxima at 1280 px); xl / lg / base / sm stay Tailwind's (design.md § Typography). */
+  --text-display: clamp(2.25rem, 1.5rem + 3.75vw, 4.5rem);
+  --text-display--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);
+  --text-h2: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
+  --text-h2--line-height: clamp(2.5rem, 1.667rem + 4.167vw, 5rem);
+  --text-h3: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+  --text-h3--line-height: 1.2;
+
   --radius-sm: 0.4rem;
   --radius-md: 0.525rem;
   --radius-lg: 0.65rem;
   --radius-xl: 0.9rem;
   --radius-2xl: 1rem;
+  --radius-feature: 3rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-anticipate: cubic-bezier(0.68, -0.4, 0.32, 1.4);
 }
 
@@ -45,8 +55,30 @@
 }
 
 :root {
-  --header-h: 5rem;
+  --header-h: 4rem;
   --pad-x: clamp(1rem, 6vw, 6rem);
+  --content-max: 90rem;
+  --measure: 35rem;
+  --measure-hero: 25rem;
+  --space-section: clamp(5rem, 3.667rem + 6.667vw, 9rem);
+  --space-hero-top: clamp(7rem, 5.667rem + 6.667vw, 11rem);
+  --dur-1: 200ms;
+  --dur-2: 300ms;
+  --dur-3: 500ms;
+  --dur-4: 750ms;
+  --dur-5: 900ms;
+  --focus-ring: var(--color-primary-strong);
+  /* The 2025 heading gradient (#fd9a00 → #f54a00 → #efb100) measured 1.92–3.58:1 on white: the ends move to
+     orange-700, so every stop passes 3:1 for large text and the gradient stays (design.md § Colour). */
+  --gradient-heading: linear-gradient(to left, #ca3500, rgb(245 74 0), #ca3500);
+}
+@media (min-width: 1280px) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+.surface-dark {
+  --focus-ring: #fff;
 }
 
 @layer base {
@@ -68,7 +100,7 @@
     background-color: rgb(216 111 62 / 0.25);
   }
   :focus-visible {
-    outline: 3px solid var(--color-primary-strong);
+    outline: 3px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: 0.25rem;
   }
@@ -93,7 +125,7 @@
   }
   .text-orange-gradient {
     color: transparent;
-    background: linear-gradient(to left, rgb(253 154 0), rgb(245 74 0), rgb(239 177 0));
+    background: var(--gradient-heading);
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -149,7 +181,9 @@
     font-weight: 500;
     white-space: nowrap;
     text-decoration: none;
-    transition: font-weight 0.15s, background-color 0.15s;
+    transition:
+      font-weight 0.15s,
+      background-color 0.15s;
   }
   .btn:hover,
   .btn:focus-visible {
@@ -175,7 +209,9 @@
     border: 1px solid rgb(255 255 255 / 0.1);
     border-radius: 0.5rem;
     transform: translateZ(0);
-    transition: transform 0.3s ease-in-out, font-weight 0.15s;
+    transition:
+      transform 0.3s ease-in-out,
+      font-weight 0.15s;
   }
   .btn-shimmer:active {
     transform: translateY(1px);

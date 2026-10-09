@@ -33,26 +33,24 @@ const newTab = t`(opens in a new tab)`;
 ---
 
 <section class="marquee py-12" aria-label={label}>
-  {
-    [false, true].map((copy) => (
-      <ul class="marquee-track" aria-hidden={copy ? "true" : undefined}>
-        {partners.map((partner) => (
-          <li class="mx-8 shrink-0 sm:mx-16">
-            <a href={partner.href} target="_blank" rel="noopener" tabindex={copy ? -1 : undefined} title={partner.name}>
-              <Image
-                src={partner.image}
-                alt={`${partner.name} ${newTab}`}
-                widths={[100, 150, 300]}
-                sizes="(min-width: 640px) 150px, 100px"
-                class="h-auto w-[6.25rem] sm:w-[9.375rem]"
-                loading="lazy"
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
-    ))
-  }
+  {[false, true].map((copy) => (
+    <ul class="marquee-track" aria-hidden={copy ? "true" : undefined}>
+      {partners.map((partner) => (
+        <li class="mx-8 shrink-0 sm:mx-16">
+          <a href={partner.href} target="_blank" rel="noopener" tabindex={copy ? -1 : undefined} title={partner.name}>
+            <Image
+              src={partner.image}
+              alt={`${partner.name} ${newTab}`}
+              widths={[100, 150, 300]}
+              sizes="(min-width: 640px) 150px, 100px"
+              class="h-auto w-[6.25rem] sm:w-[9.375rem]"
+              loading="lazy"
+            />
+          </a>
+        </li>
+      ))}
+    </ul>
+  ))}
 </section>
 
 <style>

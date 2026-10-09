@@ -1,10 +1,9 @@
 ---
 /**
  * Every inner page, once per locale, from the one route map (wiki: site/i18n.md § URLs). The slug decides the
- * route id; the id decides the page content. Spike scope: youth housing only.
+ * route id; the id decides the page content; title and description come from the metadata table (src/lib/meta.ts).
+ * Spike scope: youth housing only.
  */
-import { t } from "lingui-for-astro/macro";
-
 import HousingHero from "~/components/housing/HousingHero.astro";
 import HowItWorks from "~/components/housing/HowItWorks.astro";
 import WhoGetsPriority from "~/components/housing/WhoGetsPriority.astro";
@@ -14,24 +13,14 @@ import { pageStaticPaths, type RouteId } from "~/lib/routes";
 export const getStaticPaths = pageStaticPaths;
 
 const { id } = Astro.props as { id: RouteId };
-
-const meta = {
-  housing: {
-    title: t`Apply For Housing`,
-    description: t`Looking for stable, affordable housing in Luxembourg? We offer fully furnished shared homes with support and coaching for young people aged 18-34. Apply now to secure your place and get personalized help on your journey to independent living.`,
-  },
-} as const satisfies Partial<Record<RouteId, { title: string; description: string }>>;
-const page = meta[id as keyof typeof meta];
 ---
 
-<BaseLayout title={page.title} description={page.description} route={id}>
-  {
-    id === "housing" && (
-      <>
-        <HousingHero />
-        <HowItWorks />
-        <WhoGetsPriority />
-      </>
-    )
-  }
+<BaseLayout route={id}>
+  {id === "housing" && (
+    <>
+      <HousingHero />
+      <HowItWorks />
+      <WhoGetsPriority />
+    </>
+  )}
 </BaseLayout>

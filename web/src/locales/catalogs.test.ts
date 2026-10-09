@@ -21,7 +21,7 @@ function parse(locale: string): Entry[] {
   return text
     .split(/\n\n+/)
     .map((block) => {
-      const lines = block.split("\n").filter((line) => !line.startsWith("#"));
+      const lines = block.split("\n").filter((line) => line.trim() && !line.startsWith("#"));
       const field = (name: string) => {
         const start = lines.findIndex((line) => line.startsWith(`${name} `));
         if (start < 0) return "";
@@ -45,9 +45,16 @@ describe("catalogs", () => {
   for (const locale of LOCALES.filter((l) => l !== SOURCE_LOCALE)) {
     const target = new Map(parse(locale).map((entry) => [`${entry.context}\u0004${entry.id}`, entry]));
     it(`${locale} translates every message`, () => {
-      const missing = source.filter((entry) => !target.get(`${entry.context}\u0004${entry.id}`)?.str.trim()).map((entry) => entry.id);
+      const missing = source
+        .filter((entry) => !target.get(`${entry.context}\u0004${entry.id}`)?.str.trim())
+        .map((entry) => entry.id);
       expect(missing).toEqual([]);
     });
+    if (locale === "fr")
+      it("fr has a no-break space before : ; ! ? », after « and before % (site/i18n.md § Formatting)", () => {
+        const plain = [...target.values()].filter((entry) => / [:;!?»%]|« /.test(entry.str)).map((entry) => entry.str);
+        expect(plain).toEqual([]);
+      });
     it(`${locale} keeps every placeholder and tag`, () => {
       const broken = source
         .filter((entry) => {

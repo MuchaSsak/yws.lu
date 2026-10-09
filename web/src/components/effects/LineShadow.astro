@@ -8,4 +8,6 @@ interface Props {
 const { text, class: className } = Astro.props;
 ---
 
-<span class:list={["line-shadow", className]} data-text={text}>{text}</span>
+<span class:list={["line-shadow", className]} data-text={text}>
+  {text}
+</span>

@@ -1,0 +1,9 @@
+dist/
+.astro/
+node_modules/
+public/
+lighthouse/
+test-results/
+playwright-report/
+bun.lock
+src/locales/**/*.po

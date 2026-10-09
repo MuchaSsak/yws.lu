@@ -1,0 +1,118 @@
+---
+/**
+ * "See credits" (wiki: design/assets.md § Credits, requirements F10): every CC BY work the site shows, with title,
+ * source, author, licence and "modified", then the 2025 dialog's lead-developer line (Q4: unchanged). A native
+ * <dialog>: modal, focus moves in and back, Escape closes, the page behind is inert (2025: a Radix dialog whose
+ * overlay class was malformed, a 16 px close icon at 70 % opacity).
+ */
+import { t } from "lingui-for-astro/macro";
+
+import NewTab from "~/components/ui/NewTab.astro";
+import { CC_BY_4, CREDITS, LEAD_DEVELOPER } from "~/data/credits";
+
+const licence = "Creative Commons Attribution 4.0";
+---
+
+<button type="button" class="credits-open" data-credits-open>{t`See credits`}</button>
+<dialog class="credits" aria-labelledby="credits-title" data-credits>
+  <h2 id="credits-title">{t`Credits 💖`}</h2>
+  <ul>
+    {CREDITS.map((credit) => (
+      <li>
+        <a href={credit.source} target="_blank" rel="noopener">
+          “{credit.title}”<NewTab />
+        </a>{" "}
+        {t({ message: "by", context: "credits: <title> by <author>" })}{" "}
+        <a href={credit.authorUrl} target="_blank" rel="noopener">
+          {credit.author}
+          <NewTab />
+        </a>
+        ,{" "}
+        <a href={CC_BY_4} target="_blank" rel="noopener license">
+          {licence}
+          <NewTab />
+        </a>
+        {credit.modified && (
+          <>, {t({ message: "modified (optimised for the web)", context: "credits: the model was changed" })}</>
+        )}
+        .
+      </li>
+    ))}
+  </ul>
+  <p class="credits-dev">
+    {t`Lead Developer`}{" "}
+    <a href={LEAD_DEVELOPER.href} target="_blank" rel="noopener">
+      {LEAD_DEVELOPER.name}
+      <NewTab />
+    </a>
+  </p>
+  <div class="credits-close-row">
+    <button type="button" class="btn" data-credits-close>{t`Cheers to them!`}</button>
+  </div>
+</dialog>
+
+<script>
+  for (const dialog of document.querySelectorAll<HTMLDialogElement>("[data-credits]")) {
+    const opener = dialog.previousElementSibling as HTMLButtonElement | null;
+    opener?.addEventListener("click", () => dialog.showModal());
+    dialog.querySelector("[data-credits-close]")?.addEventListener("click", () => dialog.close());
+    // A click on the backdrop (outside the box) closes it too.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>
+
+<style>
+  .credits-open {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    cursor: pointer;
+  }
+  .credits {
+    width: min(36rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 1.75rem;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--color-background);
+    color: var(--color-foreground);
+    box-shadow: 0 10px 40px rgb(0 0 0 / 0.25);
+    --focus-ring: var(--color-primary-strong);
+  }
+  .credits::backdrop {
+    background: rgb(0 0 0 / 0.55);
+  }
+  .credits h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .credits ul {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.55;
+  }
+  .credits a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .credits-dev {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .credits-close-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+  }
+</style>
