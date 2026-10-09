@@ -24,7 +24,10 @@
     "background": "node ./scripts/background.mjs",
     "i18n:extract": "lingui extract --clean",
     "i18n:fill": "node scripts/fill-fr.mjs",
-    "vercel:config": "bun scripts/vercel-config.ts"
+    "vercel:config": "bun scripts/vercel-config.ts",
+    "indexnow": "node scripts/indexnow.mjs",
+    "indexnow:key": "node scripts/indexnow.mjs --new-key",
+    "favicons": "node scripts/favicons.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.0.1",

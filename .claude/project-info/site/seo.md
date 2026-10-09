@@ -169,7 +169,7 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
 - **IndexNow:** key = 32 hex chars from `crypto.randomUUID()` minus dashes, made once by `bun run indexnow:key` (never
   typed), in `public/<key>.txt`, committed (public by design) [research: seo-structured-data § 4.3]. `bun run indexnow`
   (`scripts/indexnow.mjs`) POSTs `{host, key, keyLocation, urlList}` to `https://api.indexnow.org/indexnow`: by default
-  the sitemap URLs whose `lastmod` differs from the live sitemap, `--all` at launch; refuses unless the key file
+  the built sitemap URLs the live sitemap lacks (per-URL `lastmod` comes with `page-dates.json`), `--all` at launch; refuses unless the key file
   answers 200 on www; 200/202 pass, 403/422 fail. Reaches Bing and the other participants, not Google.
 
 ## Launch/SEO gate (`web/scripts/launch-gate.mjs`, after every `astro build`; strict in a launch build)
@@ -222,7 +222,7 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
    `https://www.yws.lu/AboutUs` once: it should report the redirect.
 8. **Bing:** bing.com/webmasters → sign in → **Import** from Google Search Console → allow → select `yws.lu` →
    Import (site + submitted sitemaps). Fallback: Add site → meta tag → `BING_SITE_VERIFICATION` → redeploy → Verify.
-9. **IndexNow:** `cd web && bun run indexnow -- --all` → 200 or 202. After later deploys: `bun run indexnow`.
+9. **IndexNow:** `cd web && bun run indexnow --all` → 200 or 202 (key file `web/public/247b545c08794fcfaa356693c094db59.txt`, committed). After later deploys: `bun run indexnow`.
 10. **Google Business Profile (Q12):** business.google.com → find "Youth Work Synergy"; if it exists, set name, the
     office address exactly as in the footer, the main phone (Q2) and website `https://www.yws.lu/` (Info → edit); if
     not, a profile needs a staffed office with signage [research: seo-structured-data § 5]: the client decides. Same
