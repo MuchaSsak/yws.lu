@@ -10,6 +10,7 @@
 ### The owner's way of working
 - No forms of any kind (contact, apply, newsletter, chat, booking): make email, phone, map and socials better instead - 2026-10-09.
 - Keep the general feel (playful, colourful, 3D, warm), but a weak or unimpressive component may be replaced by a better one; list each swap in the report [user 2026-10-09] - 2026-10-09.
+- Visuals come first: Mehdi (the owner of yws.lu) judges the finished look. Every interactive piece gets designed motion (the menu once opened with none), reviewed in shots as the client would see it [user 2026-10-09] - 2026-10-09.
 - Keep every version for the case study: tag `history/*` before a big change, capture a look before replacing it - 2026-10-05.
 - Commit only what the site ships: QA shots, clips and research screenshots stay local (gitignored) - 2026-10-08.
 - Existing French is human text: keep the wording, fix typos, grammar and calques (« Apprendre encore plus » → « En savoir plus »), each fix in `placeholders.md`; new French is native and marked for review; same check for English microcopy [user] - 2026-10-09.

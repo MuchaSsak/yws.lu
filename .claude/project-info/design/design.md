@@ -212,7 +212,8 @@ and never applied [repo: components/ui/dialog.tsx:39]).
 - **Libraries:** CSS first (keyframes, transitions, scroll-driven timelines in longhands [lessons]); small vanilla
   scripts (in-view); canvas and 3D loops in workers (flow field, house, globe). No GSAP (licence) and no `motion` on static pages.
 - **Durations:** 200–900 ms for everything a visitor waits for: `--dur-1` hover/press · `--dur-2` word fade, overlay ·
-  `--dur-3` reveal box, menu open, poster → canvas cross-fade · `--dur-4` card rise · `--dur-5` the longest entrance.
+  `--dur-3` reveal box, menu open, poster → canvas cross-fade, card rise (ease-out, 80 ms apart; it starts as the
+  card's place enters the screen [user 2026-10-09]) · `--dur-4` · `--dur-5` the longest entrance.
   Continuous loops sit outside that range and run at constant speed: marquee 25 px/s, line shadow 15 s, shine 14 s,
   shimmer 3 s, aurora 10 / 15 s, sparkle 0.8 s, 3D turn 0.1 rad/s [inventory § 7].
 - **Easing:** `--ease-out` for entrances and hover, `--ease-in` for the reveal box leaving, `--ease-anticipate` for the
@@ -235,9 +236,12 @@ and never applied [repo: components/ui/dialog.tsx:39]).
   The flow field draws in a worker on an OffscreenCanvas. Sections (`Section`), project cards and the footer carry
   `content-visibility: auto` with an intrinsic size, so the off-screen page skips layout, including the re-layout when
   the web font swaps in; its paint containment clips anything that overflows the box, so decorations stay inside, and a
-  card's rise entrance is clipped at its section's edge for its 1 s.
+  card's rise entrance is clipped at its section's edge for its half second.
   **proposal (comps/):** one site-wide "Pause animations" control (footer) for loops longer than 5 s (WCAG 2.2.2);
   the marquee already pauses on hover and focus.
+- **Menu:** bars → cross (300 ms), the sheet drops in (opacity + 12 px + a top-down clip, 320 ms ease-out), links
+  35 ms apart, the page dims to `zinc-900/35`; closing is the same backwards, faster [user 2026-10-09: "the menu
+  doesn't even have an animation"] [repo: web/src/components/layout/SiteHeader.astro].
 - **Hover:** never changes layout (no letter-spacing or weight swaps that resize); every hover has a focus twin and,
   where it carries meaning, a tap twin.
 

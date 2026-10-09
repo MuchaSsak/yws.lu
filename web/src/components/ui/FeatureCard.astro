@@ -2,7 +2,7 @@
 /**
  * A feature card (wiki: design/design.md § Components: the 2025 GlareCard look, rewritten as own code, Q23): 3 rem
  * radius, 64 px ink-orange icon, centred title (h3) and text, a faint glass fill over the page glow. Cards rise into
- * view one after another (`index` staggers them, 125 ms apart as in 2025). Static: the 2025 tilt and foil are a
+ * view one after another (`index` staggers them, 80 ms apart; 2025: 125 ms). Static: the 2025 tilt and foil are a
  * hover-only layer, a proposal for later. Put cards in a `<ul class="feature-cards">`. `compact` drops the 2025 card height
  * for a one-line fact (the TEC Q&A), so a phone does not scroll past empty cards.
  */
@@ -53,7 +53,7 @@ const { icon, title, index = 0, compact = false } = Astro.props;
     /* The rise (global.css § Fade in) and the hover border share one transition list. */
     transition:
       border-color var(--dur-2) var(--ease-out),
-      transform var(--dur-4) var(--ease-in-out) calc(var(--i, 0) * 125ms);
+      transform var(--dur-3) var(--ease-out) calc(var(--i, 0) * 80ms);
   }
   .feature-card-compact {
     min-height: 0;

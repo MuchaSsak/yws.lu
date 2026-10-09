@@ -418,13 +418,14 @@
     [data-inview="words"]:not(.is-in) .word {
       opacity: 0;
     }
-    /* The 2025 card entrance: up from 200 px below, 125 ms apart (--i). */
+    /* The 2025 card entrance: up from 200 px below; quicker than 2025 (750 ms, 125 ms apart) so no card keeps its
+       place empty while the page is read [user 2026-10-09]. */
     [data-inview="rise"]:not(.is-in) {
       transform: translateY(200px);
     }
   }
   [data-inview="rise"] {
-    transition: transform var(--dur-4) var(--ease-in-out) calc(var(--i, 0) * 125ms);
+    transition: transform var(--dur-3) var(--ease-out) calc(var(--i, 0) * 80ms);
   }
   [data-inview="fade"] {
     transition: opacity var(--dur-5) var(--fade-delay, 0.25s);
