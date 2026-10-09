@@ -110,8 +110,8 @@ hovers, chrome surfaces, focus ring per surface, every gradient stop); a new rol
 | Home H1 italic words | orange-600 | white / glow peak | 3.59 / 2.56 | keep at ≥ 48 px bold; confirm over the glow in shots | [repo: app/(components)/hero/HeroHeader.tsx:25] |
 | Icons, small orange text | ink-orange (orange-900) | white | 9.42 | keep | [repo: app/AboutUs/(components)/ourMission/OurMissionCards.tsx:15] |
 | Violet text | violet `#730bce` | white | 7.87 | allowed for text; violet-soft (3.13) decoration only | |
-| Dark chrome text | white | header `black/60` over white / footer `foreground/90` | 5.74 / ≥ 11.84 | keep the spike's surfaces (2025 nav `black/25`: 1.83) | [repo: web/src/components/layout/SiteHeader.astro:29; SiteFooter.astro:18] |
-| Focus ring | `--focus-ring` | white page / dark chrome | 5.23 (orange-700) / white on `#666`: 5.74 | the spike's single orange-700 ring is 1.10:1 on the header: per-surface ring | [repo: web/src/styles/global.css:70-74] |
+| Chrome text | foreground on the header's `white/75` + blur; white on the footer's `foreground/90` | header / footer | ≥ 15 / ≥ 11.84 | light header [user 2026-10-09]; the header's Apply pill: orange-700 on an orange tint, ≥ 4.5 | [repo: web/src/components/layout/SiteHeader.astro; SiteFooter.astro:18] |
+| Focus ring | `--focus-ring` | white page / dark chrome | 5.23 (orange-700) / white on the footer | per-surface ring (the light header uses orange-700) | [repo: web/src/styles/global.css:70-74] |
 | Section headings | `--gradient-heading` | white | stops 2.14 / 3.58 / 1.92 | **fails 3:1**: fix below | [repo: app/globals.css:225] |
 
 **Heading gradient: proposal (comps/), but the fix itself is not optional** (it is an instant fail in
@@ -282,8 +282,8 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Contact action | Lucide icon 24 px + `text-2xl` 600 label; hover underline and the label nudges 6 px; real `mailto:` (prefilled subject) / `tel:` (E.164) / copy button | contact block, owners' contact | [repo: app/(components)/contact/ContactLinks.tsx:17] |
 | Inline link | underlined at rest (not colour-only), `primary-strong` or inherit | body text, credits, footer | |
 
-- **Focus:** `outline: 3px solid var(--focus-ring); outline-offset: 3px` on every control; `.surface-dark` (header,
-  menu, footer) switches the ring to white. Never removed, never under the sticky header.
+- **Focus:** `outline: 3px solid var(--focus-ring); outline-offset: 3px` on every control; `.surface-dark` (the
+  footer) switches the ring to white; the light header and menu keep the orange-700 ring (5.23:1 on white). Never removed, never under the sticky header.
 - **Targets:** ≥ 44 px for buttons, menu and switcher items on touch; ≥ 24 px anywhere (WCAG 2.5.8).
 - **Labels:** the visible label starts the accessible name; external links open in a new tab and say so
   ("(opens in a new tab)", sr-only) [repo: web/src/components/ui/ButtonLink.astro:17-28]. Labels come from the
@@ -294,7 +294,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 
 | Component | Decision | Notes |
 | --- | --- | --- |
-| Header (`NavBar` + `HamburgerMenu` + `LanguagePicker`) | **merged** → `SiteHeader` | links ≥ 1280, menu below as a disclosure panel; language as two text links; `black/60` + blur (5.74:1) [repo: web/src/components/layout/SiteHeader.astro]; Apply and Contact one tap away on phones (`design-references.md`) |
+| Header (`NavBar` + `HamburgerMenu` + `LanguagePicker`) | **merged** → `SiteHeader` | links ≥ 1280, menu below as a disclosure panel; language as flag + name links; a light frosted bar (`white/75` + blur, dark text, the logo in ink) with an orange-tinted Apply pill [user 2026-10-09] [repo: web/src/components/layout/SiteHeader.astro]; Apply and Contact one tap away on phones (`design-references.md`) |
 | Footer | **rewritten** → `SiteFooter` | real landmarks, no `<h4>`/`<h5>` as text, one `tel:` per number, named social links, credits trigger; full-strength text (§ Colour) |
 | BodyBackground | **kept**, pre-rendered | § Backgrounds |
 | Credits dialog | **kept**, native `<dialog>` | focus trap, Esc, 44 px close button (2025: 16 px icon at 70 % opacity) |

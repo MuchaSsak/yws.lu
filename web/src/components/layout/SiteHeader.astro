@@ -1,8 +1,10 @@
 ---
 /**
- * The header (wiki: site/structure.md § Header, design/design.md § Components). The 2025 dark bar, now dark enough
- * for white text (black/60 + blur: 5.7:1; 2025 black/25: 1.8:1). Every width: logo, the primary "Apply" (→ the housing
- * page, eligibility first: Q26 default) and the other language as a text link. Wide screens: the journeys inline.
+ * The header (wiki: site/structure.md § Header, design/design.md § Components). A light frosted bar with dark text
+ * [user 2026-10-09: the dark bar was too heavy]; the 2025 grey bar (black/25) gave its white text 1.8:1, dark ink on
+ * white/75 + blur stays far above 4.5:1 over any part of the background. The white logo is drawn dark here. Every
+ * width: logo, the "Apply" pill (→ the housing page, eligibility first: Q26 default) and the other language with its
+ * flag (SVG: Windows draws flag emoji as letters). Wide screens: the journeys inline.
  * Narrower: a "Menu" disclosure holding every journey, contact actions and both languages; while it is open the rest
  * of the page is `inert` (focus stays in the header), Escape closes it and focus returns to the button.
  * The inline nav needs more room in French: it appears from 1280 px in English and 1600 px in French (both measured
@@ -39,7 +41,7 @@ const others = LOCALES.filter((other) => other !== locale);
 const call = ORGANISATION.phones[0]!;
 ---
 
-<header class="site-header surface-dark" data-site-header>
+<header class="site-header" data-site-header>
   <div class="site-header-row">
     <a href={pathTo(locale, "home")} class="site-logo" aria-label={ORGANISATION.name}>
       <Image src={logo} alt="" width={84} height={56} loading="eager" fetchpriority="high" format="webp" densities={[1, 2]} />
@@ -58,13 +60,14 @@ const call = ORGANISATION.phones[0]!;
     </nav>
 
     <div class="site-actions">
-      <a href={apply.href} class="btn site-apply" aria-current={here === "housing" ? "page" : undefined}>
+      <a href={apply.href} class="site-apply" aria-current={here === "housing" ? "page" : undefined}>
         <span class="apply-long">{apply.label}</span>
         <span class="apply-short">{apply.short}</span>
       </a>
       <div class="site-lang" data-lang-switch>
         {others.map((other) => (
           <a href={pathTo(other, here)} hreflang={other} lang={other}>
+            <span class:list={["flag", `flag-${other}`]} aria-hidden="true"></span>
             {AUTONYMS[other]}
           </a>
         ))}
@@ -82,7 +85,7 @@ const call = ORGANISATION.phones[0]!;
     <nav aria-label={t`Main`}>
       <ul class="site-menu-journeys">
         <li>
-          <a href={apply.href} class="btn" aria-current={here === "housing" ? "page" : undefined}>
+          <a href={apply.href} class="site-apply" aria-current={here === "housing" ? "page" : undefined}>
             {apply.label}
           </a>
         </li>
@@ -109,6 +112,7 @@ const call = ORGANISATION.phones[0]!;
       {LOCALES.map((other) => (
         <li>
           <a href={pathTo(other, here)} hreflang={other} lang={other} aria-current={other === locale ? "page" : undefined}>
+            <span class:list={["flag", `flag-${other}`]} aria-hidden="true"></span>
             {AUTONYMS[other]}
           </a>
         </li>
@@ -152,10 +156,13 @@ const call = ORGANISATION.phones[0]!;
     position: fixed;
     inset: 0 0 auto;
     z-index: var(--z-header);
-    color: #fff;
-    background: rgb(0 0 0 / 0.6);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    color: var(--color-foreground);
+    background: rgb(255 255 255 / 0.75);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    backdrop-filter: blur(12px) saturate(1.4);
+    box-shadow:
+      0 1px 0 rgb(0 0 0 / 0.06),
+      0 8px 24px -16px rgb(0 0 0 / 0.25);
   }
   .site-header-row {
     display: flex;
@@ -176,10 +183,12 @@ const call = ORGANISATION.phones[0]!;
   .site-logo:focus-visible {
     transform: scale(1.05);
   }
+  /* The logo file is white (for the footer's dark surface); on this light bar it is drawn in ink. */
   .site-logo img {
     display: block;
     width: 3.75rem;
     height: auto;
+    filter: brightness(0);
   }
   .site-nav {
     display: none;
@@ -211,6 +220,8 @@ const call = ORGANISATION.phones[0]!;
   .site-lang a:hover,
   .site-lang a:focus-visible {
     text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 2px;
   }
   .site-nav a[aria-current="page"] {
     text-decoration-color: var(--color-primary);
@@ -222,9 +233,47 @@ const call = ORGANISATION.phones[0]!;
     gap: clamp(0.5rem, 1.5vw, 1.25rem);
     margin-left: auto;
   }
+  /* The one action in the bar, kept light: an orange-tinted pill that fills on hover. */
   .site-apply {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 2.5rem;
-    padding-inline: 1rem;
+    padding-inline: 1.1rem;
+    border: 1px solid color-mix(in oklab, var(--color-primary) 60%, transparent);
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-primary) 12%, white);
+    color: var(--color-primary-strong);
+    font-weight: 600;
+    white-space: nowrap;
+    transition:
+      background-color var(--dur-1),
+      color var(--dur-1),
+      border-color var(--dur-1);
+  }
+  .site-apply:hover,
+  .site-apply:focus-visible,
+  .site-apply[aria-current="page"] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+  /* The flags, drawn (own SVG from the flags' public-domain geometry), never emoji: Windows shows those as letters. */
+  .flag {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1.375rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    border-radius: 3px;
+    background: center / cover no-repeat;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+  }
+  .flag-fr {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Cpath fill='%23000091' d='M0 0h1v2H0z'/%3E%3Cpath fill='%23fff' d='M1 0h1v2H1z'/%3E%3Cpath fill='%23e1000f' d='M2 0h1v2H2z'/%3E%3C/svg%3E");
+  }
+  .flag-en {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3CclipPath id='a'%3E%3Cpath d='M0 0v30h60V0z'/%3E%3C/clipPath%3E%3CclipPath id='b'%3E%3Cpath d='M30 15h30v15zv15H0zH0V0zV0h30z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M0 0v30h60V0z' fill='%23012169'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0 0l60 30m0-30L0 30' clip-path='url(%23b)' stroke='%23c8102e' stroke-width='4'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30 0v30M0 15h60' stroke='%23c8102e' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E");
   }
   .apply-long {
     display: none;
@@ -238,7 +287,7 @@ const call = ORGANISATION.phones[0]!;
     gap: 0.4rem;
     min-height: 2.75rem;
     padding: 0 0.75rem;
-    border: 1px solid rgb(255 255 255 / 0.7);
+    border: 1px solid rgb(0 0 0 / 0.2);
     border-radius: var(--radius-md);
     background: transparent;
     color: inherit;
@@ -247,14 +296,14 @@ const call = ORGANISATION.phones[0]!;
     cursor: pointer;
   }
   .site-menu-button[aria-expanded="true"] {
-    background: rgb(255 255 255 / 0.15);
+    background: rgb(0 0 0 / 0.06);
   }
   .site-menu {
     max-height: calc(100dvh - var(--header-h));
     overflow-y: auto;
     padding: 1.25rem var(--pad-x) 2rem;
-    border-top: 1px solid rgb(255 255 255 / 0.2);
-    background: rgb(0 0 0 / 0.88);
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+    background: rgb(255 255 255 / 0.96);
   }
   .site-menu ul {
     margin: 0;
@@ -265,18 +314,20 @@ const call = ORGANISATION.phones[0]!;
     display: grid;
     gap: 0.25rem;
   }
-  .site-menu-journeys a:not(.btn) {
+  .site-menu-journeys a:not(.site-apply) {
     display: flex;
     align-items: center;
     min-height: 3rem;
     font-size: 1.25rem;
     font-weight: 600;
   }
-  .site-menu-journeys .btn {
+  .site-menu-journeys .site-apply {
     width: 100%;
+    min-height: 3rem;
     margin-bottom: 0.5rem;
+    font-size: 1.125rem;
   }
-  .site-menu a[aria-current="page"]:not(.btn) {
+  .site-menu a[aria-current="page"]:not(.site-apply) {
     text-decoration: underline;
     text-decoration-color: var(--color-primary);
     text-decoration-thickness: 2px;
@@ -287,12 +338,14 @@ const call = ORGANISATION.phones[0]!;
     gap: 0.25rem;
     margin-top: 1.25rem !important;
     padding-top: 1rem !important;
-    border-top: 1px solid rgb(255 255 255 / 0.2);
+    border-top: 1px solid rgb(0 0 0 / 0.08);
   }
+  /* Flex drops the space between "Call us" and the number: the gap puts it back. */
   .site-menu-contact a,
   .site-menu-lang a {
     display: inline-flex;
     align-items: center;
+    gap: 0.3em;
     min-height: 2.75rem;
     font-weight: 500;
     text-decoration: underline;
