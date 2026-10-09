@@ -18,6 +18,8 @@
 - Heavy media loads near visibility and plays only when visible (a load-time loop cost 270–480 ms TBT) - 2026-10-05.
 - Every hover has a tap, focus or scroll twin; phones get the same content - 2026-10-05.
 
+- Estimates come from the measured pace, not caution: a page's review and fixes took 20–40 min, and an 8–12 h guess for the rest drew a correction [user 2026-10-09]. Name the unattended runs (Lighthouse ~35 min) apart from the work - 2026-10-09.
+
 ### Code and quality
 - A visible label must start the accessible name (WCAG 2.5.3): add hidden text after it, never a replacing `aria-label` - 2026-10-05.
 - Never nest a link and a button; never `tabIndex={-1}` on the real control (the old CTAs were keyboard-dead) - 2026-10-09.
