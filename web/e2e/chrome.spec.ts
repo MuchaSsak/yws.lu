@@ -47,4 +47,26 @@ for (const path of HOMES) {
       await expect(footer.getByRole("link", { name: social.name, exact: false }).first()).toHaveAttribute("href", social.href);
     }
   });
+
+  test(`credits dialog opens centred and closes ${path}`, async ({ page }) => {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      const dialog = page.locator("dialog[data-credits]");
+      await page.locator("footer .credits-open").click();
+      await expect(dialog).toBeVisible();
+      await page.waitForTimeout(450);
+      // Centred (Tailwind's reset once pinned it to the top-left corner). Horizontally within half a scrollbar: headless
+      // Chromium hides scrollbars but still reserves the `scrollbar-gutter: stable` space beside the dialog.
+      const [dx, dy] = await dialog.evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        const { clientWidth, clientHeight } = document.documentElement;
+        return [box.x + box.width / 2 - clientWidth / 2, box.y + box.height / 2 - clientHeight / 2].map(Math.abs);
+      });
+      expect(dx, `${width}px, across`).toBeLessThan(10);
+      expect(dy, `${width}px, down`).toBeLessThan(2);
+      await page.keyboard.press("Escape");
+      await expect(dialog).toBeHidden();
+    }
+  });
 }

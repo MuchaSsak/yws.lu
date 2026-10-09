@@ -8,3 +8,5 @@ playwright-report/
 bun.lock
 src/locales/**/*.po
 .cache/
+# One hand-written line: Astro keeps line-break whitespace, so the formatter would put spaces inside its links.
+src/components/layout/CreditLine.astro

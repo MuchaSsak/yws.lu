@@ -1,0 +1,24 @@
+---
+/**
+ * One line of the credits dialog: “title” by author, licence, modified. Written on one line on purpose: Astro keeps
+ * the whitespace of line breaks, and the formatter's breaks put an underlined space inside each link and a space before
+ * each comma ("Roman_Nilikovskii , Creative Commons Attribution 4.0 , …"). Listed in .prettierignore for that.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import NewTab from "~/components/ui/NewTab.astro";
+import { CC_BY_4, type Credit } from "~/data/credits";
+
+interface Props {
+  credit: Credit;
+}
+
+const { credit } = Astro.props;
+const licence = "Creative Commons Attribution 4.0";
+const by = t({ message: "by", context: "credits: <title> by <author>" });
+const end = credit.modified
+  ? `, ${t({ message: "modified (optimised for the web)", context: "credits: the model was changed" })}.`
+  : ".";
+---
+
+<li><a href={credit.source} target="_blank" rel="noopener">“{credit.title}”<NewTab /></a> {by} <a href={credit.authorUrl} target="_blank" rel="noopener">{credit.author}<NewTab /></a>, <a href={CC_BY_4} target="_blank" rel="noopener license">{licence}<NewTab /></a>{end}</li>
