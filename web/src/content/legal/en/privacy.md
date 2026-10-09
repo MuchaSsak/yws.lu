@@ -30,7 +30,7 @@ party" have the meanings given to them in Articles 4 and 26 GDPR.
 ## 2. Controller and contact
 
 2.1. The controller is Youth Work Synergy, association sans but lucratif (a.s.b.l.) governed by Luxembourg law,
-PLACEHOLDER (registered office and R.C.S. Luxembourg number, as in the legal notice), with its office at
+with its registered office at 16, rue Pierre Weydert, L-5891 Fentange and its office at
 136-138, rue Adolphe Fischer, L-1521 Luxembourg ("YWS", "we", "us").
 
 2.2. Any question or request concerning personal data may be addressed to YWS:
@@ -38,9 +38,6 @@ PLACEHOLDER (registered office and R.C.S. Luxembourg number, as in the legal not
 - by email to [contact@yws.lu](mailto:contact@yws.lu), preferably with the subject "Data protection";
 - by post to the office address above;
 - by telephone at [+352 28 66 22](tel:+352286622) or [+352 661 597 312](tel:+352661597312).
-
-2.3. Data protection officer: PLACEHOLDER (whether YWS has designated a data protection officer under Article 37 GDPR
-and, if so, the officer's contact details).
 
 ## 3. Characteristics of the Website
 
@@ -70,8 +67,7 @@ These data are necessary for the Website to be displayed; without them, it canno
 
 (d) Processor: the Website is hosted by Vercel Inc., 440 N Barranca Avenue #4133 Covina, CA 91723 United States
 ([privacy policy](https://vercel.com/legal/privacy-policy)), which processes these data on behalf of YWS as a
-processor within the meaning of Article 28 GDPR. PLACEHOLDER (confirm that the Website's Vercel plan is covered by
-Vercel's Data Processing Addendum).
+processor within the meaning of Article 28 GDPR.
 
 (e) Retention: the technical data are kept for the period determined by the hosting service's log settings and no
 longer than necessary for the purposes set out in point (b). They may be kept longer only where, and for as long as,
@@ -120,7 +116,7 @@ your request before the conclusion of a contract (for example renting a property
 6(1)(b) GDPR.
 
 (d) Recipients: the members of YWS's staff and volunteers who need the information to handle your request; the provider
-of YWS's email service, as processor, PLACEHOLDER (name and location of the email service provider); and the
+of YWS's email service, as processor; and the
 telecommunications operators that carry the communication.
 
 (e) Retention: for as long as necessary to handle your request and its follow-up. Correspondence that becomes part of a
@@ -142,8 +138,8 @@ data.
 
 (a) The Website publishes photographs taken during YWS's projects and events, some of which show identifiable persons.
 
-(b) Purpose and legal basis: presenting YWS's activities. PLACEHOLDER (legal basis for publishing the photographs: the
-consent of the persons shown or the legitimate interest of YWS, as documented by YWS).
+(b) Purpose and legal basis: presenting YWS's activities. The legal basis is the
+consent of the persons shown or the legitimate interest of YWS.
 
 (c) Retention: for as long as the photograph is published on the Website. Any person shown in a photograph may ask for
 its removal or object to its publication by writing to [contact@yws.lu](mailto:contact@yws.lu).

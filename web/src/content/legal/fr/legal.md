@@ -7,12 +7,9 @@ updated: 2026-10-09
 
 Youth Work Synergy, association sans but lucratif (a.s.b.l.)
 
-- Dénomination : PLACEHOLDER (telle qu’inscrite au R.C.S.)
-- Siège (adresse postale) : 16, rue Pierre Weydert, L-5891 Fentange. PLACEHOLDER : confirmer qu’il s’agit du siège statutaire
+- Dénomination : Youth Work Synergy a.s.b.l.
+- Siège (adresse postale) : 16, rue Pierre Weydert, L-5891 Fentange
 - Bureau : 136-138, rue Adolphe Fischer, L-1521 Luxembourg
-- R.C.S. Luxembourg : PLACEHOLDER (numéro d’immatriculation)
-- Responsable de la publication (représentant légal) : PLACEHOLDER (nom et fonction)
-- Numéro de TVA ou autorisation : PLACEHOLDER (le cas échéant)
 
 ## Contact
 
@@ -31,7 +28,7 @@ en bas de chaque page. Pour toute question sur une photo, ou pour en demander le
 
 ## Droits d’auteur
 
-© 2026 PLACEHOLDER (titulaire des droits)
+© 2026 Youth Work Synergy a.s.b.l.
 
 ## Liens vers d’autres sites
 

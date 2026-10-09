@@ -32,7 +32,7 @@ et 26 du RGPD.
 ## 2. Responsable du traitement et contact
 
 2.1. Le responsable du traitement est Youth Work Synergy, association sans but lucratif (a.s.b.l.) de droit
-luxembourgeois, PLACEHOLDER (siège social et numéro R.C.S. Luxembourg, comme dans les mentions légales), dont le bureau
+luxembourgeois, dont le siège est situé 16, rue Pierre Weydert, L-5891 Fentange et dont le bureau
 est situé 136-138, rue Adolphe Fischer, L-1521 Luxembourg (« YWS », « nous »).
 
 2.2. Toute question ou demande relative aux données à caractère personnel peut être adressée à YWS :
@@ -40,9 +40,6 @@ est situé 136-138, rue Adolphe Fischer, L-1521 Luxembourg (« YWS », « nou
 - par courriel à [contact@yws.lu](mailto:contact@yws.lu), de préférence avec l’objet « Protection des données » ;
 - par courrier à l’adresse du bureau indiquée ci-dessus ;
 - par téléphone au [+352 28 66 22](tel:+352286622) ou au [+352 661 597 312](tel:+352661597312).
-
-2.3. Délégué à la protection des données : PLACEHOLDER (si YWS a désigné un délégué à la protection des données au sens
-de l’article 37 du RGPD et, le cas échéant, ses coordonnées).
 
 ## 3. Caractéristiques du Site
 
@@ -74,8 +71,7 @@ fonctionnel. Ces données sont nécessaires à l’affichage du Site ; sans el
 
 d) Sous-traitant : le Site est hébergé par Vercel Inc., 440 N Barranca Avenue #4133 Covina, CA 91723 United States
 ([politique de confidentialité](https://vercel.com/legal/privacy-policy)), qui traite ces données pour le compte de YWS
-en qualité de sous-traitant au sens de l’article 28 du RGPD. PLACEHOLDER (confirmer que la formule Vercel du Site est
-couverte par l’avenant relatif au traitement des données de Vercel, le « Data Processing Addendum »).
+en qualité de sous-traitant au sens de l’article 28 du RGPD.
 
 e) Durée de conservation : les données techniques sont conservées pendant la durée fixée par les paramètres de
 journalisation du service d’hébergement et pas au-delà de ce qui est nécessaire aux finalités énoncées au point b). Elles
@@ -127,8 +123,7 @@ porte sur des mesures précontractuelles prises à votre demande (par exemple la
 location d’une chambre auprès de YWS), article 6, paragraphe 1, point b), du RGPD.
 
 d) Destinataires : les membres du personnel et les bénévoles de YWS qui ont besoin de ces informations pour traiter
-votre demande ; le prestataire du service de messagerie électronique de YWS, en qualité de sous-traitant, PLACEHOLDER
-(nom et localisation du prestataire de messagerie) ; les opérateurs de télécommunications qui acheminent la
+votre demande ; le prestataire du service de messagerie électronique de YWS, en qualité de sous-traitant ; les opérateurs de télécommunications qui acheminent la
 communication.
 
 e) Durée de conservation : aussi longtemps que nécessaire pour traiter votre demande et en assurer le suivi. Les
@@ -151,8 +146,8 @@ données à caractère personnel qu’ils effectuent.
 a) Le Site publie des photographies prises lors des projets et événements de YWS, dont certaines montrent des personnes
 identifiables.
 
-b) Finalité et base juridique : présenter les activités de YWS. PLACEHOLDER (base juridique de la publication des
-photographies : le consentement des personnes représentées ou l’intérêt légitime de YWS, tel que documenté par YWS).
+b) Finalité et base juridique : présenter les activités de YWS. La base juridique est le
+consentement des personnes représentées ou l’intérêt légitime de YWS.
 
 c) Durée de conservation : aussi longtemps que la photographie est publiée sur le Site. Toute personne représentée sur
 une photographie peut en demander le retrait ou s’opposer à sa publication en écrivant à
