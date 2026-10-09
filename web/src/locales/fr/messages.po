@@ -315,6 +315,10 @@ msgstr "Prenez part à la conversation"
 msgid "Language"
 msgstr "Langue"
 
+#: src/components/legal/LegalPage.astro
+msgid "Last updated: {updated}"
+msgstr "Dernière mise à jour : {updated}"
+
 #: src/components/layout/CreditsDialog.astro
 msgid "Lead Developer"
 msgstr "Développeur principal"

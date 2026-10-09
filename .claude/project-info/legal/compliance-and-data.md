@@ -96,6 +96,8 @@ Slaughter*; no suspension found. [research: legal § 2.3]
 
 Pages `legal-notice` / `mentions-legales` [HANDOFF § 2]; linked from the footer's legal row on every page. Every
 unknown value ships as `PLACEHOLDER` (logged in [placeholders](../placeholders.md); the launch gate blocks production).
+**Built 2026-10-09** as `web/src/content/legal/{en,fr}/legal.md` (sections: publisher, contact, host, credits,
+copyright, links), noindex; the client fills the `PLACEHOLDER` rows below.
 
 | Mention | Rule | Value | Status |
 | --- | --- | --- | --- |
@@ -118,7 +120,11 @@ unknown value ships as `PLACEHOLDER` (logged in [placeholders](../placeholders.m
 ## Privacy policy: required contents (GDPR art. 13, CNPD guide for associations)
 
 Pages `privacy-policy` / `politique-de-confidentialite`; footer link on every page; en + fr say the same thing
-(client review of both). Plain language (art. 12), which matters for a young audience.
+(client review of both). Plain language (art. 12), which matters for a young audience. **Built 2026-10-09** as
+`web/src/content/legal/{en,fr}/privacy.md`: who is responsible, what the site does not do (no forms, analytics,
+cookies or local storage; self-hosted font and models), each activity with its own legal-basis and retention
+`PLACEHOLDER`, recipients, transfers, rights + CNPD, automated decisions, changes. Zoom is not listed: the TEC Q&A is
+past and the site links no Zoom room.
 
 | Art. 13 item | yws.lu content | Status |
 | --- | --- | --- |

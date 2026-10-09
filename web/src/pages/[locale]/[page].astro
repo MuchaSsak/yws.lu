@@ -8,6 +8,7 @@ import OurMission from "~/components/about/OurMission.astro";
 import RealImpact from "~/components/about/RealImpact.astro";
 import HousingHero from "~/components/housing/HousingHero.astro";
 import HowItWorks from "~/components/housing/HowItWorks.astro";
+import LegalPage from "~/components/legal/LegalPage.astro";
 import WhoGetsPriority from "~/components/housing/WhoGetsPriority.astro";
 import OwnersContact from "~/components/owners/OwnersContact.astro";
 import OwnersHero from "~/components/owners/OwnersHero.astro";
@@ -39,6 +40,7 @@ const { id } = Astro.props as { id: RouteId };
   )}
   {id === "projects" && <ProjectsPage />}
   {id === "tec" && <TecPage />}
+  {(id === "privacy" || id === "legal") && <LegalPage page={id} />}
   {id === "about" && (
     <>
       <AboutHero />

@@ -56,6 +56,10 @@
 - [ ] 10 404
 - [ ] 11 Legal pages (privacy, legal notice; PLACEHOLDER facts)
 
+Status 2026-10-09: slices 0–11 are **built** (every route in `routes.ts`, the migration-era `READY` list removed; `check`
+green, the review gate clean, og cards drawn). A box ticks when the full sweep passes for its route: next is
+`bun run e2e`, `e2e:xb`, `lhci`, `shots --all`, then the en+fr review at 390/1024/1440/1920.
+
 ## P8. After
 - [ ] Full sweep green; P0 capture re-run into `.case-study/after/`; compare folder
 - [ ] wiki-lint, log, lessons, placeholders, open questions

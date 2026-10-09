@@ -1,0 +1,84 @@
+---
+/**
+ * Privacy policy and legal notice (wiki: site/structure.md § Legal pages, legal/compliance-and-data.md): the text of
+ * the `legal` collection for this locale under its H1 and version date. Facts only; every unknown is a visible
+ * placeholder marker until the client approves (a launch build fails on any left). Plain reading layout, no effects.
+ */
+import { getEntry, render } from "astro:content";
+import { t } from "lingui-for-astro/macro";
+
+import { formatDate } from "~/lib/format";
+
+interface Props {
+  page: "privacy" | "legal";
+}
+
+const { page } = Astro.props;
+const locale = Astro.locals.locale;
+const entry = await getEntry("legal", `${locale}/${page}`);
+if (!entry) throw new Error(`no legal text for ${locale}/${page}`);
+const { Content } = await render(entry);
+const updated = formatDate(entry.data.updated.toISOString().slice(0, 10), locale);
+---
+
+<article class="legal px-side">
+  <h1 class="legal-title">{entry.data.title}</h1>
+  <p class="legal-updated">{t`Last updated: ${updated}`}</p>
+  <div class="legal-text">
+    <Content />
+  </div>
+</article>
+
+<style>
+  .legal {
+    padding-block: var(--space-hero-top) var(--space-section);
+  }
+  .legal-title {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: 900;
+  }
+  .legal-updated {
+    padding-top: 0.5rem;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+  .legal-text {
+    max-width: 70ch;
+    padding-top: 2rem;
+    line-height: 1.7;
+  }
+  .legal-text :global(h2) {
+    margin-top: 2.5rem;
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+    font-weight: 700;
+  }
+  .legal-text :global(h3) {
+    margin-top: 1.5rem;
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+  .legal-text :global(p),
+  .legal-text :global(ul) {
+    margin-top: 0.75rem;
+  }
+  .legal-text :global(ul) {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .legal-text :global(li + li) {
+    margin-top: 0.25rem;
+  }
+  .legal-text :global(a) {
+    color: var(--color-primary-strong);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+  }
+  .legal-text :global(a[href^="tel:"]) {
+    white-space: nowrap;
+  }
+  .legal-text :global(code) {
+    font-size: 0.9em;
+  }
+</style>

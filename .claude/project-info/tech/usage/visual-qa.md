@@ -26,11 +26,11 @@ brotli, 404 status), never `astro dev` or `astro preview` ([astro](astro.md) § 
 | share images | `bun run og` | writes the 1200×630 PNG per page × locale from `dist/` (localized title); the build gate fails while one is missing |
 | shots | `bun run shots` | not pass/fail: prints `OVERFLOW <n>px` per shot; the eyes judge (§ The eyes) |
 
-- **One route list:** the route map `src/lib/routes.ts` (`READY` = the migrated routes Astro builds, `LEGACY` = the old
-  URLs). Playwright specs import it through `e2e/routes.ts` (+ `WIDTHS = [320, 390, 768, 1024, 1440, 1920, 2560]`); the
-  node scripts (`lhci`, `shots --all`, `og`) read the same list back from `dist/` with `builtRoutes()` in
-  `scripts/routes.mjs`, so no TypeScript import and no second list [repo: web/scripts/routes.mjs]. A slice adds its id
-  to `READY`, and every gate sweeps it the same day.
+- **One route list:** the route map `src/lib/routes.ts` (`ROUTES` = every page Astro builds, `LEGACY` = the old URLs;
+  the migration-era `READY` subset was removed once every route was built). Playwright specs import it through
+  `e2e/routes.ts` (+ `WIDTHS = [320, 390, 768, 1024, 1440, 1920, 2560]`); the node scripts (`lhci`, `shots --all`,
+  `og`) read the same list back from `dist/` with `builtRoutes()` in `scripts/routes.mjs`, so no TypeScript import and
+  no second list [repo: web/scripts/routes.mjs]. A new route goes into `ROUTES`, and every gate sweeps it the same day.
 - `scripts/capture/` at the repo root is the case-study capture (P0 before, P8 after), not a gate: it keeps its own
   frozen manifest (`pages.mjs`) so both runs measure the same pages [repo: scripts/capture/pages.mjs].
 - Never weaken a gate to pass: fix the page [brief § 2]. Read every gate's output, not only the last one.

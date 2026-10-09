@@ -101,7 +101,9 @@ optional; the gate already allows `/en/404/`, `/fr/404/`).
 **Legal pages** (en + fr, facts only, `PLACEHOLDER` until approved; text in `compliance-and-data.md`; noindex). Legal
 notice: publisher (name + "a.s.b.l.", seat, R.C.S. Luxembourg number, representative: Q1), contact, host (Vercel Inc.
 [research: legal-asbl-luxembourg § 1.4]), credits, links. Privacy policy: GDPR art. 13 headings, CNPD complaint,
-cookies, last updated. Footer legal row only, never the header.
+cookies, last updated. Footer legal row only, never the header. **Built 2026-10-09:** `LegalPage.astro` renders the
+`legal` content collection under an H1 and "Last updated" (`formatDate`), a 70ch reading column, phone links that
+never wrap; 36 `PLACEHOLDER` markers until the client answers (placeholders.md).
 
 ## Footer (one data source: `organisation.ts` + `routes.ts` + catalogs)
 

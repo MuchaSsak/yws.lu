@@ -1,16 +1,15 @@
 import { DEFAULT_LOCALE, type Locale, LOCALES } from "../src/lib/locales";
-import { LEGACY, pathTo, READY, type RouteId } from "../src/lib/routes";
+import { LEGACY, pathTo, ROUTE_IDS, type RouteId } from "../src/lib/routes";
 
 /**
- * Every built page the gates sweep, from the one route map (wiki: site/i18n.md § URLs). Grows as slices migrate
- * routes (`READY`), and covers both locales.
+ * Every built page the gates sweep, from the one route map (wiki: site/i18n.md § URLs), in both locales.
  */
 export interface Page {
   id: RouteId;
   locale: Locale;
   path: string;
 }
-export const PAGES: Page[] = LOCALES.flatMap((locale) => READY.map((id) => ({ id, locale, path: pathTo(locale, id) })));
+export const PAGES: Page[] = LOCALES.flatMap((locale) => ROUTE_IDS.map((id) => ({ id, locale, path: pathTo(locale, id) })));
 export const HOMES = LOCALES.map((locale) => pathTo(locale, "home"));
 /** Paths every sweep visits: the pages plus a missing URL per locale (the 404). */
 export const ROUTES = [...PAGES.map((page) => page.path), "/en/does-not-exist/", "/fr/page-introuvable/"];

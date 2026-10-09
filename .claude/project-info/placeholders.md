@@ -9,7 +9,12 @@
 
 | Where | What | Needs | Since |
 | --- | --- | --- | --- |
-| — | none yet (the legal pages will add them: Q1) | — | — |
+| `web/src/content/legal/{en,fr}/legal.md` (6 each) | registered name, statutory seat confirmation, R.C.S. number, person responsible for the content, VAT number or authorisation, copyright holder | the client (Q1, Q10/Q22) | 2026-10-09 |
+| `web/src/content/legal/{en,fr}/privacy.md` (12 each) | controller's registered name/seat/R.C.S. (as in the legal notice), dedicated privacy contact, DPO, legal basis and retention per activity (hosting logs, email and phone, Google Forms/Drive, photos of people), who sees form answers, mailbox provider, the housing application's decision process | the client (Q1, Q10/Q22; legal basis and retention are YWS's to choose and document, art. 5(2)) | 2026-10-09 |
+
+36 markers ship (18 per locale); the gate counts 36 (it scans `src/` and `public/`, tests excluded). Both locales say
+the same thing: fill a fact in both files (`legal.test.ts` checks the headings match and the contact facts equal
+`organisation.ts`).
 
 ## Temporary or partial assets
 
@@ -43,6 +48,7 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | We Spark, a text in the other language (Q35 fallback) | (in French) · (in English) | (en français) · (en anglais) |
 | We Spark, Projet V button → the TEC page | The closing conference | La conférence de clôture |
 | We Spark, photo alts (`src/data/projects.ts`: 6 Get Your Home, 4 Locked Out, the Safe Paths poster; logos decorative, alt "") | what each photo shows; no names, roles or genders guessed ("Workshop handouts on a table at Get Your Home", "Four people in front of the Locked Out title on the cinema screen"…) | « Les supports de l’atelier Get Your Home posés sur une table », « Quatre personnes devant le titre Locked Out projeté sur l’écran du cinéma »… (all in `web/scripts/fr-manual.json`) |
+| Legal pages (`web/src/content/legal/{en,fr}/`, whole text new) | "Legal notice" and "Privacy policy" in plain English, facts from `organisation.ts`; "Last updated: {updated}" | « Mentions légales », « Politique de confidentialité » (new French throughout: « Responsable du traitement », « Ce que ce site ne fait pas », « Destinataires des données »…); « Dernière mise à jour : {updated} » |
 | TEC, the past-event line (Q8) | This event took place on {date}. | Cet événement a eu lieu le {date}. |
 | TEC, rewritten in the past (Q8; the client's English otherwise) | "Join us for the closing conference … and discover how" → "The closing conference … showed how"; "Hosted on Zoom™" (a link) → "Held online on Zoom"; "we will launch … present … introduce" → "we launched … presented … introduced"; "This conference is an opportunity" → "was"; "The programme … is as follows" → "was"; "What we will present" → "What we presented"; "Who is it for?" → "Who was it for?", "This conference is for" → "was for", "this event will offer insights" → "the resources at tecpractices.eu offer insights"; "Join us!" → "Join the conversation", "We invite you to join us, explore …" → "We invite you to explore …"; "Register on Zoom™" / "Register here" → "Visit tecpractices.eu"; Q&A "Beginning at 9 April 2026, 14:30-15:30" → "9 April 2026, 14:30–15:30"; "Online via Zoom." kept, the recording promise and the Registration card dropped | the whole page is new French (no French existed): « Bien plus qu’une méthode », « Pourquoi cette conférence est importante », « Programme de la conférence », « Questions-réponses », « Ce que nous avons présenté », « À qui s’adressait-elle ? », « Prenez part à la conversation », « Découvrir tecpractices.eu », « Porté par… », TEC = « cycle de formation et d’évaluation »… (all in `web/scripts/fr-manual.json`) |
 | TEC, poster alt | The conference poster: "Much More Than A Method!", an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and "Co-funded by the European Union" | L’affiche de la conférence « Much More Than A Method! » : une heure en ligne le 9 avril 2026… |

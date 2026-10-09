@@ -1,0 +1,98 @@
+{
+  "en-about.png": {
+    "hash": "9837cd0d91f2",
+    "title": "About us: our mission and real impact",
+    "lang": "en",
+    "template": 3
+  },
+  "en-home.png": {
+    "hash": "eeb80c824e59",
+    "title": "Youth Work Synergy | Homes for young people in Luxembourg",
+    "lang": "en",
+    "template": 3
+  },
+  "en-legal.png": {
+    "hash": "01fb6517a64a",
+    "title": "Legal notice",
+    "lang": "en",
+    "template": 3
+  },
+  "en-privacy.png": {
+    "hash": "604af43d578d",
+    "title": "Privacy policy",
+    "lang": "en",
+    "template": 3
+  },
+  "en-owners.png": {
+    "hash": "956e5ae348fc",
+    "title": "Rent out your property in Luxembourg",
+    "lang": "en",
+    "template": 3
+  },
+  "en-tec.png": {
+    "hash": "d991a6bb0959",
+    "title": "TEC conference: Much More Than a Method",
+    "lang": "en",
+    "template": 3
+  },
+  "en-housing.png": {
+    "hash": "35020afc88b0",
+    "title": "Youth housing in Luxembourg, ages 18–34",
+    "lang": "en",
+    "template": 3
+  },
+  "en-projects.png": {
+    "hash": "0a74033fba81",
+    "title": "We Spark Projects: youth-led projects",
+    "lang": "en",
+    "template": 3
+  },
+  "fr-about.png": {
+    "hash": "fd7fbef27651",
+    "title": "À propos : notre mission, notre impact",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-tec.png": {
+    "hash": "e81c92dc9726",
+    "title": "Conférence TEC : plus qu’une méthode",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-home.png": {
+    "hash": "8910494d8270",
+    "title": "Youth Work Synergy | Colocations pour jeunes au Luxembourg",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-housing.png": {
+    "hash": "9e8015a8dbde",
+    "title": "Logement pour jeunes au Luxembourg",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-owners.png": {
+    "hash": "8133a12cfc25",
+    "title": "Gestion locative sociale au Luxembourg",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-legal.png": {
+    "hash": "420086cb2906",
+    "title": "Mentions légales",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-privacy.png": {
+    "hash": "29b043dbc7a5",
+    "title": "Politique de confidentialité",
+    "lang": "fr",
+    "template": 3
+  },
+  "fr-projects.png": {
+    "hash": "efc89832ad25",
+    "title": "Projets menés par des jeunes",
+    "lang": "fr",
+    "template": 3
+  }
+}

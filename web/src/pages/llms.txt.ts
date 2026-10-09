@@ -4,7 +4,7 @@ import { ORGANISATION } from "~/data/organisation";
 import { getI18n } from "~/lib/i18n";
 import { LOCALES } from "~/lib/locales";
 import { fullTitle, META, MISSION } from "~/lib/meta";
-import { INDEXABLE, pathTo, READY } from "~/lib/routes";
+import { INDEXABLE, pathTo } from "~/lib/routes";
 
 /**
  * llms.txt (wiki: site/seo.md § Feeds): the site in plain Markdown for language-model tools. Every indexable page in
@@ -16,7 +16,7 @@ export const GET: APIRoute = ({ site }) => {
   const en = getI18n("en");
   const pages = LOCALES.map((locale) => {
     const i18n = getI18n(locale);
-    const items = INDEXABLE.filter((id) => READY.includes(id)).map((id) => {
+    const items = INDEXABLE.map((id) => {
       const meta = META[id];
       const title = fullTitle(i18n._(meta.title), meta.full);
       return `- [${title}](${new URL(pathTo(locale, id), site).href}): ${i18n._(meta.description)}`;

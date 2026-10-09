@@ -43,7 +43,7 @@
 
 | Path | Holds | Rule |
 | --- | --- | --- |
-| `src/pages/` | `[locale]/index.astro`, `[locale]/[page].astro`, root `index.astro`, 404, `robots.txt.ts` | paths only from `pageStaticPaths()` (`READY` in `routes.ts` = migrated routes); a page picks sections and passes title + description, nothing more |
+| `src/pages/` | `[locale]/index.astro`, `[locale]/[page].astro`, root `index.astro`, 404, `robots.txt.ts` | paths only from `pageStaticPaths()` (every route in `routes.ts`); a page picks sections and passes title + description, nothing more |
 | `src/layouts/` | `BaseLayout.astro` | the only `<head>` ([astro](usage/astro.md)) |
 | `src/components/<page>/` | sections of one page: `home/`, `housing/`, `owners/`, `about/`, `projects/`, `tec/`, `legal/` | used by one page only |
 | `src/components/ui/` | shared primitives: `ButtonLink`, the section + section-header pair (the 2025 `XHeader` + `XSection` idea) | a component used by two pages moves here; never a copy |
