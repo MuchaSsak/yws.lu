@@ -9,7 +9,7 @@ import tseslint from "typescript-eslint";
 /** One flat config for `web/` (wiki: tech/conventions.md § Code style), the portfolio's rules. */
 export default tseslint.config(
   {
-    ignores: ["dist/**", ".astro/**", "node_modules/**", "lighthouse/**", "test-results/**", "playwright-report/**"],
+    ignores: ["dist/**", ".astro/**", ".cache/**", "node_modules/**", "lighthouse/**", "test-results/**", "playwright-report/**"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
