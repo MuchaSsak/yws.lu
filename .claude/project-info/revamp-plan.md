@@ -38,8 +38,8 @@
 - [ ] Applied with no visual change (shot diffs), tag `history/design-system-v1`
 
 ## P3. Stack
-- [ ] Spike Astro + Lingui (housing page + home hero 3D) measured like P0: built, poster rendered, Lighthouse running (`.case-study/spike/`)
-- [ ] Decision table in `technologies.md`, tag `history/pre-migration`
+- [x] Spike Astro + Lingui (housing page + home hero 3D) measured like P0 (`.case-study/spike/`): home mobile 98, housing desktop 99; misses = the 3D island (home desktop 67) and the flow field (housing mobile 87)
+- [x] Decision table in `technologies.md` (Astro 7 + Lingui 6), tag `history/pre-migration`
 - [ ] Migration route by route (slices below), Next app removed at parity
 
 ## P4-P7. Slices (each: research → build → evaluate → fix → close)

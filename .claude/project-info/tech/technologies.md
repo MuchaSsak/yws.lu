@@ -32,26 +32,37 @@ row and the house pictures, GSAP/motion/R3F for effects. **31 advisories open on
 15.x support ends about 2026-10-21 [research: stack § 3.3]. It stays buildable at the repo root until every route is
 migrated, then it is removed (P3).
 
-## Decision
+## Decision: Astro 7 + Lingui 6 (2026-10-09, P3)
 
-**Status: pending, P3.** The spike (`web/`: the housing page + the home hero with the 3D house) is measured with the
-same capture script as the baseline: `scripts/capture/lighthouse.mjs`, median of 3, SwiftShader, same laptop. The
-decision is taken on these rows.
+Measured on the laptop with the same script, settings and runs as the baseline (`scripts/capture/lighthouse.mjs`,
+Lighthouse 13.5, median of 3, SwiftShader, en): the 2025 site from `next start` vs the spike from `scripts/serve.mjs`
+(the spike home = hero + partner strip only; housing = the full page). Files: `.case-study/spike/lighthouse/`.
 
-| Criterion | Next 15.3.8 (baseline) | Astro 7 + Lingui 6 (spike) | Next 16.3.8 + Lingui SWC 6.6.0 (fallback) |
+| Page · mode | Perf 2025 → spike | LCP ms | TBT ms | CLS | Transfer KB | JS KB |
+| --- | --- | --- | --- | --- | --- | --- |
+| home · mobile | 26 → **98** | 49918 → **1577** | 4850 → **145** | 0.012 → 0 | 9097 → 153 | 974 → 2 |
+| home · desktop | 23 → 67 | 9095 → 752 | 7664 → 3173 | 0.168 → 0 | 9195 → 588 | 1070 → 279 |
+| housing · mobile | 26 → 87 | 11815 → 1505 | 17401 → 444 | 0.036 → 0 | 5303 → 121 | 539 → 0 |
+| housing · desktop | 45 → **99** | 2501 → 344 | 4171 → 0 | 0.006 → 0 | 4890 → 134 | 637 → 0 |
+
+Accessibility 100 on all four (2025: 78–81). SEO 69 is the review build's `noindex` on purpose (`is-crawlable`, the
+only failed SEO audit); BP 96 was the stretched background `<img>` (now a CSS background).
+
+| Criterion | Next 15.3.8 (2025) | **Astro 7 + Lingui 6** | Next 16.3.8 + Lingui SWC 6.6.0 (fallback) |
 | --- | --- | --- | --- |
-| Mobile perf / LCP / TBT, home | see [baseline](../memory/baseline.md) | spike numbers | not built: estimate only |
-| Mobile perf / LCP / TBT, housing | see [baseline](../memory/baseline.md) | spike numbers | not built |
-| JS shipped on a text page | 533–974 KB | spike numbers | RSC + hydration runtime, ≥ the baseline's framework share |
-| Server-rendered metadata | none (`generateTranslatedMetadata` returns undefined on the server) | yes, static HTML | yes (`generateMetadata`) |
-| Locales on real URLs | no (client dictionary) | yes, `/en/…`, `/fr/…` | yes, `[locale]` segment |
-| Security | 31 open advisories | static files, no server runtime | patched line, but needs swc_core-matched plugin |
-| Upgrade risk | 15.x leaves support ~2026-10-21 | lingui-for-astro is pre-1.0, single maintainer: keep `.astro` copy thin | Lingui SWC plugin breaks on swc_core bumps (6.7.0 fails on 16.3) |
-| Proven by the owner | this repo | the portfolio (Astro 7.3.5 + Lingui 6.9 + lingui-for-astro 0.7.1, static on Vercel) | no |
+| Page-level JS on a text page | 533–974 KB | **0–2 KB** (React only inside the 3D island) | RSC runtime + hydration on every page |
+| Server-rendered metadata | none | static HTML | `generateMetadata` |
+| Locales on real URLs | no | `/en/…`, `/fr/…` | `[locale]` segment |
+| Security | 31 open advisories, 15.x support ends ~2026-10-21 | static files, no server runtime | patched, but the SWC plugin must match swc_core (6.7.0 breaks 16.3) |
+| Proven by the owner | this repo | the portfolio (same stack, static on Vercel) | no |
+| Risk | — | lingui-for-astro is pre-1.0, single maintainer: keep `.astro` copy as plain `t` calls | plugin/swc churn, Turbopack |
 
-Rule: Astro wins if the spike meets the mobile floors (perf ≥ 90, LCP ≤ 2.5 s, TBT ≤ 200 ms) on both pages with the
-3D island live; otherwise the fallback is costed before any migration. Tag `history/pre-migration` before the first
-migration slice.
+**Why Astro:** every framework-level number meets the budget (LCP 0.3–1.6 s, CLS 0, 0–2 KB page JS); the fallback
+could not beat 0 KB of framework JS. **The two misses are effects, not the stack**, and cost the same on any
+framework: the R3F house island on desktop (a 2.6 s task while React creates the WebGL scene under SwiftShader, then
+0.6 s; TBT 3.2 s) and the housing flow field on phones (400–700 strokes + two full-canvas blurs per frame: 4.7 s of
+6 s CPU while visible). Both are fixed in their slices (home, housing) against the budget, with the numbers in
+`memory/slice-costs.md`. Tag `history/pre-migration` marks the last commit before the migration.
 
 ## Hosting (Vercel, static, no adapter)
 

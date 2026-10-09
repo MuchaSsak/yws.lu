@@ -16,6 +16,13 @@ CLS ≤ 0.05 · a11y / BP / SEO 100.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | — | | | | | | | none closed yet |
 
+## Known costs to fix in their slice (measured on the spike, 2026-10-09)
+
+| Where | Cost | Cause | Plan |
+| --- | --- | --- | --- |
+| home · desktop (≥ 1280 px) | perf 67, TBT 3173 ms (long tasks 2639 ms in React's chunk at 0.9 s, 626 ms in the 3D chunk at 3.6 s); 3D chunk 224 KB br | the R3F house island: WebGL context + first scene compile inside React's commit, under SwiftShader | measure each step with marks; compile with `compileAsync` (`KHR_parallel_shader_compile`), split the mount across tasks, consider mounting on first intent (pointer/scroll); keep the poster as the static state |
+| housing · phones | perf 87, TBT 444 ms; 4.7 s of 6 s CPU while the hero is on screen | the flow field: 400–700 `stroke()` calls + two full-canvas `blur()` copies per frame | batch strokes by hue/alpha bucket, 30 fps, fewer streaks on phones, glow from a CSS-filtered copy instead of canvas blur |
+
 ## Safe-to-skip
 
 | Audit | Where | Why it is accepted |
