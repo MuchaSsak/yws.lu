@@ -1,6 +1,6 @@
 {
   "name": "yws.lu",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "private": true,
   "description": "Youth Work Synergy ASBL website. The site lives in web/; the root holds only the case-study capture scripts (scripts/capture/).",
   "devDependencies": {
