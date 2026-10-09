@@ -282,6 +282,10 @@ msgstr "Here's how it works"
 msgid "Homepage"
 msgstr "Homepage"
 
+#: src/components/home/ContactSection.astro
+msgid "How your data is handled"
+msgstr "How your data is handled"
+
 #: src/lib/meta.ts
 msgid "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
 msgstr "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
@@ -370,6 +374,10 @@ msgstr "Luxembourg"
 #: src/components/layout/SiteHeader.astro
 msgid "Main"
 msgstr "Main"
+
+#: src/components/home/ContactSection.astro
+msgid "Map by Google Maps."
+msgstr "Map by Google Maps."
 
 #: src/components/home/ContactSection.astro
 msgid "Map: {address}"
@@ -584,10 +592,6 @@ msgstr "See credits"
 msgid "See for yourself"
 msgstr "See for yourself"
 
-#: src/components/home/ContactSection.astro
-msgid "Show map"
-msgstr "Show map"
-
 #: src/components/about/RealImpact.astro
 msgid "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
 msgstr "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
@@ -646,10 +650,6 @@ msgstr "The closing conference of V – Comprehensive Guide to Best Practices in
 #: src/components/tec/TecHero.astro
 msgid "The conference poster: “Much More Than A Method!”, an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and “Co-funded by the European Union”"
 msgstr "The conference poster: “Much More Than A Method!”, an hour online on 9 April 2026, 14:30–15:30, an illustrated young woman looking through a lens, the NINFEA, Youth Work Synergy and Kultur Nest e.V. logos and “Co-funded by the European Union”"
-
-#: src/components/home/ContactSection.astro
-msgid "The map loads from Google Maps when you ask for it."
-msgstr "The map loads from Google Maps when you ask for it."
 
 #: src/components/tec/TecPage.astro
 msgid "The power and language of 25 years of the TEC cycle:"

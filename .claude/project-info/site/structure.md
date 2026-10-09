@@ -134,7 +134,7 @@ never wrap; 36 `PLACEHOLDER` markers until the client answers (placeholders.md).
 | practitioner | TEC Conference · Visit tecpractices.eu (new, Q8) | TEC page · `links.tecPractices` ↗ | nav · TEC hero + end |
 | projects | Register now (Get Your Home) · Learn more (Locked Out, Safe Paths) | Google Form ↗ · Drive ↗ · form ↗ | project cards (still open? Q9) |
 | everyone | Contact us / Contactez-nous | `#contact` | nav, menu, action bar, footer |
-| everyone | Copy / Copier → « Copié » · Show map / Afficher la carte · Open in Google Maps (all new) | clipboard (email, address) · map facade · `office.maps` ↗ | contact sections (F04), footer |
+| everyone | Copy / Copier → « Copié » · Open in Google Maps · How your data is handled → privacy policy (all new) | clipboard (email, address) · `office.maps` ↗ · privacy page | contact sections (F04), footer |
 | everyone | See credits / Voir les crédits · English / Français | dialog · same page, other locale | footer · header, menu, footer |
 
 Cross-links: home → all four journeys; housing ↔ owners via header and footer; Mobile Learning ↔ TEC; about →
@@ -145,7 +145,7 @@ projects and owners. No form anywhere [user 2026-10-09].
 | What | How | Why |
 | --- | --- | --- |
 | Housing application | external Google Form, link only ↗ | no forms on the site [user 2026-10-09] |
-| Office map | click-to-load facade (drawn placeholder, address, "Show map"); the `office.embed` iframe only after the click; "Open in Google Maps" always there | no Google request before the click; weight [research: legal-asbl-luxembourg § 3.4] |
+| Office map | the `office.embed` iframe in the markup with `loading="lazy"`: it loads by itself near the screen [user 2026-10-09], over a drawn grid with the address; below it the address, "Open in Google Maps" and "Map by Google Maps. How your data is handled" (→ privacy policy) | no Google request on load (e2e `privacy.spec.ts`); the consent trade-off is in legal/compliance-and-data.md |
 | Houses map (My Maps `links.housesMap`) | **not shown**: removed from About us on 2025-12-02 (commit 8cd66bc, reason unrecorded); if wanted back (Q31), a facade in Real impact (its iframe sets `NID` on load) | residents' privacy unknown |
 | Zoom, Google Drive, Safe Paths and Get Your Home forms | links only ↗ | — |
 | Statistics + house pictures | static in the repo (Supabase retired 2026-10-09): no request at all | `content-model.md` |

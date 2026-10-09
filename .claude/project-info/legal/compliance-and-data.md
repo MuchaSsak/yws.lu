@@ -39,7 +39,7 @@ adapter [research: stack]).
 | TEC registration | registrant data | Zoom (`us06web.zoom.us`) | "Register" link | event past (9 Apr 2026): link to tecpractices.eu instead (Q8) | [repo: web/src/data/organisation.ts], open-questions Q8 |
 | Email | what the visitor writes | YWS mailbox `contact@yws.lu`; MX `mx001`–`mx004.dclux.xion.oxcs.net`, SPF `include:spf.cloudeu.xion.oxcs.net`; operator **Unknown** | footer/contact spans and links | `mailto:` links (prefilled subject per audience, P7) + copy-to-clipboard (Clipboard API, nothing leaves the device) | [own DNS lookup 2026-10-09], [research: kickoff § P7] |
 | Phone | the call | YWS phones (+352 28 66 22, +352 661 597 312; roles Q2) | one broken `tel:` with both numbers | one `tel:` per number (E.164) | [repo: web/src/data/organisation.ts], HANDOFF § 5 |
-| Office map | IP, Google cookies | Google | Maps **place** embed (`/maps?q=…&output=embed`) loads lazily **without a click** on the home contact section; no `Set-Cookie` in its HTTP responses, JS storage untested | **click-to-load facade**: nothing requested from Google before the click; a plain "Open in Google Maps" link beside it | [repo: app/(components)/contact/ContactMap.tsx], [research: legal § 3.4] |
+| Office map | IP, Google cookies | Google | Maps **place** embed (`/maps?q=…&output=embed`) loads lazily **without a click** on the home contact section; no `Set-Cookie` in its HTTP responses, JS storage untested | **loads by itself, lazily** (`loading="lazy"` in the markup, as in 2025) [user 2026-10-09]: nothing from Google on load (e2e); once the contact section nears the screen Google receives the IP and may store or read data; a caption links the privacy policy; "Open in Google Maps" link below | [repo: app/(components)/contact/ContactMap.tsx], [research: legal § 3.4] |
 | Houses map | IP, Google cookies | Google | My Maps embed component exists, **not rendered**; its first response sets `NID` (`.google.com`, expiry Apr 2027, `SameSite=none`) | only behind the facade, if shown at all (Q31: it locates homes where young people live) | [repo: app/AboutUs/(components)/realImpact/RealImpactMap.tsx], [research: legal § 3.4] |
 | Socials, partners, credits | none until clicked | Meta, LinkedIn, partner sites, Sketchfab, creativecommons.org | links | links; no SDK, plugin or embed | [repo] |
 | Analytics | — | — | none | none (Q5: needs a privacy-policy section first) | [research: kickoff § 4] |
@@ -68,12 +68,16 @@ adapter [research: stack]).
 | `language` (localStorage) | the site | every visit | yes | gone (locale in the URL) |
 | `__cf_bm` (cookie, `supabase.co`, 30 min; Cloudflare: "strictly necessary", no user id) | Cloudflare in front of Supabase | browser calls to Supabase | yes | no: Supabase removed |
 | `NID` (`.google.com`, 6 months from last use per Google) | Google | My Maps iframe load | component not rendered | only after the facade click |
-| Google Maps place embed storage | Google | iframe load | lazy, no click | after the click; **Unknown** what JS stores |
+| Google Maps place embed storage | Google | iframe load | lazy, no click | lazy, no click [user 2026-10-09]; **Unknown** what JS stores |
 | Draco decoder request (no storage; IP to Google) | gstatic.com | 3D load ≥ 1280 px | yes | gone |
 
-**Revamp rule:** nothing is stored on or read from the device when a page loads; each third-party load sits behind a
-click that says what it loads and from whom (the facade's text names Google and links the privacy policy) [assumption,
-design rule]. An e2e check dumps cookies + `localStorage` + third-party requests after load on every route
+**Revamp rule:** nothing is stored on or read from the device when a page loads, and no third party is contacted on
+load. **One exception, the owner's decision [user 2026-10-09]:** the home office map loads Google's embed by itself when
+the contact section nears the screen (the click-to-load facade was removed). Risk, stated to the owner: under art.
+4(3)(e) and EDPB 2/2023, whatever Google stores or reads on the device then happens before any consent, and the IP goes
+to Google (a US recipient) on scroll; the privacy policy discloses it (joint responsibility for the transmission,
+*Fashion ID* C-40/17). If the client or a lawyer wants consent first, the facade comes back (git history,
+`ContactSection.astro` before 2026-10-09). An e2e check dumps cookies + `localStorage` + third-party requests after load on every route
 (proposed; `tech/usage/visual-qa.md`).
 
 ## Processors and other recipients
@@ -83,7 +87,7 @@ design rule]. An e2e check dumps cookies + `localStorage` + third-party requests
 | Vercel Inc. | hosting + CDN; processor "subject to our Data Processing Addendum" | 440 N Barranca Avenue #4133 Covina, CA 91723 United States; privacy@vercel.com (policy updated 1 June 2026); DPA: "Vercel Inc., a Delaware corporation" (updated 17 Mar 2026, effective 31 Mar 2026) | EU-US DPF self-certification (per Vercel); DPA incorporates SCCs 2021/914 Module Two | plan (Hobby/Pro) and whether the DPA covers it: **Unknown**; the owner's portfolio research recorded the DPA as Pro/Enterprise only (not re-checked here) [file: portfolio legal/compliance-and-data.md] |
 | Supabase Pte. Ltd (**2025 site only**: removed from the revamp, project to be deleted after the launch) | database + storage (no personal data read by the site) | 65 Chulia Street #38-02/03, OCBC Centre, Singapore 049513 (DPA "Version 1 — August 1, 2026") | SCCs (US, Singapore; Singapore has no adequacy decision); data in the region the customer picks | project region **Unknown**; subprocessors (1 June 2026) include AWS, Cloudflare, Google, Fly.io, Vercel |
 | Cloudflare | in front of Supabase (`__cf_bm`), 2025 site only | — | — | not a recipient in the revamp |
-| Google | Forms (housing, projects), Drive (Locked out), Maps after the click | — | Google LLC on the DPF list (status from a search snippet; page did not render) | Workspace (Cloud Data Processing Addendum) or personal account: **Unknown**; form fields, special-category data, who sees the answers: **Unknown** |
+| Google | Forms (housing, projects), Drive (Locked out), the home office map (loads near the screen) | — | Google LLC on the DPF list (status from a search snippet; page did not render) | Workspace (Cloud Data Processing Addendum) or personal account: **Unknown**; form fields, special-category data, who sees the answers: **Unknown** |
 | Mailbox provider | receives `contact@yws.lu` | MX `*.dclux.xion.oxcs.net` | Unknown | operator and DPA: **Unknown** |
 | Zoom | TEC registration (past event) | — | not checked | link goes (Q8) |
 | Meta, LinkedIn | link targets only | — | — | — |
@@ -130,14 +134,14 @@ past and the site links no Zoom room.
 | --- | --- | --- |
 | (1)(a) controller identity + contact | legal name, seat, contact@yws.lu; a dedicated privacy contact is what the CNPD asks for | `PLACEHOLDER` (Q1; privacy email Unknown) |
 | (1)(b) DPO | contact if appointed | Unknown |
-| (1)(c)(d) purposes + legal basis (+ legitimate interest if 6(1)(f)) | per activity: hosting logs; email/phone contact; housing applications and project sign-ups on Google Forms/Drive; photos of people; maps after the click | basis chosen and documented by YWS (art. 5(2)); **not picked here** |
+| (1)(c)(d) purposes + legal basis (+ legitimate interest if 6(1)(f)) | per activity: hosting logs; email/phone contact; housing applications and project sign-ups on Google Forms/Drive; photos of people; the office map | basis chosen and documented by YWS (art. 5(2)); **not picked here** |
 | (1)(e) recipients | Vercel, Google, mailbox provider, Zoom (past) | mailbox operator Unknown |
 | (1)(f) third-country transfers + safeguards | US (Vercel: DPF + SCCs; Google: DPF) | known |
 | (2)(a) retention or criteria | per activity | `PLACEHOLDER` (client sets; never invented) |
 | (2)(b)(c)(d) rights, withdrawal, complaint | access, rectification, erasure, restriction, objection, portability; withdraw consent where consent is the basis; complaint to the CNPD (address above); answer within 1 month (art. 12(3)) | known |
 | (2)(e) statutory/contractual requirement | browsing: none; applications: client | client |
 | (2)(f) automated decisions | none on the site; the application process: client | client |
-| Device storage section | none on load; what the map click loads | known |
+| Device storage section | none by the site; what Google's map may store once it loads | known |
 | Photos of people | basis, opt-out and removal contact | Q10/Q22 |
 | Version date, changes | dated, both languages | — |
 

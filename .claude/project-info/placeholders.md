@@ -41,7 +41,7 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | Footer legal row | Privacy policy · Legal notice | Politique de confidentialité · Mentions légales |
 | Credits dialog | by · modified (optimised for the web) · Lead Developer | par · modifié (optimisé pour le web) · Développeur principal (existing) |
 | Partner strip | Our partners · European Solidarity Corps · Ministry of Housing and Spatial Planning · Ministry of Justice · André Losch Fondation · Gestion locative sociale | Nos partenaires · Corps européen de solidarité · Ministère du Logement et de l’Aménagement du territoire · Ministère de la Justice · André Losch Fondation · Gestion locative sociale |
-| Home contact, office map (click to load) | Show map · The map loads from Google Maps when you ask for it. · Map: {address} (frame title) | Afficher la carte · La carte se charge depuis Google Maps à votre demande. · Carte : {address} |
+| Home contact, office map (loads by itself, near the screen) | Map by Google Maps. · How your data is handled (→ privacy policy) · Map: {address} (frame title) · Open in Google Maps | Carte fournie par Google Maps. · Comment vos données sont traitées · Carte : {address} · Ouvrir dans Google Maps |
 | Owners contact, email subject | Renting my property | Louer mon bien |
 | About us, gallery | Pictures of our shared houses · Previous picture · Next picture | Photos de nos colocations · Photo précédente · Photo suivante |
 | About us, group photo alt | The Youth Work Synergy group, about twenty people cheering outdoors | Le groupe Youth Work Synergy : une vingtaine de personnes, bras levés, en plein air |
