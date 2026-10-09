@@ -1,0 +1,46 @@
+---
+/**
+ * Housing page hero (wiki: site/structure.md § Youth housing): who it is for, then the one action. The heading paints
+ * on the first frame (it is the LCP); the streaks behind it start after load, only while on screen.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import Reveal from "~/components/effects/Reveal.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import { ORGANISATION } from "~/data/organisation";
+---
+
+<section class="relative flex flex-col items-center px-side py-48 xl:py-64">
+  <div class="flex flex-col items-center text-center">
+    <Reveal duration={0.5}>
+      <h1 class="text-orange-gradient text-4xl font-black sm:text-7xl sm:leading-20">{t`Looking for housing?`}</h1>
+    </Reveal>
+    <div class="flex flex-col items-center gap-2 py-8 text-lg md:w-[32.5rem] xl:w-[25rem]">
+      <Reveal rise duration={0.5}>
+        <p>{t`Are you between 18 and 34 and in need of stable, affordable housing in Luxembourg?`}</p>
+      </Reveal>
+      <Reveal rise duration={0.6}>
+        <p>{t`We're here to help`}</p>
+      </Reveal>
+    </div>
+    <div data-inview="fade" style="--fade-delay: 1s">
+      <ButtonLink href={ORGANISATION.links.applyForHousing} shimmer external>{t`Apply now`}</ButtonLink>
+    </div>
+  </div>
+  <div class="absolute top-16 -z-10 h-[35rem] w-full" aria-hidden="true">
+    <canvas class="flow-field size-full"></canvas>
+  </div>
+</section>
+
+<script>
+  import { mountFlowField } from "~/scripts/flow-field";
+
+  const start = () => {
+    const canvas = document.querySelector<HTMLCanvasElement>(".flow-field");
+    if (canvas) mountFlowField(canvas, { count: innerWidth <= 600 ? 400 : 700, band: 220, hue: 300 });
+  };
+  // After the page has loaded and gone idle: the streaks never compete with the first paint.
+  const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 200));
+  if (document.readyState === "complete") idle();
+  else addEventListener("load", idle, { once: true });
+</script>

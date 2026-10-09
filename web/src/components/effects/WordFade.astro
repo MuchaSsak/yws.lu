@@ -1,0 +1,25 @@
+---
+/**
+ * Words fade in one after another when scrolled into view (adapted from Magic UI's TextAnimate "fadeIn by word", MIT;
+ * THIRD_PARTY_NOTICES.md). Split at build time; the text stays one readable string for screen readers and search.
+ */
+interface Props {
+  text: string;
+  /** Seconds over which the word starts are spread (2025 TextAnimate `duration`); each word fades in 0.3 s. */
+  duration?: number;
+  as?: "p" | "span";
+  class?: string;
+}
+
+const { text, duration = 0.3, as: Tag = "p", class: className } = Astro.props;
+const words = text.split(/(\s+)/);
+const stagger = duration / Math.ceil(words.length / 2);
+---
+
+<Tag class={className} data-inview="words" style={`--stagger: ${stagger.toFixed(4)}s`}>
+  {
+    words.map((word, index) =>
+      /^\s+$/.test(word) ? word : <span class="word" style={`--i: ${index / 2}`}>{word}</span>,
+    )
+  }
+</Tag>

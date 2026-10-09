@@ -4,43 +4,53 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.19.0"
   },
   "scripts": {
     "dev": "astro dev --port 4321",
-    "build": "astro build",
+    "build": "bun scripts/vercel-config.ts --check && astro build",
     "preview": "node ./scripts/serve.mjs --port 4322",
     "typecheck": "astro check",
-    "i18n:extract": "lingui extract --clean"
+    "i18n:extract": "lingui extract --clean",
+    "vercel:config": "bun scripts/vercel-config.ts",
+    "test": "vitest run",
+    "poster": "node ./scripts/poster.mjs"
   },
   "dependencies": {
-    "@astrojs/react": "7.0.0",
-    "@fontsource-variable/montserrat": "^5.2.8",
+    "@astrojs/react": "7.0.1",
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/montserrat": "5.3.0",
     "@lingui/core": "6.9.0",
     "@lingui/react": "6.9.0",
-    "@react-three/drei": "10.4.4",
-    "@react-three/fiber": "9.2.0",
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.1",
     "@tailwindcss/vite": "4.3.3",
     "astro": "7.3.8",
     "lingui-for-astro": "0.7.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "sharp": "^0.35.5",
+    "sharp": "0.35.5",
     "simplex-noise": "4.0.3",
     "tailwindcss": "4.3.3",
-    "three": "0.167.1"
+    "three": "0.186.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
     "@lingui/cli": "6.9.0",
     "@lingui/conf": "6.9.0",
     "@lingui/format-po": "6.9.0",
-    "@lingui/native-tools": "0.1.5",
+    "@lingui/native-tools": "0.1.6",
     "@lingui/vite-plugin": "6.9.0",
+    "@playwright/test": "1.63.0",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@types/three": "~0.167.0",
-    "typescript": "~6.0.3"
+    "@types/three": "0.186.0",
+    "chrome-launcher": "1.2.2",
+    "lighthouse": "13.5.0",
+    "path-to-regexp": "6.3.0",
+    "typescript": "~6.0.3",
+    "vitest": "5.0.3"
   }
 }

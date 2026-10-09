@@ -5,10 +5,10 @@
  */
 export const PAGES = [
   { id: "home", before: "/", after: { en: "/en/", fr: "/fr/" } },
-  { id: "looking-for-housing", before: "/LookingForHousing", after: { en: "/en/apply-for-housing/", fr: "/fr/logement-jeunes/" } },
-  { id: "rent-your-property", before: "/RentYourProperty", after: { en: "/en/rent-your-property/", fr: "/fr/louer-mon-logement/" } },
-  { id: "about-us", before: "/AboutUs", after: { en: "/en/about-us/", fr: "/fr/qui-sommes-nous/" } },
-  { id: "we-spark-projects", before: "/WeSparkProjects", after: { en: "/en/we-spark-projects/", fr: "/fr/projets-we-spark/" } },
+  { id: "looking-for-housing", before: "/LookingForHousing", after: { en: "/en/youth-housing/", fr: "/fr/logement-jeunes/" } },
+  { id: "rent-your-property", before: "/RentYourProperty", after: { en: "/en/rent-your-property/", fr: "/fr/louer-son-bien/" } },
+  { id: "about-us", before: "/AboutUs", after: { en: "/en/about-us/", fr: "/fr/a-propos/" } },
+  { id: "we-spark-projects", before: "/WeSparkProjects", after: { en: "/en/youth-projects/", fr: "/fr/projets-jeunes/" } },
   { id: "jobs", before: "/Jobs", after: null },
   { id: "tec-conference", before: "/TecConference", after: { en: "/en/tec-conference/", fr: "/fr/conference-tec/" } },
   { id: "not-found", before: "/does-not-exist", after: { en: "/en/does-not-exist/", fr: "/fr/does-not-exist/" } },

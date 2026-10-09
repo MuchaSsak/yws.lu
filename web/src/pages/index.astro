@@ -1,0 +1,36 @@
+---
+/**
+ * `/` is answered by the host: a temporary redirect to `/fr/` or `/en/` by the browser's language (vercel.json;
+ * wiki: site/i18n.md § Root). This page is the safety net if that rule ever stops matching: never indexed, links to
+ * both languages, and a refresh to the default one. logement.lu links to the bare https://yws.lu/ (Q18).
+ */
+import { AUTONYMS, DEFAULT_LOCALE, LOCALES } from "~/lib/locales";
+import { pathTo } from "~/lib/routes";
+
+const target = pathTo(DEFAULT_LOCALE, "home");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Youth Work Synergy</title>
+    <link rel="icon" href="/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <ul>
+      {
+        LOCALES.map((locale) => (
+          <li>
+            <a href={pathTo(locale, "home")} hreflang={locale} lang={locale}>
+              Youth Work Synergy ({AUTONYMS[locale]})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </body>
+</html>

@@ -50,3 +50,4 @@
 - The PageSpeed Insights API without a key hits "Quota exceeded" at once: use the PSI web UI, or set `PSI_API_KEY` - 2026-10-09.
 - Another session or the owner may run a dev server on :3000: use your own port (3100 Next, 4322 Astro), never kill a process you didn't start, never wipe `.next` under a running dev server - 2026-10-09.
 - WebSearch has a budget shared by parallel agents; prefer WebFetch of known URLs, then Playwright - 2026-10-05.
+- A "faithful port" of a copied component keeps its licence. Before porting an effect, check `research/2026-10-09-licences.md`: Aceternity, GSAP and React Bits code is rewritten from the idea, not translated line by line (Q23) - 2026-10-09.

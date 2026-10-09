@@ -1,0 +1,20 @@
+---
+/** Who gets a room first, then the action again (wiki: site/structure.md § Youth housing). */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import { ORGANISATION } from "~/data/organisation";
+---
+
+<section class="px-side pb-36 text-center" aria-labelledby="priority">
+  <h2 id="priority" class="text-orange-gradient text-4xl font-black sm:text-6xl sm:leading-20">{t`Who Gets Priority?`}</h2>
+  <WordFade
+    class="mx-auto pt-4 pb-6 text-lg text-balance max-sm:px-4 sm:w-[30rem]"
+    duration={0.65}
+    text={t`We prioritize young people in urgent situations — like eviction or sudden loss of income. We also check for basic financial stability to ensure long-term housing. We aim to create a respectful and balanced living environment, including gender diversity when possible. Due to high demand and limited space, we can't help everyone right away — but we review each request with care and responsibility.`}
+  />
+  <div data-inview="fade" class="flex flex-wrap justify-center gap-4">
+    <ButtonLink href={ORGANISATION.links.applyForHousing} external>{t`Apply now`}</ButtonLink>
+  </div>
+</section>

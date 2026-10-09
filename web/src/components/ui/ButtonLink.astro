@@ -1,0 +1,29 @@
+---
+/**
+ * A call to action that goes somewhere: always a link styled as a button (wiki: design/design.md § Buttons). The 2025
+ * site wrapped buttons in links with tabindex="-1", which made them dead to the keyboard. `shimmer` is the hero style.
+ * External links open in a new tab and say so to screen readers.
+ */
+import { t } from "lingui-for-astro/macro";
+
+interface Props {
+  href: string;
+  shimmer?: boolean;
+  external?: boolean;
+  class?: string;
+}
+
+const { href, shimmer = false, external = false, class: className } = Astro.props;
+const newTab = t`(opens in a new tab)`;
+---
+
+<a
+  href={href}
+  class:list={["btn", shimmer && "btn-shimmer", className]}
+  {...external ? { target: "_blank", rel: "noopener" } : {}}
+>
+  {shimmer && <span class="btn-shimmer-spark" aria-hidden="true"><span /></span>}
+  <slot />
+  <span class="btn-arrow" aria-hidden="true">→</span>
+  {external && <span class="sr-only">{newTab}</span>}
+</a>

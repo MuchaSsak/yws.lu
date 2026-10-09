@@ -1,0 +1,47 @@
+---
+/**
+ * Home hero (wiki: site/structure.md § Home): the owner pitch, the 3D house on wide screens. The heading paints on the
+ * first frame; the scene loads after the page is idle (HouseScene).
+ */
+import { t } from "lingui-for-astro/macro";
+
+import LineShadow from "~/components/effects/LineShadow.astro";
+import Reveal from "~/components/effects/Reveal.astro";
+import Sparkles from "~/components/effects/Sparkles.astro";
+import HouseScene from "~/components/three/HouseScene.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import { pathTo } from "~/lib/routes";
+
+const locale = Astro.locals.locale;
+const your = t({ message: "your", context: "Rent out [your] property" });
+const property = t({ message: "property", context: "Rent out your [property]" });
+---
+
+<section id="hero" class="flex px-side pt-48 text-left">
+  <div class="flex flex-col items-start">
+    <Reveal duration={0.5}>
+      <h1 class="pb-4 text-5xl font-bold sm:text-6xl">
+        {t`Rent out`}{" "}
+        <LineShadow class="text-orange-600 italic" text={your} />{" "}
+        <LineShadow class="pr-4 text-orange-600 italic" text={property} />
+      </h1>
+    </Reveal>
+    <Reveal rise duration={0.75}>
+      <p class="text-2xl font-bold sm:text-4xl md:w-max">
+        {t`Give youth a chance for a`}{" "}
+        <Sparkles class="pr-4 font-normal text-orange-600 italic">{t`better future`}</Sparkles>
+      </p>
+    </Reveal>
+    <Reveal rise duration={1}>
+      <p class="flex flex-col gap-2 pt-4 pb-6 text-lg md:w-[25rem]">
+        <span>{t`Turn your property into a home for young people in Luxembourg.`}</span>
+        <span>{t`We are a trusted Luxembourg-based non-profit (ASBL) working in collaboration with the Ministry of Housing.`}</span>
+        <span>{t`Partnering with us means doing good and making a smart financial choice — including up to 90% tax exemption on your net rental income and other benefits.`}</span>
+      </p>
+    </Reveal>
+    <div data-inview="fade" style="--fade-delay: 1.25s">
+      <ButtonLink href={pathTo(locale, "owners")}>{t`Learn more`}</ButtonLink>
+    </div>
+  </div>
+  <HouseScene class="grow max-xl:hidden xl:h-[32.5rem] 2xl:h-[40rem]" />
+</section>

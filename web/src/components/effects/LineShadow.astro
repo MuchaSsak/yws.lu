@@ -1,0 +1,11 @@
+---
+/** A word with a drifting hatched violet shadow (adapted from Magic UI's LineShadowText, MIT; THIRD_PARTY_NOTICES.md). */
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className } = Astro.props;
+---
+
+<span class:list={["line-shadow", className]} data-text={text}>{text}</span>

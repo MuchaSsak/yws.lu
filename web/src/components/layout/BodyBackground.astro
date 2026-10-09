@@ -27,12 +27,13 @@
     justify-content: center;
     contain: strict;
   }
+  /* The 2025 grid: 1 px lines every 10 px, from 15 to 95 in each 100 px tile, black at 5 %, layer at 50 %. Drawn here
+     from its geometry (the 2025 file was an SVG of unknown origin; research/2026-10-09-licences.md). */
   .body-bg-grid {
     position: absolute;
     inset: 0;
-    background-image: url("/images/grid.svg");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M15 0h1v100h-1zM25 0h1v100h-1zM35 0h1v100h-1zM45 0h1v100h-1zM55 0h1v100h-1zM65 0h1v100h-1zM75 0h1v100h-1zM85 0h1v100h-1zM95 0h1v100h-1zM0 15h100v1H0zM0 25h100v1H0zM0 35h100v1H0zM0 45h100v1H0zM0 55h100v1H0zM0 65h100v1H0zM0 75h100v1H0zM0 85h100v1H0zM0 95h100v1H0z' fill-opacity='.05'/%3E%3C/svg%3E");
     opacity: 0.5;
-    filter: invert(1);
   }
   .body-bg-vignette {
     position: absolute;

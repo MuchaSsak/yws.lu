@@ -8,10 +8,10 @@ import { DEFAULT_LOCALE, isLocale, type Locale, LOCALES } from "./locales";
  */
 export const ROUTES = {
   home: { en: "", fr: "" },
-  housing: { en: "apply-for-housing", fr: "demande-de-logement" },
-  owners: { en: "rent-your-property", fr: "louer-votre-bien" },
-  about: { en: "about-us", fr: "qui-sommes-nous" },
-  projects: { en: "we-spark-projects", fr: "projets-we-spark" },
+  housing: { en: "youth-housing", fr: "logement-jeunes" },
+  owners: { en: "rent-your-property", fr: "louer-son-bien" },
+  about: { en: "about-us", fr: "a-propos" },
+  projects: { en: "youth-projects", fr: "projets-jeunes" },
   tec: { en: "tec-conference", fr: "conference-tec" },
   privacy: { en: "privacy-policy", fr: "politique-de-confidentialite" },
   legal: { en: "legal-notice", fr: "mentions-legales" },
@@ -20,7 +20,7 @@ export const ROUTES = {
 export type RouteId = keyof typeof ROUTES;
 export const ROUTE_IDS = Object.keys(ROUTES) as RouteId[];
 
-/** `/fr/demande-de-logement/` for (`fr`, "housing"). A `#hash` may follow. */
+/** `/fr/logement-jeunes/` for (`fr`, "housing"). A `#hash` may follow. */
 export function pathTo(locale: Locale, id: RouteId, hash?: string): string {
   const slug = ROUTES[id][locale];
   return `/${locale}/${slug ? `${slug}/` : ""}${hash ? `#${hash}` : ""}`;
@@ -31,16 +31,19 @@ export interface Alternate {
   href: string;
 }
 
-/** Reciprocal, self-referencing hreflang links (absolute); `x-default` is the English page. */
+/**
+ * Reciprocal, self-referencing hreflang links (absolute). `x-default`: for home, the bare `/` (it redirects by browser
+ * language: Google's documented case for x-default); for every other page, the default-locale page (Q19).
+ */
 export function alternates(site: string | URL, id: RouteId): Alternate[] {
   const origin = new URL(site).origin;
   return [
     ...LOCALES.map((locale) => ({ hreflang: locale, href: origin + pathTo(locale, id) })),
-    { hreflang: "x-default" as const, href: origin + pathTo(DEFAULT_LOCALE, id) },
+    { hreflang: "x-default" as const, href: origin + (id === "home" ? "/" : pathTo(DEFAULT_LOCALE, id)) },
   ];
 }
 
-/** The route id and locale of a built path (`/fr/qui-sommes-nous/` → about, fr), or null. */
+/** The route id and locale of a built path (`/fr/a-propos/` → about, fr), or null. */
 export function routeOf(pathname: string): { id: RouteId; locale: Locale } | null {
   const [first, slug = ""] = pathname.split("/").filter(Boolean);
   if (!isLocale(first)) return null;
@@ -57,16 +60,35 @@ export const pageStaticPaths = () =>
 /** Static paths for pages that exist once per locale (`[locale]/index.astro`, `[locale]/404.astro`). */
 export const localeStaticPaths = () => LOCALES.map((locale) => ({ params: { locale } }));
 
+export interface LegacyRedirect {
+  to: RouteId;
+  hash?: string;
+}
+
 /**
- * The 2025 site's PascalCase URLs (what Google indexed, English only) → the English page, permanent (308). `/Jobs`
- * was retired with both offers [user 2026-10-09] and lands on About us. vercel.json holds the same list
- * (routes.test.ts keeps them equal), with and without a trailing slash, case-insensitively.
+ * Old URLs still in search indexes, bookmarks and the Wayback Machine → their English page, permanent (308). Keys are
+ * Vercel `source` patterns (path-to-regexp). `scripts/vercel-config.ts` writes them into vercel.json with and without
+ * the trailing slash and in lower case too; routes.test.ts checks the file is current. English, because that is the
+ * content Google indexed under them (research/2026-10-09-audiences-keywords.md F6).
  */
-export const LEGACY: Record<string, RouteId> = {
-  "/AboutUs": "about",
-  "/LookingForHousing": "housing",
-  "/RentYourProperty": "owners",
-  "/WeSparkProjects": "projects",
-  "/TecConference": "tec",
-  "/Jobs": "about",
+export const LEGACY: Record<string, LegacyRedirect> = {
+  // The 2025 Next.js site.
+  "/AboutUs": { to: "about" },
+  "/LookingForHousing": { to: "housing" },
+  "/RentYourProperty": { to: "owners" },
+  "/WeSparkProjects": { to: "projects" },
+  "/TecConference": { to: "tec" },
+  // Jobs retired with both offers [user 2026-10-09]; the two job-ad PDFs too.
+  "/Jobs": { to: "about" },
+  "/files/CDD_:name(.*)": { to: "about" },
+  // The WordPress site (until 2024).
+  "/our-story": { to: "about" },
+  "/our-accommodations": { to: "housing" },
+  "/our-projects": { to: "projects" },
+  "/contact": { to: "home", hash: "contact" },
+  "/cash-donation": { to: "about" },
+  "/donation-in-kind": { to: "about" },
+  "/news-event": { to: "projects" },
+  "/legal-notices": { to: "legal" },
+  "/privacy-policy": { to: "privacy" },
 };

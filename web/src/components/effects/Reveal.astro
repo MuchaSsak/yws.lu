@@ -1,0 +1,18 @@
+---
+/**
+ * Box reveal (adapted from Magic UI's BoxReveal, MIT; THIRD_PARTY_NOTICES.md): an orange box sweeps off the content on
+ * load. `rise` also lifts the content in; leave it off for the LCP line so it paints on the first frame.
+ */
+interface Props {
+  /** Seconds, as in the 2025 site (0.5 to 1). */
+  duration?: number;
+  rise?: boolean;
+  class?: string;
+}
+
+const { duration = 0.5, rise = false, class: className } = Astro.props;
+---
+
+<div class:list={["reveal", rise && "reveal-rise", className]} style={`--reveal-d: ${duration}s`}>
+  <slot />
+</div>

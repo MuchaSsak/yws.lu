@@ -6,6 +6,8 @@
 import "@fontsource-variable/montserrat/wght.css";
 import "~/styles/global.css";
 
+import montserratLatin from "@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url";
+
 import { t } from "lingui-for-astro/macro";
 
 import BodyBackground from "~/components/layout/BodyBackground.astro";
@@ -45,6 +47,7 @@ const robots = noindex ? "noindex, follow" : "index, follow, max-image-preview:l
     <meta name="robots" content={robots} />
     {canonical && <link rel="canonical" href={canonical} />}
     {links.map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
+    <link rel="preload" href={montserratLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={ORGANISATION.name} />
@@ -64,5 +67,8 @@ const robots = noindex ? "noindex, follow" : "index, follow, max-image-preview:l
       <slot />
     </main>
     <SiteFooter route={route ?? "home"} />
+    <script>
+      import "~/scripts/inview";
+    </script>
   </body>
 </html>

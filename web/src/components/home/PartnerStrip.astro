@@ -1,0 +1,68 @@
+---
+/**
+ * Partner and funder logos under the home hero (wiki: site/structure.md § Home). A slow CSS marquee: two copies of the
+ * list, the second hidden from screen readers and the keyboard; paused on hover and focus, a still wrapped row under
+ * reduced motion. Rights to show each logo: open-questions Q11, Q21.
+ */
+import { Image } from "astro:assets";
+import { t } from "lingui-for-astro/macro";
+
+import andreLosch from "~/assets/partners/andre_losch_logo.png";
+import erasmus from "~/assets/partners/erasmus.svg";
+import esc from "~/assets/partners/esc.png";
+import fondationSommer from "~/assets/partners/fondation_sommer_logo.png";
+import gestionLocative from "~/assets/partners/gestion_locative_sociale.png";
+import ministryHousing from "~/assets/partners/ministry_of_housing.png";
+import ministryJustice from "~/assets/partners/ministry_of_justice_logo.png";
+
+const partners = [
+  { image: esc, name: t`European Solidarity Corps`, href: "https://youth.europa.eu/solidarity_en" },
+  { image: fondationSommer, name: "Fondation Sommer", href: "https://fondation-sommer.lu/" },
+  {
+    image: gestionLocative,
+    name: t`Gestion locative sociale`,
+    href: "https://logement.public.lu/fr/proprietaire/logement-location/gestion-locative-sociale.html",
+  },
+  { image: erasmus, name: "Erasmus+", href: "https://erasmus-plus.ec.europa.eu/" },
+  { image: ministryHousing, name: t`Ministry of Housing and Spatial Planning`, href: "https://mlogat.gouvernement.lu/en.html" },
+  { image: andreLosch, name: t`André Losch Fondation`, href: "https://www.loschfondation.lu/en/" },
+  { image: ministryJustice, name: t`Ministry of Justice`, href: "https://mj.gouvernement.lu/en.html" },
+];
+const label = t`Our partners`;
+const newTab = t`(opens in a new tab)`;
+---
+
+<section class="marquee py-12" aria-label={label}>
+  {
+    [false, true].map((copy) => (
+      <ul class="marquee-track" aria-hidden={copy ? "true" : undefined}>
+        {partners.map((partner) => (
+          <li class="mx-8 shrink-0 sm:mx-16">
+            <a href={partner.href} target="_blank" rel="noopener" tabindex={copy ? -1 : undefined} title={partner.name}>
+              <Image
+                src={partner.image}
+                alt={`${partner.name} ${newTab}`}
+                widths={[100, 150, 300]}
+                sizes="(min-width: 640px) 150px, 100px"
+                class="h-auto w-[6.25rem] sm:w-[9.375rem]"
+                loading="lazy"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
+    ))
+  }
+</section>
+
+<style>
+  /* 25 px/s, as in 2025: one copy is 7 × (logo + margins) wide. */
+  .marquee {
+    --marquee-d: 46s;
+  }
+  @media (min-width: 640px) {
+    .marquee {
+      --marquee-d: 78s;
+    }
+  }
+</style>

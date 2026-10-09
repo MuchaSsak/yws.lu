@@ -11,7 +11,7 @@
  * Settings: Lighthouse defaults (mobile: simulated Moto G Power + slow 4G; desktop: the desktop preset),
  * Chromium from Playwright, headless=new, SwiftShader WebGL so the 3D scenes really render.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 import { chromium } from "@playwright/test";
@@ -38,10 +38,15 @@ const locales = opt("locales", phase === "before" ? "en" : "en,fr").split(",");
 const targets = urlsFor(phase).filter((t) => locales.includes(t.locale) && (!only || only.includes(t.id)));
 mkdirSync(out, { recursive: true });
 
-const chrome = await chromeLauncher.launch({
-  chromePath: process.env.CHROME_PATH ?? chromium.executablePath(),
-  chromeFlags: ["--headless=new", "--no-sandbox", ...CHROME_FLAGS],
-});
+const launch = () =>
+  chromeLauncher.launch({
+    chromePath: process.env.CHROME_PATH ?? chromium.executablePath(),
+    chromeFlags: ["--headless=new", "--no-sandbox", ...CHROME_FLAGS],
+  });
+// A page whose WebGL never settles under SwiftShader can hang Lighthouse for good (the 2025 Jobs page did): each run
+// gets a hard limit, and a hung run is recorded as such, with a fresh Chrome for the next one.
+const RUN_LIMIT_MS = Number(opt("run-limit", "240000"));
+let chrome = await launch();
 
 function metrics(lhr) {
   const a = lhr.audits;
@@ -75,7 +80,15 @@ const median = (values) => {
   return sorted[Math.floor(sorted.length / 2)];
 };
 
+// Rows from earlier invocations survive a partial rerun (`--only`): same page + locale + mode is replaced.
+const summaryPath = join(out, "summary.json");
+const previous = existsSync(summaryPath) ? JSON.parse(readFileSync(summaryPath, "utf8")).rows ?? [] : [];
 const rows = [];
+const allRows = () => [
+  ...previous.filter((p) => !rows.some((r) => r.id === p.id && r.locale === p.locale && r.mode === p.mode)),
+  ...rows,
+];
+const failures = [];
 try {
   for (const target of targets) {
     for (const mode of modes) {
@@ -87,11 +100,28 @@ try {
           : { extends: "lighthouse:default", settings };
       const results = [];
       for (let i = 0; i < runs; i++) {
-        const result = await lighthouse(url, { port: chrome.port, ...settings }, config);
+        let timer;
+        const result = await Promise.race([
+          // A killed Chrome makes the abandoned run reject later: swallow it, the timeout already recorded it.
+          lighthouse(url, { port: chrome.port, ...settings }, config).catch((error) => {
+            console.error(`${target.id} ${mode} run ${i + 1}: ${error.message}`);
+            return null;
+          }),
+          new Promise((resolve) => (timer = setTimeout(() => resolve(null), RUN_LIMIT_MS))),
+        ]);
+        clearTimeout(timer);
+        if (!result) {
+          console.error(`${target.id} ${target.locale} ${mode} run ${i + 1}: no result after ${RUN_LIMIT_MS / 1000} s (hung)`);
+          failures.push({ id: target.id, locale: target.locale, mode, run: i + 1, reason: `hung > ${RUN_LIMIT_MS / 1000} s` });
+          await chrome.kill();
+          chrome = await launch();
+          continue;
+        }
         if (result.lhr.runtimeError) console.error(`${url} ${mode}: ${result.lhr.runtimeError.code}`);
         results.push({ lhr: result.lhr, m: metrics(result.lhr) });
         console.log(`${target.id} ${target.locale} ${mode} run ${i + 1}: perf ${results.at(-1).m.performance} lcp ${results.at(-1).m.lcp}`);
       }
+      if (!results.length) continue;
       // The kept run is the one whose performance score is the median (ties: the median LCP among them).
       const perfMedian = median(results.map((r) => r.m.performance));
       const kept = results
@@ -110,8 +140,8 @@ try {
       });
       const final = kept.lhr.audits["final-screenshot"]?.details?.data;
       if (final) writeFileSync(join(out, `${name}-final.jpg`), Buffer.from(final.replace(/^data:image\/\w+;base64,/, ""), "base64"));
-      rows.push({ id: target.id, locale: target.locale, mode, url, runs, median: med, kept: kept.m, all: results.map((r) => r.m) });
-      writeFileSync(join(out, "summary.json"), JSON.stringify({ at: new Date().toISOString(), phase, base, runs, lighthouse: kept.lhr.lighthouseVersion, rows }, null, 2));
+      rows.push({ id: target.id, locale: target.locale, mode, url, runs: results.length, median: med, kept: kept.m, all: results.map((r) => r.m) });
+      writeFileSync(summaryPath, JSON.stringify({ at: new Date().toISOString(), phase, base, runs, lighthouse: kept.lhr.lighthouseVersion, rows: allRows(), failures }, null, 2));
     }
   }
 } finally {
@@ -119,7 +149,7 @@ try {
 }
 
 console.log("\npage".padEnd(32), "mode    perf a11y bp  seo   lcp    cls   tbt    si    KB  req  jsKB");
-for (const r of rows) {
+for (const r of allRows()) {
   const m = r.median;
   console.log(
     `${r.id}-${r.locale}`.padEnd(31),

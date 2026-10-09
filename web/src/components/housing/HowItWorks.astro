@@ -1,0 +1,60 @@
+---
+/**
+ * The four steps from application to a room (wiki: site/structure.md § Youth housing). An ordered list; the orange
+ * beam fills as the list scrolls past (CSS scroll-driven, global.css § Timeline), static where unsupported.
+ */
+import { t } from "lingui-for-astro/macro";
+
+const steps = [
+  {
+    title: t`Fill Out the Form`,
+    text: t`Start by completing a short application form. This helps us understand your situation and what kind of housing you need.`,
+  },
+  {
+    title: t`Let's Talk`,
+    text: t`After we receive your application, someone from our team will contact you to schedule a meeting. We'll talk about your background, current needs, and how we can support you.`,
+  },
+  {
+    title: t`Personal Interview`,
+    text: t`During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you.`,
+  },
+  {
+    title: t`Our Selection Process`,
+    text: t`After the interviews, our team carefully reviews all applications and selects candidates based on key criteria like urgency, motivation, and readiness for communal living.`,
+  },
+];
+---
+
+<section class="px-side pb-36" aria-labelledby="how-it-works">
+  <div class="w-full md:px-10" style="view-timeline-name: --timeline">
+    <div class="relative mx-auto max-w-7xl">
+      <h2 id="how-it-works" class="text-orange-gradient px-4 pb-14 text-3xl font-black sm:text-5xl sm:leading-20">
+        {t`Here's how it works`}
+      </h2>
+      <ol class="flex flex-col gap-20">
+        {
+          steps.map((step) => (
+            <li class="flex justify-start md:gap-10">
+              <div class="sticky top-40 z-40 flex max-w-xs flex-col self-start md:w-full md:flex-row lg:max-w-sm">
+                <div class="absolute left-3 flex size-10 items-center justify-center rounded-full" aria-hidden="true">
+                  <div class="size-4 rounded-full border border-muted-foreground bg-background" />
+                </div>
+                <h3 class="text-xl font-bold max-md:hidden md:pl-20 md:text-4xl">{step.title}</h3>
+              </div>
+              <div class="relative w-full pr-4 pl-20 md:pl-4">
+                <h3 class="mb-4 text-left text-2xl font-bold md:hidden">{step.title}</h3>
+                <p class="mb-8 text-neutral-800">{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div
+        class="absolute top-0 left-8 h-full w-[2px] overflow-hidden bg-linear-to-b from-transparent via-neutral-200 to-transparent to-99% mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+        aria-hidden="true"
+      >
+        <div class="timeline-beam absolute inset-0"></div>
+      </div>
+    </div>
+  </div>
+</section>

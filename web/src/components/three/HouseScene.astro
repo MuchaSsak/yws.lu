@@ -1,0 +1,67 @@
+---
+/**
+ * The 3D house beside the home hero, from 1280 px up as in 2025 (wiki: tech/usage/three.md). The box is sized in CSS
+ * (no layout shift) and shows a still poster; the React Three Fiber scene is imported only when the page is idle,
+ * the box is near the screen and the screen is wide, then fades in over the poster. Decorative: hidden from AT.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["house-scene relative", className]} data-house-scene aria-hidden="true">
+  <img
+    class="house-poster absolute inset-0 size-full object-contain"
+    src="/posters/house.webp"
+    alt=""
+    width="960"
+    height="800"
+    loading="lazy"
+    decoding="async"
+  />
+</div>
+
+<script>
+  const host = document.querySelector<HTMLElement>("[data-house-scene]");
+  const wide = matchMedia("(min-width: 1280px)");
+  let started = false;
+
+  const start = () => {
+    if (started || !host || !wide.matches) return;
+    started = true;
+    void import("./house/mount").then(({ mountHouse }) => mountHouse(host));
+  };
+  const whenVisible = () => {
+    if (!host) return;
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        start();
+      },
+      { rootMargin: "200px" },
+    ).observe(host);
+  };
+  const idle = () =>
+    "requestIdleCallback" in window ? requestIdleCallback(whenVisible, { timeout: 3000 }) : setTimeout(whenVisible, 300);
+
+  if (document.readyState === "complete") idle();
+  else addEventListener("load", idle, { once: true });
+  wide.addEventListener("change", () => wide.matches && whenVisible());
+</script>
+
+<style>
+  .house-scene :global(canvas) {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .house-scene[data-ready] :global(canvas) {
+    opacity: 1;
+  }
+  .house-scene[data-ready] .house-poster {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.2s;
+  }
+</style>
