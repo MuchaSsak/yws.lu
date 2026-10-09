@@ -1,0 +1,70 @@
+---
+/**
+ * The soft colour background behind every page (wiki: design/design.md § Backgrounds): the 2025 grid, vignette and
+ * colour glow, with the glow pre-rendered (scripts/background.mjs) instead of a live 100 px blur. One fixed layer,
+ * nothing animates, so scrolling never repaints it.
+ */
+---
+
+<div class="body-bg" aria-hidden="true">
+  <div class="body-bg-grid"></div>
+  <div class="body-bg-vignette"></div>
+  <div class="body-bg-glow">
+    <picture>
+      <source media="(min-width: 1280px)" srcset="/bg/aurora-desktop.webp" />
+      <img src="/bg/aurora-mobile.webp" alt="" width="830" height="1332" decoding="async" fetchpriority="low" />
+    </picture>
+  </div>
+</div>
+
+<style>
+  .body-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    contain: strict;
+  }
+  .body-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: url("/images/grid.svg");
+    opacity: 0.5;
+    filter: invert(1);
+  }
+  .body-bg-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgb(2 0 36 / 0) 0, #fafafa 100%);
+  }
+  /* The 2025 layer's box: full width, from 5rem down, half width centred from 1280 px. The image carries a 200 px
+     margin of blur around that box (scripts/background.mjs), so it is inset by the same share. */
+  .body-bg-glow {
+    position: absolute;
+    top: 5rem;
+    width: 100%;
+    height: 100%;
+    opacity: 0.25;
+  }
+  .body-bg-glow img {
+    position: absolute;
+    top: -21.5%;
+    left: -46.5%;
+    width: 193%;
+    height: 143%;
+    max-width: none;
+  }
+  @media (min-width: 1280px) {
+    .body-bg-glow {
+      width: 50%;
+    }
+    .body-bg-glow img {
+      top: -18.5%;
+      left: -20.8%;
+      width: 141.7%;
+      height: 137%;
+    }
+  }
+</style>

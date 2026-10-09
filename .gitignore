@@ -133,3 +133,20 @@ dist
 
 expo-env.d.ts
 # @end expo-cli
+# Case-study evidence, research shots and local QA output (heavy media stays local)
+.case-study/
+comps/
+screenshots/*
+!screenshots/VISUAL-QA.md
+test-results/
+playwright-report/
+blob-report/
+.lighthouse/
+.lighthouse-ci/
+
+# Temporary skill drop and kickoff copy (the kickoff lives in the wiki)
+/SKILLS/
+/yws-lu-kickoff-prompt.md
+
+# Personal rules (start-project-info)
+CLAUDE.local.md

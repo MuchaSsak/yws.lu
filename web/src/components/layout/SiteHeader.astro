@@ -1,0 +1,91 @@
+---
+/**
+ * The header (wiki: site/structure.md § Header): logo, the journeys, the language switch, the phone menu.
+ * Static HTML; the menu is a small script. Every journey is one tap away on a phone.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import { ORGANISATION } from "~/data/organisation";
+import { AUTONYMS, LOCALES } from "~/lib/locales";
+import { pathTo, type RouteId } from "~/lib/routes";
+
+interface Props {
+  route: RouteId;
+}
+
+const { route } = Astro.props;
+const locale = Astro.locals.locale;
+const nav = [
+  { href: pathTo(locale, "about"), label: t`About us`, current: route === "about" },
+  { href: pathTo(locale, "housing"), label: t`Apply for housing`, current: route === "housing" },
+  { href: pathTo(locale, "owners"), label: t`Rent your property`, current: route === "owners" },
+  { href: pathTo(locale, "projects"), label: t`We Spark Projects`, current: route === "projects" },
+  { href: pathTo(locale, "home", "contact"), label: t`Contact us`, current: false },
+  { href: pathTo(locale, "tec"), label: t`TEC Conference`, current: route === "tec" },
+];
+const menuLabel = t`Menu`;
+---
+
+<header class="site-header fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between gap-8 bg-black/60 px-5 font-medium tracking-wide text-white backdrop-blur-sm sm:px-16">
+  <a href={pathTo(locale, "home")} class="shrink-0 transition-transform hover:scale-105">
+    <img src="/logo.png" alt={ORGANISATION.name} width="80" height="53" />
+  </a>
+  <nav aria-label={t`Main`} class="max-xl:hidden">
+    <ul class="flex items-center gap-6">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={item.current ? "page" : undefined} class="p-1 hover:underline">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <div class="flex items-center gap-4">
+    <ul class="flex gap-3 text-sm" aria-label={t`Language`}>
+      {
+        LOCALES.map((other) => (
+          <li>
+            <a
+              href={pathTo(other, route)}
+              hreflang={other}
+              lang={other}
+              aria-current={other === locale ? "true" : undefined}
+              class:list={["p-1", other === locale ? "underline underline-offset-4" : "opacity-90 hover:underline"]}
+            >
+              {AUTONYMS[other]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <button type="button" class="menu-button rounded-md border border-white/60 px-3 py-2 xl:hidden" aria-expanded="false" aria-controls="site-menu">
+      {menuLabel}
+    </button>
+  </div>
+  <nav id="site-menu" aria-label={t`Main`} class="menu-panel absolute inset-x-0 top-20 hidden bg-black/85 px-5 py-6 backdrop-blur xl:hidden">
+    <ul class="flex flex-col items-end gap-6 text-xl">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={item.current ? "page" : undefined} class="hover:text-primary">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>(".menu-button");
+  const panel = document.getElementById("site-menu");
+  button?.addEventListener("click", () => {
+    const open = button.getAttribute("aria-expanded") !== "true";
+    button.setAttribute("aria-expanded", String(open));
+    panel?.classList.toggle("hidden", !open);
+  });
+</script>

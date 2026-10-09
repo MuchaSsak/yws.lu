@@ -1,0 +1,28 @@
+---
+/**
+ * The footer (wiki: site/structure.md § Footer). Spike version: facts from the one data source, real links.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import { ORGANISATION } from "~/data/organisation";
+import { type RouteId } from "~/lib/routes";
+
+interface Props {
+  route: RouteId;
+}
+
+const year = new Date().getFullYear();
+const rights = t`All rights reserved`;
+---
+
+<footer class="bg-foreground/90 px-5 py-6 text-white sm:px-16 xl:px-48">
+  <p>©{year} {ORGANISATION.legalName}. {rights}.</p>
+  <address class="not-italic text-white/85">
+    <a href={ORGANISATION.office.maps} class="hover:underline">
+      {ORGANISATION.office.label} : {ORGANISATION.office.street} {ORGANISATION.office.postalCode} {ORGANISATION.office.locality}
+    </a>
+    <br />
+    <a href={`mailto:${ORGANISATION.email}`} class="hover:underline">{ORGANISATION.email}</a>
+    {ORGANISATION.phones.map((phone) => <a href={`tel:${phone.e164}`} class="ml-3 hover:underline">{phone.display}</a>)}
+  </address>
+</footer>

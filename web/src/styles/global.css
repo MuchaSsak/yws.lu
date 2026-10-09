@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/*
+ * yws design tokens (wiki: design/design.md). One set: colours, type, spacing, radii, shadows, motion. The 2025
+ * site's shadcn palette (oklch) is kept as the base so the look doesn't move; values are checked AA by
+ * src/styles/tokens.test.ts.
+ */
+@theme {
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.141 0.005 285.823);
+  --color-muted: oklch(0.967 0.001 286.375);
+  --color-muted-foreground: oklch(0.47 0.016 285.938);
+  --color-border: oklch(86.686% 0.0001 271.152);
+  --color-primary: oklch(0.705 0.213 47.604);
+  --color-primary-strong: oklch(0.553 0.195 38.402);
+  --color-primary-foreground: oklch(0.141 0.005 285.823);
+  --color-secondary: oklch(41.206% 0.01327 285.76);
+  --color-secondary-foreground: oklch(0.967 0.001 286.375);
+  --color-ink-orange: oklch(0.408 0.123 38.172);
+  --color-violet: #730bce;
+  --color-violet-soft: #b96ff9;
+  --color-reveal: #fa8534;
+
+  --font-sans: "Montserrat Variable", "Montserrat Fallback", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.4rem;
+  --radius-md: 0.525rem;
+  --radius-lg: 0.65rem;
+  --radius-xl: 0.9rem;
+  --radius-2xl: 1rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-anticipate: cubic-bezier(0.68, -0.4, 0.32, 1.4);
+}
+
+/* Montserrat Variable's metrics on the system fallback, so the swap doesn't shift the layout (CLS). */
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial");
+  ascent-override: 96.8%;
+  descent-override: 25.1%;
+  line-gap-override: 0%;
+  size-adjust: 113.1%;
+}
+
+:root {
+  --header-h: 5rem;
+  --pad-x: clamp(1rem, 6vw, 6rem);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    min-width: 320px;
+    overflow-x: clip;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: rgb(216 111 62 / 0.25);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-primary-strong);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .px-side {
+    padding-inline: var(--pad-x);
+  }
+  .text-orange-gradient {
+    color: transparent;
+    background: linear-gradient(to left, rgb(253 154 0), rgb(245 74 0), rgb(239 177 0));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .sr-only-focusable:not(:focus-visible) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* Box reveal (the 2025 BoxReveal, in CSS): an orange box sweeps off the text on load. The text itself is painted
+     from the first frame, so it can be the LCP; only non-LCP lines also rise in. */
+  .reveal {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .reveal::after {
+    content: "";
+    position: absolute;
+    inset: 4px 0;
+    z-index: 2;
+    background: var(--color-reveal);
+    transform-origin: right;
+    animation-name: reveal-box;
+    animation-duration: var(--reveal-d, 0.5s);
+    animation-timing-function: var(--ease-in);
+    animation-fill-mode: both;
+    pointer-events: none;
+  }
+  .reveal-rise > * {
+    animation-name: reveal-rise;
+    animation-duration: var(--reveal-d, 0.5s);
+    animation-delay: 0.25s;
+    animation-timing-function: var(--ease-out);
+    animation-fill-mode: both;
+  }
+}
+
+@keyframes reveal-box {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(101%);
+  }
+}
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(75px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal::after {
+    display: none;
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "yws-web",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro build",
+    "preview": "node ./scripts/serve.mjs --port 4322",
+    "typecheck": "astro check",
+    "i18n:extract": "lingui extract --clean"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.0.0",
+    "@fontsource-variable/montserrat": "^5.2.8",
+    "@lingui/core": "6.9.0",
+    "@lingui/react": "6.9.0",
+    "@react-three/drei": "10.4.4",
+    "@react-three/fiber": "9.2.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.8",
+    "lingui-for-astro": "0.7.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.35.5",
+    "simplex-noise": "4.0.3",
+    "tailwindcss": "4.3.3",
+    "three": "0.167.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@lingui/cli": "6.9.0",
+    "@lingui/conf": "6.9.0",
+    "@lingui/format-po": "6.9.0",
+    "@lingui/native-tools": "0.1.5",
+    "@lingui/vite-plugin": "6.9.0",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "~0.167.0",
+    "typescript": "~6.0.3"
+  }
+}

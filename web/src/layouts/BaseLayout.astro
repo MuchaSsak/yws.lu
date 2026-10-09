@@ -1,0 +1,68 @@
+---
+/**
+ * Every page's document: head (SEO, hreflang, share card), skip link, header, main, footer.
+ * Wiki: site/seo.md § Metadata rules, site/i18n.md, design/design.md.
+ */
+import "@fontsource-variable/montserrat/wght.css";
+import "~/styles/global.css";
+
+import { t } from "lingui-for-astro/macro";
+
+import BodyBackground from "~/components/layout/BodyBackground.astro";
+import SiteFooter from "~/components/layout/SiteFooter.astro";
+import SiteHeader from "~/components/layout/SiteHeader.astro";
+import { ORGANISATION } from "~/data/organisation";
+import { LOCALES, OG_LOCALES } from "~/lib/locales";
+import { alternates, pathTo, type RouteId } from "~/lib/routes";
+
+interface Props {
+  /** The page part of the title; the home page passes its full title with `home`. */
+  title: string;
+  description: string;
+  /** The route this page is; null for pages without a canonical (404). */
+  route: RouteId | null;
+  home?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, route, home = false, noindex = false } = Astro.props;
+const locale = Astro.locals.locale;
+const site = Astro.site ?? new URL("https://www.yws.lu");
+const canonical = route === null ? null : new URL(pathTo(locale, route), site).href;
+const links = route === null ? [] : alternates(site, route);
+const fullTitle = home ? title : `${title} | ${ORGANISATION.name}`;
+const robots = noindex ? "noindex, follow" : "index, follow, max-image-preview:large";
+---
+
+<!doctype html>
+<html lang={locale} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ff6900" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {links.map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={ORGANISATION.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={OG_LOCALES[locale]} />
+    {LOCALES.filter((other) => other !== locale).map((other) => <meta property="og:locale:alternate" content={OG_LOCALES[other]} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="sr-only-focusable fixed top-3 left-3 z-[60] rounded-md bg-foreground px-4 py-3 font-bold text-background">{t`Skip to content`}</a>
+    <BodyBackground />
+    <SiteHeader route={route ?? "home"} />
+    <main id="main" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <SiteFooter route={route ?? "home"} />
+  </body>
+</html>
