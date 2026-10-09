@@ -8,13 +8,13 @@
 ## 0. First steps on the laptop
 
 1. `git fetch && git checkout revamp/2026-10` (the user pushes it to a dev branch; never commit to `main`).
-2. **Copy by hand from the PC** (gitignored, not in git):
+2. **Copied by hand from the PC** (gitignored, not in git). `SKILLS/` was a temporary copy and is **not** carried
+   over: the six skills come from the originals in `new-portfolio/.claude/skills/` (read-only):
    | Path on the PC | Size | Why |
    | --- | --- | --- |
    | `CLAUDE.local.md` (repo root) | 1 KB | personal rules, loaded every session (text in § 9 if lost) |
    | `.case-study/` (repo root) | 33 MB | the "before" evidence: Lighthouse reports + filmstrips, PSI attempt, build log |
-   | `SKILLS/` (repo root) | 174 KB | the 6 skills still to move into `.claude/skills/` (P1 step 5); originals also in `new-portfolio/.claude/skills/` |
-   | `~/.claude/skills/start-project-info/` | | user-level skill used by P1 (also inside `SKILLS/start-project-info/`) |
+   | `~/.claude/skills/start-project-info/` | | user-level skill used by P1; if the laptop lacks it, read it from `new-portfolio/.claude/skills/start-project-info/` |
    | `C:\Users\Mucha\Desktop\new-portfolio\` | | the reference implementation (read-only; never open its `context/`) |
 3. Install: repo root `bun install` (Next app + QA devDeps), `bunx playwright install chromium firefox webkit`,
    then `cd web && bun install` (the Astro spike has **never been installed or built** yet).
@@ -118,8 +118,10 @@ Work autonomously in one go; the user's rules are in `CLAUDE.local.md`.
    Then `CLAUDE.md` (router < 150 lines, invariants from brief § 2, commands), hooks
    (`node ~/.claude/skills/start-project-info/scripts/install-hooks.mjs <repo>`), routing test (8 prompts, 3 French, 1
    noise), `routing-synonyms.json`, `wiki-check.json`; gates (`check`, `e2e`, `e2e:xb`, `lhci`, `shots`, launch/SEO
-   gate in `build`; one route list), port the portfolio's e2e specs; move + adapt the 6 skills from `SKILLS/` (the
-   `commit` skill must commit as the user's identity, not Claude's), delete `SKILLS/`; `wiki-check` 0 errors; commit
+   gate in `build`; one route list), port the portfolio's e2e specs; create the 6 project skills in `.claude/skills/` (`code`,
+   `commit`, `lighthouse-qa`, `awwwards`, `search-registry-items`, `wiki-lint`) adapted from the originals in
+   `new-portfolio/.claude/skills/` (the `commit` skill must commit as the user's identity, not Claude's); `SKILLS/`
+   stays gitignored and is never committed; `wiki-check` 0 errors; commit
    `chore(ai): add project wiki, router, hooks, skills and QA gates`.
 6. **P2–P8** as in the brief (§ 6), slices in the order of `revamp-plan.md`.
 
