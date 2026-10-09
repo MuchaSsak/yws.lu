@@ -70,7 +70,7 @@ one line, email + each phone as links (plain text in 2025).
 **About us.** 1 Hero: H1 "About us", 5 lines (bold "Rent out your property — Give youth a chance…"; empty houses into
 homes; the youth housing crisis; ASBL with GLS status and the Ministry of Housing), group photo. 2 "Our mission"
 (`#our-mission`): 1 sentence, 3 cards: Coaching · Affordability · Sustainability. 3 "Real impact" (`#real-impact`):
-the Supabase sentence ("Since 2023 … 9 shared houses … 40 young people … 750 requests", built in, refreshed: F05) +
+the statistics sentence ("Since 2023 … 9 shared houses … 40 young people … 750 requests", static: F05) +
 houses carousel (7 pictures; skip `.emptyFolderPlaceholder` by name, not index 0). No team section (no team data).
 
 **We Spark Projects.** 1 Hero: H1 "We Spark Projects", "Here's a showcase of projects we've helped to bring to life."
@@ -141,7 +141,7 @@ projects and owners. No form anywhere [user 2026-10-09].
 | Office map | click-to-load facade (drawn placeholder, address, "Show map"); the `office.embed` iframe only after the click; "Open in Google Maps" always there | no Google request before the click; weight [research: legal-asbl-luxembourg § 3.4] |
 | Houses map (My Maps `links.housesMap`) | **not shown**: removed from About us on 2025-12-02 (commit 8cd66bc, reason unrecorded); if wanted back (Q31), a facade in Real impact (its iframe sets `NID` on load) | residents' privacy unknown |
 | Zoom, Google Drive, Safe Paths and Get Your Home forms | links only ↗ | — |
-| Supabase | statistics + house pictures fetched at build; statistics refreshed in the browser | `content-model.md` |
+| Statistics + house pictures | static in the repo (Supabase retired 2026-10-09): no request at all | `content-model.md` |
 
 ## Redirects (308 to the English page, one hop; `LEGACY` in `routes.ts` → `vercel.json`)
 

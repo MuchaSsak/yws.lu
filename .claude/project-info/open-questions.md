@@ -17,7 +17,7 @@
 | Q10 | Rights to the photos of young people (project galleries, group photo): consent on file? | imagery | client | photos kept as published today [assumption] | open |
 | Q11 | Partner logos: permission and the EU emblem rules for Erasmus+ / ESC | partner strip | client | kept as published today [assumption] | open |
 | Q12 | Google Business Profile: does one exist for the office? NAP must match the site | local SEO | client / owner | runbook step for the owner (`seo.md` § Launch) | open |
-| Q13 | Who updates Supabase statistics and how often? (decides the refresh path) | build-time data | client / owner | **build-time only** + an owner deploy hook (no visitor request to Supabase: no third-party cookie, no extra JS) [assumption 2026-10-09] | open |
+| Q13 | Who updates the statistics and how often? | About us | client / owner | **resolved 2026-10-09:** Supabase removed; typed values in `statistics.ts`, changed by a commit [user 2026-10-09] | resolved |
 | Q14 | The brochure PDF (`public/files/brochure.pdf`) was linked only from dead code (`BedroomModel`): keep and link, or drop? | assets | client | not linked; file kept in git history [assumption] | open |
 | Q15 | Is the LinkedIn URL (`/in/ywslu/`, a personal-profile URL) the organisation's official page? | `sameAs` | client | used as is [assumption] | open |
 | Q16 | Vercel: which domain is primary in the project settings? (evidence: apex 308 → www) | canonical host | owner | `www.yws.lu` [assumption, verified by curl 2026-10-09] | open |
@@ -44,4 +44,5 @@
 | Q37 | Who operates the contact@yws.lu mailbox (MX: dclux.xion.oxcs.net)? DPA, a privacy contact, a DPO? | privacy policy | client | Unknown (PLACEHOLDER) | open |
 | Q38 | The Google Forms (apply, Get Your Home, Safe Paths): Workspace or personal account, fields, retention | privacy policy | client | the policy names Google as the form host, retention Unknown (PLACEHOLDER) | open |
 | Q39 | Does the Get Your Home photographer (EXIF Artist tag) want a credit? | credits | client | no credit added; EXIF stripped by the image pipeline [assumption] | open |
+| Q40 | Name each shared house's village in its file name and alt text (local search) or not (the façade photos plus a village make homes of young people easy to find; one shows a café sign)? | About us, image SEO, privacy | client / owner | **no village**: neutral names (`yws-shared-house-1…7`), alt describes the house + "in Luxembourg" [assumption 2026-10-09] | open |
 | Q40 | Facts that decide whether the accessibility laws apply to YWS (public funding share, board appointments, headcount, turnover) | accessibility statement | client | no statement page (a new page is the client's call) [assumption] | open |

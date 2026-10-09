@@ -27,7 +27,7 @@ and `e2e` green.
 
 ## The 2025 site (root, until parity)
 
-Next.js 15.3.8 App Router, React 19.2.6, a client-side dictionary (`lib/dictionary.tsx`), Supabase for the statistics
+Next.js 15.3.8 App Router, React 19.2.6, a client-side dictionary (`lib/dictionary.tsx`), Supabase (read in the browser) for the statistics
 row and the house pictures, GSAP/motion/R3F for effects. **31 advisories open on 15.3.8** (2 critical, 11 high), and
 15.x support ends about 2026-10-21 [research: stack § 3.3]. It stays buildable at the repo root until every route is
 migrated, then it is removed (P3).
@@ -79,12 +79,12 @@ framework: the R3F house island on desktop (a 2.6 s task while React creates the
   (`bun run preview` behaves like Vercel) [user 2026-10-09].
 - **Production settings are owner steps**: domains, env vars, deploy hooks, DNS ([seo](../site/seo.md) § Launch).
 
-## Supabase (read at build only)
+## Data: static, no backend
 
-`web/src/data/supabase.ts` reads the newest `statistics` row and lists the `houses-pictures` bucket over REST with
-the public anon key at build time; a failed read falls back to the last-known numbers (9 / 40 / 750, 2025-07-09) or no
-pictures. A Supabase change shows after the next deploy (a deploy hook, owner step; Q13) ([content
-model](../content/content-model.md)).
+No database or API at build or run time. Supabase (one statistics row + a 7-picture bucket) was removed [user
+2026-10-09]: the numbers are typed in `web/src/data/statistics.ts` and the pictures are repo assets listed in
+`web/src/data/houses.ts` ([content model](../content/content-model.md) § Statistics). The 2025 app's TanStack Query
+and Supabase client leave with the Next app at parity (P3).
 
 ## Env var names (values never in the repo or the wiki)
 

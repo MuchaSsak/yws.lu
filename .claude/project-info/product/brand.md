@@ -81,7 +81,7 @@
    in `content-model.md`). Label "Phone" / « Téléphone » for both until Q2; never invent "Mobile", "Office" or hours.
 6. **Email:** the address is the visible text (contact@yws.lu); `mailto:` with a prefilled subject per audience; a
    Copy button beside it. Never `[at]` obfuscation.
-7. **Numbers and dates:** figures come from Supabase or the dictionary with the client's qualifier ("over 40"); never
+7. **Numbers and dates:** figures come from `statistics.ts` or the dictionary with the client's qualifier ("over 40"); never
    round up or add "+". New dates "9 April 2026" / « 9 avril 2026 »; existing dates stay verbatim. Ages: "18–34" in
    titles, "between 18 and 34" / « entre 18 et 34 ans » in sentences (both exist).
 8. **Language switcher:** autonyms "English" / "Français"; never flags or a bare "EN/FR" (`lessons.md`).
@@ -132,4 +132,4 @@ Existing = in the dictionary. New = needs the client's approval; register each i
 - Prices, waiting or response times, owner counts, testimonials, insurers, lease terms, office hours: client only.
 - A TEC recording or resources the client hasn't confirmed (Q8).
 - Compliance labels ("GDPR compliant", "fully accessible"): facts only (`compliance-and-data.md`).
-- A statistic without its date (the Supabase row is dated 2025-07-09).
+- A statistic without its date (the statistics are dated 2025-07-09).

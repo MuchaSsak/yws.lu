@@ -32,7 +32,7 @@ adapter [research: stack]).
 | Language | the visitor's choice | the browser | `localStorage["language"]` written on every visit (JSON string) | locale in the URL (`/en/`, `/fr/`); `/` answers 307 from the `Accept-Language` header (a Vercel rule); nothing stored | [repo: contexts/LanguageContext.tsx], [repo: vercel.json] |
 | Fonts | none | — | Montserrat + Noto Color Emoji via `next/font/google`, self-hosted at build | Montserrat from `@fontsource-variable/montserrat`, bundled; no request to Google Fonts; emoji font dropped (text labels) | [repo: lib/fonts.ts], [repo: web/src/layouts/BaseLayout.astro] |
 | 3D models | IP (request) | own origin; 2025 also **www.gstatic.com** (Google) | drei `useGLTF` fetches the Draco decoder from `https://www.gstatic.com/draco/versioned/decoders/1.5.5/` for the Draco models (`house.glb`, `bedroom.glb`) | meshopt with the decoder inlined in three-stdlib (`useGLTF(url, false, true)`): no third-party request | [repo: web/node_modules/@react-three/drei/core/Gltf.js], [repo: web/src/components/three/house/HouseCanvas.tsx] |
-| Statistics + house pictures | none personal (3 counters; 7 house photos named by town) | Supabase Pte. Ltd, via Cloudflare | read **in the browser** on page load; `tsgaliwebpcrjwtcxzdp.supabase.co` answers through Cloudflare and set `__cf_bm` (domain `supabase.co`, 30 min) | fetched **at build**, baked into the HTML; visitors never call `supabase.co` (build time only + an owner deploy hook, Q13) | [research: legal § 0, § 2.2, S14], [content-model](../content/content-model.md) |
+| Statistics + house pictures | none personal (3 counters; 7 house photos named by town) | Supabase Pte. Ltd, via Cloudflare | read **in the browser** on page load; `tsgaliwebpcrjwtcxzdp.supabase.co` answers through Cloudflare and set `__cf_bm` (domain `supabase.co`, 30 min) | static in the repo since Supabase was removed [user 2026-10-09]: no third party involved | [research: legal § 0, § 2.2, S14], [content-model](../content/content-model.md) |
 | Supabase middleware | cookies read (none set without a session) | Supabase Auth (server side) | `auth.getUser()` on every request | removed (no auth, static site) | [repo: middleware.ts, services/supabase/middleware.ts] |
 | Apply for housing | whatever the form asks (fields not reviewed) | Google Forms, under YWS's Google account | external link | same link, `rel` + "opens in a new tab" text | [repo: web/src/data/organisation.ts], [research: legal § 2.2] |
 | Project links | as above | Google Forms (Get your home, Safe Paths), Google Drive (Locked out) | external links | same | [content-model](../content/content-model.md) |
@@ -66,7 +66,7 @@ adapter [research: stack]).
 | Key | Set by | When | 2025 | Revamp |
 | --- | --- | --- | --- | --- |
 | `language` (localStorage) | the site | every visit | yes | gone (locale in the URL) |
-| `__cf_bm` (cookie, `supabase.co`, 30 min; Cloudflare: "strictly necessary", no user id) | Cloudflare in front of Supabase | browser calls to Supabase | yes | no: the revamp reads Supabase at build time only (Q13) |
+| `__cf_bm` (cookie, `supabase.co`, 30 min; Cloudflare: "strictly necessary", no user id) | Cloudflare in front of Supabase | browser calls to Supabase | yes | no: Supabase removed |
 | `NID` (`.google.com`, 6 months from last use per Google) | Google | My Maps iframe load | component not rendered | only after the facade click |
 | Google Maps place embed storage | Google | iframe load | lazy, no click | after the click; **Unknown** what JS stores |
 | Draco decoder request (no storage; IP to Google) | gstatic.com | 3D load ≥ 1280 px | yes | gone |
@@ -81,8 +81,8 @@ design rule]. An e2e check dumps cookies + `localStorage` + third-party requests
 | Who | Role for yws.lu | Address / contact | Transfer basis (as the vendor states it) | Open |
 | --- | --- | --- | --- | --- |
 | Vercel Inc. | hosting + CDN; processor "subject to our Data Processing Addendum" | 440 N Barranca Avenue #4133 Covina, CA 91723 United States; privacy@vercel.com (policy updated 1 June 2026); DPA: "Vercel Inc., a Delaware corporation" (updated 17 Mar 2026, effective 31 Mar 2026) | EU-US DPF self-certification (per Vercel); DPA incorporates SCCs 2021/914 Module Two | plan (Hobby/Pro) and whether the DPA covers it: **Unknown**; the owner's portfolio research recorded the DPA as Pro/Enterprise only (not re-checked here) [file: portfolio legal/compliance-and-data.md] |
-| Supabase Pte. Ltd | database + storage (no personal data read by the site) | 65 Chulia Street #38-02/03, OCBC Centre, Singapore 049513 (DPA "Version 1 — August 1, 2026") | SCCs (US, Singapore; Singapore has no adequacy decision); data in the region the customer picks | project region **Unknown**; subprocessors (1 June 2026) include AWS, Cloudflare, Google, Fly.io, Vercel |
-| Cloudflare | in front of Supabase (`__cf_bm`) | — | — | only relevant if the browser calls Supabase |
+| Supabase Pte. Ltd (**2025 site only**: removed from the revamp, project to be deleted after the launch) | database + storage (no personal data read by the site) | 65 Chulia Street #38-02/03, OCBC Centre, Singapore 049513 (DPA "Version 1 — August 1, 2026") | SCCs (US, Singapore; Singapore has no adequacy decision); data in the region the customer picks | project region **Unknown**; subprocessors (1 June 2026) include AWS, Cloudflare, Google, Fly.io, Vercel |
+| Cloudflare | in front of Supabase (`__cf_bm`), 2025 site only | — | — | not a recipient in the revamp |
 | Google | Forms (housing, projects), Drive (Locked out), Maps after the click | — | Google LLC on the DPF list (status from a search snippet; page did not render) | Workspace (Cloud Data Processing Addendum) or personal account: **Unknown**; form fields, special-category data, who sees the answers: **Unknown** |
 | Mailbox provider | receives `contact@yws.lu` | MX `*.dclux.xion.oxcs.net` | Unknown | operator and DPA: **Unknown** |
 | Zoom | TEC registration (past event) | — | not checked | link goes (Q8) |
@@ -124,14 +124,14 @@ Pages `privacy-policy` / `politique-de-confidentialite`; footer link on every pa
 | --- | --- | --- |
 | (1)(a) controller identity + contact | legal name, seat, contact@yws.lu; a dedicated privacy contact is what the CNPD asks for | `PLACEHOLDER` (Q1; privacy email Unknown) |
 | (1)(b) DPO | contact if appointed | Unknown |
-| (1)(c)(d) purposes + legal basis (+ legitimate interest if 6(1)(f)) | per activity: hosting logs; email/phone contact; housing applications and project sign-ups on Google Forms/Drive; photos of people; maps after the click; Supabase reads (no personal data) | basis chosen and documented by YWS (art. 5(2)); **not picked here** |
-| (1)(e) recipients | Vercel, Google, mailbox provider, Supabase (no personal data), Zoom (past) | mailbox operator Unknown |
-| (1)(f) third-country transfers + safeguards | US (Vercel: DPF + SCCs; Google: DPF), Singapore (Supabase: SCCs) | Supabase region Unknown |
+| (1)(c)(d) purposes + legal basis (+ legitimate interest if 6(1)(f)) | per activity: hosting logs; email/phone contact; housing applications and project sign-ups on Google Forms/Drive; photos of people; maps after the click | basis chosen and documented by YWS (art. 5(2)); **not picked here** |
+| (1)(e) recipients | Vercel, Google, mailbox provider, Zoom (past) | mailbox operator Unknown |
+| (1)(f) third-country transfers + safeguards | US (Vercel: DPF + SCCs; Google: DPF) | known |
 | (2)(a) retention or criteria | per activity | `PLACEHOLDER` (client sets; never invented) |
 | (2)(b)(c)(d) rights, withdrawal, complaint | access, rectification, erasure, restriction, objection, portability; withdraw consent where consent is the basis; complaint to the CNPD (address above); answer within 1 month (art. 12(3)) | known |
 | (2)(e) statutory/contractual requirement | browsing: none; applications: client | client |
 | (2)(f) automated decisions | none on the site; the application process: client | client |
-| Device storage section | none on load; what the map click loads; `__cf_bm` only if the Supabase refresh stays | depends on the P3 decision |
+| Device storage section | none on load; what the map click loads | known |
 | Photos of people | basis, opt-out and removal contact | Q10/Q22 |
 | Version date, changes | dated, both languages | — |
 
@@ -161,7 +161,7 @@ description can link the site's policy (a client step; the form is outside the s
 | `projects/get-your-home/1–6.JPG` | per research, yes | EXIF: Sony ILCE-7RM2, taken 2025-09-30, `Artist` tag set (a photographer's handle), no GPS | kept (Q10 default); credit to the photographer if the client wants one |
 | `projects/locked-out/1–4.JPG` | per research, yes | EXIF: Fujifilm X-E5, taken 2025-11-29, no GPS | kept (Q10 default) |
 | Safe Paths posters, TEC banner | illustrations | illustration source Unknown (Q22) | kept as published (Q22 default) |
-| Supabase house photos | houses | no people known | kept |
+| House photos (`web/src/assets/houses/`) | houses | no people known | kept; no village named (Q40) |
 
 Re-encoding through `astro:assets` (sharp) drops metadata by default [assumption: sharp default; check one output on
 the first build]. A removal request contact goes in the privacy policy.

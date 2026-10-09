@@ -17,7 +17,7 @@ non-negotiables: read only the pages your task needs. Paths are plain text on pu
 | Young people, tenants, property owners, landlords, partners, funders, practitioners, audiences, what they search, objections | `.claude/project-info/product/audience.md` |
 | Copy, microcopy, wording, voice, tone, headlines, H1, CTA labels, site name, claims never to make | `.claude/project-info/product/brand.md` |
 | Features, acceptance criteria, budgets, performance targets, Lighthouse score, LCP, Core Web Vitals, accessibility, a11y, WCAG | `.claude/project-info/product/requirements.md` |
-| Organisation facts, address, phone, email, socials, statistics, Supabase data, house pictures, content sources, dictionary | `.claude/project-info/content/content-model.md` |
+| Organisation facts, address, phone, email, socials, statistics, house pictures, retired Supabase, content sources, dictionary | `.claude/project-info/content/content-model.md` |
 | Pages, sitemap, sections, hero, header, navigation, menu, footer, contact, CTA, apply for housing, map, 404, jobs retired, TEC conference page | `.claude/project-info/site/structure.md` |
 | Locales, translation, French, English, language switcher, hreflang, x-default, URL prefix, slugs, catalogs | `.claude/project-info/site/i18n.md` |
 | SEO, Google, Search Console, Bing, IndexNow, metadata, titles, descriptions, JSON-LD, structured data, OG images, link previews, sitemap, robots, canonical, host, redirects, launch runbook | `.claude/project-info/site/seo.md` |

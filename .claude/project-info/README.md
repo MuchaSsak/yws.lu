@@ -10,7 +10,7 @@ project-info/
 ├─ README.md · working-agreement.md · lessons.md · open-questions.md · placeholders.md · log.md   (root: hooks expect these)
 ├─ revamp-plan.md · HANDOFF.md   the revamp's live checklist and the PC → laptop handoff
 ├─ product/    WHY + WHAT: brief, requirements and budgets, audiences, brand voice
-├─ content/    WHAT THE SITE SAYS: the organisation's facts (one source), page content sources, Supabase data
+├─ content/    WHAT THE SITE SAYS: the organisation's facts (one source), page content sources, statistics and house pictures
 ├─ site/       HOW IT IS ORGANISED + FOUND: structure, i18n, SEO (+ the launch runbook)
 ├─ design/     HOW IT LOOKS: design system, quality rubric, references, assets and licences
 ├─ tech/       HOW IT IS BUILT: technologies, conventions, usage/ library
@@ -37,7 +37,7 @@ product/:
 - `brand.md` - identity, voice per locale, microcopy rules, name rules, claims never to make
 
 content/:
-- `content-model.md` - the organisation's facts (one data source), external links, Supabase data, page content sources
+- `content-model.md` - the organisation's facts (one data source), external links, statistics and house pictures, page content sources
 
 site/:
 - `structure.md` - sitemap, sections per page, navigation, footer, CTA inventory, embeds, 404, redirects

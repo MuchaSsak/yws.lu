@@ -232,5 +232,5 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
     `/en/`, `/fr/`, `/en/about-us/`; paste `https://www.yws.lu/en/` into Discord to see the card.
 12. **After 1–2 weeks:** GSC → Pages (indexed per locale; PascalCase URLs under "Page with redirect" is expected),
     Sitemaps, Breadcrumbs, Performance by page and query; the result's site name reads "Youth Work Synergy".
-13. **Optional (Q13; `technologies.md` § Supabase):** Vercel → Settings → Git → **Deploy Hooks** → one for `main`;
-    Supabase → Database → **Webhooks** → on `statistics` update, POST that hook URL.
+13. **After the launch is live:** delete the Supabase project (the statistics and house pictures are in the repo now;
+    `content-model.md` § Statistics). Not before: the 2025 site on `main` reads it until the merge.

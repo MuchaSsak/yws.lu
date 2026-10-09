@@ -31,7 +31,7 @@
 - **i18n:** en and fr both render on their own URLs; the strict Lingui build has no missing ids; new French is marked
   for review (`site/i18n.md`).
 - **Edge cases are part of the feature:** very short and very long text (French runs longer), 320 px phones without
-  horizontal overflow, no WebGL, reduced motion, keyboard and screen reader, Supabase unreachable at build.
+  horizontal overflow, no WebGL, reduced motion, keyboard and screen reader.
 - **Nothing fake presented as real.** Placeholders are marked `PLACEHOLDER` in code/data, logged in `placeholders.md`,
   mentioned in chat, and block "done for production" (the launch gate fails on them).
 - **Research before design** (Mobbin, the `awwwards` skill, `search-registry-items`, `design-references.md`); a source

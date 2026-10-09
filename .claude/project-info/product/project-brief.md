@@ -49,7 +49,7 @@ sublets furnished rooms in shared houses to young people (18–34), with coachin
 
 - **The feel stays:** playful, colourful, 3D, warm, for young people. Feel changes are proposals with before/after
   shots, never silent (`design.md`).
-- **Truth:** client facts and statistics come from the client (constants, dictionary, Supabase). New copy is factual,
+- **Truth:** client facts and statistics come from the client (constants, dictionary, the statistics they entered). New copy is factual,
   close to the client's words, listed for approval (`placeholders.md`).
 - **Licences:** commercial-use-free or the client's own (`assets.md`).
 - **Production untouched:** branch `revamp/2026-10`; Vercel / DNS / Supabase changes are owner steps (`seo.md` § Launch).
@@ -67,5 +67,5 @@ sublets furnished rooms in shared houses to young people (18–34), with coachin
 | --- | --- |
 | Migration breaks a 3D moment or effect | per-route parity checklist, shot diffs, Next app kept until parity |
 | Old URLs lose rankings | 308 for every old path (both hosts, with/without slash), e2e-tested |
-| Supabase data stale in a static build | build-time fetch + an owner deploy hook (`content-model.md` § Supabase, Q13) |
+| Statistics go stale | typed values with their date; the client sends new numbers, a commit updates them (`content-model.md` § Statistics) |
 | New copy not approved | every new string listed in `placeholders.md` / the report |

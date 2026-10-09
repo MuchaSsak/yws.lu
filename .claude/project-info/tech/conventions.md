@@ -50,7 +50,7 @@
 | `src/components/layout/` | header, footer, background | |
 | `src/components/effects/` | `Reveal`, `WordFade`, `LineShadow`, `Sparkles` (CSS, no JS framework) | own code or MIT with a notice |
 | `src/components/three/` | the 3D loaders (`.astro`) and `<scene>/mount.tsx` + canvas | the only React in the site |
-| `src/data/` | `organisation.ts` (the one source of facts), Supabase reads | a `*.test.ts` checks shapes |
+| `src/data/` | `organisation.ts` (the one source of facts), `statistics.ts`, `houses.ts`, `credits.ts` | a `*.test.ts` checks shapes |
 | `src/lib/` | `routes.ts` (one path builder), `locales.ts`, `i18n.ts`, later the JSON-LD graph | |
 | `src/locales/{en,fr}/` | `messages.po` + `catalogs.test.ts` | edited after `bun run i18n:extract` |
 | `src/styles/` | `global.css` (tokens + the few component classes) + `tokens.test.ts` | |
@@ -102,8 +102,8 @@ between the two runs), gitignored `.case-study/`, `screenshots/`, `comps/`.
   `widths` and a `sizes` that matches the CSS width; `width`/`height` or `aspect-ratio` always reserved.
 - **Only the LCP image** gets `priority` (eager + `fetchpriority="high"`), one per page; usually the H1 is the LCP and
   no image does. Everything else `loading="lazy"` + `decoding="async"`; decoration `fetchpriority="low"`.
-- Sources ≤ 2560 px wide; the 25–30 MB originals never ship [brief § 6 P5]. Supabase images go through
-  `image.remotePatterns` and are optimised at build ([astro](usage/astro.md) § Images).
+- Sources ≤ 2560 px wide; the 25–30 MB originals never ship [brief § 6 P5]. Every image is a repo asset
+  under `src/assets/`, optimised at build; no remote images ([astro](usage/astro.md) § Images).
 - Meaningful `alt` is a Lingui message; decorative images `alt=""` inside an `aria-hidden` box.
 
 ## 3D

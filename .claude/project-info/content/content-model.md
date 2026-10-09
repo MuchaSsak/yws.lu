@@ -1,7 +1,7 @@
 # Content model
 
-> Owns: the organisation's facts (one data source), where each page's content comes from, the Supabase data and how it
-> reaches the built pages. Pages and sections: `structure.md`. Copy voice: `brand.md`. Translations: `i18n.md`.
+> Owns: the organisation's facts (one data source), where each page's content comes from, the statistics and the house
+> pictures (static since Supabase was retired). Pages and sections: `structure.md`. Copy voice: `brand.md`. Translations: `i18n.md`.
 
 ## The organisation (one source: `src/data/organisation.ts` after the migration; today `lib/constants.ts`)
 
@@ -38,19 +38,21 @@ the one module; a unit test checks the shapes (E.164 phones, absolute URLs, post
 | TEC practices site | https://tecpractices.eu/web/ (nav since 2026-05-11) | [repo: NavBar.tsx] |
 | Project links | Get your home (Google Form), Locked out (Google Drive), Safe Paths (Google Form) | [repo: ProjectsList.tsx] |
 
-## Supabase (project `tsgaliwebpcrjwtcxzdp`, public anon key in `lib/constants.ts`; read-only from the site)
+## Statistics and house pictures (static since 2026-10-09; Supabase retired)
 
-| Data | Shape | Today | Checked 2026-10-09 |
+The 2025 site read one Supabase project (`tsgaliwebpcrjwtcxzdp`) in the browser with TanStack Query: a `statistics`
+table with one row and a public `houses-pictures` bucket with 7 images (a `projects` table was typed but never
+existed). Supabase was **removed** [user 2026-10-09: "replace it with statically typed values"]: both now live in the
+repo, so they are in the HTML for search engines and visitors, with no third-party request, cookie or client JS.
+
+| Data | Where now | Values | How to change |
 | --- | --- | --- | --- |
-| `statistics` table | one row: `shared_houses_count`, `youngsters_accomodated_count`, `youngsters_waiting_count` | fetched in the browser (TanStack Query); dictionary defaults 9 / 40 / 750 if the fetch fails | 1 row: 9 / 40 / 750, `created_at` 2025-07-09 |
-| `houses-pictures` bucket (public) | image files | listed in the browser; the carousel skips index 0 (`.emptyFolderPlaceholder`) | 7 images (assel.webp, limpertsberg.webp, mondercange, oberanven, oberkorn, soleuvre, spinkange .jpg; 28–63 KB each) |
-| `projects` table | typed in `typings/projects.ts` | **does not exist** ("relation public.projects does not exist") | dead type |
+| Statistics | `web/src/data/statistics.ts` (`STATISTICS`, typed) | 9 shared houses / 40 young people housed / 750 requests waiting, as of 2025-07-09 (the row's `created_at`; checked against the table 2026-10-09) | edit the file, commit, deploy |
+| House pictures | `web/src/assets/houses/yws-shared-house-1…7` (byte copies of the bucket, 2025 carousel order), listed with per-locale alt text in `web/src/data/houses.ts` | 7 façade photos, 450–800 px, 28–63 KB, client's own | add the file + a `HOUSE_PICTURES` entry with its alt (en + fr) |
 
-**Build time only** [assumption 2026-10-09, Q13]: `web/src/data/supabase.ts` fetches both during the build, the
-numbers and pictures are baked into the HTML (pictures through `astro:assets`), and visitors never call Supabase (no
-third-party request, no `__cf_bm` cookie, no client JS). A new value shows after the next deploy: the owner's deploy
-hook (`seo.md` § Launch). If Supabase is unreachable at build, the statistics fall back to the last known values
-(9 / 40 / 750, as of 2025-07-09) and the gallery is left out; the build never fails on it.
+Owner step: delete the Supabase project only **after** this branch is live in production; until then the 2025 site on
+`main` still reads it (the About us carousel would break). File names and alt text name no village (residents'
+privacy; Q40 [assumption]).
 
 ## Page content sources
 
@@ -59,7 +61,7 @@ hook (`seo.md` § Launch). If Supabase is unreachable at build, the statistics f
 | Home | dictionary (hero, who we are, housing, projects, contact) | group photo, partner logos, house/wardrobe/rocket 3D | — |
 | Looking for housing | dictionary (hero, 4 timeline steps, who gets priority) | Vortex particles (canvas 2D) | Google Form link |
 | Rent your property | dictionary (hero, why rent to us, 5 benefit cards, interested) | background lines (SVG) | — |
-| About us | dictionary (hero, mission + 3 cards, real impact) | group photo | Supabase statistics + pictures |
+| About us | dictionary (hero, mission + 3 cards, real impact) | group photo, 7 house pictures | `statistics.ts`, `houses.ts` |
 | We Spark projects | dictionary (7 projects, long texts; 3 written in French inside the English dictionary) | 10 project JPGs (25–30 MB each), logos, Safe Paths posters per locale | — |
 | TEC conference | **hard-coded English** in components (no French) | banner PNG, LightPillar shader, cobe globe, SplashCursor | Zoom link |
 | Jobs (retired) | French offer texts hard-coded + 2 PDFs | ColorBends shader | — |

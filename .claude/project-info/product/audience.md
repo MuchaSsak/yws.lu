@@ -49,11 +49,11 @@ FR "logement jeune(s)" suggestions are dominated by *logement étudiant*; EN add
 | --- | --- | --- |
 | "Am I eligible?" | 18–34; the priority criteria above | the Unknowns above (Q24) |
 | "Is this real? The application is a bare Google Form" | ASBL with GLS status, "working in collaboration with the Ministry of Housing" (`heroDescriptionAboutUs`); partner logos | a link to logement.lu's GLS list, where YWS is listed [research: audiences-keywords F3] (new copy); RCS in the legal notice (Q1); what the form collects (`compliance-and-data.md`) |
-| "Will I get a place, and when?" | the honest limit sentence; 9 houses, 40 housed, 750 requests waiting (Supabase row of 2025-07-09, `content-model.md`) | response and waiting times (Q24) |
+| "Will I get a place, and when?" | the honest limit sentence; 9 houses, 40 housed, 750 requests waiting (statistics of 2025-07-09, `content-model.md`) | response and waiting times (Q24) |
 | "What happens after I send the form?" | 4 named steps: Fill Out the Form → Let's Talk → Personal Interview → Our Selection Process | how long each step takes (Q24) |
 | "What does it cost, what is included?" | furnished, shared, coaching, quality second-hand furniture (`ourMissionCardThreeDescriptionAboutUs`) | rent range (Q24) |
 | "Is it RENLA, Jugendwunnen or student housing?" | — | one line on what YWS is not (new copy); RENLA is the national register since Sept 2025 [research S13] |
-| "Where are the houses?" | "across the country"; 7 house photos (Supabase bucket) | a map: `RealImpactMap` exists but is not rendered; showing locations is the client's call |
+| "Where are the houses?" | "across the country"; 7 house photos | a map: `RealImpactMap` exists but is not rendered; showing locations is the client's call |
 
 **Next step:** Apply (Google Form, opens in a new tab) after the eligibility facts on the housing page, and from the
 header (F02). Questions: email (prefilled subject) or call. No form on the site, ever [user 2026-10-09].
@@ -83,7 +83,7 @@ header (F02). Questions: email (prefilled subject) or call. No form on the site,
 | Lower rent than the market | the 90 % exemption claim | one figure with its legal basis and a "checked on" date: ACD and logement.lu say 90 % from tax year 2024, guichet.lu still says 75 % [research F1, F2] (Q17) |
 | Damage risk with young tenants | insurance, social workers, maintenance teams (client claims) | the cover named; how damage is handled (client) |
 | Lease length, lock-in, taking the home back | "Property Flexibility" (reclaim for personal use) | lease length and notice terms (client; not on government pages) |
-| "A young organisation (2023) vs Croix-Rouge or FAL?" | "Since 2023…" and 9 houses (Supabase) | the logement.lu list link (new copy); RCS (Q1); an owner count or testimonial (client only, never invented) |
+| "A young organisation (2023) vs Croix-Rouge or FAL?" | "Since 2023…" and 9 houses | the logement.lu list link (new copy); RCS (Q1); an owner count or testimonial (client only, never invented) |
 | "Who do I talk to?" | email and phones, as plain text today | `tel:` / `mailto:` links (F03); which number is for what (Q2); a named role (client's call) |
 
 **Next step:** call or email with a prefilled subject right after the benefits (F03). logement.lu sends owners to the
@@ -101,7 +101,7 @@ root, so the owner path stays in the home's first viewport (`design-references.m
 | Objection | Evidence the site has | Evidence it lacks |
 | --- | --- | --- |
 | Young organisation | "Since 2023"; 7 projects on We Spark | governance (board, statutes, filed accounts are public at the RCS [research F4]): the client's call to show |
-| "Are the numbers measured?" | Supabase counts | the date of the figures on the page (new copy; who updates them: Q13) |
+| "Are the numbers measured?" | the client's counts (`statistics.ts`) | the date of the figures on the page (new copy; who updates them: Q13) |
 | EU visibility | ESC and Erasmus+ logos | the 2021–27 "Co-funded by the European Union" emblem on the funded projects (Q21) |
 | Outside proof | — | ESC Quality Label (OID E10339604, to 31/12/2027), Anna Lindh Foundation membership, CRIJE listing [research]: on the site only with client approval |
 

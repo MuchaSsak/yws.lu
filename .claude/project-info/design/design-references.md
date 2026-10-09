@@ -97,14 +97,14 @@
 - **Adopt the tax figure with its legal basis and a "checked on" date** (ACD, logement.lu) once Q17 is answered,
   because contradicting numbers across sites erode trust [research: comparable-sites § 4].
 - **Adopt third-party verification**: a link to logement.lu's GLS list, where YWS is listed (new copy, approval),
-  because an official source beats a self-claim. Proof at the decision point: the houses count (Supabase); an owner
+  because an official source beats a self-claim. Proof at the decision point: the houses count; an owner
   count or testimonial only from the client (HUT shows "60+ owners").
 - **Skip** the offer in PDFs (Croix-Rouge); a "call me back" form; guarantee amounts YWS doesn't offer (Croix-Rouge's €3,000).
 
 ## Impact statistics
 
 - **Adopt a stat trio**: big number, one-line label, the copy's own "Since 2023" as eyebrow, rendered in the HTML at
-  build from Supabase (F05), `tabular-nums`, an "as of" date (new copy); the client's sentence stays. Because it reads in
+  build from `statistics.ts` (F05), `tabular-nums`, an "as of" date (new copy); the client's sentence stays. Because it reads in
   3 s and is indexable text. Seen: FEDAIS, UNHAJ, ALJT; Mobbin: MasterClass ("Since 2019…" over three figures), monday.com, Amigo.
 - **Skip** count-ups from 0 (no-JS and reduced motion would show 0); figures on photos (Zipline: needs a scrim);
   rounding or "+" beyond the client's "over".
