@@ -311,7 +311,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | ShineBorder ×2 (Magic UI) | **merged** → one CSS `.shine-border` | 1 px project cards, 3 px photo frame; `motion-safe` only |
 | BoxReveal, LineShadowText, SparklesText, TextAnimate (Magic UI) | **kept** as CSS (`Reveal`, `LineShadow`, `Sparkles`, `WordFade`) | done in the spike [repo: web/src/components/effects/*]; TextAnimate's 9 unused variants are not ported. The box sweeps in-out, ≤ 0.8 s (2025: ease-in up to 1.1 s, the lede covered for most of a second) [2026-10-09]. `WordFade` splits at breaking spaces only, so French no-break spaces stay in their word |
 | Highlight (Aceternity) | **rewritten** as a CSS marker (`background-size` 0 → 100 %, `--dur-5`) | Rent hero |
-| Timeline (Aceternity) | **rewritten** → `HowItWorks` (ordered list, CSS scroll-driven beam) | done in the spike |
+| Timeline (Aceternity) | **rewritten** → `HowItWorks` (ordered list, CSS scroll-driven beam) | done in the spike; 2026-10-09: numbered markers that fill orange as each step crosses mid-screen (scroll-driven, `view()`), step text larger, the title column sticky from 768 px only (on phones the 2025 sticky dot floated over the next step) |
 | Carousel (Embla) | **kept**, accessible | labelled region, `.btn-icon` arrows, no autoplay, first picture shown (2025 skipped index 0) |
 | Marquee (react-fast-marquee) | **rewritten** → `PartnerStrip` (CSS) | logos named; the EU emblem static outside it [research: licences § 5] |
 | WarpBackground (Magic UI, MIT) | **rewritten** in CSS (grid + beams), adapted with notice | home "Who we are"; the text on a glass card at the tunnel's end (2026-10-09; in 2025 the beams ran through the words), as in Magic UI's demo |

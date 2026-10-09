@@ -1,7 +1,9 @@
 ---
 /**
  * The four steps from application to a room (wiki: site/structure.md § Youth housing). An ordered list; the orange
- * beam fills as the list scrolls past (CSS scroll-driven, global.css § Timeline), static where unsupported.
+ * beam fills as the list scrolls past (CSS scroll-driven, global.css § Timeline), static where unsupported. Each step
+ * is numbered on the line (2025: an empty dot) and its number fills orange as it crosses the middle of the screen. The
+ * title column sticks from 768 px only: on a phone the 2025 sticky dot floated over the next step.
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -33,18 +35,18 @@ const steps = [
       <h2 id="how-it-works" class="text-orange-gradient px-4 pb-14 text-3xl font-black sm:text-5xl sm:leading-20">
         {t`Here's how it works`}
       </h2>
-      <ol class="flex flex-col gap-20">
-        {steps.map((step) => (
+      <ol class="flex flex-col gap-16">
+        {steps.map((step, index) => (
           <li class="flex justify-start md:gap-10">
-            <div class="sticky top-40 z-(--z-sticky) flex max-w-xs flex-col self-start md:w-full md:flex-row lg:max-w-sm">
-              <div class="absolute left-3 flex size-10 items-center justify-center rounded-full" aria-hidden="true">
-                <div class="size-4 rounded-full border border-muted-foreground bg-background" />
+            <div class="z-(--z-sticky) flex max-w-xs flex-col self-start md:sticky md:top-40 md:w-full md:flex-row lg:max-w-sm">
+              <div class="absolute left-3 flex size-10 items-center justify-center" aria-hidden="true">
+                <span class="step-marker">{index + 1}</span>
               </div>
               <h3 class="text-xl font-bold max-md:hidden md:pl-20 md:text-4xl">{step.title}</h3>
             </div>
-            <div class="relative w-full pr-4 pl-20 md:pl-4">
+            <div class="relative w-full pr-2 pl-16 md:pr-4 md:pl-4">
               <h3 class="mb-4 text-left text-2xl font-bold md:hidden">{step.title}</h3>
-              <p class="mb-8 text-foreground">{step.text}</p>
+              <p class="step-text">{step.text}</p>
             </div>
           </li>
         ))}
@@ -58,3 +60,48 @@ const steps = [
     </div>
   </div>
 </Section>
+
+<style>
+  .step-marker {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 2px solid color-mix(in oklab, var(--color-primary) 50%, white);
+    border-radius: 9999px;
+    background: var(--color-background);
+    box-shadow: 0 0 0 6px rgb(255 255 255 / 0.6);
+    color: var(--color-primary-strong);
+    font-weight: 800;
+  }
+  /* Filled as the step crosses the middle of the screen, in step with the beam (longhands: lessons.md). */
+  @supports (animation-timeline: view()) {
+    .step-marker {
+      animation-name: step-reached;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range-start: cover 40%;
+      animation-range-end: cover 50%;
+    }
+  }
+  @keyframes step-reached {
+    to {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-primary-foreground);
+    }
+  }
+  .step-text {
+    max-width: 38rem;
+    margin-bottom: 2rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+  @media (min-width: 768px) {
+    .step-text {
+      font-size: var(--text-lg);
+    }
+  }
+</style>
