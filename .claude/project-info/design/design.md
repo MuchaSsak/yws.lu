@@ -234,7 +234,8 @@ and never applied [repo: components/ui/dialog.tsx:39]).
   re-styled the page every frame), the shine is a 300 % gradient layer translated inside the masked border ring (it
   animated `background-position`, a repaint per frame), and both stay paused until `[data-loop]` marks them in view.
   The flow field draws in a worker on an OffscreenCanvas. Sections (`Section`), project cards and the footer carry
-  `content-visibility: auto` with an intrinsic size, so the off-screen page skips layout, including the re-layout when
+  `content-visibility: auto` with an intrinsic **height** (`contain-intrinsic-height`: the `-size` shorthand sets the
+  width too, and a skipped 1400 px-wide project chapter widened a phone page), so the off-screen page skips layout, including the re-layout when
   the web font swaps in; its paint containment clips anything that overflows the box, so decorations stay inside, and a
   card's rise entrance is clipped at its section's edge for its half second.
   **proposal (comps/):** one site-wide "Pause animations" control (footer) for loops longer than 5 s (WCAG 2.2.2);
@@ -305,7 +306,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Toaster (sonner), Providers, React Query devtools | **deleted** | only the dead resize warning used toasts |
 | Select, Sheet | **deleted** | language = links, menu = disclosure |
 | Button (shadcn) + ShimmerButton (Magic UI, MIT) | **merged** → `.btn` + `ButtonLink` | § Buttons |
-| Card (shadcn) | **kept** as a surface for project cards | `rounded-xl`, `shadow-sm`, `bg-background/25` + blur only if text stays AA over the glow |
+| Card (shadcn) | **kept** as a surface for project cards; **swapped** 2026-10-09 for full-width project chapters + "at a glance" tiles [user: "improve the projects subpage and layout"] | chapters: glass, the shine border, the project's colour in a corner glow, the gradient number, labels and list dots; a side column sticky from 1024 px. Tiles: 4 px top border in the colour, gradient number faded by its gradient (not `opacity`), lift on hover/focus |
 | GlareCard (Aceternity) | **rewritten** → `FeatureCard` (own code, Q23) | keeps the 3 rem radius, ink-orange 64 px icon, centred title + text; tilt/foil as an optional hover layer with a focus twin; grid instead of fixed 320 px boxes |
 | ShineBorder ×2 (Magic UI) | **merged** → one CSS `.shine-border` | 1 px project cards, 3 px photo frame; `motion-safe` only |
 | BoxReveal, LineShadowText, SparklesText, TextAnimate (Magic UI) | **kept** as CSS (`Reveal`, `LineShadow`, `Sparkles`, `WordFade`) | done in the spike [repo: web/src/components/effects/*]; TextAnimate's 9 unused variants are not ported |

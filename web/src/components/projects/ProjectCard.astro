@@ -1,9 +1,11 @@
 ---
 /**
- * One We Spark project (wiki: site/structure.md § We Spark Projects): logo (decorative: the title names it), title as an `<h2>` with the project's
- * anchor, the text (Markdown: objectives, activities and results become `<h3>` + lists), the link out, then its
- * pictures. A text written in the other language keeps its `lang` and says so (Q35). The frame is the 2025 card: a
- * glass surface with the project's shine colour.
+ * One We Spark project as a full-width chapter (wiki: site/structure.md § We Spark Projects). Beside the text, a side
+ * column that stays in view on wide screens: the project's number, logo (decorative: the title names it), title as an
+ * `<h2>` with the project's anchor, the language note and the link out. Then the text (Markdown: objectives, activities
+ * and results become `<h3>` + lists) and an even grid of its pictures. A text written in the other language keeps its
+ * `lang` and says so (Q35). The frame is the 2025 card, glass with the project's shine colour running round it, and
+ * that colour also tints its corner, number and labels.
  */
 import { Image } from "astro:assets";
 import { type CollectionEntry, render } from "astro:content";
@@ -30,34 +32,34 @@ const textLang = entry.data.lang;
 const otherLanguage = textLang !== locale;
 const languageLabel = textLang === "fr" ? t`(in French)` : t`(in English)`;
 const pictures = [...extras.pictures, ...(extras.localePictures?.[locale] ?? [])];
-const width = extras.pictureWidth ?? 240;
-/** Thumbnails `width` wide, two to a row when the card is narrower; a lone poster takes the full width up to its own. */
-const pictureShare = pictures.length > 1 ? "calc(50% - 0.5rem)" : "100%";
+const poster = pictures.length === 1;
+const width = extras.pictureWidth ?? 320;
+const number = String(index + 1).padStart(2, "0");
 const galleryLabel = t`Pictures gallery:`;
 ---
 
 <article
   id={slug}
-  class="project-card shine-border"
+  class="project shine-border"
   data-loop
   data-inview="fade"
-  style={`--shine-colors: ${extras.shine}; --fade-delay: ${(0.15 + index * 0.1).toFixed(2)}s`}
+  style={`--shine-colors: ${extras.shine}; --accent: ${extras.shine}; --fade-delay: 0s`}
   aria-labelledby={`${slug}-title`}
 >
   <span class="shine" aria-hidden="true">
     <span></span>
   </span>
-  <div class="project-head">
+  <div class="project-side">
+    <span class="project-number" aria-hidden="true">
+      {number}
+    </span>
     {extras.logo && <Image src={extras.logo} alt="" width={240} densities={[1, 2]} class="project-logo" />}
     <h2 id={`${slug}-title`} class="project-title" lang={otherLanguage ? textLang : undefined}>
       {entry.data.title}
     </h2>
     {otherLanguage && <p class="project-language">{languageLabel}</p>}
-    <div class="project-text" lang={otherLanguage ? textLang : undefined}>
-      <Content />
-    </div>
     {extras.link && (
-      <div class="pt-4">
+      <div class="project-action">
         <ButtonLink
           href={"route" in extras.link ? pathTo(locale, extras.link.route) : extras.link.href}
           external={!("route" in extras.link)}
@@ -67,110 +69,217 @@ const galleryLabel = t`Pictures gallery:`;
       </div>
     )}
   </div>
-  {pictures.length > 0 && (
-    <div class="project-gallery">
-      <p class="project-gallery-label">{galleryLabel}</p>
-      <ul class="project-pictures" role="list" style={`--picture-share: ${pictureShare}; --picture-width: ${width / 16}rem`}>
-        {pictures.map((picture) => (
-          <li>
-            <Image src={picture.image} alt={i18n._(picture.alt)} width={width} densities={[1, 2]} class="project-picture" />
-          </li>
-        ))}
-      </ul>
+  <div class="project-main">
+    <div class="project-text" lang={otherLanguage ? textLang : undefined}>
+      <Content />
     </div>
-  )}
+    {pictures.length > 0 && (
+      <div class="project-gallery">
+        <p class="project-label">{galleryLabel}</p>
+        <ul class:list={["project-pictures", poster && "is-poster"]} role="list">
+          {pictures.map((picture) => (
+            <li>
+              <Image src={picture.image} alt={i18n._(picture.alt)} width={width} densities={[1, 2]} class="project-picture" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
 </article>
 
 <style>
-  /* Off-screen cards skip layout and paint until they come near (content-visibility): the long page's first layout
-     shrinks (Lighthouse mobile TBT 215 → 148 ms in an A/B). The height is an estimate until a card has rendered once;
-     `auto` then remembers the real one. */
-  .project-card {
+  /* Off-screen chapters skip layout and paint until they come near (content-visibility): the long page's first layout
+     shrinks (Lighthouse mobile TBT 215 → 148 ms in an A/B on the first port). The height is an estimate until a chapter
+     has rendered once; `auto` then remembers the real one. Height only: `contain-intrinsic-size` sets the width too,
+     and a skipped chapter 1400 px wide stretched the list's grid track past a phone's screen. No `overflow: hidden` here: it would stop the side column
+     sticking. */
+  .project {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
     content-visibility: auto;
-    contain-intrinsic-size: auto 1600px;
-    border-radius: var(--radius-xl);
-    background: rgb(255 255 255 / 0.25);
+    contain-intrinsic-height: auto 1400px;
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(circle at 0% 0%, color-mix(in oklab, var(--accent) 24%, transparent), transparent 40%),
+      rgb(255 255 255 / 0.6);
     box-shadow:
-      0 1px 3px 0 rgb(0 0 0 / 0.1),
-      0 1px 2px -1px rgb(0 0 0 / 0.1);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
+      0 1px 3px 0 rgb(0 0 0 / 0.08),
+      0 24px 48px -32px rgb(0 0 0 / 0.25);
+    scroll-margin-top: calc(var(--header-h) + 1rem);
   }
   @media (min-width: 1024px) {
-    .project-card {
-      contain-intrinsic-size: auto 900px;
+    .project {
+      grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+      gap: 3rem;
+      padding: 2.5rem;
+      contain-intrinsic-height: auto 800px;
+    }
+    .project-side {
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+      align-self: start;
     }
   }
 
-  .project-head {
+  .project-side {
     display: flex;
     flex-direction: column;
-    gap: 0.375rem;
-    padding: 1.5rem;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .project-number {
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--accent) 85%, black), transparent 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
   }
   .project-logo {
-    width: 15rem;
+    width: min(15rem, 100%);
     height: auto;
   }
   .project-title {
     font-size: var(--text-2xl);
-    line-height: 1;
-    font-weight: 600;
+    line-height: 1.2;
+    font-weight: 700;
+    overflow-wrap: anywhere;
   }
   .project-language {
+    padding: 0.125rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background: var(--color-background);
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);
-    font-style: italic;
   }
-  /* 75 characters a line at most: the 2025 text ran 150 a line on a laptop. */
+  /* The French « Inscrivez-vous maintenant → » is 288 px on one line: at 320 it wraps instead of widening the chapter. */
+  .project-action {
+    max-width: 100%;
+    padding-top: 0.5rem;
+  }
+  .project-action :global(.btn) {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .project-main {
+    display: grid;
+    gap: 2rem;
+    min-width: 0;
+  }
+  /* 70 characters a line at most: the 2025 text ran 150 a line on a laptop. */
   .project-text {
-    max-width: 75ch;
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    line-height: var(--text-sm--line-height);
+    max-width: 70ch;
+    line-height: 1.7;
+  }
+  .project-text > :global(:first-child) {
+    margin-top: 0;
   }
   .project-text :global(p) {
-    margin-block: 0.5rem;
+    margin-block: 0.75rem;
   }
-  .project-text :global(h3) {
-    margin-top: 1rem;
-    color: var(--color-foreground);
-    font-weight: 600;
+  /* Objectives, activities, results: small labels with a bar in the project's colour. */
+  .project-text :global(h3),
+  .project-label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-top: 1.75rem;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .project-text :global(h3)::before,
+  .project-label::before {
+    content: "";
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 3px;
+    border-radius: 2px;
+    background: color-mix(in oklab, var(--accent) 80%, black);
+  }
+  .project-label {
+    margin: 0 0 0.75rem;
   }
   .project-text :global(ul) {
-    margin-block: 0.5rem;
+    display: grid;
+    gap: 0.375rem;
+    margin-block: 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+  .project-text :global(li) {
+    position: relative;
     padding-left: 1.25rem;
-    list-style: disc;
+  }
+  .project-text :global(li)::before {
+    content: "";
+    position: absolute;
+    top: 0.7em;
+    left: 0.25rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--accent) 80%, black);
   }
   .project-text :global(a) {
     color: var(--color-primary-strong);
     text-decoration: underline;
     overflow-wrap: anywhere;
   }
-  .project-gallery {
-    padding: 0 1.5rem 1.5rem;
-  }
-  .project-gallery-label {
-    color: var(--color-muted-foreground);
-    font-size: var(--text-sm);
-    font-style: italic;
-  }
+
+  /* An even grid of pictures, cropped to one shape; a lone poster keeps its own. */
   .project-pictures {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 0.25rem;
+    display: grid;
+    /* Two to a row in a phone's card (two 8 rem tracks fit its 310 px; 9.5 rem did not, and six photos ran a screen
+       each); 10 rem tracks from 1024 px. */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 8rem), 1fr));
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 1024px) {
+    .project-pictures {
+      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    }
   }
   .project-pictures > li {
-    flex: 0 0 min(var(--picture-width), var(--picture-share));
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   }
   .project-picture {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale var(--dur-3) var(--ease-out);
+  }
+  .project-pictures > li:hover .project-picture {
+    scale: 1.05;
+  }
+  .project-pictures.is-poster {
+    display: block;
+    max-width: 25rem;
+  }
+  .project-pictures.is-poster > li {
+    aspect-ratio: auto;
+  }
+  .project-pictures.is-poster .project-picture {
     height: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-picture {
+      transition: none;
+    }
   }
 </style>

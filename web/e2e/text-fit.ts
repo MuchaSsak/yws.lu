@@ -5,7 +5,9 @@ import type { Page } from "@playwright/test";
  * node is checked for
  * - **clipped**: its element hides overflowing text (overflow hidden/clip/auto or an ellipsis);
  * - **spill**: the text runs outside its own element's box;
- * - **edge**: the text runs past the left or right edge of the screen;
+ * - **edge**: the text runs past the left or right edge of the screen. In a swipe strip (`[data-scroller]`, a
+ *   horizontal scroll-snap row) text out of view is reached by swiping, so it must stay inside the strip's scrollable
+ *   width instead, and the strip itself inside the screen;
  * - **split**: a word broken across two lines (a break after a hyphen is allowed);
  * - **overlap**: two different text nodes painted on top of each other. Text in a fixed or sticky layer (the header,
  *   the open menu) over page text that scrolls under it is not an overlap when that layer hides its backdrop (a blur
@@ -60,12 +62,20 @@ export async function textFitProblems(page: Page): Promise<string[]> {
           break;
         }
       }
+      const scroller = el.closest<HTMLElement>("[data-scroller]");
+      const area = scroller?.getBoundingClientRect();
+      const [from, to] =
+        scroller && area ? [area.left - scroller.scrollLeft, area.left - scroller.scrollLeft + scroller.scrollWidth] : [0, vw];
       for (const r of rects) {
-        if (r.right > vw + 1 || r.left < -1) {
-          problems.push(`edge: ${label(el)} (${Math.round(r.left)}–${Math.round(r.right)} of ${vw})`);
+        if (r.right > to + 1 || r.left < from - 1) {
+          problems.push(
+            `edge: ${label(el)} (${Math.round(r.left)}–${Math.round(r.right)} of ${Math.round(from)}–${Math.round(to)})`,
+          );
           break;
         }
       }
+      if (area && (area.left < -1 || area.right > vw + 1))
+        problems.push(`edge: the strip around ${label(el)} (${Math.round(area.left)}–${Math.round(area.right)} of ${vw})`);
       // split words: each word's range must sit on one line
       const text = node.textContent ?? "";
       for (const match of text.matchAll(/[^\s\-‐–—/]+/g)) {

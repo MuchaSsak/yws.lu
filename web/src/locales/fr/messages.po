@@ -498,6 +498,10 @@ msgctxt "page title"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
+#: src/components/projects/ProjectsPage.astro
+msgid "Projects at a glance"
+msgstr "Les projets en un coup d’œil"
+
 #: src/components/home/HomeHero.astro
 #: src/pages/[locale]/specimen.astro
 msgctxt "Rent out your [property]"

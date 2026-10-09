@@ -1,20 +1,37 @@
 ---
 /**
- * We Spark Projects (wiki: site/structure.md § We Spark Projects): the hero (H1 with violet sparkles, one line) and
- * the seven projects as cards, in the 2025 order, one or two per row (a 36 rem minimum track: two from about 1400 px, capped at the phone's
- * width so it never overflows).
+ * We Spark Projects (wiki: site/structure.md § We Spark Projects): the hero (H1 with violet sparkles), "at a glance"
+ * tiles (one per project, in its colour: number, logo, title and the first line of its text; the tile jumps to the
+ * project), then the seven projects as full-width chapters in the 2025 order. 2025 and the first port showed cards two
+ * to a row, where a 95-word card stood beside a 300-word one and left a hole the height of a screen [user 2026-10-09:
+ * "improve the projects subpage and layout"].
  */
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { t } from "lingui-for-astro/macro";
 
 import Reveal from "~/components/effects/Reveal.astro";
 import Sparkles from "~/components/effects/Sparkles.astro";
 import ProjectCard from "~/components/projects/ProjectCard.astro";
+import { PROJECT_EXTRAS } from "~/data/projects";
+import { excerpt } from "~/lib/excerpt";
 
 const locale = Astro.locals.locale;
 const projects = (await getCollection("projects", (entry) => entry.id.startsWith(`${locale}/`))).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const tiles = projects.map((entry, index) => {
+  const slug = entry.id.split("/")[1] ?? entry.id;
+  return {
+    slug,
+    number: String(index + 1).padStart(2, "0"),
+    title: entry.data.title,
+    lang: entry.data.lang !== locale ? entry.data.lang : undefined,
+    excerpt: excerpt(entry.body ?? ""),
+    logo: PROJECT_EXTRAS[slug]?.logo,
+    accent: PROJECT_EXTRAS[slug]?.shine ?? "#ff7820",
+  };
+});
 ---
 
 <section class="projects px-side">
@@ -28,19 +45,48 @@ const projects = (await getCollection("projects", (entry) => entry.id.startsWith
       <p class="projects-lede">{t`Here's a showcase of projects we've helped to bring to life.`}</p>
     </Reveal>
   </div>
-  <ul class="projects-list" role="list">
+
+  <nav class="projects-index" aria-label={t`Projects at a glance`}>
+    <ol role="list" data-scroller>
+      {tiles.map((tile, index) => (
+        <li class="project-tile" data-inview="rise" style={`--accent: ${tile.accent}; --i: ${index % 4}`}>
+          <span class="tile-number" aria-hidden="true">
+            {tile.number}
+          </span>
+          {tile.logo && <Image src={tile.logo} alt="" width={160} densities={[1, 2]} class="tile-logo" />}
+          <a class="tile-title" href={`#${tile.slug}`} lang={tile.lang}>
+            {tile.title}
+          </a>
+          {tile.excerpt && (
+            <p class="tile-excerpt" lang={tile.lang}>
+              {tile.excerpt}
+            </p>
+          )}
+          <span class="tile-go" aria-hidden="true">
+            ↓
+          </span>
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <div class="projects-list">
     {projects.map((entry, index) => (
-      <li>
-        <ProjectCard entry={entry} index={index} />
-      </li>
+      <ProjectCard entry={entry} index={index} />
     ))}
-  </ul>
+  </div>
 </section>
 
 <style>
   /* The 2025 page: 128 px from the top (192 from 1280); the end is a section's (the 2025 192 px left a hole). */
   .projects {
     padding-block: var(--space-hero-top) var(--space-section);
+  }
+  .projects-intro,
+  .projects-index,
+  .projects-list {
+    max-width: var(--content-max);
+    margin-inline: auto;
   }
   /* 48 px on phones, 60 from 640: the 2025 classes asked for this, but the sparkles' own 60 px won and overflowed. */
   .projects-title {
@@ -55,14 +101,167 @@ const projects = (await getCollection("projects", (entry) => entry.id.startsWith
   }
   .projects-lede {
     max-width: var(--measure-hero);
-    padding-block: 1rem 1.5rem;
+    padding-block: 1rem 0;
     font-size: var(--text-lg);
     line-height: var(--text-lg--line-height);
   }
+
+  /* At a glance: one tile per project in its colour; the title's link covers the tile. */
+  .projects-index {
+    padding-top: 2.5rem;
+  }
+  /* Phones: one swipeable row (the next tile peeks in), so the projects start a screen sooner; `data-scroller` tells
+     the text-fit gate it is one. Wider: rows of tiles at least 17 rem wide, the last row stretching so no slot is left
+     empty. */
+  .projects-index ol {
+    display: flex;
+    gap: 0.875rem;
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: 0.25rem var(--pad-x) 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--pad-x);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    list-style: none;
+  }
+  .projects-index ol::-webkit-scrollbar {
+    display: none;
+  }
+  .project-tile {
+    flex: 0 0 min(80%, 19rem);
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .projects-index ol {
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .project-tile {
+      flex: 1 1 17rem;
+    }
+  }
+  .project-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    min-height: 13rem;
+    padding: 1.25rem 1.25rem 3.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--accent);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 100% 0%, color-mix(in oklab, var(--accent) 30%, transparent), transparent 55%),
+      rgb(255 255 255 / 0.72);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+    transition:
+      box-shadow var(--dur-2) var(--ease-out),
+      translate var(--dur-2) var(--ease-out),
+      transform var(--dur-3) var(--ease-out) calc(var(--i, 0) * 80ms);
+  }
+  .project-tile:hover,
+  .project-tile:has(.tile-title:focus-visible) {
+    translate: 0 -4px;
+    box-shadow: 0 18px 40px -20px color-mix(in oklab, var(--accent) 70%, black);
+  }
+  .project-tile:has(.tile-title:focus-visible) {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+  /* Faded by its gradient, not `opacity` (reduced-motion gate: no text below opacity 1). */
+  .tile-number {
+    position: absolute;
+    right: 0.75rem;
+    bottom: -0.75rem;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, color-mix(in oklab, var(--accent) 85%, black) 55%, transparent),
+      transparent 90%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    transform-origin: 100% 100%;
+    transition: scale var(--dur-2) var(--ease-out);
+  }
+  .project-tile:hover .tile-number {
+    scale: 1.08;
+  }
+  .tile-logo {
+    width: auto;
+    height: 2.75rem;
+    object-fit: contain;
+    object-position: left;
+  }
+  /* The whole title, never clamped: a cut project name reads as a typo, and the clamped lines sat under the excerpt. */
+  .tile-title {
+    font-size: var(--text-lg);
+    line-height: 1.3;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+  .tile-title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .tile-title:focus-visible {
+    outline: none;
+  }
+  .tile-excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+  .tile-go {
+    position: absolute;
+    bottom: 1rem;
+    left: 1.25rem;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    font-weight: 700;
+    transition: translate var(--dur-2) var(--ease-out);
+  }
+  .project-tile:hover .tile-go {
+    translate: 0 3px;
+  }
+
   .projects-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 36rem), 1fr));
-    gap: 2rem;
-    padding-top: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding-top: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .projects-list {
+      gap: 3.5rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-tile,
+    .tile-number,
+    .tile-go {
+      transition: none;
+    }
   }
 </style>

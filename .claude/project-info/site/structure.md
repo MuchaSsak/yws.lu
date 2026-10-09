@@ -74,10 +74,15 @@ the statistics sentence ("Since 2023 … 9 shared houses … 40 young people …
 houses carousel (7 pictures; skip `.emptyFolderPlaceholder` by name, not index 0). No team section (no team data).
 
 **We Spark Projects.** 1 Hero: H1 "We Spark Projects", "Here's a showcase of projects we've helped to bring to life."
-2 Seven projects, each an `<h2>` with an anchor; inner objectives / activities / results as `<h3>` + lists; photos ≤
-2560 px AVIF/WebP, thumbnails 240 px (two to a row on phones), the poster 400 px; logos decorative (alt "": the
-`<h2>` names the project; 2025: the whole description as alt); text capped at 75 characters a line; cards one per
-row, two from about 1400 px. Texts: the `projects` content collection (`i18n.md` § Project texts). Get Your Home (`#get-your-home`,
+2 At a glance [user 2026-10-09: "improve the projects subpage and layout"]: one tile per project in its colour (number,
+logo, the whole title, the first line of its text via `excerpt()`, the client's words), the tile jumps to the project;
+a swipe strip on phones (the next tile peeks in), rows of tiles from 640 px; a `<nav>` "Projects at a glance".
+3 Seven projects as full-width chapters (2025 and the first port: cards two to a row, a 95-word card beside a 300-word
+one left a screen-high hole): from 1024 px a side column that stays in view (number, logo, the `<h2>` with the
+anchor, the language note, the link out) beside the text; inner objectives / activities / results as `<h3>` + lists
+under labels with a bar in the project's colour; an even 4:3 grid of photos (two to a row on phones), the poster up
+to 400 px; photos ≤ 2560 px AVIF/WebP; logos decorative (alt "": the `<h2>` names the project; 2025: the whole
+description as alt); text capped at 70 characters a line. Texts: the `projects` content collection (`i18n.md` § Project texts). Get Your Home (`#get-your-home`,
 Erasmus+, 6 photos, "Register now" ↗) · Locked Out (`#locked-out`, Fondation Sommer, 4 photos, "Learn more" ↗ Drive) ·
 Safe Paths Luxembourg (`#safe-paths`, Ministry of Justice, poster per locale, "Learn more" ↗ form; workshops
 April–May 2026 past: Q9) · Girlssective (`#girlssective`) · Projet V Mobile Learning (`#mobile-learning`; revamp:
