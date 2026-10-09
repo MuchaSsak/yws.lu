@@ -11,9 +11,7 @@ import WhoGetsPriority from "~/components/housing/WhoGetsPriority.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { pageStaticPaths, type RouteId } from "~/lib/routes";
 
-const BUILT: RouteId[] = ["housing"];
-
-export const getStaticPaths = () => pageStaticPaths().filter((path) => BUILT.includes(path.props.id));
+export const getStaticPaths = pageStaticPaths;
 
 const { id } = Astro.props as { id: RouteId };
 

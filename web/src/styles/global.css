@@ -278,7 +278,9 @@
   @supports (animation-timeline: view()) {
     .timeline-beam {
       transform-origin: top;
-      animation: beam linear both;
+      animation-name: beam;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --timeline;
       /* From the list's top at mid-screen to its bottom at mid-screen, as in 2025. */
       animation-range: cover 50vh cover calc(100% - 50vh);

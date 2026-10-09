@@ -151,3 +151,6 @@ blob-report/
 # Personal rules (start-project-info)
 CLAUDE.local.md
 .astro/
+
+# Lighthouse gate output (web/scripts/lighthouse.mjs)
+web/lighthouse/

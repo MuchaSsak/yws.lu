@@ -1,0 +1,16 @@
+# LF everywhere the revamp writes (Windows tools write CRLF; lessons.md). The 2025 Next app keeps its mixed endings
+# until it is removed, so its files don't show up as modified.
+web/** text=auto eol=lf
+scripts/** text=auto eol=lf
+.claude/** text=auto eol=lf
+*.md text=auto eol=lf
+*.json text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.webp binary
+*.avif binary
+*.jpg binary
+*.glb binary
+*.ico binary
+*.pdf binary
+*.mp4 binary

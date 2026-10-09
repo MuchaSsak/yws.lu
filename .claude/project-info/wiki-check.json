@@ -1,0 +1,25 @@
+{
+  "ignore": ["^\\.case-study/", "^screenshots/", "^comps/", "^SKILLS/", "^web/lighthouse/", "^web/test-results/", "^web/playwright-report/", "^CHANGELOG\\.md$"],
+  "areas": [
+    { "prefix": "web/src/lib/routes", "pages": ["site/i18n.md", "site/structure.md", "site/seo.md"] },
+    { "prefix": "web/src/lib/locales", "pages": ["site/i18n.md"] },
+    { "prefix": "web/src/lib/schema", "pages": ["site/seo.md"] },
+    { "prefix": "web/src/locales/", "pages": ["site/i18n.md", "placeholders.md"] },
+    { "prefix": "web/src/data/", "pages": ["content/content-model.md"] },
+    { "prefix": "web/src/styles/", "pages": ["design/design.md"] },
+    { "prefix": "web/src/components/three/", "pages": ["tech/usage/three.md"] },
+    { "prefix": "web/src/components/layout/", "pages": ["site/structure.md", "design/design.md"] },
+    { "prefix": "web/src/components/", "pages": ["site/structure.md", "design/design.md"] },
+    { "prefix": "web/src/pages/", "pages": ["site/structure.md", "site/seo.md"] },
+    { "prefix": "web/src/layouts/", "pages": ["site/seo.md", "tech/usage/astro.md"] },
+    { "prefix": "web/public/", "pages": ["design/assets.md"] },
+    { "prefix": "web/src/assets/", "pages": ["design/assets.md"] },
+    { "prefix": "web/e2e/", "pages": ["tech/usage/visual-qa.md"] },
+    { "prefix": "web/scripts/", "pages": ["tech/technologies.md", "tech/usage/visual-qa.md"] },
+    { "prefix": "web/package.json", "pages": ["tech/technologies.md"] },
+    { "prefix": "web/astro.config", "pages": ["tech/technologies.md", "tech/usage/astro.md"] },
+    { "prefix": "web/lingui.config", "pages": ["tech/usage/lingui.md"] },
+    { "prefix": "scripts/capture/", "pages": ["memory/baseline.md", "revamp-plan.md"] },
+    { "prefix": "THIRD_PARTY_NOTICES.md", "pages": ["design/assets.md"] }
+  ]
+}

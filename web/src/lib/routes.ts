@@ -20,6 +20,12 @@ export const ROUTES = {
 export type RouteId = keyof typeof ROUTES;
 export const ROUTE_IDS = Object.keys(ROUTES) as RouteId[];
 
+/**
+ * The routes migrated so far (wiki: revamp-plan.md § Slices). Astro builds these, and every e2e / Lighthouse sweep
+ * runs over them; a slice adds its id when it starts. Removed once every route is migrated.
+ */
+export const READY: readonly RouteId[] = ["home", "housing"];
+
 /** `/fr/logement-jeunes/` for (`fr`, "housing"). A `#hash` may follow. */
 export function pathTo(locale: Locale, id: RouteId, hash?: string): string {
   const slug = ROUTES[id][locale];
@@ -51,10 +57,10 @@ export function routeOf(pathname: string): { id: RouteId; locale: Locale } | nul
   return id ? { id, locale: first } : null;
 }
 
-/** Static paths for `[locale]/[page].astro`: every route but home, in every locale. */
+/** Static paths for `[locale]/[page].astro`: every migrated route but home, in every locale. */
 export const pageStaticPaths = () =>
   LOCALES.flatMap((locale) =>
-    ROUTE_IDS.filter((id) => id !== "home").map((id) => ({ params: { locale, page: ROUTES[id][locale] }, props: { id } })),
+    READY.filter((id) => id !== "home").map((id) => ({ params: { locale, page: ROUTES[id][locale] }, props: { id } })),
   );
 
 /** Static paths for pages that exist once per locale (`[locale]/index.astro`, `[locale]/404.astro`). */
