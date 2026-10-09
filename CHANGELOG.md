@@ -1,3 +1,12 @@
+## [1.12.1](https://github.com/MuchaSsak/yws.lu/compare/v1.12.0...v1.12.1) (2026-10-09)
+
+
+### Bug Fixes
+
+* **web:** fill or drop the legal page placeholders so prod builds ([5beadae](https://github.com/MuchaSsak/yws.lu/commit/5beadae38b0dd7497acc516fae83a707c65b0856))
+
+
+
 # [1.12.0](https://github.com/MuchaSsak/yws.lu/compare/v1.11.0...v1.12.0) (2026-10-09)
 
 
@@ -65,15 +74,6 @@
 ### Bug Fixes
 
 * resolve useWheel return type inference in ZoomController ([739f8dc](https://github.com/MuchaSsak/yws.lu/commit/739f8dc7c57215c5c67b29eb4ce88306a12e5475))
-
-
-
-## [1.10.2](https://github.com/MuchaSsak/yws.lu/compare/v1.10.1...v1.10.2) (2026-07-09)
-
-
-### Bug Fixes
-
-* update hq address ([1cef37f](https://github.com/MuchaSsak/yws.lu/commit/1cef37fdf15addbfa4345b2a8e3e231c2021d783))
 
 
 
