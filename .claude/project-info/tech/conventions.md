@@ -8,8 +8,8 @@
 
 - The new site lives in `web/` during the migration: Astro 7 static, Lingui 6.9, no UI framework (3D in workers),
   Tailwind 4, Vitest, Playwright + axe, Lighthouse 13.5, bun, Node ≥ 22.19 [repo: web/package.json; pending the spike].
-- The 2025 Next app at the repo root is the **reference until parity**: read it, never extend it; each route is deleted
-  once its Astro twin passes the gates, then the whole app goes [user 2026-10-09, brief § 6 P3].
+- The 2025 Next app was the reference until parity and was removed on 2026-10-09; read it at the tag
+  `history/next-app-final` [user 2026-10-09, brief § 6 P3].
 
 ## Code style
 
@@ -60,7 +60,7 @@
 | `scripts/` | `serve.mjs`, `vercel-config.ts`, `poster.mjs`, `background.mjs`; QA: `routes`, `shots`, `lighthouse`, `launch-gate`, `og` | node `.mjs`; route lists from `routes.mjs`, never hand-written |
 | `e2e/` | Playwright specs + `routes.ts` (the one route list) | |
 
-Repo root (migration only): the Next app, `scripts/capture/` (the P0/P8 case-study capture: not gates, never edited
+Repo root: `vercel.json` (generated), a `package.json` with only the capture devDeps, `scripts/capture/` (the P0/P8 case-study capture: not gates, never edited
 between the two runs), gitignored `.case-study/`, `screenshots/`, `comps/`.
 
 ## Astro, scripts and workers

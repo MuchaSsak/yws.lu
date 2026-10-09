@@ -16,7 +16,8 @@
    | `.case-study/` (repo root) | 33 MB | the "before" evidence: Lighthouse reports + filmstrips, PSI attempt, build log |
    | `~/.claude/skills/start-project-info/` | | user-level skill used by P1; if the laptop lacks it, read it from `new-portfolio/.claude/skills/start-project-info/` |
    | `C:\Users\Mucha\Desktop\new-portfolio\` | | the reference implementation (read-only; never open its `context/`) |
-3. Install: repo root `bun install` (Next app + QA devDeps), `bunx playwright install chromium firefox webkit`,
+3. Install: repo root `bun install` (the capture devDeps; the Next app was removed 2026-10-09, tag
+   `history/next-app-final`), `bunx playwright install chromium firefox webkit`,
    then `cd web && bun install` (the Astro spike has **never been installed or built** yet).
 4. Start the fresh chat with: *"Read `.claude/project-info/HANDOFF.md`, `revamp-plan.md` and `CLAUDE.local.md`, then
    continue the revamp from § 4 of the handoff without asking."*
@@ -89,7 +90,7 @@ Work autonomously in one go; the user's rules are in `CLAUDE.local.md`.
 1. **Lighthouse baseline, finish:** jobs desktop + tec-conference (mobile + desktop) are missing. Jobs hangs under
    SwiftShader (2 of 3 mobile runs hung > 180 s: a finding for the report). Rerun on the laptop **on the same
    machine as the rest of the baseline only if numbers must be comparable**; otherwise rerun all 7 pages on the laptop:
-   `bun x next build && bun x next start -p 3100`, then
+   (from a checkout of the tag `history/next-app-final`) `bun x next build && bun x next start -p 3100`, then
    `node scripts/capture/lighthouse.mjs --phase before --base http://localhost:3100 --out .case-study/before/lighthouse-local --only jobs,tec-conference --run-limit 180000`.
    Run Lighthouse alone (no builds/shots/agents in parallel).
 2. **P0 rest:** `node scripts/capture/browser.mjs --phase before --base http://localhost:3100 --tasks seo,axe`;

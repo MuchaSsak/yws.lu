@@ -44,8 +44,8 @@
 - [x] Spike Astro + Lingui (housing page + home hero 3D) measured like P0 (`.case-study/spike/`): home mobile 98, housing desktop 99; misses = the 3D island (home desktop 67) and the flow field (housing mobile 87)
 - [x] Decision table in `technologies.md` (Astro 7 + Lingui 6), tag `history/pre-migration`
 - [x] Migration route by route (slices below)
-- [ ] Next app removed at parity: **waits for the owner's explicit OK** (tag `history/next-app-final` made; then
-  trim the root `package.json` to the capture devDeps, root `bun install`, README, technologies.md, HANDOFF.md)
+- [x] Next app removed at parity [user 2026-10-09] (tag `history/next-app-final`); the root `package.json` keeps
+  only the capture devDeps
 
 ## P4-P7. Slices (each: research → build → evaluate → fix → close)
 - [x] 0 Foundation (layout shell, tokens, i18n, SEO infra, gates)
@@ -67,5 +67,5 @@ Status 2026-10-09 (evening): every slice closed: `check` green (50 unit tests), 
 - [x] Full sweep green; P0 capture re-run into `.case-study/after/` (Lighthouse en × 3 runs, SEO, axe, shots at 390 + 1440); `.case-study/REPORT.md` compares
 - [x] wiki-lint, log, lessons, placeholders, open questions
 - [x] Commit, tag `history/after-2026-10` (local); `.case-study/REPORT.md` + `.case-study/handover/`
-- Left for the owner: the Next app removal (above), clips and the outside tools (need a public URL), the
+- Left for the owner: clips and the outside tools (need a public URL), the
   launch steps (`site/seo.md` § Launch), 22 legal placeholders, open questions Q8, Q35, Q40, Q41
