@@ -6,7 +6,9 @@
  * width: logo, the "Apply" pill (→ the housing page, eligibility first: Q26 default) and the other language with its
  * flag (SVG: Windows draws flag emoji as letters). Wide screens: the journeys inline.
  * Narrower: a "Menu" disclosure holding every journey, contact actions and both languages; while it is open the rest
- * of the page is `inert` (focus stays in the header), Escape closes it and focus returns to the button.
+ * of the page is `inert` (focus stays in the header) and dimmed (a tap on it closes), Escape closes it and focus
+ * returns to the button. Motion [user 2026-10-09]: the bars turn into a cross, the sheet drops in and its links follow
+ * one after another; closing plays it back. Reduced motion: it simply appears.
  * The inline nav needs more room in French: it appears from 1280 px in English and 1600 px in French (both measured
  * by the header-fit e2e check), the menu below that.
  */
@@ -73,24 +75,27 @@ const call = ORGANISATION.phones[0]!;
         ))}
       </div>
       <button type="button" class="site-menu-button" aria-expanded="false" aria-controls="site-menu">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-        </svg>
+        <span class="burger" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
         <span>{t`Menu`}</span>
       </button>
     </div>
   </div>
 
+  <div class="site-menu-scrim" data-menu-scrim hidden></div>
   <div id="site-menu" class="site-menu" hidden>
     <nav aria-label={t`Main`}>
       <ul class="site-menu-journeys">
-        <li>
+        <li style="--i: 0">
           <a href={apply.href} class="site-apply" aria-current={here === "housing" ? "page" : undefined}>
             {apply.label}
           </a>
         </li>
-        {nav.map((item) => (
-          <li>
+        {nav.map((item, index) => (
+          <li style={`--i: ${index + 1}`}>
             <a href={item.href} aria-current={!item.hash && item.id === here ? "page" : undefined}>
               {item.label}
             </a>
@@ -99,18 +104,18 @@ const call = ORGANISATION.phones[0]!;
       </ul>
     </nav>
     <ul class="site-menu-contact">
-      <li>
+      <li style={`--i: ${nav.length + 1}`}>
         <a href={`tel:${call.e164}`}>
           {t`Call us`} <span class="nowrap">+352 {call.display}</span>
         </a>
       </li>
-      <li>
+      <li style={`--i: ${nav.length + 2}`}>
         <a href={`mailto:${ORGANISATION.email}`}>{ORGANISATION.email}</a>
       </li>
     </ul>
     <ul class="site-menu-lang" aria-label={t`Language`}>
-      {LOCALES.map((other) => (
-        <li>
+      {LOCALES.map((other, index) => (
+        <li style={`--i: ${nav.length + 3 + index}`}>
           <a href={pathTo(other, here)} hreflang={other} lang={other} aria-current={other === locale ? "page" : undefined}>
             <span class:list={["flag", `flag-${other}`]} aria-hidden="true"></span>
             {AUTONYMS[other]}
@@ -125,21 +130,37 @@ const call = ORGANISATION.phones[0]!;
   const header = document.querySelector<HTMLElement>("[data-site-header]")!;
   const button = header.querySelector<HTMLButtonElement>(".site-menu-button")!;
   const menu = document.getElementById("site-menu")!;
+  const scrim = header.querySelector<HTMLElement>("[data-menu-scrim]")!;
   const outside = () => [...document.body.children].filter((el) => el !== header && el.tagName !== "SCRIPT") as HTMLElement[];
+  const isOpen = () => button.getAttribute("aria-expanded") === "true";
+  /** The close animation's length (the sheet's transition in the styles below). */
+  const CLOSE_MS = 320;
+  let closing = 0;
 
   const setOpen = (open: boolean, restoreFocus = true) => {
+    clearTimeout(closing);
     button.setAttribute("aria-expanded", String(open));
-    menu.hidden = !open;
-    header.toggleAttribute("data-open", open);
     document.documentElement.classList.toggle("menu-open", open);
     for (const el of outside()) el.inert = open;
-    if (open) menu.querySelector<HTMLElement>("a")?.focus();
-    else if (restoreFocus) button.focus();
+    if (open) {
+      menu.hidden = scrim.hidden = false;
+      // Start from the closed look so the opening transitions run.
+      void menu.offsetHeight;
+      header.toggleAttribute("data-open", true);
+      menu.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
+    } else {
+      header.toggleAttribute("data-open", false);
+      const hide = () => (menu.hidden = scrim.hidden = true);
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) hide();
+      else closing = window.setTimeout(hide, CLOSE_MS);
+      if (restoreFocus) button.focus();
+    }
   };
 
-  button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"));
+  button.addEventListener("click", () => setOpen(!isOpen()));
+  scrim.addEventListener("click", () => setOpen(false));
   header.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !menu.hidden) setOpen(false);
+    if (event.key === "Escape" && isOpen()) setOpen(false);
   });
   // A link to a place on this page (Contact) closes the menu so the page can scroll there.
   menu.addEventListener("click", (event) => {
@@ -147,7 +168,7 @@ const call = ORGANISATION.phones[0]!;
   });
   // Growing past the menu breakpoint with the menu open must not leave the page inert.
   addEventListener("resize", () => {
-    if (!menu.hidden && getComputedStyle(button).display === "none") setOpen(false, false);
+    if (isOpen() && getComputedStyle(button).display === "none") setOpen(false, false);
   });
 </script>
 
@@ -295,15 +316,112 @@ const call = ORGANISATION.phones[0]!;
     font-weight: 500;
     cursor: pointer;
   }
+  .site-menu-button {
+    transition:
+      background-color var(--dur-1),
+      border-color var(--dur-1);
+  }
+  .site-menu-button:hover,
   .site-menu-button[aria-expanded="true"] {
+    border-color: rgb(0 0 0 / 0.35);
     background: rgb(0 0 0 / 0.06);
   }
+  /* Three bars that turn into a cross while the menu is open. */
+  .burger {
+    position: relative;
+    width: 1.125rem;
+    height: 0.875rem;
+  }
+  .burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 0.3s var(--ease-out),
+      opacity 0.2s var(--ease-out);
+  }
+  .burger span:nth-child(1) {
+    top: 0;
+  }
+  .burger span:nth-child(2) {
+    top: calc(50% - 1px);
+  }
+  .burger span:nth-child(3) {
+    bottom: 0;
+  }
+  [aria-expanded="true"] .burger span:nth-child(1) {
+    transform: translateY(0.375rem) rotate(45deg);
+  }
+  [aria-expanded="true"] .burger span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  [aria-expanded="true"] .burger span:nth-child(3) {
+    transform: translateY(-0.375rem) rotate(-45deg);
+  }
+
+  /* The sheet drops in under the bar (over the page, which stays put and dims), its links following 35 ms apart. */
   .site-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
     max-height: calc(100dvh - var(--header-h));
     overflow-y: auto;
     padding: 1.25rem var(--pad-x) 2rem;
     border-top: 1px solid rgb(0 0 0 / 0.08);
-    background: rgb(255 255 255 / 0.96);
+    border-radius: 0 0 1.75rem 1.75rem;
+    background: var(--color-background);
+    box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.35);
+    opacity: 0;
+    transform: translateY(-0.75rem);
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 0.2s var(--ease-out),
+      transform 0.32s var(--ease-out),
+      clip-path 0.32s var(--ease-out);
+  }
+  .site-header[data-open] .site-menu {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 -4rem 0);
+  }
+  .site-menu li {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity 0.15s var(--ease-out),
+      transform 0.15s var(--ease-out);
+  }
+  .site-header[data-open] .site-menu li {
+    opacity: 1;
+    transform: none;
+    transition-duration: 0.3s, 0.4s;
+    transition-delay: calc(60ms + var(--i, 0) * 35ms);
+  }
+  .site-menu-scrim {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: 100dvh;
+    background: rgb(24 24 27 / 0.35);
+    opacity: 0;
+    transition: opacity 0.32s var(--ease-out);
+  }
+  .site-header[data-open] .site-menu-scrim {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .burger span,
+    .site-menu,
+    .site-menu li,
+    .site-menu-scrim {
+      transition: none;
+    }
   }
   .site-menu ul {
     margin: 0;
@@ -384,6 +502,7 @@ const call = ORGANISATION.phones[0]!;
       display: block;
     }
     :global(html[lang="en"]) .site-menu-button,
+    :global(html[lang="en"]) .site-menu-scrim,
     :global(html[lang="en"]) .site-menu {
       display: none;
     }
@@ -396,6 +515,7 @@ const call = ORGANISATION.phones[0]!;
       display: block;
     }
     :global(html[lang="fr"]) .site-menu-button,
+    :global(html[lang="fr"]) .site-menu-scrim,
     :global(html[lang="fr"]) .site-menu {
       display: none;
     }

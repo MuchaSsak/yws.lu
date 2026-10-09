@@ -110,6 +110,8 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-h) + 1rem);
+    /* The open menu stops the page scrolling (html.menu-open); the gutter keeps the layout from jumping. */
+    scrollbar-gutter: stable;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -120,6 +122,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+  html.menu-open {
+    overflow: hidden;
   }
   ::selection {
     background-color: rgb(216 111 62 / 0.25);
