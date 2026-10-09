@@ -12,6 +12,7 @@ import WhoGetsPriority from "~/components/housing/WhoGetsPriority.astro";
 import OwnersContact from "~/components/owners/OwnersContact.astro";
 import OwnersHero from "~/components/owners/OwnersHero.astro";
 import WhyRentToUs from "~/components/owners/WhyRentToUs.astro";
+import ProjectsPage from "~/components/projects/ProjectsPage.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { pageStaticPaths, type RouteId } from "~/lib/routes";
 
@@ -35,6 +36,7 @@ const { id } = Astro.props as { id: RouteId };
       <OwnersContact />
     </>
   )}
+  {id === "projects" && <ProjectsPage />}
   {id === "about" && (
     <>
       <AboutHero />

@@ -30,6 +30,7 @@
 - Flag emoji render as two letters on Windows: language switchers use text labels (English / Français), never flag emoji - 2026-10-06.
 - A server-rendered page needs its metadata on the server: a helper that returns `undefined` when `window` is missing ships no `<title>` at all (the 2025 site) - 2026-10-09.
 - Tailwind 4 emits a `@theme` variable only when the source names it (a utility or a literal `var(--name)`): a name built at runtime (`` var(--color-${name}) ``) is undefined, and `--shadow-*` never is (shadow utilities inline it): print values or give a fallback - 2026-10-09.
+- A grid `repeat(auto-fill, minmax(a, b))` counts its columns from `b` when `b` is fixed: a 15rem max gave one photo per row on a phone. Thumbnails that should go two to a row: flex-wrap with items `min(width, 50% - gap/2)` - 2026-10-09.
 
 ### Privacy of inputs
 - Never type a key, id or URL from memory: copy it mechanically from its source file (a script), or it is invented - 2026-10-09.
@@ -42,6 +43,8 @@
 - Git Bash rewrites URL-path arguments (`/en/` → `P:/Git/en/`): prefix with `MSYS_NO_PATHCONV=1` - 2026-10-05.
 - Node reads a Git Bash path `/c/Users/...` as `C:\c\Users\...`: give node scripts `C:/...` paths - 2026-10-09.
 - Stop a server by its port's PID (`netstat -ano | grep :<port>` → `taskkill //F //PID <pid>`), never by image name - 2026-10-08.
+- `web/scripts/serve.mjs` cached compressed pages by path, so after a rebuild the shots showed the old page (heights equal to the pixel). The cache now keys on mtime; when a change does not move a shot, `curl` the served HTML before judging the CSS - 2026-10-09.
+- The launch gate printed only its first 60 problems: real errors (partner links opening a new tab without saying so, missing og images) hid behind 85 expected missing-route links. It prints every problem now; read them all before calling a red gate "only the expected" - 2026-10-09.
 - Read every check's result: a red first task can hide a later failure (`bun run check` stops at the first) - 2026-10-06.
 - e2e role queries match substrings: pass `exact: true` for short names - 2026-10-06.
 - Playwright WebKit on Windows is not Safari (fonts, AV1, CSP noise on screenshots): check a WebKit-only finding against the live site first - 2026-10-09.

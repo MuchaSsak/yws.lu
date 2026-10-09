@@ -194,7 +194,7 @@ if (launch) {
 
 for (const line of warnings.slice(0, 20)) console.log(`launch-gate: warning: ${line}`);
 if (errors.length) {
-  console.error(`launch-gate: ${errors.length} problem(s):\n  ${errors.slice(0, 60).join("\n  ")}`);
+  console.error(`launch-gate: ${errors.length} problem(s):\n  ${errors.join("\n  ")}`);
   process.exit(1);
 }
 console.log(

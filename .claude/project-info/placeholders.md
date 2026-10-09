@@ -40,6 +40,9 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | Owners contact, email subject | Renting my property | Louer mon bien |
 | About us, gallery | Pictures of our shared houses · Previous picture · Next picture | Photos de nos colocations · Photo précédente · Photo suivante |
 | About us, group photo alt | The Youth Work Synergy group, about twenty people cheering outdoors | Le groupe Youth Work Synergy : une vingtaine de personnes, bras levés, en plein air |
+| We Spark, a text in the other language (Q35 fallback) | (in French) · (in English) | (en français) · (en anglais) |
+| We Spark, Projet V button → the TEC page | The closing conference | La conférence de clôture |
+| We Spark, photo alts (`src/data/projects.ts`: 6 Get Your Home, 4 Locked Out, the Safe Paths poster; logos decorative, alt "") | what each photo shows; no names, roles or genders guessed ("Workshop handouts on a table at Get Your Home", "Four people in front of the Locked Out title on the cinema screen"…) | « Les supports de l’atelier Get Your Home posés sur une table », « Quatre personnes devant le titre Locked Out projeté sur l’écran du cinéma »… (all in `web/scripts/fr-manual.json`) |
 | About us, house pictures alt (7, `src/data/houses.ts`) | A YWS shared house in Luxembourg: \<what the photo shows\> (no village, Q40) | Une colocation YWS au Luxembourg : \<ce que montre la photo\> |
 
 ## French fixes (the client's French, corrected so it reads natural; listed, not silent) [user 2026-10-09]
@@ -64,8 +67,20 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | We provide fully furnished rooms… with support, coaching, and a safe environment | du coaching, et un cadre sécurisé | du coaching et un cadre sécurisé | no serial comma before « et » in French |
 | Interested in renting your property to us? | Intéressé(e) à louer votre bien à notre organisation ? | Vous souhaitez nous louer votre bien ? | « intéressé à » is an anglicism; one natural question |
 | Property Flexibility · Property Maintenance (owners cards) | Flexibilité de la propriété · Entretien de la propriété | Flexibilité d’usage · Entretien du bien | « propriété » again (see the nav fix) |
+| Get Your Home, Locked Out (French titles) | Atelier Jeunesse sur le Logement · Regard Jeune sur le Logement | atelier jeunesse sur le logement · regard jeune sur le logement | English Title Case; French capitalises the first word only |
+| Locked Out text | “Locked Out” est un projet… | « Locked Out » est un projet… | French quotation marks |
+| Safe Paths text | le ministère de la justice | le ministère de la Justice | the ministry's name takes the capital |
+| Girlssective, expected results | …les compétences nécessaires pour naviguer les défis de l’intégration | …pour faire face aux défis de l’intégration | « naviguer » takes no object (calque of "navigate challenges") |
+| Sport, key activities | …en louant un espace, recruter les participants, acheter le matériel, etc… | …en louant un espace, en recrutant les participants, en achetant le matériel, etc. | the list keeps its « en »; « etc. » takes no ellipsis |
+| Sport, expected results | …s’intègrent dans notre société. Afin qu’ils puissent profiter… | …s’intègrent dans notre société, afin qu’ils puissent profiter… | a sentence cannot stand on « Afin que » alone |
+| Sport, expected results | En assistant à nos séances, nous espérons qu’ils éprouveront moins de solitude. | Nous espérons qu’en assistant à nos séances, ils éprouveront moins de solitude. | dangling participle: the young people attend, not « nous » |
+| Projet V title | Projet V - Comprehensive Guide… – Erasmus + | Projet V – Comprehensive Guide… – Erasmus+ | one dash style; the programme's spelling |
+| Girlssective, Self Chronicle titles (both locales) | (2024-2025) | (2024–2025) | an en dash for a range |
 | every French string | plain space before `: ; ! ?` and `»` | no-break space (U+00A0) | French typography, whitespace only (`i18n.md` § Formatting) |
 | every French string | straight apostrophe (') between letters, mixed with ’ | typographic apostrophe (’) | one apostrophe style; `catalogs.test.ts` checks it |
+
+The project texts' fixes are applied by `web/scripts/import-projects.mjs` (`TYPOS`, French typography) after the
+word-for-word copy, so the client's text stays reproducible from the 2025 dictionary (`i18n.md` § Project texts).
 
 Kept as written (checked): « Postulez maintenant » (« postuler » is the usual verb for a colocation), « Voici comment
 cela fonctionne », « Qui sommes-nous », « À la recherche d’un logement », the mission line.
@@ -82,5 +97,6 @@ cela fonctionne », « Qui sommes-nous », « À la recherche d’un logement »
 
 Fixed in slice 0 (home, owners, about; the French was already right and is kept): "aged 18 - 34" → "aged 18–34"
 (home Who we are, About us hero); "as soon as place becomes available" → "a place"; "If any issue arrives" →
-"arises"; "30-40%" → "30–40%". Waiting: "We prepare each property for sale, long-term use" ("sale" in a rental
+"arises"; "30-40%" → "30–40%". Fixed with the We Spark page: spaced hyphens used as dashes → "—" ("peer support —
+empowering…", "filmmaking — from storytelling to camera work — and…"); "(2024-2025)" → "(2024–2025)". Waiting: "We prepare each property for sale, long-term use" ("sale" in a rental
 offer) waits for Q25: a meaning, not a grammar fix.

@@ -60,21 +60,22 @@ Same settings on the PC, 2026-10-09 (`.case-study/before/lighthouse-local/`). Me
 
 ## Accessibility (axe 4.13, WCAG 2.2 AA tags, en + fr at 390 and 1440)
 
-`.case-study/before/axe/axe.json`. 5–8 rules fail per page; pages = the 7 routes + the 404, nodes summed over the 4
-runs per page.
+`.case-study/before/axe/axe.json`, rerun 2026-10-09 with instant page walks (738 nodes; the first run, 758 nodes, is
+`axe-smooth-scroll.json`: smooth scrolling left content mid-fade, which axe read as low contrast). 5–8 rules fail per
+page; pages = the 7 routes + the 404, nodes summed over the 4 runs per page.
 
 | Rule | Impact | WCAG | Pages | Nodes |
 | --- | --- | --- | --- | --- |
 | button-name | critical | 4.1.2 | 8 | 48 |
 | link-name | serious | 2.4.4, 4.1.2 | 8 | 96 |
 | document-title | serious | 2.4.2 | 7 | 28 |
-| color-contrast | serious | 1.4.3 | 5 | 70 |
+| color-contrast | serious | 1.4.3 | 4 | 54 |
 | nested-interactive | serious | 4.1.2 | 3 | 28 |
 | target-size | serious | 2.5.8 | 1 | 1 |
 | list | serious | 1.3.1 | 1 | 4 |
 | heading-order | moderate | best practice | 8 | 48 |
 | region | moderate | best practice | 8 | 415 |
-| landmark-one-main | moderate | best practice | 6 | 20 |
+| landmark-one-main | moderate | best practice | 4 | 16 |
 
 ## Repo (`scripts/capture/repo-metrics.mjs`, `.case-study/before/repo-metrics.json`)
 
@@ -90,6 +91,5 @@ runs per page.
 
 ## Still to capture (P0)
 
-Screenshots en + fr × 7 widths + reduced motion, clips, outside tools (Rich Results Test, Schema validator, PSI web UI,
-an OG preview), the owner's screenshots in `.case-study/before/owner/`. PSI field data: the API quota is exhausted
+Outside tools (Rich Results Test, Schema validator, PSI web UI, an OG preview) and the owner's screenshots in `.case-study/before/owner/`. PSI field data: the API quota is exhausted
 without a key (`.case-study/before/psi-live.log`).

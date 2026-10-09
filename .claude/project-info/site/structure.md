@@ -75,12 +75,14 @@ houses carousel (7 pictures; skip `.emptyFolderPlaceholder` by name, not index 0
 
 **We Spark Projects.** 1 Hero: H1 "We Spark Projects", "Here's a showcase of projects we've helped to bring to life."
 2 Seven projects, each an `<h2>` with an anchor; inner objectives / activities / results as `<h3>` + lists; photos ≤
-2560 px AVIF/WebP; logos with the project name as alt (2025: the whole description). Get Your Home (`#get-your-home`,
+2560 px AVIF/WebP, thumbnails 240 px (two to a row on phones), the poster 400 px; logos decorative (alt "": the
+`<h2>` names the project; 2025: the whole description as alt); text capped at 75 characters a line; cards one per
+row, two from about 1400 px. Texts: the `projects` content collection (`i18n.md` § Project texts). Get Your Home (`#get-your-home`,
 Erasmus+, 6 photos, "Register now" ↗) · Locked Out (`#locked-out`, Fondation Sommer, 4 photos, "Learn more" ↗ Drive) ·
 Safe Paths Luxembourg (`#safe-paths`, Ministry of Justice, poster per locale, "Learn more" ↗ form; workshops
 April–May 2026 past: Q9) · Girlssective (`#girlssective`) · Projet V Mobile Learning (`#mobile-learning`; revamp:
-links to the TEC page, its closing conference) · Les jeunes amis du sport (`#sport`) · The Self Chronicle
-(`#self-chronicle`). The last four have no link. Languages: `i18n.md` § French rules.
+"The closing conference" → the TEC page) · Les jeunes amis du sport (`#sport`) · The Self Chronicle
+(`#self-chronicle`). The last three have no link. Languages: `i18n.md` § French rules.
 
 **TEC conference.** 2025 order kept: 1 Hero (H1 "Much More Than a Method", quote, Projet V closing conference, 9 April
 2026 14:30–15:30, Zoom) · 2 Globe + partner countries (Italy, Germany, Luxembourg) · 3 Why this conference matters ·

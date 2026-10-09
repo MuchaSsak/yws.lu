@@ -1,0 +1,68 @@
+---
+/**
+ * We Spark Projects (wiki: site/structure.md § We Spark Projects): the hero (H1 with violet sparkles, one line) and
+ * the seven projects as cards, in the 2025 order, one or two per row (a 36 rem minimum track: two from about 1400 px, capped at the phone's
+ * width so it never overflows).
+ */
+import { getCollection } from "astro:content";
+import { t } from "lingui-for-astro/macro";
+
+import Reveal from "~/components/effects/Reveal.astro";
+import Sparkles from "~/components/effects/Sparkles.astro";
+import ProjectCard from "~/components/projects/ProjectCard.astro";
+
+const locale = Astro.locals.locale;
+const projects = (await getCollection("projects", (entry) => entry.id.startsWith(`${locale}/`))).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section class="projects px-side">
+  <div class="projects-intro">
+    <Reveal duration={0.75}>
+      <h1 class="projects-title">
+        <Sparkles colors={["#b96ff9", "#730bce"]}>{t`We Spark Projects`}</Sparkles>
+      </h1>
+    </Reveal>
+    <Reveal duration={1}>
+      <p class="projects-lede">{t`Here's a showcase of projects we've helped to bring to life.`}</p>
+    </Reveal>
+  </div>
+  <ul class="projects-list" role="list">
+    {projects.map((entry, index) => (
+      <li>
+        <ProjectCard entry={entry} index={index} />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  /* The 2025 page: 128 px from the top (192 from 1280); the end is a section's (the 2025 192 px left a hole). */
+  .projects {
+    padding-block: var(--space-hero-top) var(--space-section);
+  }
+  /* 48 px on phones, 60 from 640: the 2025 classes asked for this, but the sparkles' own 60 px won and overflowed. */
+  .projects-title {
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+  @media (min-width: 640px) {
+    .projects-title {
+      font-size: 3.75rem;
+    }
+  }
+  .projects-lede {
+    max-width: var(--measure-hero);
+    padding-block: 1rem 1.5rem;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+  .projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 36rem), 1fr));
+    gap: 2rem;
+    padding-top: 1rem;
+  }
+</style>

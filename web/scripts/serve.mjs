@@ -65,9 +65,10 @@ const hasMatches = (conditions, request) =>
 const fill = (destination, keys, match) =>
   keys.reduce((out, key, index) => out.replaceAll(`:${key.name}`, match[index + 1] ?? ""), destination);
 
+/** Compressed bodies, keyed by the file's mtime too: a rebuild under a running server must never serve the old page. */
 const cache = new Map();
 function body(file, encoding) {
-  const key = `${file}|${encoding}`;
+  const key = `${file}|${encoding}|${statSync(file).mtimeMs}`;
   if (!cache.has(key)) {
     const raw = readFileSync(file);
     const data =

@@ -1,0 +1,162 @@
+---
+/**
+ * One We Spark project (wiki: site/structure.md § We Spark Projects): logo (decorative: the title names it), title as an `<h2>` with the project's
+ * anchor, the text (Markdown: objectives, activities and results become `<h3>` + lists), the link out, then its
+ * pictures. A text written in the other language keeps its `lang` and says so (Q35). The frame is the 2025 card: a
+ * glass surface with the project's shine colour.
+ */
+import { Image } from "astro:assets";
+import { type CollectionEntry, render } from "astro:content";
+import { t } from "lingui-for-astro/macro";
+
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import { PROJECT_EXTRAS } from "~/data/projects";
+import { getI18n } from "~/lib/i18n";
+import { pathTo } from "~/lib/routes";
+
+interface Props {
+  entry: CollectionEntry<"projects">;
+  index: number;
+}
+
+const { entry, index } = Astro.props;
+const locale = Astro.locals.locale;
+const i18n = getI18n(locale);
+const slug = entry.id.split("/")[1] ?? entry.id;
+const extras = PROJECT_EXTRAS[slug];
+if (!extras) throw new Error(`no PROJECT_EXTRAS for ${slug}`);
+const { Content } = await render(entry);
+const textLang = entry.data.lang;
+const otherLanguage = textLang !== locale;
+const languageLabel = textLang === "fr" ? t`(in French)` : t`(in English)`;
+const pictures = [...extras.pictures, ...(extras.localePictures?.[locale] ?? [])];
+const width = extras.pictureWidth ?? 240;
+/** Thumbnails `width` wide, two to a row when the card is narrower; a lone poster takes the full width up to its own. */
+const pictureShare = pictures.length > 1 ? "calc(50% - 0.5rem)" : "100%";
+const galleryLabel = t`Pictures gallery:`;
+---
+
+<article
+  id={slug}
+  class="project-card shine-border"
+  data-loop
+  data-inview="fade"
+  style={`--shine-colors: ${extras.shine}; --fade-delay: ${(0.15 + index * 0.1).toFixed(2)}s`}
+  aria-labelledby={`${slug}-title`}
+>
+  <div class="project-head">
+    {extras.logo && <Image src={extras.logo} alt="" width={240} densities={[1, 2]} class="project-logo" />}
+    <h2 id={`${slug}-title`} class="project-title" lang={otherLanguage ? textLang : undefined}>
+      {entry.data.title}
+    </h2>
+    {otherLanguage && <p class="project-language">{languageLabel}</p>}
+    <div class="project-text" lang={otherLanguage ? textLang : undefined}>
+      <Content />
+    </div>
+    {extras.link && (
+      <div class="pt-4">
+        <ButtonLink
+          href={"route" in extras.link ? pathTo(locale, extras.link.route) : extras.link.href}
+          external={!("route" in extras.link)}
+        >
+          {i18n._(extras.link.label)}
+        </ButtonLink>
+      </div>
+    )}
+  </div>
+  {pictures.length > 0 && (
+    <div class="project-gallery">
+      <p class="project-gallery-label">{galleryLabel}</p>
+      <ul class="project-pictures" role="list" style={`--picture-share: ${pictureShare}; --picture-width: ${width / 16}rem`}>
+        {pictures.map((picture) => (
+          <li>
+            <Image src={picture.image} alt={i18n._(picture.alt)} width={width} densities={[1, 2]} class="project-picture" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: rgb(255 255 255 / 0.25);
+    box-shadow:
+      0 1px 3px 0 rgb(0 0 0 / 0.1),
+      0 1px 2px -1px rgb(0 0 0 / 0.1);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .project-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1.5rem;
+  }
+  .project-logo {
+    width: 15rem;
+    height: auto;
+  }
+  .project-title {
+    font-size: var(--text-2xl);
+    line-height: 1;
+    font-weight: 600;
+  }
+  .project-language {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+  /* 75 characters a line at most: the 2025 text ran 150 a line on a laptop. */
+  .project-text {
+    max-width: 75ch;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+  .project-text :global(p) {
+    margin-block: 0.5rem;
+  }
+  .project-text :global(h3) {
+    margin-top: 1rem;
+    color: var(--color-foreground);
+    font-weight: 600;
+  }
+  .project-text :global(ul) {
+    margin-block: 0.5rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .project-text :global(a) {
+    color: var(--color-primary-strong);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+  }
+  .project-gallery {
+    padding: 0 1.5rem 1.5rem;
+  }
+  .project-gallery-label {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+  .project-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.25rem;
+  }
+  .project-pictures > li {
+    flex: 0 0 min(var(--picture-width), var(--picture-share));
+  }
+  .project-picture {
+    width: 100%;
+    height: auto;
+  }
+</style>

@@ -14,6 +14,7 @@ import fondationSommer from "~/assets/partners/fondation_sommer_logo.png";
 import gestionLocative from "~/assets/partners/gestion_locative_sociale.png";
 import ministryHousing from "~/assets/partners/ministry_of_housing.png";
 import ministryJustice from "~/assets/partners/ministry_of_justice_logo.png";
+import NewTab from "~/components/ui/NewTab.astro";
 
 const partners = [
   { image: esc, name: t`European Solidarity Corps`, href: "https://youth.europa.eu/solidarity_en" },
@@ -29,7 +30,6 @@ const partners = [
   { image: ministryJustice, name: t`Ministry of Justice`, href: "https://mj.gouvernement.lu/en.html" },
 ];
 const label = t`Our partners`;
-const newTab = t`(opens in a new tab)`;
 ---
 
 <section class="marquee py-12" aria-label={label} data-loop>
@@ -40,12 +40,13 @@ const newTab = t`(opens in a new tab)`;
           <a href={partner.href} target="_blank" rel="noopener" tabindex={copy ? -1 : undefined} title={partner.name}>
             <Image
               src={partner.image}
-              alt={`${partner.name} ${newTab}`}
+              alt={partner.name}
               widths={[100, 150, 300]}
               sizes="(min-width: 640px) 150px, 100px"
               class="h-auto w-[6.25rem] sm:w-[9.375rem]"
               loading="lazy"
             />
+            <NewTab />
           </a>
         </li>
       ))}

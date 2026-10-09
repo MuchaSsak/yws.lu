@@ -45,7 +45,7 @@
 | `public/` | the 2025 Next app's assets (278 MB on disk by `du -sh`, 275.5 MB of it the 10 project JPGs) | yes; stays until the Next app is removed at parity, then lives in history (never rewritten) |
 | `web/public/` | served as is: `favicon.png`, `logo.png` (copies); next: `ms32821332.txt`, the favicon set, `og/` | yes |
 | `web/public/models/`, `posters/`, `bg/` | re-encoded models, scene posters (`bun run poster`), pre-rendered glow (`scripts/background.mjs`): **referenced by the spike, not generated yet** (spike never built) | yes once generated (they ship) |
-| `web/src/assets/` | sources for `astro:assets`: `partners/` (7 logos, copied 2026-10-09); next: `projects/`, `photos/` | yes |
+| `web/src/assets/` | sources for `astro:assets`: `partners/` (7 logos), `houses/` (7, from the retired Supabase bucket), `photos/` (the group photo), `projects/` (10 photos re-encoded to 2560 px JPEG q82 with EXIF dropped by `web/scripts/project-photos.mjs`: 275.5 MB → 2.9 MB; 2 logos and 2 posters byte copies; 3.4 MB in all) | yes |
 | `.case-study/`, `comps/`, `screenshots/` | evidence, comps, QA shots | no (gitignored) |
 
 ## Inventory: `public/` (2025) and `web/`
@@ -74,8 +74,8 @@
 | `public/images/projects/fondation_summer_logo.png` | PNG 1541×420 | 16.1 KB | marquee (alt "Fondation Summer") → `web/src/assets/partners/fondation_sommer_logo.png` (name fixed) | Fondation Sommer | partner's mark; Q11 | — | keep |
 | `…/projects/get_your_home_logo.png` | PNG 1289×483 | 21.3 KB | We Spark (`ProjectsList.tsx`) | client (designer Unknown) | client; Q22 | — | keep; `astro:assets` |
 | `…/projects/locked_out_logo.png` | PNG 936×656 | 18.6 KB | same | client | client; Q22 | — | keep |
-| `…/projects/get-your-home/1–6.JPG` | JPEG 7952×5304 | 25.1–30.6 MB each, **170.9 MB** total | We Spark carousel | client; EXIF Sony ILCE-7RM2, 2025-09-30, `Artist` tag set (a photographer's handle), no GPS | client; photographer's rights and consent of the people shown Unknown (Q10, Q22) | photographer credit if the client wants one | **resize**: one 2560 px master each (sharp, once) into `web/src/assets/projects/get-your-home/`, then `astro:assets` widths; originals stay in history only |
-| `…/projects/locked-out/1–4.JPG` | JPEG 7728×5152 | 25.4–26.5 MB each, **104.6 MB** total | same | client; EXIF Fujifilm X-E5, 2025-11-29, no GPS | as above (Q10, Q22) | as above | **resize** (same) |
+| `…/projects/get-your-home/1–6.JPG` | JPEG 7952×5304 | 25.1–30.6 MB each, **170.9 MB** total | We Spark carousel | client; EXIF Sony ILCE-7RM2, 2025-09-30, `Artist` tag set (a photographer's handle), no GPS | client; photographer's rights and consent of the people shown Unknown (Q10, Q22) | photographer credit if the client wants one | **resized** 2026-10-09: one 2560 px master each (`web/scripts/project-photos.mjs`, EXIF and the `Artist` tag dropped) in `web/src/assets/projects/get-your-home/`, then `astro:assets` widths; originals stay in history only |
+| `…/projects/locked-out/1–4.JPG` | JPEG 7728×5152 | 25.4–26.5 MB each, **104.6 MB** total | same | client; EXIF Fujifilm X-E5, 2025-11-29, no GPS | as above (Q10, Q22) | as above | **resized** (same, `web/src/assets/projects/locked-out/`) |
 | `…/projects/safe-paths/image_en.jpg`, `image_fr.jpg` | JPEG 2109×2956 | 227.5 KB, 224.9 KB | We Spark, one per locale | client poster (flat illustrations; Ministry of Justice and "Muse." logos) | illustration source Unknown (Q22) | — | keep; `astro:assets`; the poster's text also in alt/visible text |
 | `…/projects/tec_conference_banner.png` | PNG 1080×1920 | 332.6 KB | TEC hero (inside Lens + ElectricBorder) | client poster (NINFEA / Kultur Nest e.V. logos, EU emblem) | illustration source Unknown (Q22) | — | keep; **compress** (`astro:assets` WebP) |
 | `public/images/yws_apply_for_housing_form_screenshot.jpg` | JPEG 1514×982 | 67.5 KB | **unused** | the client's Google Form | client | — | **remove** |

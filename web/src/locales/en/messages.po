@@ -7,7 +7,14 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/components/home/PartnerStrip.astro
+#: src/components/projects/ProjectCard.astro
+msgid "(in English)"
+msgstr "(in English)"
+
+#: src/components/projects/ProjectCard.astro
+msgid "(in French)"
+msgstr "(in French)"
+
 #: src/components/ui/ButtonLink.astro
 #: src/components/ui/NewTab.astro
 msgid "(opens in a new tab)"
@@ -16,6 +23,14 @@ msgstr "(opens in a new tab)"
 #: src/lib/meta.ts
 msgid "A Luxembourg non-profit (ASBL) with Gestion Locative Sociale (GLS) status, working with the Ministry of Housing to solve the youth housing crisis."
 msgstr "A Luxembourg non-profit (ASBL) with Gestion Locative Sociale (GLS) status, working with the Ministry of Housing to solve the youth housing crisis."
+
+#: src/data/projects.ts
+msgid "A participant listening in the cinema hall at a Locked Out event"
+msgstr "A participant listening in the cinema hall at a Locked Out event"
+
+#: src/data/projects.ts
+msgid "A participant smiling at the camera during the Get Your Home workshop"
+msgstr "A participant smiling at the camera during the Get Your Home workshop"
 
 #: src/data/houses.ts
 msgid "A YWS shared house in Luxembourg: a beige bungalow at the end of a paved driveway"
@@ -168,6 +183,10 @@ msgstr "European Solidarity Corps"
 msgid "Fill Out the Form"
 msgstr "Fill Out the Form"
 
+#: src/data/projects.ts
+msgid "Four people in front of the Locked Out title on the cinema screen"
+msgstr "Four people in front of the Locked Out title on the cinema screen"
+
 #: src/components/home/PartnerStrip.astro
 msgid "Gestion locative sociale"
 msgstr "Gestion locative sociale"
@@ -183,6 +202,10 @@ msgstr "Give youth a chance for a"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Guaranteed Rent"
 msgstr "Guaranteed Rent"
+
+#: src/components/projects/ProjectsPage.astro
+msgid "Here's a showcase of projects we've helped to bring to life."
+msgstr "Here's a showcase of projects we've helped to bring to life."
 
 #: src/components/housing/HowItWorks.astro
 #: src/components/layout/SiteFooter.astro
@@ -218,6 +241,7 @@ msgstr "Lead Developer"
 #: src/components/home/HomeHero.astro
 #: src/components/home/HousingTeaser.astro
 #: src/components/home/WhoWeAre.astro
+#: src/data/projects.ts
 #: src/pages/[locale]/specimen.astro
 msgid "Learn more"
 msgstr "Learn more"
@@ -323,6 +347,10 @@ msgctxt "404 heading"
 msgid "Page not found"
 msgstr "Page not found"
 
+#: src/data/projects.ts
+msgid "Participants around a U-shaped table at the Get Your Home workshop"
+msgstr "Participants around a U-shaped table at the Get Your Home workshop"
+
 #: src/components/home/HomeHero.astro
 msgid "Partnering with us means doing good and making a smart financial choice — including up to 90% tax exemption on your net rental income and other benefits."
 msgstr "Partnering with us means doing good and making a smart financial choice — including up to 90% tax exemption on your net rental income and other benefits."
@@ -331,6 +359,10 @@ msgstr "Partnering with us means doing good and making a smart financial choice 
 #: src/pages/[locale]/specimen.astro
 msgid "Personal Interview"
 msgstr "Personal Interview"
+
+#: src/components/projects/ProjectCard.astro
+msgid "Pictures gallery:"
+msgstr "Pictures gallery:"
 
 #: src/components/about/RealImpact.astro
 msgid "Pictures of our shared houses"
@@ -371,6 +403,10 @@ msgstr "Providing affordable housing, we help youth to find a place which they c
 #: src/components/layout/SiteFooter.astro
 msgid "Real impact"
 msgstr "Real impact"
+
+#: src/data/projects.ts
+msgid "Register now"
+msgstr "Register now"
 
 #: src/components/layout/SiteFooter.astro
 msgctxt "footer address label"
@@ -419,6 +455,10 @@ msgstr "Renting my property"
 msgid "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 msgstr "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 
+#: src/data/projects.ts
+msgid "Safe Paths Luxembourg workshop poster"
+msgstr "Safe Paths Luxembourg workshop poster"
+
 #: src/components/owners/OwnersHero.astro
 msgid "safe, reliable & impactful"
 msgstr "safe, reliable & impactful"
@@ -442,6 +482,10 @@ msgstr "Since 2023, we've already opened {sharedHouses} shared houses across the
 #: src/layouts/BaseLayout.astro
 msgid "Skip to content"
 msgstr "Skip to content"
+
+#: src/data/projects.ts
+msgid "Smiling audience members in red cinema seats at a Locked Out event"
+msgstr "Smiling audience members in red cinema seats at a Locked Out event"
 
 #: src/components/housing/HowItWorks.astro
 #: src/pages/[locale]/specimen.astro
@@ -470,6 +514,14 @@ msgctxt "page title"
 msgid "TEC conference: Much More Than a Method"
 msgstr "TEC conference: Much More Than a Method"
 
+#: src/data/projects.ts
+msgid "The audience in the red seats of a cinema at a Locked Out event"
+msgstr "The audience in the red seats of a cinema at a Locked Out event"
+
+#: src/data/projects.ts
+msgid "The closing conference"
+msgstr "The closing conference"
+
 #: src/lib/meta.ts
 msgid "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
 msgstr "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
@@ -495,6 +547,18 @@ msgstr "This page does not exist or has moved."
 #: src/components/home/HomeHero.astro
 msgid "Turn your property into a home for young people in Luxembourg."
 msgstr "Turn your property into a home for young people in Luxembourg."
+
+#: src/data/projects.ts
+msgid "Two participants filling in a worksheet together"
+msgstr "Two participants filling in a worksheet together"
+
+#: src/data/projects.ts
+msgid "Two participants reading the handouts at the Get Your Home workshop while a third person leans in behind them"
+msgstr "Two participants reading the handouts at the Get Your Home workshop while a third person leans in behind them"
+
+#: src/data/projects.ts
+msgid "Two participants reading the workshop handouts"
+msgstr "Two participants reading the workshop handouts"
 
 #: src/components/owners/WhyRentToUs.astro
 msgid "We also ensure full insurance coverage against unexpected events and take full responsibility for maintenance and tenant supervision."
@@ -531,6 +595,7 @@ msgstr "We rent houses from private owners and sublet rooms for young tenants �
 
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
+#: src/components/projects/ProjectsPage.astro
 msgid "We Spark Projects"
 msgstr "We Spark Projects"
 
@@ -579,6 +644,10 @@ msgstr "Who we are"
 #: src/components/owners/WhyRentToUs.astro
 msgid "Why Rent to Us?"
 msgstr "Why Rent to Us?"
+
+#: src/data/projects.ts
+msgid "Workshop handouts on a table at Get Your Home"
+msgstr "Workshop handouts on a table at Get Your Home"
 
 #: src/components/home/HomeHero.astro
 #: src/pages/[locale]/specimen.astro
