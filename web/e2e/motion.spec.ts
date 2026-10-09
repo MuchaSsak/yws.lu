@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 
+import { STATISTICS } from "../src/data/statistics";
 import { pathTo } from "../src/lib/routes";
 import { PAGES } from "./routes";
 
@@ -66,5 +67,17 @@ for (const [name, route, box] of [
     await expect(page.locator(box)).toHaveAttribute("data-ready", "", { timeout: 30_000 });
     await expect(page.locator(`${box} canvas`)).toHaveCount(1);
     expect(errors).toEqual([]);
+  });
+}
+
+/** About us, Real impact: the tiles count up to the numbers in statistics.ts once in view (and show them under reduced motion). */
+for (const reducedMotion of ["no-preference", "reduce"] as const) {
+  test(`the impact tiles end on the statistics (${reducedMotion})`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion });
+    await page.goto(pathTo("en", "about"));
+    const tiles = page.locator(".impact-tiles [data-count]");
+    await tiles.first().scrollIntoViewIfNeeded();
+    const { sharedHouses, youngPeopleHoused, waitingList } = STATISTICS;
+    await expect(tiles).toHaveText([String(sharedHouses), String(youngPeopleHoused), String(waitingList)], { timeout: 5000 });
   });
 }

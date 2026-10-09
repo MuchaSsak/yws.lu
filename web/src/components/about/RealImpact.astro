@@ -1,9 +1,11 @@
 ---
 /**
  * Real impact (wiki: site/structure.md § About us 3, content/content-model.md § Statistics, § House pictures): the
- * statistics sentence with the numbers from src/data/statistics.ts, then the house pictures as a scroll-snap gallery:
- * swipe, scroll or the arrow buttons; no autoplay; every picture shown (2025 skipped the first). All static: numbers
- * and pictures are in the HTML, no third-party request.
+ * statistics sentence with the numbers from src/data/statistics.ts, the same three numbers as large tiles that count up
+ * once they are in view (decorative: the sentence carries the facts for screen readers), then the house pictures as a
+ * filmstrip, each at its own shape and one height, several in view: swipe, scroll or the arrow buttons; no autoplay;
+ * every picture shown (2025: one small picture at a time, and it skipped the first). All static: numbers and pictures
+ * are in the HTML, no third-party request.
  */
 import { Image } from "astro:assets";
 import { t } from "lingui-for-astro/macro";
@@ -19,6 +21,11 @@ import { getI18n } from "~/lib/i18n";
 const i18n = getI18n(Astro.locals.locale);
 const { sharedHouses, youngPeopleHoused, waitingList } = STATISTICS;
 const galleryLabel = t`Pictures of our shared houses`;
+const tiles = [
+  { value: sharedHouses, plus: false, label: t`shared houses since 2023` },
+  { value: youngPeopleHoused, plus: true, label: t`young people housed` },
+  { value: waitingList, plus: true, label: t`requests on our waiting list` },
+];
 const previous = t`Previous picture`;
 const next = t`Next picture`;
 ---
@@ -30,6 +37,16 @@ const next = t`Next picture`;
       text={t`Since 2023, we've already opened ${sharedHouses} shared houses across the country — providing stable homes for over ${youngPeopleHoused} young people. But demand is growing fast, and with over ${waitingList} requests on our waiting list, we're ready to do more — with your help.`}
     />
   </SectionHeader>
+  <ul class="impact-tiles" role="list" aria-hidden="true">
+    {tiles.map((tile, index) => (
+      <li class="impact-tile" data-inview="rise" style={`--i: ${index}`}>
+        <span class="impact-number" data-plus={tile.plus ? "" : undefined}>
+          <span data-count={tile.value}>{tile.value}</span>
+        </span>
+        <span class="impact-label">{tile.label}</span>
+      </li>
+    ))}
+  </ul>
   {HOUSE_PICTURES.length > 0 && (
     <div class="gallery" role="region" aria-label={galleryLabel} data-gallery>
       <ul class="gallery-track" role="list" tabindex="0">
@@ -38,8 +55,8 @@ const next = t`Next picture`;
             <Image
               src={picture.image}
               alt={i18n._(picture.alt)}
-              widths={[400, 600, 800].filter((width) => width < picture.image.width).concat(picture.image.width)}
-              sizes="(min-width: 768px) 40rem, calc(100vw - 2rem)"
+              widths={[300, 450, 600].filter((width) => width < picture.image.width).concat(picture.image.width)}
+              sizes={`${Math.round((picture.image.width / picture.image.height) * 24)}rem`}
               class="gallery-image"
             />
           </li>
@@ -60,6 +77,32 @@ const next = t`Next picture`;
 </Section>
 
 <script>
+  // The tiles count up from zero the first time they come into view (not under reduced motion: the HTML's final
+  // numbers stay).
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const counters = [...document.querySelectorAll<HTMLElement>("[data-count]")];
+    for (const counter of counters) counter.textContent = "0";
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          const counter = entry.target as HTMLElement;
+          const target = Number(counter.dataset.count);
+          const start = performance.now();
+          const step = (now: number) => {
+            const progress = Math.min((now - start) / 1400, 1);
+            counter.textContent = String(Math.round(target * (1 - (1 - progress) ** 3)));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    for (const counter of counters) observer.observe(counter);
+  }
+
   // The arrows scroll the track by one picture; swiping and the keyboard (the track is focusable) scroll it natively.
   for (const gallery of document.querySelectorAll<HTMLElement>("[data-gallery]")) {
     const track = gallery.querySelector<HTMLElement>(".gallery-track");
@@ -81,36 +124,105 @@ const next = t`Next picture`;
 </script>
 
 <style>
+  .impact-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: 56rem;
+    margin: 2.5rem auto 0;
+  }
+  @media (min-width: 768px) {
+    .impact-tiles {
+      gap: 1.5rem;
+    }
+  }
+  .impact-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1.25rem 0.5rem;
+    border: 1px solid rgb(255 255 255 / 0.85);
+    border-radius: 1.75rem;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.38));
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 18px 40px -24px rgb(120 60 20 / 0.3);
+    text-align: center;
+    transition: transform var(--dur-3) var(--ease-out) calc(var(--i, 0) * 80ms);
+  }
+  @media (min-width: 768px) {
+    .impact-tile {
+      padding: 2rem 1rem;
+    }
+  }
+  /* Flex: the template's whitespace around the number never shows (a flex container drops whitespace-only text). */
+  .impact-number {
+    display: inline-flex;
+    background: var(--gradient-heading);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: clamp(1.875rem, 7vw, 4rem);
+    font-weight: 900;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  /* "Over 40", "over 750": the plus in CSS, so no template whitespace can come between it and the number. */
+  .impact-number[data-plus]::after {
+    content: "+";
+  }
+  .impact-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  @media (min-width: 768px) {
+    .impact-label {
+      font-size: var(--text-base);
+    }
+  }
+
+  /* The filmstrip: every picture 24 rem tall (18 on phones) at its own width; the edges fade where pictures continue. */
   .gallery {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    max-width: 40rem;
-    margin-inline: auto;
+    gap: 1.25rem;
+    margin-top: 3rem;
   }
   .gallery-track {
     display: flex;
     gap: 1rem;
     width: 100%;
+    padding-block: 0.5rem 1rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
-    border-radius: var(--radius-2xl);
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
   }
   .gallery-track::-webkit-scrollbar {
     display: none;
   }
   .gallery-item {
-    flex: 0 0 100%;
+    flex: 0 0 auto;
     scroll-snap-align: center;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 16px 32px -20px rgb(0 0 0 / 0.45);
   }
   .gallery-image {
     display: block;
-    width: 100%;
-    height: 30rem;
-    object-fit: contain;
+    width: auto;
+    height: 18rem;
+  }
+  @media (min-width: 768px) {
+    .gallery-image {
+      height: 24rem;
+    }
   }
   .gallery-controls {
     display: flex;
@@ -119,6 +231,11 @@ const next = t`Next picture`;
   @media (prefers-reduced-motion: no-preference) {
     .gallery-track {
       scroll-behavior: smooth;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .impact-tile {
+      transition: none;
     }
   }
 </style>

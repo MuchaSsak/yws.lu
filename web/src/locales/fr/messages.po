@@ -598,6 +598,10 @@ msgstr "Louer mon bien"
 msgid "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 msgstr "Louer à YWS signifie sérénité, loyer garanti et utilité sociale de votre bien."
 
+#: src/components/about/RealImpact.astro
+msgid "requests on our waiting list"
+msgstr "demandes sur notre liste d’attente"
+
 #: src/components/tec/TecPage.astro
 msgid "Research presentation by Ninfea"
 msgstr "présentation des travaux de recherche de Ninfea"
@@ -617,6 +621,10 @@ msgstr "Voir les crédits"
 #: src/components/home/ProjectsTeaser.astro
 msgid "See for yourself"
 msgstr "Voyez par vous-même"
+
+#: src/components/about/RealImpact.astro
+msgid "shared houses since 2023"
+msgstr "colocations ouvertes depuis 2023"
 
 #: src/components/about/RealImpact.astro
 msgid "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
@@ -860,6 +868,10 @@ msgstr "Pourquoi cette conférence est importante"
 #: src/data/projects.ts
 msgid "Workshop handouts on a table at Get Your Home"
 msgstr "Les supports de l’atelier Get Your Home posés sur une table"
+
+#: src/components/about/RealImpact.astro
+msgid "young people housed"
+msgstr "jeunes logés"
 
 #: src/components/home/HomeHero.astro
 #: src/pages/[locale]/specimen.astro

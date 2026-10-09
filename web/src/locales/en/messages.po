@@ -598,6 +598,10 @@ msgstr "Renting my property"
 msgid "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 msgstr "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
 
+#: src/components/about/RealImpact.astro
+msgid "requests on our waiting list"
+msgstr "requests on our waiting list"
+
 #: src/components/tec/TecPage.astro
 msgid "Research presentation by Ninfea"
 msgstr "Research presentation by Ninfea"
@@ -617,6 +621,10 @@ msgstr "See credits"
 #: src/components/home/ProjectsTeaser.astro
 msgid "See for yourself"
 msgstr "See for yourself"
+
+#: src/components/about/RealImpact.astro
+msgid "shared houses since 2023"
+msgstr "shared houses since 2023"
 
 #: src/components/about/RealImpact.astro
 msgid "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
@@ -860,6 +868,10 @@ msgstr "Why this conference matters"
 #: src/data/projects.ts
 msgid "Workshop handouts on a table at Get Your Home"
 msgstr "Workshop handouts on a table at Get Your Home"
+
+#: src/components/about/RealImpact.astro
+msgid "young people housed"
+msgstr "young people housed"
 
 #: src/components/home/HomeHero.astro
 #: src/pages/[locale]/specimen.astro

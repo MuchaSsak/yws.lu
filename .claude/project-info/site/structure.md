@@ -76,7 +76,7 @@ words).
 homes; the youth housing crisis; ASBL with GLS status and the Ministry of Housing), group photo. 2 "Our mission"
 (`#our-mission`): 1 sentence, 3 cards: Coaching · Affordability · Sustainability. 3 "Real impact" (`#real-impact`):
 the statistics sentence ("Since 2023 … 9 shared houses … 40 young people … 750 requests", static: F05) +
-houses carousel (7 pictures; skip `.emptyFolderPlaceholder` by name, not index 0). No team section (no team data).
+the same three numbers as large tiles that count up once in view (9 · 40+ · 750+, decorative: `aria-hidden`, the sentence carries the facts) + the houses as a filmstrip (7 pictures at their own shape, 24 rem tall, several in view; 2025: one small picture at a time; skip `.emptyFolderPlaceholder` by name, not index 0) [2026-10-09]. No team section (no team data).
 
 **We Spark Projects.** 1 Hero: H1 "We Spark Projects", "Here's a showcase of projects we've helped to bring to life."
 2 At a glance [user 2026-10-09: "improve the projects subpage and layout"]: one tile per project in its colour (number,
