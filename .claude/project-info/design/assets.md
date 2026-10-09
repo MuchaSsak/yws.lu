@@ -80,13 +80,13 @@
 | `…/projects/tec_conference_banner.png` | PNG 1080×1920 | 332.6 KB | TEC hero (inside Lens + ElectricBorder) | client poster (NINFEA / Kultur Nest e.V. logos, EU emblem) | illustration source Unknown (Q22) | — | **copied** byte for byte to `web/src/assets/projects/tec-conference-poster.png`; `astro:assets` serves AVIF/WebP at 256–800 px |
 | `public/images/yws_apply_for_housing_form_screenshot.jpg` | JPEG 1514×982 | 67.5 KB | **unused** | the client's Google Form | client | — | **remove** |
 | `public/images/yws_group_photo.jpg` | JPEG 2560×1707, no EXIF | 467.5 KB | About us hero (`HeroImage` imported by `app/AboutUs/(components)/hero/HeroSection.tsx` only); also baked into `bedroom.glb` | client | client; consent Unknown (Q10) | — | keep; **compress** (`astro:assets` widths) |
-| `public/models/house.glb` | glTF, glTF-Transform v4.1.0, Draco + WebP + unlit | 90.6 KB | home hero → `web/src/components/three/house/house-scene.ts` (drawn in `house.worker.ts`) | Sketchfab "Cat House" | CC BY 4.0 | yes (below) | **compress**: re-encode meshopt → `web/public/models/house.glb` (no Draco decoder from gstatic) |
-| `public/models/rocket.glb` | glTF, Sketchfab-12.67.0 export, 9 textures (4 JPEG, 5 PNG), 1 animation | 6.10 MB | home projects section (`RocketCanvas`) | Sketchfab "Cosmonaut on a rocket" | CC BY 4.0 | yes | **compress** to ≤ 2 MB (textures are 93 %; WebP 1024); check the animation after `--flatten/--join` |
-| `public/models/wardrobe.glb` | glTF, Sketchfab-15.22.0 export, 3 textures | 1.46 MB | home housing section (`WardrobeCanvas`) | Sketchfab "Stylized Wardrobe" | CC BY 4.0 | yes | **compress** (textures 96 %) |
+| `public/models/house.glb` | glTF, glTF-Transform v4.1.0, Draco + WebP + unlit | 90.6 KB | home hero → `web/src/components/three/toy-scene.ts` (drawn in `toy.worker.ts`) | Sketchfab "Cat House" | CC BY 4.0 | yes (below) | **compress**: re-encode meshopt → `web/public/models/house.glb` (no Draco decoder from gstatic) |
+| `public/models/rocket.glb` | glTF, Sketchfab-12.67.0 export, 9 textures (4 JPEG, 5 PNG), 1 animation | 6.10 MB | home projects section (`RocketCanvas`) | Sketchfab "Cosmonaut on a rocket" | CC BY 4.0 | yes | **done 2026-10-09:** meshopt + WebP 1024 → `web/public/models/rocket.glb` 667 KB, the animation (44 channels) plays |
+| `public/models/wardrobe.glb` | glTF, Sketchfab-15.22.0 export, 3 textures | 1.46 MB | home housing section (`WardrobeCanvas`) | Sketchfab "Stylized Wardrobe" | CC BY 4.0 | yes | **done 2026-10-09:** meshopt + WebP 1024 → `web/public/models/wardrobe.glb` 178 KB |
 | `public/models/bedroom.glb` | glTF, Blender I/O v4.3.47, Draco, 26 images (7 YWS house photos, `Untitled-1` "Our Homes" lettering on wood, `Untitled-2` "Our Journey" with the group photo) | 5.29 MB | **not rendered**: `BedroomCanvas` imported by nothing; `BedroomModel` also preloads a missing `/models/loft_bedroom.glb` | Sketchfab "Loft Bedroom", retextured | CC BY 4.0 (modification not credited); wood texture and fonts Unknown | yes today | **remove** with `canvases/bedroom/` and its credit |
 | Supabase bucket `houses-pictures` (7 images: assel.webp, limpertsberg.webp, mondercange, oberanven, oberkorn, soleuvre, spinkange .jpg) → **`web/src/assets/houses/yws-shared-house-1…7`** (byte copies, 2026-10-09) | repo | 28–63 KB each | About us gallery, through `astro:assets`, alt per locale (`web/src/data/houses.ts`) | client | client | — | keep; skip `.emptyFolderPlaceholder` (the 2025 carousel skipped index 0) |
 | `web/src/assets/partners/*` (7) | copies | same bytes as the originals | `PartnerStrip.astro` | as the rows above | as above | — | as above |
-| `web/public/posters/house.webp` | WebP render of the house scene | not generated | `HouseScene.astro` poster | own render of the CC BY model | CC BY 4.0 (an adaptation of "Cat House") | covered by the model's credit ("modified") | generate (`bun run poster`) |
+| `web/public/posters/{house,wardrobe,rocket}.webp` | WebP renders of the toy scenes (960 px wide) | 52 / 28 / 33 KB | `ToyScene.astro` posters | own render of the CC BY model | CC BY 4.0 (an adaptation of "Cat House") | covered by the model's credit ("modified") | generate (`bun run poster`) |
 | `web/public/bg/aurora-{mobile,desktop}.webp` | WebP | not generated | `BodyBackground.astro` | own render of the 2025 CSS gradients (`scripts/background.mjs`) | own work | — | generate |
 | Inline SVG star in `web/src/components/effects/Sparkles.astro` | SVG path | — | Sparkles effect | Magic UI SparklesText | MIT (Magic UI) | header comment + notices | keep |
 
@@ -137,14 +137,14 @@ links (4 of 5 answered HTTP 202 to a script). The "Lead Developer" line stays as
 | ColorBends (Jobs) | React Bits (MIT + Commons Clause) | dropped with the Jobs page | — |
 | LightPillar, ElectricBorder, Folder (TEC) | React Bits | own code or dropped | Q23 |
 | SplashCursor (TEC) | React Bits + 61 % identical to Pavel Dobryakov's WebGL-Fluid-Simulation (MIT), no notice | if kept: rebuilt from Pavel's MIT original with its notice (entry ready in `THIRD_PARTY_NOTICES.md`), never over the pointer; else dropped | Q23 |
-| GSAP intro (`useGSAP`, `expo.out`) | Webflow licence | expo-out easing in the frame loop (`house-scene.ts`) | written |
+| GSAP intro (`useGSAP`, `expo.out`) | Webflow licence | expo-out easing in the frame loop (`toy-scene.ts`) | written |
 | react-fast-marquee | MIT | CSS marquee in `global.css` (own) | written |
 
 ## Dependencies the revamped site ships (`web/package.json`, read from `web/node_modules/<pkg>/package.json`, 2026-10-09)
 
 | Package | Version | Licence | Served to visitors? | On the list? |
 | --- | --- | --- | --- | --- |
-| three | 0.186.1 | MIT | yes (the house worker: core + `GLTFLoader` + meshopt decoder) | yes |
+| three | 0.186.1 | MIT | yes (the toy worker: core + `GLTFLoader` + meshopt decoder) | yes |
 | simplex-noise | 4.0.3 | MIT | yes (`flow-field.ts`) | yes |
 | @fontsource-variable/montserrat | 5.3.0 | OFL-1.1 | yes (woff2 + CSS) | yes |
 | tailwindcss, @tailwindcss/vite | 4.3.3 | MIT | generated CSS (with Tailwind's MIT banner) | yes |

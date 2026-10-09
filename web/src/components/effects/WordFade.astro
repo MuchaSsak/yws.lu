@@ -12,13 +12,17 @@ interface Props {
 }
 
 const { text, duration = 0.3, as: Tag = "p", class: className } = Astro.props;
-const words = text.split(/(\s+)/);
+/**
+ * Split at breaking spaces only: French no-break spaces (U+00A0, U+202F before ? ! : ; » and after «) stay inside a word,
+ * so « logement ? » never wraps before its "?" nor shows a triple gap between the spans.
+ */
+const words = text.split(/([^\S\u00A0\u202F]+)/);
 const stagger = duration / Math.ceil(words.length / 2);
 ---
 
 <Tag class={className} data-inview="words" style={`--stagger: ${stagger.toFixed(4)}s`}>
   {words.map((word, index) =>
-    /^\s+$/.test(word) ? (
+    /^[^\S\u00A0\u202F]+$/.test(word) ? (
       word
     ) : (
       <span class="word" style={`--i: ${index / 2}`}>

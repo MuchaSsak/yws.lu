@@ -1,11 +1,13 @@
 ---
 /**
  * Youth-Led Projects! (wiki: site/structure.md § Home 5): residents run their own projects; "See for yourself" → the
- * projects page. The 3D rocket beside it arrives with the home slice; until then the header is centred.
+ * projects page. From 1280 px the 2025 cosmonaut rides the rocket beside it (ToyScene); below, the header is centred
+ * alone, as in 2025.
  */
 import { t } from "lingui-for-astro/macro";
 
 import WordFade from "~/components/effects/WordFade.astro";
+import ToyScene from "~/components/three/ToyScene.astro";
 import ButtonLink from "~/components/ui/ButtonLink.astro";
 import Section from "~/components/ui/Section.astro";
 import SectionHeader from "~/components/ui/SectionHeader.astro";
@@ -14,8 +16,8 @@ import { pathTo } from "~/lib/routes";
 const locale = Astro.locals.locale;
 ---
 
-<Section id="youth-led-projects" labelledby="youth-led-projects-title">
-  <SectionHeader id="youth-led-projects-title" title={t`Youth-Led Projects!`}>
+<Section id="youth-led-projects" labelledby="youth-led-projects-title" split>
+  <SectionHeader id="youth-led-projects-title" title={t`Youth-Led Projects!`} align="start">
     <div class="flex flex-col gap-2">
       <WordFade
         duration={0.65}
@@ -30,4 +32,5 @@ const locale = Astro.locals.locale;
       <ButtonLink href={pathTo(locale, "projects")}>{t`See for yourself`}</ButtonLink>
     </div>
   </SectionHeader>
+  <ToyScene toy="rocket" class="max-xl:hidden xl:h-[36rem]" />
 </Section>

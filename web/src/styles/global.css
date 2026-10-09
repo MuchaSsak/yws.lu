@@ -86,7 +86,8 @@
     --text-display: 4.5rem;
     --text-display--line-height: 5rem;
     --text-h2: 3.75rem;
-    --text-h2--line-height: 5rem;
+    /* 1.17: the 2025 5 rem (1.33) left a gap the size of a word when a heading wraps (French ones often do). */
+    --text-h2--line-height: 4.375rem;
     --text-h3: 2.25rem;
     --text-h3--line-height: 2.5rem;
   }
@@ -169,7 +170,8 @@
   }
 
   /* Box reveal (the 2025 BoxReveal, in CSS): an orange box sweeps off the text on load. The text itself is painted
-     from the first frame, so it can be the LCP; only non-LCP lines also rise in. */
+     from the first frame, so it can be the LCP; only non-LCP lines also rise in. The 2025 ease-in held the box still
+     for most of its second, and readers waited on the lede: it sweeps in-out now, half gone at half time. */
   .reveal {
     position: relative;
     width: fit-content;
@@ -185,7 +187,7 @@
     transform-origin: right;
     animation-name: reveal-box;
     animation-duration: var(--reveal-d, var(--dur-3));
-    animation-timing-function: var(--ease-in);
+    animation-timing-function: var(--ease-in-out);
     animation-fill-mode: both;
     pointer-events: none;
   }

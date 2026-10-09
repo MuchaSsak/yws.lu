@@ -48,18 +48,20 @@ test("the H1 is painted in the first frame (no entrance hides the LCP)", async (
 
 /**
  * With motion, the WebGL scenes draw in workers on OffscreenCanvases (three.md): each box gets its one canvas and turns
- * ready (CSS swaps the poster for it) once scrolled near, without a page error.
+ * ready (CSS swaps the poster for it) once scrolled near, without a page error. The home's three toys share a worker.
  */
-for (const [id, box] of [
-  ["home", "[data-house-scene]"],
-  ["tec", "[data-tec-globe]"],
+for (const [name, route, box] of [
+  ["house", "home", '[data-toy="house"]'],
+  ["wardrobe", "home", '[data-toy="wardrobe"]'],
+  ["rocket", "home", '[data-toy="rocket"]'],
+  ["globe", "tec", "[data-tec-globe]"],
 ] as const) {
-  test(`with motion, the ${id} scene draws and replaces its poster`, async ({ page }) => {
+  test(`with motion, the ${name} scene draws and replaces its poster`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(String(error)));
     page.on("console", (message) => message.type() === "error" && errors.push(message.text()));
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto(pathTo("en", id));
+    await page.goto(pathTo("en", route));
     await page.locator(box).scrollIntoViewIfNeeded();
     await expect(page.locator(box)).toHaveAttribute("data-ready", "", { timeout: 30_000 });
     await expect(page.locator(`${box} canvas`)).toHaveCount(1);

@@ -138,7 +138,7 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 | Role | Token | Size (min → max) | Line height | Weight | Tracking | Was (2025) |
 | --- | --- | --- | --- | --- | --- | --- |
 | Page H1 (hero) | `text-display` | 36 → 72 px at 640 | 40 → 80 px | 900 | 0 | identical for Housing / About / Jobs; the other heroes keep their 2025 sizes until the H1 proposal below [inventory § 2] |
-| Section heading `<h2>` | `text-h2` | 36 → 60 px at 640 | 40 → 80 px | 900 | 0 | identical (15 gradient headings + Contact, all as `<h1>` in 2025) |
+| Section heading `<h2>` | `text-h2` | 36 → 60 px at 640 | 40 → 70 px | 900 | 0 | 2025: 80 px from 640, a word-sized gap when a heading wraps (split sections, French); 70 px (1.17) since 2026-10-09 |
 | Tagline, step title, menu links | `text-h3` | 24 → 36 px at 640 | 32 → 40 px | 700 (menu 500) | 0 | identical for the home tagline; 18–30 for menu links |
 | Project card title, contact action, dialog title | `text-2xl` | 24 px | 1.33 | 600 (dialog 700) | 0 | same |
 | Card title | `text-xl` | 20 px | 1.4 | 600 | 0 | same |
@@ -309,12 +309,12 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Card (shadcn) | **kept** as a surface for project cards; **swapped** 2026-10-09 for full-width project chapters + "at a glance" tiles [user: "improve the projects subpage and layout"] | chapters: glass, the shine border, the project's colour in a corner glow, the gradient number, labels and list dots; a side column sticky from 1024 px. Tiles: 4 px top border in the colour, gradient number faded by its gradient (not `opacity`), lift on hover/focus |
 | GlareCard (Aceternity) | **rewritten** → `FeatureCard` (own code, Q23) | keeps the 3 rem radius, ink-orange 64 px icon, centred title + text; tilt/foil as an optional hover layer with a focus twin; grid instead of fixed 320 px boxes |
 | ShineBorder ×2 (Magic UI) | **merged** → one CSS `.shine-border` | 1 px project cards, 3 px photo frame; `motion-safe` only |
-| BoxReveal, LineShadowText, SparklesText, TextAnimate (Magic UI) | **kept** as CSS (`Reveal`, `LineShadow`, `Sparkles`, `WordFade`) | done in the spike [repo: web/src/components/effects/*]; TextAnimate's 9 unused variants are not ported |
+| BoxReveal, LineShadowText, SparklesText, TextAnimate (Magic UI) | **kept** as CSS (`Reveal`, `LineShadow`, `Sparkles`, `WordFade`) | done in the spike [repo: web/src/components/effects/*]; TextAnimate's 9 unused variants are not ported. The box sweeps in-out, ≤ 0.8 s (2025: ease-in up to 1.1 s, the lede covered for most of a second) [2026-10-09]. `WordFade` splits at breaking spaces only, so French no-break spaces stay in their word |
 | Highlight (Aceternity) | **rewritten** as a CSS marker (`background-size` 0 → 100 %, `--dur-5`) | Rent hero |
 | Timeline (Aceternity) | **rewritten** → `HowItWorks` (ordered list, CSS scroll-driven beam) | done in the spike |
 | Carousel (Embla) | **kept**, accessible | labelled region, `.btn-icon` arrows, no autoplay, first picture shown (2025 skipped index 0) |
 | Marquee (react-fast-marquee) | **rewritten** → `PartnerStrip` (CSS) | logos named; the EU emblem static outside it [research: licences § 5] |
-| WarpBackground (Magic UI, MIT) | **rewritten** in CSS (grid + beams), adapted with notice | home "Who we are" |
+| WarpBackground (Magic UI, MIT) | **rewritten** in CSS (grid + beams), adapted with notice | home "Who we are"; the text on a glass card at the tunnel's end (2026-10-09; in 2025 the beams ran through the words), as in Magic UI's demo |
 | BackgroundLines (Aceternity), Vortex (Aceternity) | **rewritten** (own SVG/CSS; `flow-field.ts`) | Rent, Housing heroes |
 | Lens (Aceternity) | **removed** (About us, TEC) | hover-only zoom with no tap twin; the photos show at full quality instead |
 | ElectricBorder, Folder, LightPillar, ColorBends, SplashCursor (React Bits) | ColorBends **deleted** (Jobs retired); SplashCursor **removed** (paints over text, z 50 above the nav, no reduced-motion path; React Bits + WebGL-Fluid code, Q23; design-references.md § TEC "skip"); LightPillar, ElectricBorder, Folder **rewritten** in CSS, own code [repo: web/src/components/tec/] | the pillar is two blurred bands in the colours the 2025 `exclusion` blend showed on white (orange to yellow), swaying; the border an orange line whose glow layer flickers (opacity only); the folder's sheets name the three countries (text, no flag emoji). Each loops only on screen (data-loop) and stops under reduced motion. TEC is a past-event page now (Q8) |
@@ -340,13 +340,13 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Rule | Value | Why |
 | --- | --- | --- |
 | Where | home only: hero house, Housing wardrobe, Projects rocket | the 2025 scenes [inventory § 10] |
-| When | after `load` + idle, when the box is within 200 px of the viewport, from 1280 px (as 2025) | text first [repo: web/src/components/three/HouseScene.astro:26-52] |
+| When | after `load` + idle, when the box is within 200 px of the viewport, from 1280 px (as 2025) | text first [repo: web/src/components/three/ToyScene.astro] |
 | Below 1280 | **proposal (comps/):** the still poster (2025 showed nothing) | same feel on phones at zero WebGL cost |
-| Weight | 3D chunk ≤ 300 KB gz; each model ≤ 2 MB after meshopt + WebP 1024 px (house 90 KB ok; wardrobe 1.46 MB re-encode; **rocket 6.10 MB must shrink**) | budgets [product/requirements.md] |
+| Weight | 3D chunk ≤ 300 KB gz; each model ≤ 2 MB after meshopt + WebP 1024 px (house 105 KB, wardrobe 178 KB from 1.46 MB, rocket 667 KB from 6.10 MB) | budgets [product/requirements.md] |
 | Fallback | transparent WebP poster at the final pose in a CSS-sized box (no CLS), shown before load, under reduced motion, without WebGL; no orange wireframe Suspense cube | [repo: web/scripts/poster.mjs] |
-| Contexts | one live WebGL context at a time: a scene mounts near the viewport and stops (`frameloop="never"` or unmount) when far | three.md § Rules; three scenes on one page is the open question |
+| Contexts | the home's three toys share one worker (three.js loads once) with a WebGL context each, created only near the screen from 1280 px; each draws only while on screen (browsers allow about 16 live contexts) [decision 2026-10-09] | three.md § Rules |
 | Running | `dpr` ≤ 2; renders only while visible and the tab is visible | 2025 rendered every frame offscreen |
-| Motion | intro spin ≤ 2 s ease-out, then 0.1 rad/s; reduced motion: final pose, no spin | [repo: web/src/components/three/house/house-scene.ts] |
+| Motion | as in 2025: the house spins in (≤ 2 s ease-out) then turns 0.1 rad/s; the wardrobe swings (`sin(t × 0.35)`) and springs back after a drag; the rocket plays its own clip; reduced motion: the poster's pose, nothing moves | [repo: web/src/components/three/toy-scene.ts, toys.ts] |
 | Input | drag on fine pointers; on touch no drag that captures vertical scroll (`touch-action: pan-y`) | scroll-jacking is an instant fail |
 | Semantics | box `aria-hidden`; nothing essential lives only in 3D | |
 

@@ -76,8 +76,9 @@ Work autonomously in one go; the user's rules are in `CLAUDE.local.md`.
   beam, marquee); `src/scripts/inview.ts`; `src/scripts/flow-field.ts` (own particle streaks for the housing hero).
 - Pages: `[locale]/index.astro` (HomeHero + PartnerStrip), `[locale]/[page].astro` (housing only: HousingHero,
   HowItWorks, WhoGetsPriority), root `index.astro`.
-- 3D: `components/three/HouseScene.astro` (poster + idle/visible loader), `house/mount.tsx`, `house/HouseCanvas.tsx`
-  (same camera/light/motion as 2025, GSAP intro replaced by expo-out in `useFrame`).
+- 3D: `components/three/ToyScene.astro` (poster + idle/visible loader) for the house, wardrobe and rocket;
+  `toys.ts`, `toy-scene.ts`, `toy.worker.ts`, `mount.ts` (plain three.js in one worker; same camera/light/motion as
+  2025, GSAP intro replaced by expo-out).
 - Scripts: `background.mjs` (glow WebP), `poster.mjs` (3D posters), `serve.mjs` (Vercel-like static server: redirects
   with header conditions, headers, trailing slash, brotli, 404), `vercel-config.ts` (writes/checks `vercel.json`).
 - Tests: `src/lib/routes.test.ts`, `src/styles/tokens.test.ts` (AA from the @theme tokens).

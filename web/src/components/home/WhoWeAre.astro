@@ -4,7 +4,8 @@
  * from Magic UI's WarpBackground, MIT; THIRD_PARTY_NOTICES.md): four grid planes in perspective with coloured beams
  * sliding along them, CSS only. Beam positions, hues and delays are fixed at build time (a seeded generator), so every
  * build and screenshot is the same. The beams run only while the tunnel is near the viewport (src/scripts/inview.ts,
- * `data-loop`) and not at all under reduced motion; the grid stays.
+ * `data-loop`) and not at all under reduced motion; the grid stays. The text sits on a glass card at the tunnel's end,
+ * as in Magic UI's own demo: in 2025 it lay on the tunnel itself and the beams ran through the words.
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -52,7 +53,7 @@ const sides = (["top", "bottom", "left", "right"] as const).map((side) => ({
       ))}
     </div>
     <div class="who-we-are-content px-side">
-      <SectionHeader id="who-we-are-title" title={t`Who we are`}>
+      <SectionHeader id="who-we-are-title" title={t`Who we are`} class="who-we-are-card">
         <div class="flex flex-col gap-2">
           <WordFade
             duration={0.65}
@@ -84,9 +85,36 @@ const sides = (["top", "bottom", "left", "right"] as const).map((side) => ({
       padding: 5rem;
     }
   }
+  /* Room for the tunnel's walls around the card. */
+  @media (min-width: 1024px) {
+    .warp {
+      padding: 6rem 10rem;
+    }
+  }
   .who-we-are-content {
     position: relative;
-    padding-bottom: 8rem;
+    padding-block: 2rem 5rem;
+  }
+  .who-we-are-content :global(.who-we-are-card) {
+    max-width: 46rem;
+    margin-inline: auto;
+    padding: 2rem 1.25rem 2.25rem;
+    border: 1px solid rgb(255 255 255 / 0.8);
+    border-radius: 2rem;
+    background: rgb(255 255 255 / 0.62);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.05),
+      0 30px 60px -30px rgb(120 60 20 / 0.35);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    backdrop-filter: blur(10px) saturate(1.3);
+  }
+  @media (min-width: 640px) {
+    .who-we-are-content {
+      padding-block: 3rem 6rem;
+    }
+    .who-we-are-content :global(.who-we-are-card) {
+      padding: 2.75rem 3rem 3rem;
+    }
   }
   .warp-tunnel {
     --beam-size: 2.5%;

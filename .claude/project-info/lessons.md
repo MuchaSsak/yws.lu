@@ -32,6 +32,7 @@
 - Render metadata on the server: the 2025 site's `window`-guarded helper shipped no `<title>` at all - 2026-10-09.
 - Tailwind 4 emits a `@theme` variable only when the source names it literally: `` var(--color-${name}) `` is undefined and `--shadow-*` never is; print values or give a fallback - 2026-10-09.
 - `contain-intrinsic-size: auto 1400px` sets the width too: a skipped (`content-visibility`) item 1400 px wide stretched a grid's `auto` track past the phone screen. Use `contain-intrinsic-height`, and `minmax(0, 1fr)` tracks around long content - 2026-10-09.
+- JavaScript's `\s` matches the no-break space: splitting French text on `/\s+/` cut « logement ? » into spans (a triple gap, a `?` alone on a line). Split on `[^\S\u00A0\u202F]` - 2026-10-09.
 - `repeat(auto-fill, minmax(a, b))` counts columns from a fixed `b` (a 15rem max gave one photo per row on a phone): two-up thumbnails are flex-wrap items `min(width, 50% - gap/2)` - 2026-10-09.
 - `transform`, `scale` and off-screen entrances grow the scrollable area (TEC globe 390 → 428 px; about photo +995 px at 320): `overflow-x: clip` the section; check `scrollWidth` right after load and after scrolling to the end - 2026-10-09.
 - A `w-max` (no-wrap) line is safe only where it fits (the French home hero was 949 px at 768): let it wrap - 2026-10-09.
@@ -42,7 +43,7 @@
 - Research screenshots of third-party sites stay local (gitignored) - 2026-10-05.
 
 ### Tools and environment
-- Bash heredocs break on quotes and lose backslashes: write scripts with Write, use absolute paths; Write/Edit decode `\uXXXX` - 2026-10-05.
+- Bash heredocs break on quotes and lose backslashes: write scripts with Write, use absolute paths. Write, Edit and the Bash command text all decode `\uXXXX` into the character: to put an escape in a file, build it from `chr(92)` in a script - 2026-10-09.
 - Python on Windows writes CRLF: always `open(..., "w", newline="\n")` - 2026-10-05.
 - Git Bash: prefix URL-path arguments with `MSYS_NO_PATHCONV=1` (`/en/` → `P:/Git/en/`); give node `C:/...` paths, never `/c/...` - 2026-10-09.
 - Use your own ports (3100 Next, 4322 Astro); stop a server by its port's PID (`netstat -ano | grep :<port>` → `taskkill //F //PID <pid>`), never by image name, never one you didn't start - 2026-10-09.

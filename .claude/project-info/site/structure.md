@@ -50,7 +50,9 @@ for young people; ASBL with the Ministry of Housing; "up to 90%" tax exemption: 
 **Sommer**, Gestion Locative Sociale, Erasmus+, Ministry of Housing, André Losch Fondation, Ministry of Justice, each
 linking out (2025 links were `tabIndex=-1`); EU logos static (Q21). 3 Who we are (`#who-we-are`): 2 sentences, "Learn
 more" → about. 4 Looking for housing? (`#looking-for-housing`): furnished rooms, quick form; "Learn more" → housing,
-"Apply now" ↗; 3D wardrobe. 5 Youth-Led Projects! (`#youth-led-projects`): "See for yourself" → projects; 3D rocket.
+"Apply now" ↗; 3D wardrobe left of the header from 1280 px. 5 Youth-Led Projects! (`#youth-led-projects`): "See for
+yourself" → projects; 3D rocket right of the header from 1280 px (both built 2026-10-09: `Section split`, the header
+left-aligned beside its toy; below 1280 the header is centred alone, as in 2025).
 6 Contact us (`#contact` + an alias for the 2025 `#contact-section` [assumption]): socials, email and phones (plain
 text since commit 8cd66bc, 2025-12-02), office map (iframe on load in 2025 → facade).
 

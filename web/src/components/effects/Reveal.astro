@@ -4,7 +4,7 @@
  * load. `rise` also lifts the content in; leave it off for the LCP line so it paints on the first frame.
  */
 interface Props {
-  /** Seconds, as in the 2025 site (0.5 to 1). */
+  /** Seconds, as in the 2025 site (0.5 to 1.1); capped at 0.8 so no line stays covered while it is being read. */
   duration?: number;
   rise?: boolean;
   class?: string;
@@ -13,6 +13,6 @@ interface Props {
 const { duration = 0.5, rise = false, class: className } = Astro.props;
 ---
 
-<div class:list={["reveal", rise && "reveal-rise", className]} style={`--reveal-d: ${duration}s`}>
+<div class:list={["reveal", rise && "reveal-rise", className]} style={`--reveal-d: ${Math.min(duration, 0.8)}s`}>
   <slot />
 </div>

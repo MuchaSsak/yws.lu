@@ -17,7 +17,7 @@ asset and dependency inventory is `.claude/project-info/design/assets.md`.
 
 | Component | Version | Used for | Copyright | Source |
 | --- | --- | --- | --- | --- |
-| three.js (`three`, with its `GLTFLoader` add-on) | 0.186.1 | the home page's 3D house (`web/src/components/three/house/`) | Copyright © 2010-2026 three.js authors | https://threejs.org/ |
+| three.js (`three`, with its `GLTFLoader` add-on) | 0.186.1 | the home page's 3D toys: house, wardrobe, rocket (`web/src/components/three/`) | Copyright © 2010-2026 three.js authors | https://threejs.org/ |
 | meshoptimizer decoder (`three/examples/jsm/libs/meshopt_decoder.module.js`) | as shipped with three 0.186.1 | decoding the meshopt-compressed models | Copyright (C) 2016-2026, by Arseny Kapoulkine (arseny.kapoulkine@gmail.com) (file header) | meshoptimizer library |
 | cobe (`cobe`) | 0.6.5 | the TEC page's dotted globe (`web/src/components/tec/TecGlobe.astro`) | Copyright (c) 2021 Shu Ding | https://github.com/shuding/cobe |
 | `phenomenon` | 1.6.0 | cobe's WebGL renderer | Copyright (c) 2019 Colin van Eenige | https://github.com/vaneenige/phenomenon |
@@ -31,8 +31,8 @@ asset and dependency inventory is `.claude/project-info/design/assets.md`.
 | Work | Copyright | Where | Source |
 | --- | --- | --- | --- |
 | Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton, WarpBackground, ShineBorder, Globe) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`), the warp tunnel in `web/src/components/home/WhoWeAre.astro`, the `.shine-border` styles, the globe settings in `web/src/components/tec/TecGlobe.astro` | https://github.com/magicuidesign/magicui |
-| drei's `PresentationControls` (`@react-three/drei` 10.7.9) | Copyright (c) 2020 react-spring | the house's drag (limits, damping, speed, cursor) rewritten for plain three.js in `web/src/components/three/house/house-scene.ts` | https://github.com/pmndrs/drei |
-| maath's `easing.damp` / `dampAngle` (`maath` 0.10.8) | Copyright © 2026 Isaac Mason (upstream LICENSE; the package has none) | the damped spring reproduced in `web/src/components/three/house/house-scene.ts` | https://github.com/pmndrs/maath |
+| drei's `PresentationControls` (`@react-three/drei` 10.7.9) | Copyright (c) 2020 react-spring | the toys' drag (limits, damping, speed, snap, cursor) rewritten for plain three.js in `web/src/components/three/toy-scene.ts` | https://github.com/pmndrs/drei |
+| maath's `easing.damp` / `dampAngle` (`maath` 0.10.8) | Copyright © 2026 Isaac Mason (upstream LICENSE; the package has none) | the damped spring reproduced in `web/src/components/three/toy-scene.ts` | https://github.com/pmndrs/maath |
 
 ## Icons (ISC)
 
@@ -76,8 +76,8 @@ Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ . The same cred
 | Title | Author | Source | Changes | Used in |
 | --- | --- | --- | --- | --- |
 | "Cat House" | Roman_Nilikovskii (https://sketchfab.com/Roman_Nilikovskii) | https://sketchfab.com/3d-models/cat-house-3ccdeded08134525acfa5b59a734a6d3 | modified: re-encoded (meshopt geometry, WebP textures); its still poster is a render of the model | home hero |
-| "Stylized Wardrobe" | stefan (https://sketchfab.com/stefanhagewoud) | https://sketchfab.com/3d-models/stylized-wardrobe-66aa34d1c9964289860e4c557036d99e | modified once re-encoded (meshopt, WebP textures ≤ 1024 px) | home, housing section |
-| "Cosmonaut on a rocket" | Yury Misiyuk (https://sketchfab.com/Tim0) | https://sketchfab.com/3d-models/cosmonaut-on-a-rocket-e93cbbdb9a2144fb9f63d062566f3e63 | modified once re-encoded (meshopt, WebP textures ≤ 1024 px) | home, projects section |
+| "Stylized Wardrobe" | stefan (https://sketchfab.com/stefanhagewoud) | https://sketchfab.com/3d-models/stylized-wardrobe-66aa34d1c9964289860e4c557036d99e | modified: re-encoded (meshopt geometry, WebP textures ≤ 1024 px: 1.46 MB → 178 KB); its still poster is a render of the model | home, housing section |
+| "Cosmonaut on a rocket" | Yury Misiyuk (https://sketchfab.com/Tim0) | https://sketchfab.com/3d-models/cosmonaut-on-a-rocket-e93cbbdb9a2144fb9f63d062566f3e63 | modified: re-encoded (meshopt geometry, WebP textures ≤ 1024 px: 6.10 MB → 667 KB, animation kept); its still poster is a render of the model | home, projects section |
 
 ## Build and test tools (not served to visitors)
 

@@ -1,0 +1,84 @@
+---
+/**
+ * A 3D toy beside its copy (the house by the home hero, the wardrobe and the rocket by the home teasers), from 1280 px
+ * up as in 2025 (wiki: tech/usage/three.md). The box is sized in CSS (no layout shift) and shows a still poster; the
+ * three.js scene (drawn in the page's one toy worker) is imported only when the page is idle, the box is near the
+ * screen, the screen is wide and motion is allowed, then fades in over the poster. Decorative: hidden from AT.
+ */
+import type { ToyName } from "./toys";
+
+interface Props {
+  toy: ToyName;
+  class?: string;
+}
+
+/** Each poster's pixel size (`bun run poster` writes them; the box's shape at 1440 px, twice the density). */
+const POSTERS: Record<ToyName, { width: number; height: number }> = {
+  house: { width: 960, height: 1025 },
+  wardrobe: { width: 960, height: 922 },
+  rocket: { width: 960, height: 922 },
+};
+
+const { toy, class: className } = Astro.props;
+---
+
+<div class:list={["toy-scene relative", className]} data-toy={toy} aria-hidden="true">
+  <img
+    class="toy-poster absolute inset-0 size-full object-contain"
+    src={`/posters/${toy}.webp`}
+    alt=""
+    width={POSTERS[toy].width}
+    height={POSTERS[toy].height}
+    loading="lazy"
+    decoding="async"
+  />
+</div>
+
+<script>
+  import type { ToyName } from "./toys";
+
+  const hosts = [...document.querySelectorAll<HTMLElement>("[data-toy]")];
+  const wide = matchMedia("(min-width: 1280px)");
+  // Reduced motion keeps the posters (the same final poses, no WebGL); `?poster` lets scripts/poster.mjs render them.
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const posterOnly = reduced && !new URLSearchParams(location.search).has("poster");
+  const started = new WeakSet<HTMLElement>();
+
+  const start = (host: HTMLElement) => {
+    if (started.has(host) || posterOnly || !wide.matches) return;
+    started.add(host);
+    void import("./mount").then(({ mountToy }) => mountToy(host, host.dataset.toy as ToyName, reduced));
+  };
+  const near = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting || !wide.matches) continue;
+        near.unobserve(entry.target);
+        start(entry.target as HTMLElement);
+      }
+    },
+    { rootMargin: "200px" },
+  );
+  const watch = () => {
+    if (!posterOnly) for (const host of hosts) if (!started.has(host)) near.observe(host);
+  };
+  const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(watch, { timeout: 3000 }) : setTimeout(watch, 300));
+
+  if (document.readyState === "complete") idle();
+  else addEventListener("load", idle, { once: true });
+  wide.addEventListener("change", () => wide.matches && watch());
+</script>
+
+<style>
+  .toy-scene :global(canvas) {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .toy-scene[data-ready] :global(canvas) {
+    opacity: 1;
+  }
+  .toy-scene[data-ready] .toy-poster {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.2s;
+  }
+</style>

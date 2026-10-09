@@ -1,14 +1,14 @@
 ---
 /**
  * Home hero (wiki: site/structure.md § Home): the owner pitch, the 3D house on wide screens. The heading paints on the
- * first frame; the scene loads after the page is idle (HouseScene).
+ * first frame; the scene loads after the page is idle (ToyScene).
  */
 import { t } from "lingui-for-astro/macro";
 
 import LineShadow from "~/components/effects/LineShadow.astro";
 import Reveal from "~/components/effects/Reveal.astro";
 import Sparkles from "~/components/effects/Sparkles.astro";
-import HouseScene from "~/components/three/HouseScene.astro";
+import ToyScene from "~/components/three/ToyScene.astro";
 import ButtonLink from "~/components/ui/ButtonLink.astro";
 import { pathTo } from "~/lib/routes";
 
@@ -41,5 +41,5 @@ const property = t({ message: "property", context: "Rent out your [property]" })
       <ButtonLink href={pathTo(locale, "owners")}>{t`Learn more`}</ButtonLink>
     </div>
   </div>
-  <HouseScene class="grow max-xl:hidden xl:h-[32.5rem] 2xl:h-[40rem]" />
+  <ToyScene toy="house" class="grow max-xl:hidden xl:h-[32.5rem] 2xl:h-[40rem]" />
 </section>

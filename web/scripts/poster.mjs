@@ -16,7 +16,12 @@ const args = process.argv.slice(2);
 const base = args.includes("--base") ? args[args.indexOf("--base") + 1] : "http://localhost:4322";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-const POSTERS = [{ page: "/en/?poster", host: "[data-house-scene]", out: "public/posters/house.webp", width: 960 }];
+const POSTERS = ["house", "wardrobe", "rocket"].map((toy) => ({
+  page: "/en/?poster",
+  host: `[data-toy="${toy}"]`,
+  out: `public/posters/${toy}.webp`,
+  width: 960,
+}));
 
 const browser = await chromium.launch({ args: ["--use-angle=d3d11", "--enable-gpu", "--ignore-gpu-blocklist"] });
 try {
@@ -24,6 +29,8 @@ try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, reducedMotion: "reduce" });
     await page.goto(base + poster.page, { waitUntil: "load" });
     const host = page.locator(poster.host);
+    // The toys start near the screen: bring this one there.
+    await host.scrollIntoViewIfNeeded();
     await host.locator("canvas").waitFor({ state: "attached", timeout: 30_000 });
     await page.waitForFunction((selector) => document.querySelector(selector)?.hasAttribute("data-ready"), poster.host, {
       timeout: 30_000,
@@ -35,8 +42,10 @@ try {
       content: `html, body { background: transparent !important }
         body *, body *::before, body *::after { visibility: hidden !important }
         ${poster.host}, ${poster.host} * { visibility: visible !important }
-        .house-poster { display: none !important }`,
+        .toy-poster { display: none !important }`,
     });
+    // Hiding the page re-lays it out; the wardrobe once shot blank two frames later. Let the worker's frame land.
+    await page.waitForTimeout(500);
     const png = await host.screenshot({ omitBackground: true, animations: "disabled" });
     const out = resolve(root, poster.out);
     mkdirSync(dirname(out), { recursive: true });

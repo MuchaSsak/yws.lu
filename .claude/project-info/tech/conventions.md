@@ -34,7 +34,7 @@
 | Fact tables | `UPPER_SNAKE` exports | `ROUTES`, `LEGACY`, `ORGANISATION` |
 | Route ids | one short word | `housing`, `owners`, `projects` |
 | URL slugs | lowercase kebab, localized, only in `src/lib/routes.ts` | `/fr/logement-jeunes/` |
-| JS hooks in markup | `data-*`, never a class | `data-house-scene`, `data-inview` |
+| JS hooks in markup | `data-*`, never a class | `data-toy`, `data-inview` |
 | Tokens | `--color-*`, `--radius-*`, `--ease-*` in `@theme` | `--color-primary-strong` |
 | e2e specs | `web/e2e/<gate>.spec.ts` | `a11y.spec.ts`, `redirects.spec.ts` |
 | Env vars | names only; `PUBLIC_` when the browser may see it | `PUBLIC_SITE_URL` |

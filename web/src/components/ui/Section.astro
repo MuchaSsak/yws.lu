@@ -2,18 +2,19 @@
 /**
  * A page section (wiki: design/design.md § Section header pattern): the gutters, the bottom rhythm and the content
  * width in one place, named by its heading (`labelledby`, usually the `SectionHeader` id). Replaces the 25 2025
- * `XSection` files.
+ * `XSection` files. `split`: a visual beside the header (the home toys), two columns from 1280 px.
  */
 interface Props {
   labelledby: string;
   id?: string;
+  split?: boolean;
   class?: string;
 }
 
-const { labelledby, id, class: className } = Astro.props;
+const { labelledby, id, split = false, class: className } = Astro.props;
 ---
 
-<section id={id} aria-labelledby={labelledby} class:list={["section px-side", className]}>
+<section id={id} aria-labelledby={labelledby} class:list={["section px-side", split && "section-split", className]}>
   <div class="section-inner">
     <slot />
   </div>
@@ -31,5 +32,13 @@ const { labelledby, id, class: className } = Astro.props;
   .section-inner {
     max-width: var(--content-max);
     margin-inline: auto;
+  }
+  @media (min-width: 1280px) {
+    .section-split .section-inner {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      gap: 2rem;
+    }
   }
 </style>

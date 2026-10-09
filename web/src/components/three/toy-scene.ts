@@ -1,19 +1,32 @@
-import { ACESFilmicToneMapping, Group, PerspectiveCamera, Raycaster, Scene, Vector2, WebGLRenderer } from "three";
+import {
+  ACESFilmicToneMapping,
+  AmbientLight,
+  AnimationMixer,
+  DirectionalLight,
+  Group,
+  PerspectiveCamera,
+  Raycaster,
+  Scene,
+  Vector2,
+  WebGLRenderer,
+} from "three";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
+import { TOYS, type ToyName } from "./toys";
+
 /**
- * The 2025 hero house (CC BY 4.0, credited in the credits dialog; wiki: design/assets.md) with the 2025 camera, colour
- * and motion: a two-second intro spin, then a slow turn, draggable within limits. Plain three.js on any canvas, so it
- * runs in a worker on an OffscreenCanvas (house.worker.ts) or, where that fails, on the page (mount.ts). It replaces
- * the 2025 React Three Fiber + drei scene; the numbers below are the ones that scene used, and the drag is drei's
- * PresentationControls rewritten (its spring is maath's `damp`, reproduced here). Wiki: tech/usage/three.md.
+ * One of the 2025 home-page toys (toys.ts) with its 2025 camera, colour and motion. Plain three.js on any canvas, so it
+ * runs in a worker on an OffscreenCanvas (toy.worker.ts) or, where that fails, on the page (mount.ts). It replaces the
+ * 2025 React Three Fiber + drei scenes; the drag is drei's PresentationControls rewritten (its spring is maath's
+ * `damp`, reproduced here). Wiki: tech/usage/three.md.
  */
-const MODEL = "/models/house.glb";
 const INTRO_SECONDS = 2;
 const INTRO_FROM = -Math.PI * 4;
 const INTRO_TO = -Math.PI * 6.2;
 const TURN_PER_SECOND = 0.1;
+/** The wardrobe's 2025 swing: `rotation.y = sin(t × 0.35)`. */
+const SWAY_SPEED = 0.35;
 /** PresentationControls: polar limits, unlimited azimuth, damping 0.25 s, a full drag across the box = π. */
 const POLAR: [number, number] = [-Math.PI / 8, Math.PI / 3];
 const DAMPING = 0.25;
@@ -54,20 +67,22 @@ function dampAngle(state: { value: number; velocity: number }, target: number, d
   damp(state, state.value + difference, delta);
 }
 
-export type HouseCursor = "" | "grab" | "grabbing";
+export type ToyCursor = "" | "grab" | "grabbing";
 
-export interface HouseSceneOptions {
+export interface ToySceneOptions {
   width: number;
   height: number;
   pixelRatio: number;
-  /** The final pose, no intro, no turn, no drag: reduced motion with `?poster` (scripts/poster.mjs). */
+  /** The final pose, no motion, no drag: reduced motion with `?poster` (scripts/poster.mjs). */
   still: boolean;
   onReady: () => void;
+  /** The model could not load or draw here (a worker without image decoding): the page draws it instead. */
+  onFailed: () => void;
   /** The cursor to show over the canvas. */
-  onCursor: (cursor: HouseCursor) => void;
+  onCursor: (cursor: ToyCursor) => void;
 }
 
-export interface HouseScene {
+export interface ToyScene {
   resize: (width: number, height: number, pixelRatio: number) => void;
   /** Draw only while on screen. */
   visible: (on: boolean) => void;
@@ -75,7 +90,8 @@ export interface HouseScene {
   pointer: (kind: "move" | "down" | "up" | "leave", x: number, y: number) => void;
 }
 
-export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, options: HouseSceneOptions): HouseScene {
+export function createToyScene(canvas: HTMLCanvasElement | OffscreenCanvas, name: ToyName, options: ToySceneOptions): ToyScene {
+  const toy = TOYS[name];
   let { width, height } = options;
   const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
   // React Three Fiber's defaults, which the 2025 colours were seen through.
@@ -84,21 +100,27 @@ export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, op
   renderer.setSize(width, height, false);
 
   const camera = new PerspectiveCamera(90, width / height, 0.1, 50);
-  camera.position.set(0, 10, 25);
+  camera.position.set(...toy.camera);
   camera.lookAt(0, 0, 0);
-  // The model's materials are unlit (KHR_materials_unlit), so the 2025 ambient light changed nothing: there is none.
   const scene = new Scene();
+  if (toy.ambient) scene.add(new AmbientLight("white", toy.ambient));
+  for (const light of toy.directional ?? []) {
+    const directional = new DirectionalLight(light.color, light.intensity);
+    directional.position.set(...light.position);
+    scene.add(directional);
+  }
   const controls = new Group();
-  const house = new Group();
-  controls.add(house);
+  const model = new Group();
+  controls.add(model);
   scene.add(controls);
 
   const turn = { polar: { value: 0, velocity: 0 }, azimuth: { value: 0, velocity: 0 } };
   const target = { polar: 0, azimuth: 0 };
   const raycaster = new Raycaster();
   const ndc = new Vector2();
+  let mixer: AnimationMixer | undefined;
   let drag: { x: number; y: number } | undefined;
-  let cursor: HouseCursor = "";
+  let cursor: ToyCursor = "";
   let loaded = false;
   let onScreen = false;
   let frame = 0;
@@ -109,7 +131,17 @@ export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, op
     if (!loaded) return false;
     ndc.set((x / width) * 2 - 1, -(y / height) * 2 + 1);
     raycaster.setFromCamera(ndc, camera);
-    return raycaster.intersectObject(house, true).length > 0;
+    return raycaster.intersectObject(model, true).length > 0;
+  };
+
+  const move = (delta: number) => {
+    if (toy.motion === "spin") {
+      if (options.still) model.rotation.y = INTRO_TO;
+      else if (elapsed < INTRO_SECONDS)
+        model.rotation.y = INTRO_FROM + (INTRO_TO - INTRO_FROM) * expoOut(elapsed / INTRO_SECONDS);
+      else model.rotation.y -= delta * TURN_PER_SECOND;
+    } else if (toy.motion === "sway") model.rotation.y = Math.sin((options.still ? 0 : elapsed) * SWAY_SPEED);
+    else if (!options.still) mixer?.update(delta);
   };
 
   const draw = (now: number) => {
@@ -117,9 +149,7 @@ export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, op
     const delta = last ? Math.min((now - last) / 1000, 0.1) : 0;
     last = now;
     elapsed += delta;
-    if (options.still) house.rotation.y = INTRO_TO;
-    else if (elapsed < INTRO_SECONDS) house.rotation.y = INTRO_FROM + (INTRO_TO - INTRO_FROM) * expoOut(elapsed / INTRO_SECONDS);
-    else house.rotation.y -= delta * TURN_PER_SECOND;
+    move(delta);
     if (delta > 0) {
       dampAngle(turn.polar, target.polar, delta);
       dampAngle(turn.azimuth, target.azimuth, delta);
@@ -139,15 +169,28 @@ export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, op
   };
 
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-  void loader.loadAsync(MODEL).then((gltf) => {
-    gltf.scene.scale.setScalar(1.2);
-    gltf.scene.position.y = -5;
-    house.add(gltf.scene);
-    loaded = true;
-    draw(performance.now());
-    options.onReady();
-    play();
-  });
+  loader
+    .loadAsync(toy.model)
+    .then((gltf) => {
+      gltf.scene.scale.setScalar(toy.scale);
+      gltf.scene.position.set(...toy.position);
+      if (toy.rotation) gltf.scene.rotation.set(...toy.rotation);
+      model.add(gltf.scene);
+      const clip = gltf.animations[0];
+      if (toy.motion === "clip" && clip) {
+        mixer = new AnimationMixer(gltf.scene);
+        mixer.clipAction(clip).play();
+        mixer.update(0);
+      }
+      loaded = true;
+      draw(performance.now());
+      options.onReady();
+      play();
+    })
+    .catch(() => {
+      renderer.dispose();
+      options.onFailed();
+    });
 
   return {
     resize(nextWidth, nextHeight, pixelRatio) {
@@ -164,16 +207,19 @@ export function createHouseScene(canvas: HTMLCanvasElement | OffscreenCanvas, op
       play();
     },
     pointer(kind, x, y) {
-      if (options.still) return;
+      if (options.still || !toy.drag) return;
       if (kind === "down" && hits(x, y)) drag = { x, y };
-      else if (kind === "up") drag = undefined;
-      else if (kind === "move" && drag) {
-        // drei: a drag across the whole box turns the house by π; the tilt stays within its limits.
+      else if (kind === "up") {
+        drag = undefined;
+        // drei's `snap`: let go and the toy springs back to where it started.
+        if (toy.drag === "snap") target.polar = target.azimuth = 0;
+      } else if (kind === "move" && drag) {
+        // drei: a drag across the whole box turns the toy by π; the tilt stays within its limits.
         target.azimuth += ((x - drag.x) / width) * Math.PI;
         target.polar = clamp(target.polar + ((y - drag.y) / height) * Math.PI, POLAR[0], POLAR[1]);
         drag = { x, y };
       }
-      // drei's cursor: "grab" over the house, "grabbing" while dragging, the page's own elsewhere.
+      // drei's cursor: "grab" over the toy, "grabbing" while dragging, the page's own elsewhere.
       const next = drag ? "grabbing" : kind !== "leave" && hits(x, y) ? "grab" : "";
       if (next !== cursor) options.onCursor((cursor = next));
     },
