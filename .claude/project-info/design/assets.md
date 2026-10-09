@@ -87,7 +87,7 @@
 | Supabase bucket `houses-pictures` (7 images: assel.webp, limpertsberg.webp, mondercange, oberanven, oberkorn, soleuvre, spinkange .jpg) → **`web/src/assets/houses/yws-shared-house-1…7`** (byte copies, 2026-10-09) | repo | 28–63 KB each | About us gallery, through `astro:assets`, alt per locale (`web/src/data/houses.ts`) | client | client | — | keep; skip `.emptyFolderPlaceholder` (the 2025 carousel skipped index 0) |
 | `web/src/assets/partners/*` (7) | copies | same bytes as the originals | `PartnerStrip.astro` | as the rows above | as above | — | as above |
 | `web/public/posters/{house,wardrobe,rocket}.webp` | WebP renders of the toy scenes (960 px wide) | 52 / 28 / 33 KB | `ToyScene.astro` posters | own render of the CC BY model | CC BY 4.0 (an adaptation of "Cat House") | covered by the model's credit ("modified") | generate (`bun run poster`) |
-| `web/public/bg/aurora-{mobile,desktop}.webp` | WebP | not generated | `BodyBackground.astro` | own render of the 2025 CSS gradients (`scripts/background.mjs`) | own work | — | generate |
+| `web/public/bg/aurora-{mobile,desktop}.webp` | WebP, a quarter of the box size (208 × 333, 340 × 370) | 8.5 / 12.5 KB | `BodyBackground.astro` | own render of the 2025 CSS gradients (`scripts/background.mjs`) | own work | — | generate |
 | Inline SVG star in `web/src/components/effects/Sparkles.astro` | SVG path | — | Sparkles effect | Magic UI SparklesText | MIT (Magic UI) | header comment + notices | keep |
 
 ## 3D models: the credits (exactly as in `lib/dictionary.tsx` `creditsDescription`, EN lines 98–221, FR from 721)

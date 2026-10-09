@@ -43,8 +43,12 @@ for (const { name, width, height } of SIZES) {
     `<html><body style="margin:0;background:transparent"><div style="position:absolute;left:${margin}px;top:${margin}px;width:${width}px;height:${height}px;background:${GRADIENTS};filter:blur(6.25rem) saturate(1.5)"></div></body></html>`,
   );
   // Keep the margin: the blur spreads past the box on the page too (BodyBackground.astro insets the image by it).
+  // Stored at a quarter of the size: a 100 px blur has no detail finer than that, the page stretches the image to its
+  // box anyway, and the full-size file (57 / 76 KB) was fetched before the first paint on every page.
   const png = await page.screenshot({ omitBackground: true });
+  const scale = 4;
   await sharp(png)
+    .resize(Math.round((width + margin * 2) / scale), Math.round((height + margin * 2) / scale))
     .webp({ quality: 70, alphaQuality: 70, effort: 6 })
     .toFile(join(OUT, `aurora-${name}.webp`));
   console.log(

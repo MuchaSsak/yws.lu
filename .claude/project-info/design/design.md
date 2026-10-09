@@ -353,7 +353,8 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 ## Backgrounds
 
 - **Body:** one fixed layer, `contain: strict`: the grid drawn from its geometry, the vignette, and the glow as a
-  pre-rendered WebP (mobile 430 × 932, desktop 960 × 1080 box + 200 px blur margin) instead of a live 100 px blur;
+  pre-rendered WebP (mobile 430 × 932, desktop 960 × 1080 box + 200 px blur margin, stored at a quarter of that size: 8.5 /
+  12.5 KB, was 57 / 76 KB and fetched before the first paint; max pixel change 5/255) instead of a live 100 px blur;
   nothing animates, so scrolling never repaints it [repo: web/src/components/layout/BodyBackground.astro;
   web/scripts/background.mjs].
 - **Hero backgrounds:** at most one per page, behind the hero only; start after idle, run only while visible, off under

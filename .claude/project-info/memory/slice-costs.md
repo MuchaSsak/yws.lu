@@ -14,7 +14,17 @@ CLS ≤ 0.05 · a11y / BP / SEO 100.
 
 | Slice | Date | Routes | Initial JS gz (KB) | Page KB (mobile) | LH mobile perf / LCP ms / TBT ms / CLS | a11y · BP · SEO | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| — | | | | | | | none closed yet |
+| 0–2 Foundation, header, footer | 2026-10-09 | every route | (in the rows below) | | | | shared by every page; no route below its floors |
+| 3 Home | 2026-10-09 | `/en/` · `/fr/` | 2–4 | 183 | 99 / 2027 / 0 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 502 ms, TBT 0 ms |
+| 4 Looking for housing | 2026-10-09 | `/en/youth-housing/` · `/fr/logement-jeunes/` | 0 | 123 | 99–100 / 1726–1727 / 6–19 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 442 ms, TBT 0 ms |
+| 5 Rent your property | 2026-10-09 | `/en/rent-your-property/` · `/fr/louer-son-bien/` | 0 | 123–124 | 100 / 1426–1427 / 15–28 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 342 ms, TBT 0 ms |
+| 6 About us | 2026-10-09 | `/en/about-us/` · `/fr/a-propos/` | 0 | 185–186 | 99 / 1951 / 0–16 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 482 ms, TBT 0 ms |
+| 7 We Spark projects | 2026-10-09 | `/en/youth-projects/` · `/fr/projets-jeunes/` | 0 | 360–361 | 99–100 / 1727–1728 / 27–85 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 382–383 ms, TBT 0 ms |
+| 9 TEC conference | 2026-10-09 | `/en/tec-conference/` · `/fr/conference-tec/` | 2–3 | 203–204 | 99 / 2101 / 25–52 / 0 | 100 · 100 · 100 | desktop perf 99–100, LCP 502–536 ms, TBT 0 ms |
+| 11 Legal notice | 2026-10-09 | `/en/legal-notice/` · `/fr/mentions-legales/` | 0 | 120 | 100 / 1427 / 0–50 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 342 ms, TBT 0 ms |
+| 11 Privacy policy | 2026-10-09 | `/en/privacy-policy/` · `/fr/politique-de-confidentialite/` | 0 | 125–126 | 100 / 1426–1430 / 7–88 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 341–342 ms, TBT 0 ms |
+
+The rows: the full `bun run lhci` sweep of 2026-10-09 evening (36 rows, en + fr, mobile + desktop, median of 3, laptop, SwiftShader; the review build with `is-crawlable` skipped). Every row within the floors; 4 target misses, mobile LCP only: home 2027 ms and TEC 2101 ms in both languages (target 2000, floor 2500). The 404 is not in the sweep (`routes.ts` lists indexable pages); the review-only specimen scored 100.
 
 ## Load costs found and fixed (2026-10-09)
 
