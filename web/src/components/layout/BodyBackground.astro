@@ -2,7 +2,8 @@
 /**
  * The soft colour background behind every page (wiki: design/design.md § Backgrounds): the 2025 grid, vignette and
  * colour glow, with the glow pre-rendered (scripts/background.mjs) instead of a live 100 px blur. One fixed layer,
- * nothing animates, so scrolling never repaints it.
+ * nothing animates, so scrolling never repaints it. The glow is a CSS background stretched to the 2025 layer box (a
+ * blur, so the stretch is invisible); only the image for the current width is fetched.
  */
 ---
 
@@ -10,10 +11,7 @@
   <div class="body-bg-grid"></div>
   <div class="body-bg-vignette"></div>
   <div class="body-bg-glow">
-    <picture>
-      <source media="(min-width: 1280px)" srcset="/bg/aurora-desktop.webp" />
-      <img src="/bg/aurora-mobile.webp" alt="" width="830" height="1332" decoding="async" fetchpriority="low" />
-    </picture>
+    <div class="body-bg-glow-image"></div>
   </div>
 </div>
 
@@ -49,23 +47,24 @@
     height: 100%;
     opacity: 0.25;
   }
-  .body-bg-glow img {
+  .body-bg-glow-image {
     position: absolute;
     top: -21.5%;
     left: -46.5%;
     width: 193%;
     height: 143%;
-    max-width: none;
+    background: url("/bg/aurora-mobile.webp") 0 0 / 100% 100% no-repeat;
   }
   @media (min-width: 1280px) {
     .body-bg-glow {
       width: 50%;
     }
-    .body-bg-glow img {
+    .body-bg-glow-image {
       top: -18.5%;
       left: -20.8%;
       width: 141.7%;
       height: 137%;
+      background-image: url("/bg/aurora-desktop.webp");
     }
   }
 </style>
