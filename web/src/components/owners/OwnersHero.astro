@@ -1,15 +1,18 @@
 ---
 /**
  * Rent your property, the hero (wiki: site/structure.md § Rent your property 1): the H1 with the orange highlight on
- * "safe, reliable & impactful" and three lines, each sweeping in behind the reveal box as in 2025. The 2025 background
- * lines (Aceternity, rewritten as own code, Q23) come with the owners slice.
+ * "safe, reliable & impactful" and three lines, each sweeping in behind the reveal box as in 2025. Behind them, warm
+ * sparks stream out from the headline: the 2025 background lines (Aceternity), rewritten as own code (Q23,
+ * src/scripts/spark-lines-core.ts), drawn in a worker after the page is idle, faded where the words are (in 2025 they
+ * crossed them). Reduced motion: no canvas.
  */
 import { t } from "lingui-for-astro/macro";
 
 import Reveal from "~/components/effects/Reveal.astro";
 ---
 
-<section class="owners-hero px-side">
+<section class="owners-hero relative isolate px-side">
+  <div class="spark-lines absolute inset-0 -z-10" aria-hidden="true"></div>
   <div class="flex flex-col items-center text-center">
     <Reveal duration={0.5}>
       <h1 class="owners-title">
@@ -31,7 +34,38 @@ import Reveal from "~/components/effects/Reveal.astro";
   </div>
 </section>
 
+<script>
+  import { mountSparkLines } from "~/scripts/spark-lines";
+
+  const start = () => {
+    const host = document.querySelector(".spark-lines");
+    if (!host) return;
+    const canvas = host.appendChild(document.createElement("canvas"));
+    canvas.className = "size-full";
+    mountSparkLines(canvas, { count: innerWidth < 768 ? 32 : 56 });
+  };
+  // After the page has loaded and gone idle: the sparks never compete with the first paint.
+  const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 200));
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.readyState === "complete") idle();
+    else addEventListener("load", idle, { once: true });
+  }
+</script>
+
 <style>
+  /* Sparks show around the words, faint across them: an ellipse over the text block fades the canvas there. On phones
+     the text spans the screen, so the ellipse does too and the sparks show in full only above and in the corners. */
+  .spark-lines {
+    --spark-mask: radial-gradient(ellipse 75% 40% at 50% 52%, rgb(0 0 0 / 0.15) 70%, #000 100%);
+    -webkit-mask-image: var(--spark-mask);
+    mask-image: var(--spark-mask);
+    pointer-events: none;
+  }
+  @media (min-width: 768px) {
+    .spark-lines {
+      --spark-mask: radial-gradient(ellipse 46% 40% at 50% 48%, rgb(0 0 0 / 0.1) 60%, #000 100%);
+    }
+  }
   /* The 2025 hero: at least one screen tall, 144 px from the top on phones, 192 from 768, 256 from 1280; 600 weight,
      tight tracking. */
   .owners-hero {

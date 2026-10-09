@@ -1,0 +1,86 @@
+---
+/**
+ * Copies a value (the email address, the office address) to the clipboard: F04, contact without forms
+ * (product/requirements.md), for a visitor whose computer has no mail app behind `mailto:`. The visible "Copy" turns
+ * into "Copied" for two seconds, announced politely. The button stays hidden until the script finds the clipboard API,
+ * so it never shows where it cannot work. `what` completes the accessible name after the visible label ("Copy
+ * contact@yws.lu", WCAG 2.5.3).
+ */
+import { t } from "lingui-for-astro/macro";
+
+import Icon from "~/components/ui/Icon.astro";
+
+interface Props {
+  value: string;
+  what: string;
+  class?: string;
+}
+
+const { value, what, class: className } = Astro.props;
+---
+
+<button type="button" class:list={["copy-button", className]} data-copy={value} hidden>
+  <Icon name="copy" size={16} class="copy-icon" />
+  <Icon name="check" size={16} class="copied-icon" />
+  <span class="copy-label" aria-live="polite">
+    <span class="copy-idle">{t`Copy`}</span>
+    <span class="copy-done">{t`Copied`}</span>
+  </span>
+  <span class="sr-only"> {what}</span>
+</button>
+
+<script>
+  if (navigator.clipboard?.writeText) {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+      button.hidden = false;
+      let timer = 0;
+      button.addEventListener("click", () => {
+        void navigator.clipboard.writeText(button.dataset.copy ?? "").then(() => {
+          button.dataset.copied = "";
+          clearTimeout(timer);
+          timer = window.setTimeout(() => delete button.dataset.copied, 2000);
+        });
+      });
+    }
+  }
+</script>
+
+<style>
+  .copy-button {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border: 1px solid color-mix(in oklab, var(--color-primary) 45%, white);
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--color-primary) 8%, white);
+    color: var(--color-primary-strong);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color var(--dur-1) var(--ease-out),
+      border-color var(--dur-1) var(--ease-out);
+  }
+  .copy-button[hidden] {
+    display: none;
+  }
+  .copy-button:hover,
+  .copy-button:focus-visible {
+    border-color: var(--color-primary);
+    background: color-mix(in oklab, var(--color-primary) 16%, white);
+  }
+  .copy-button :global(.copied-icon),
+  .copy-done,
+  .copy-button[data-copied] :global(.copy-icon),
+  .copy-button[data-copied] .copy-idle {
+    display: none;
+  }
+  .copy-button[data-copied] :global(.copied-icon),
+  .copy-button[data-copied] .copy-done {
+    display: inline;
+  }
+</style>

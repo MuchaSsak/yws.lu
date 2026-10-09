@@ -11,6 +11,7 @@ import { t } from "lingui-for-astro/macro";
 
 import Sparkles from "~/components/effects/Sparkles.astro";
 import ContactActions from "~/components/ui/ContactActions.astro";
+import CopyButton from "~/components/ui/CopyButton.astro";
 import Icon from "~/components/ui/Icon.astro";
 import NewTab from "~/components/ui/NewTab.astro";
 import Section from "~/components/ui/Section.astro";
@@ -54,6 +55,7 @@ const privacy = pathTo(Astro.locals.locale, "privacy");
           <span class="font-semibold">{office.label}</span>
           <span>{address}</span>
         </p>
+        <CopyButton value={address} what={address} class="contact-map-copy" />
         <a href={office.maps} target="_blank" rel="noopener" class="contact-map-link">
           {openMap}
           <NewTab />
@@ -142,7 +144,6 @@ const privacy = pathTo(Astro.locals.locale, "privacy");
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     gap: 0.5rem 1.5rem;
   }
   .contact-map-address {

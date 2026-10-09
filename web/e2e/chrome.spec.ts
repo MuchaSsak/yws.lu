@@ -70,3 +70,28 @@ for (const path of HOMES) {
     }
   });
 }
+
+/**
+ * F04, contact without forms: the Copy buttons beside the email and the office address put exactly that text on the
+ * clipboard and say so ("Copied"), from the keyboard too. Reading the clipboard back needs a permission only Chromium
+ * grants in Playwright; Firefox and WebKit check the button shows and confirms.
+ */
+for (const path of HOMES) {
+  test(`copy buttons copy the email and the address ${path}`, async ({ page, context, browserName }) => {
+    const readBack = browserName === "chromium";
+    if (readBack) await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto(path);
+    const { office } = ORGANISATION;
+    for (const [value, scope] of [
+      [ORGANISATION.email, ".contact-actions"],
+      [`${office.street}, ${office.postalCode} ${office.locality}`, ".contact-map-caption"],
+    ] as const) {
+      const button = page.locator(`${scope} button[data-copy]`).first();
+      await button.scrollIntoViewIfNeeded();
+      await button.focus();
+      await page.keyboard.press("Enter");
+      await expect(button).toHaveAttribute("data-copied", "");
+      if (readBack) expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(value);
+    }
+  });
+}

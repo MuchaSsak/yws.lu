@@ -203,6 +203,14 @@ msgstr "Contactez-nous"
 msgid "Contents"
 msgstr "Sommaire"
 
+#: src/components/ui/CopyButton.astro
+msgid "Copied"
+msgstr "Copié"
+
+#: src/components/ui/CopyButton.astro
+msgid "Copy"
+msgstr "Copier"
+
 #: src/components/layout/CreditsDialog.astro
 msgid "Credits 💖"
 msgstr "Crédits 💖"
@@ -215,6 +223,11 @@ msgstr "Lors de cette <0>conférence en ligne d’une heure</0>, nous avons pré
 #: src/pages/[locale]/specimen.astro
 msgid "During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you."
 msgstr "Lors de votre rendez-vous, nous approfondirons votre situation pour évaluer si l’un de nos logements vous conviendrait."
+
+#: src/components/ui/ContactActions.astro
+msgctxt "contact card label"
+msgid "Email"
+msgstr "E-mail"
 
 #: src/components/home/PartnerStrip.astro
 msgid "European Solidarity Corps"
@@ -476,6 +489,11 @@ msgstr "Devenir notre partenaire, c’est faire le bien tout en faisant un choix
 #: src/pages/[locale]/specimen.astro
 msgid "Personal Interview"
 msgstr "Entretien individuel"
+
+#: src/components/ui/ContactActions.astro
+msgctxt "contact card label"
+msgid "Phone"
+msgstr "Téléphone"
 
 #: src/components/projects/ProjectCard.astro
 msgid "Pictures gallery:"

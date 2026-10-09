@@ -1,9 +1,15 @@
 ---
 /**
  * The contact actions (wiki: design/design.md § Buttons, "Contact action"): socials (optional), email and each phone as
- * real links, icon + 24 px label; hover underlines and nudges the label. `subject` prefills the email's subject for a
- * journey (site/structure.md § CTA inventory). The 2025 email and phones were plain text.
+ * real links, icon + 24 px label; hover underlines and nudges the label. The email has a Copy button beside it (F04: a
+ * computer with no mail app does nothing on `mailto:`). `subject` prefills the email's subject for a journey
+ * (site/structure.md § CTA inventory). `cards`: each action on its own glass card (icon badge, a small "Email" /
+ * "Phone" label, the value), the whole card one tap; the owners' contact block. The 2025 email and phones were plain
+ * text.
  */
+import { t } from "lingui-for-astro/macro";
+
+import CopyButton from "~/components/ui/CopyButton.astro";
 import Icon from "~/components/ui/Icon.astro";
 import NewTab from "~/components/ui/NewTab.astro";
 import SocialIcon from "~/components/ui/SocialIcon.astro";
@@ -13,14 +19,17 @@ interface Props {
   socials?: boolean;
   subject?: string;
   align?: "start" | "center";
+  cards?: boolean;
   class?: string;
 }
 
-const { socials = false, subject, align = "start", class: className } = Astro.props;
+const { socials = false, subject, align = "start", cards = false, class: className } = Astro.props;
 const mailto = `mailto:${ORGANISATION.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
+const emailLabel = t({ message: "Email", context: "contact card label" });
+const phoneLabel = t({ message: "Phone", context: "contact card label" });
 ---
 
-<ul class:list={["contact-actions", className]} data-align={align} role="list">
+<ul class:list={["contact-actions", cards && "contact-cards", className]} data-align={align} role="list">
   {socials &&
     ORGANISATION.socials.map((social) => (
       <li>
@@ -31,16 +40,29 @@ const mailto = `mailto:${ORGANISATION.email}${subject ? `?subject=${encodeURICom
         </a>
       </li>
     ))}
-  <li>
+  <li class="contact-item">
+    {cards && (
+      <span class="contact-badge" aria-hidden="true">
+        <Icon name="mail" size={28} />
+      </span>
+    )}
+    {cards && <span class="contact-kind">{emailLabel}</span>}
     <a href={mailto} class="contact-action">
-      <Icon name="mail" />
+      {!cards && <Icon name="mail" />}
       <span class="contact-label">{ORGANISATION.email}</span>
     </a>
+    <CopyButton value={ORGANISATION.email} what={ORGANISATION.email} />
   </li>
   {ORGANISATION.phones.map((phone) => (
-    <li>
+    <li class="contact-item">
+      {cards && (
+        <span class="contact-badge" aria-hidden="true">
+          <Icon name="phone" size={28} />
+        </span>
+      )}
+      {cards && <span class="contact-kind">{phoneLabel}</span>}
       <a href={`tel:${phone.e164}`} class="contact-action">
-        <Icon name="phone" />
+        {!cards && <Icon name="phone" />}
         <span class="contact-label">+352 {phone.display}</span>
       </a>
     </li>
@@ -55,6 +77,15 @@ const mailto = `mailto:${ORGANISATION.email}${subject ? `?subject=${encodeURICom
   }
   .contact-actions[data-align="center"] {
     align-items: center;
+  }
+  .contact-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+  }
+  .contact-actions[data-align="center"] .contact-item {
+    justify-content: center;
   }
   .contact-action {
     display: inline-flex;
@@ -77,5 +108,95 @@ const mailto = `mailto:${ORGANISATION.email}${subject ? `?subject=${encodeURICom
   .contact-action:hover .contact-label,
   .contact-action:focus-visible .contact-label {
     transform: translateX(6px);
+  }
+
+  /* Cards: a row of glass cards from 768 px, stacked below; the value's link covers its card. */
+  .contact-cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    width: min(100%, 22rem);
+  }
+  /* Equal heights: the list's own centring would float the shorter phone cards. */
+  .contact-cards[data-align] {
+    align-items: stretch;
+  }
+  @media (min-width: 768px) {
+    .contact-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: min(100%, 64rem);
+    }
+  }
+  .contact-cards .contact-item {
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 1.75rem 1.25rem;
+    border: 1px solid rgb(255 255 255 / 0.85);
+    border-radius: 1.75rem;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.4));
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 18px 40px -24px rgb(120 60 20 / 0.3);
+    text-align: center;
+    transition:
+      translate var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out),
+      box-shadow var(--dur-2) var(--ease-out);
+  }
+  .contact-cards .contact-item:has(.contact-action:hover),
+  .contact-cards .contact-item:has(.contact-action:focus-visible) {
+    translate: 0 -4px;
+    border-color: color-mix(in oklab, var(--color-primary) 55%, white);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 28px 50px -24px rgb(194 65 12 / 0.4);
+  }
+  .contact-cards .contact-item:has(.contact-action:focus-visible) {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+  .contact-cards .contact-action {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+  }
+  .contact-cards .contact-action::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  .contact-cards .contact-action:focus-visible {
+    outline: none;
+  }
+  .contact-cards .contact-action:hover .contact-label,
+  .contact-cards .contact-action:focus-visible .contact-label {
+    transform: none;
+  }
+  .contact-badge {
+    display: grid;
+    place-items: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 25%, white, color-mix(in oklab, var(--color-primary) 18%, white) 70%);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 22%, white),
+      0 8px 18px -10px rgb(194 65 12 / 0.5);
+    color: var(--color-ink-orange);
+  }
+  .contact-kind {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-cards .contact-item {
+      transition: none;
+    }
   }
 </style>

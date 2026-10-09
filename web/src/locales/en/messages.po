@@ -203,6 +203,14 @@ msgstr "Contact us"
 msgid "Contents"
 msgstr "Contents"
 
+#: src/components/ui/CopyButton.astro
+msgid "Copied"
+msgstr "Copied"
+
+#: src/components/ui/CopyButton.astro
+msgid "Copy"
+msgstr "Copy"
+
 #: src/components/layout/CreditsDialog.astro
 msgid "Credits 💖"
 msgstr "Credits 💖"
@@ -215,6 +223,11 @@ msgstr "During this <0>one-hour online conference</0>, we launched the results o
 #: src/pages/[locale]/specimen.astro
 msgid "During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you."
 msgstr "During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you."
+
+#: src/components/ui/ContactActions.astro
+msgctxt "contact card label"
+msgid "Email"
+msgstr "Email"
 
 #: src/components/home/PartnerStrip.astro
 msgid "European Solidarity Corps"
@@ -476,6 +489,11 @@ msgstr "Partnering with us means doing good and making a smart financial choice 
 #: src/pages/[locale]/specimen.astro
 msgid "Personal Interview"
 msgstr "Personal Interview"
+
+#: src/components/ui/ContactActions.astro
+msgctxt "contact card label"
+msgid "Phone"
+msgstr "Phone"
 
 #: src/components/projects/ProjectCard.astro
 msgid "Pictures gallery:"

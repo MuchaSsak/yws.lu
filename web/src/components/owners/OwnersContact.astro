@@ -1,7 +1,8 @@
 ---
 /**
  * Interested in renting your property to us? (wiki: site/structure.md § Rent your property 3, `#contact`): one line,
- * then the email (subject prefilled for owners, new copy) and each phone as links (plain text in 2025).
+ * then the email (subject prefilled for owners, new copy, with a Copy button) and each phone, each on its own card, the
+ * whole card one tap (plain text lines in 2025).
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -16,6 +17,6 @@ const subject = t({ message: "Renting my property", context: "email subject" });
 <Section id="contact" labelledby="owners-contact-title">
   <SectionHeader id="owners-contact-title" title={t`Interested in renting your property to us?`}>
     <WordFade duration={0.65} text={t`Get in touch directly. We'd love to hear from you.`} />
-    <ContactActions slot="actions" subject={subject} align="center" />
+    <ContactActions slot="actions" subject={subject} align="center" cards />
   </SectionHeader>
 </Section>

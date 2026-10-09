@@ -67,7 +67,10 @@ steps); price, wait time, student eligibility unknown (Q24).
 revamp: email + call buttons and a link to the logement.lu GLS list [research: comparable-sites § 3 #14]. 2 "Why Rent
 to Us?" (`#why-rent-to-us`): 4 paragraphs, 5 cards (h3): Guaranteed Rent · Tax Benefits (90 %, Q17) · Ongoing Tenant
 Support · Property Flexibility · Property Maintenance. 3 "Interested in renting your property to us?" (`#contact`):
-one line, email + each phone as links (plain text in 2025).
+one line, then the email and each phone on its own glass card (icon badge, "Email" / "Phone", the value; the whole card
+one tap), a Copy button on the email card (plain text lines in 2025). Behind the hero (2026-10-09): warm sparks
+streaming out from the headline, the 2025 background lines rewritten (`spark-lines-core.ts`, worker, faded over the
+words).
 
 **About us.** 1 Hero: H1 "About us", 5 lines (bold "Rent out your property — Give youth a chance…"; empty houses into
 homes; the youth housing crisis; ASBL with GLS status and the Ministry of Housing), group photo. 2 "Our mission"
