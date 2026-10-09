@@ -1,0 +1,81 @@
+---
+/**
+ * The contact actions (wiki: design/design.md § Buttons, "Contact action"): socials (optional), email and each phone as
+ * real links, icon + 24 px label; hover underlines and nudges the label. `subject` prefills the email's subject for a
+ * journey (site/structure.md § CTA inventory). The 2025 email and phones were plain text.
+ */
+import Icon from "~/components/ui/Icon.astro";
+import NewTab from "~/components/ui/NewTab.astro";
+import SocialIcon from "~/components/ui/SocialIcon.astro";
+import { ORGANISATION } from "~/data/organisation";
+
+interface Props {
+  socials?: boolean;
+  subject?: string;
+  align?: "start" | "center";
+  class?: string;
+}
+
+const { socials = false, subject, align = "start", class: className } = Astro.props;
+const mailto = `mailto:${ORGANISATION.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
+---
+
+<ul class:list={["contact-actions", className]} data-align={align} role="list">
+  {socials &&
+    ORGANISATION.socials.map((social) => (
+      <li>
+        <a href={social.href} target="_blank" rel="noopener me" class="contact-action">
+          <SocialIcon id={social.id} />
+          <span class="contact-label">{social.name}</span>
+          <NewTab />
+        </a>
+      </li>
+    ))}
+  <li>
+    <a href={mailto} class="contact-action">
+      <Icon name="mail" />
+      <span class="contact-label">{ORGANISATION.email}</span>
+    </a>
+  </li>
+  {ORGANISATION.phones.map((phone) => (
+    <li>
+      <a href={`tel:${phone.e164}`} class="contact-action">
+        <Icon name="phone" />
+        <span class="contact-label">+352 {phone.display}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .contact-actions[data-align="center"] {
+    align-items: center;
+  }
+  .contact-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2.75rem;
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .contact-label {
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+  .contact-action:hover,
+  .contact-action:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .contact-action:hover .contact-label,
+  .contact-action:focus-visible .contact-label {
+    transform: translateX(6px);
+  }
+</style>

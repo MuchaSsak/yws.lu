@@ -1,10 +1,14 @@
 ---
 /**
- * Home, once per locale (wiki: site/structure.md § Home). Title and description come from the metadata table
- * (src/lib/meta.ts). Spike scope: the hero and the partner strip.
+ * Home, once per locale (wiki: site/structure.md § Home): hero, partners, who we are, looking for housing, youth-led
+ * projects, contact. Title and description come from the metadata table (src/lib/meta.ts).
  */
+import ContactSection from "~/components/home/ContactSection.astro";
 import HomeHero from "~/components/home/HomeHero.astro";
+import HousingTeaser from "~/components/home/HousingTeaser.astro";
 import PartnerStrip from "~/components/home/PartnerStrip.astro";
+import ProjectsTeaser from "~/components/home/ProjectsTeaser.astro";
+import WhoWeAre from "~/components/home/WhoWeAre.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { localeStaticPaths } from "~/lib/routes";
 
@@ -14,4 +18,8 @@ export const getStaticPaths = localeStaticPaths;
 <BaseLayout route="home">
   <HomeHero />
   <PartnerStrip />
+  <WhoWeAre />
+  <HousingTeaser />
+  <ProjectsTeaser />
+  <ContactSection />
 </BaseLayout>

@@ -1,0 +1,123 @@
+---
+/**
+ * About us, the hero (wiki: site/structure.md § About us 1): the H1, five lines sweeping in behind the reveal box, and
+ * the group photo in its shine frame, flying in once as in 2025 (still under reduced motion). The photo goes through
+ * the image pipeline (AVIF/WebP, real widths); the 2025 hover lens is a comps proposal to drop (no tap twin).
+ */
+import { Image } from "astro:assets";
+import { t } from "lingui-for-astro/macro";
+
+import Reveal from "~/components/effects/Reveal.astro";
+import groupPhoto from "~/assets/photos/yws-group-photo.jpg";
+
+const alt = t`The Youth Work Synergy group, about twenty people cheering outdoors`;
+---
+
+<section class="about-hero px-side">
+  <div class="about-hero-text">
+    <Reveal duration={0.5}>
+      <h1 class="about-title text-orange-gradient">{t`About us`}</h1>
+    </Reveal>
+    <div class="about-lede">
+      <Reveal rise duration={0.5}>
+        <p class="font-bold">{t`Rent out your property — Give youth a chance for a better future`}</p>
+      </Reveal>
+      <Reveal rise duration={0.6}>
+        <p>{t`Turn your property into a home for young people in Luxembourg.`}</p>
+      </Reveal>
+      <Reveal rise duration={0.7}>
+        <p>{t`We turn empty houses into real homes — and change lives in the process.`}</p>
+      </Reveal>
+      <Reveal rise duration={0.8}>
+        <p>{t`In Luxembourg, hundreds of young people are struggling to find a place to live. Rents are high, requirements are strict, and for many aged 18–34, securing housing without family support is simply out of reach. That's where we come in.`}</p>
+      </Reveal>
+      <Reveal rise duration={0.9}>
+        <p>{t`We are a Luxembourg-based non-profit (ASBL) with GLS (Gestion Locative Sociale) status, working in collaboration with the Ministry of Housing to solve the youth housing crisis.`}</p>
+      </Reveal>
+    </div>
+  </div>
+  <div class="about-photo">
+    <div
+      class="about-photo-frame shine-border"
+      data-loop
+      style="--shine-width: 3px; --shine-colors: oklch(70.4% 0.191 22.216), oklch(62.7% 0.265 303.9), oklch(76.9% 0.188 70.08), oklch(85.2% 0.199 91.936)"
+    >
+      <Image
+        src={groupPhoto}
+        alt={alt}
+        widths={[480, 700, 1050, 1400]}
+        sizes="(min-width: 768px) 700px, calc(100vw - 2rem)"
+        loading="eager"
+        class="about-photo-image"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The 2025 hero: 144 px top and bottom, 192 from 1280; text and photo side by side from 1280, stacked below. */
+  .about-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+    padding-block: 9rem;
+  }
+  @media (min-width: 1280px) {
+    .about-hero {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-block: 12rem;
+    }
+  }
+  .about-title {
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    font-weight: 900;
+  }
+  @media (min-width: 1280px) {
+    /* 2025: 96 px on an 80 px line box (lines overlapped); one line here, so the box grows with it. */
+    .about-title {
+      font-size: 6rem;
+      line-height: 1;
+    }
+  }
+  .about-lede {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 32.5rem;
+    padding-top: 2rem;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+  }
+  @media (min-width: 1280px) {
+    .about-lede {
+      max-width: var(--measure-hero);
+    }
+  }
+  .about-photo-frame {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    animation: about-photo-in 2s var(--ease-anticipate) both;
+  }
+  .about-photo-image {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    border-radius: var(--radius-2xl);
+  }
+  @keyframes about-photo-in {
+    from {
+      opacity: 0;
+      transform: translate(1000px, -500px) rotate(120deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-photo-frame {
+      animation: none;
+    }
+  }
+</style>

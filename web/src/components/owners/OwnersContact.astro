@@ -1,0 +1,21 @@
+---
+/**
+ * Interested in renting your property to us? (wiki: site/structure.md § Rent your property 3, `#contact`): one line,
+ * then the email (subject prefilled for owners, new copy) and each phone as links (plain text in 2025).
+ */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import ContactActions from "~/components/ui/ContactActions.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+
+const subject = t({ message: "Renting my property", context: "email subject" });
+---
+
+<Section id="contact" labelledby="owners-contact-title">
+  <SectionHeader id="owners-contact-title" title={t`Interested in renting your property to us?`}>
+    <WordFade duration={0.65} text={t`Get in touch directly. We'd love to hear from you.`} />
+    <ContactActions slot="actions" subject={subject} align="center" />
+  </SectionHeader>
+</Section>

@@ -44,8 +44,34 @@ contributors., MIT).
 
 | Work | Copyright | Where | Source |
 | --- | --- | --- | --- |
-| Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`) | https://github.com/magicuidesign/magicui |
+| Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton, WarpBackground, ShineBorder) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`), the warp tunnel in `web/src/components/home/WhoWeAre.astro`, the `.shine-border` styles | https://github.com/magicuidesign/magicui |
 | WebGL Fluid Simulation, by Pavel Dobryakov | Copyright (c) 2017 Pavel Dobryakov | **conditional**: only if the TEC page's fluid cursor is kept and rebuilt from this original (the 2025 `SplashCursor` derived from it); not in `web/` today; remove this row if the effect is dropped | https://github.com/PavelDoGreat/WebGL-Fluid-Simulation |
+
+## Icons (ISC)
+
+| Work | Version | Used for | Copyright | Source |
+| --- | --- | --- | --- | --- |
+| Lucide (`lucide-react` icon shapes: mail, phone, map-pin, copy, check, hand-coins, dollar-sign, heart-handshake, land-plot, brush-cleaning, book-open-check, piggy-bank, armchair, arrow-left, arrow-right) | 0.525.0 | contact actions, feature cards, carousel arrows (`web/src/components/ui/Icon.astro`, shapes copied from the package's icon nodes) | Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022. | https://lucide.dev/ |
+
+The ISC licence, verbatim from `node_modules/lucide-react/LICENSE` (the 2025 site's dependency):
+
+```
+ISC License
+
+Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+```
 
 ## Font (SIL Open Font License 1.1)
 

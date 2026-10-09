@@ -1,0 +1,43 @@
+---
+/** Our mission (wiki: site/structure.md § About us 2): one sentence, then coaching, affordability, sustainability. */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import FeatureCard from "~/components/ui/FeatureCard.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { getI18n } from "~/lib/i18n";
+import { MISSION } from "~/lib/meta";
+
+const locale = Astro.locals.locale;
+const cards = [
+  {
+    icon: "book-open-check",
+    title: t`Coaching`,
+    text: t`Our youth educators offer personalized coaching to help residents find jobs, training, return to school or help with their initiatives!`,
+  },
+  {
+    icon: "piggy-bank",
+    title: t`Affordability`,
+    text: t`Providing affordable housing, we help youth to find a place which they can actually afford, right here in Luxembourg.`,
+  },
+  {
+    icon: "armchair",
+    title: t`Sustainability`,
+    text: t`Sustainable living — our homes are furnished with high-quality second-hand items, proving that eco-conscious choices are both affordable and beautiful.`,
+  },
+] as const;
+---
+
+<Section id="our-mission" labelledby="our-mission-title">
+  <SectionHeader id="our-mission-title" title={t`Our mission`}>
+    <WordFade duration={0.65} text={getI18n(locale)._(MISSION)} />
+  </SectionHeader>
+  <ul class="feature-cards" role="list">
+    {cards.map((card, index) => (
+      <FeatureCard icon={card.icon} title={card.title} index={index}>
+        {card.text}
+      </FeatureCard>
+    ))}
+  </ul>
+</Section>

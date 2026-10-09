@@ -1,0 +1,344 @@
+---
+/**
+ * Outline icons from Lucide 0.525.0 (ISC; THIRD_PARTY_NOTICES.md), the 2025 site's icon set. The shapes are copied
+ * mechanically from lucide-react's icon nodes; 24 px, stroke 2, currentColor (wiki: design/design.md § Imagery).
+ * Decorative: the link or button carries the visible label.
+ */
+interface Props {
+  name:
+    | "mail"
+    | "phone"
+    | "map-pin"
+    | "copy"
+    | "check"
+    | "hand-coins"
+    | "dollar-sign"
+    | "heart-handshake"
+    | "land-plot"
+    | "brush-cleaning"
+    | "book-open-check"
+    | "piggy-bank"
+    | "armchair"
+    | "arrow-left"
+    | "arrow-right";
+  size?: number;
+  class?: string;
+}
+
+const NODES = {
+  mail: [
+    [
+      "path",
+      {
+        d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7",
+      },
+    ],
+    [
+      "rect",
+      {
+        x: "2",
+        y: "4",
+        width: "20",
+        height: "16",
+        rx: "2",
+      },
+    ],
+  ],
+  phone: [
+    [
+      "path",
+      {
+        d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
+      },
+    ],
+  ],
+  "map-pin": [
+    [
+      "path",
+      {
+        d: "M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0",
+      },
+    ],
+    [
+      "circle",
+      {
+        cx: "12",
+        cy: "10",
+        r: "3",
+      },
+    ],
+  ],
+  copy: [
+    [
+      "rect",
+      {
+        width: "14",
+        height: "14",
+        x: "8",
+        y: "8",
+        rx: "2",
+        ry: "2",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2",
+      },
+    ],
+  ],
+  check: [
+    [
+      "path",
+      {
+        d: "M20 6 9 17l-5-5",
+      },
+    ],
+  ],
+  "hand-coins": [
+    [
+      "path",
+      {
+        d: "M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m2 16 6 6",
+      },
+    ],
+    [
+      "circle",
+      {
+        cx: "16",
+        cy: "9",
+        r: "2.9",
+      },
+    ],
+    [
+      "circle",
+      {
+        cx: "6",
+        cy: "5",
+        r: "3",
+      },
+    ],
+  ],
+  "dollar-sign": [
+    [
+      "line",
+      {
+        x1: "12",
+        x2: "12",
+        y1: "2",
+        y2: "22",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
+      },
+    ],
+  ],
+  "heart-handshake": [
+    [
+      "path",
+      {
+        d: "M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m18 15-2-2",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m15 18-2-2",
+      },
+    ],
+  ],
+  "land-plot": [
+    [
+      "path",
+      {
+        d: "m12 8 6-3-6-3v10",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m8 11.99-5.5 3.14a1 1 0 0 0 0 1.74l8.5 4.86a2 2 0 0 0 2 0l8.5-4.86a1 1 0 0 0 0-1.74L16 12",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m6.49 12.85 11.02 6.3",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M17.51 12.85 6.5 19.15",
+      },
+    ],
+  ],
+  "brush-cleaning": [
+    [
+      "path",
+      {
+        d: "m16 22-1-4",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M19 13.99a1 1 0 0 0 1-1V12a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v.99a1 1 0 0 0 1 1",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M5 14h14l1.973 6.767A1 1 0 0 1 20 22H4a1 1 0 0 1-.973-1.233z",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m8 22 1-4",
+      },
+    ],
+  ],
+  "book-open-check": [
+    [
+      "path",
+      {
+        d: "M12 21V7",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m16 12 2 2 4-4",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M22 6V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4 4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6a1 1 0 0 0 1-1v-1.3",
+      },
+    ],
+  ],
+  "piggy-bank": [
+    [
+      "path",
+      {
+        d: "M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M16 10h.01",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M2 8v1a2 2 0 0 0 2 2h1",
+      },
+    ],
+  ],
+  armchair: [
+    [
+      "path",
+      {
+        d: "M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M5 18v2",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M19 18v2",
+      },
+    ],
+  ],
+  "arrow-left": [
+    [
+      "path",
+      {
+        d: "m12 19-7-7 7-7",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "M19 12H5",
+      },
+    ],
+  ],
+  "arrow-right": [
+    [
+      "path",
+      {
+        d: "M5 12h14",
+      },
+    ],
+    [
+      "path",
+      {
+        d: "m12 5 7 7-7 7",
+      },
+    ],
+  ],
+} as const;
+const { name, size = 24, class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {NODES[name].map(([Tag, attrs]) => (
+    <Tag {...attrs} />
+  ))}
+</svg>

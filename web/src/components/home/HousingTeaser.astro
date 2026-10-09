@@ -1,0 +1,33 @@
+---
+/**
+ * Looking for housing? (wiki: site/structure.md § Home 4): furnished rooms, the quick form; "Learn more" → the housing
+ * page (secondary), "Apply now" → the Google Form (primary, new tab). The 3D wardrobe beside it arrives with the home
+ * slice; until then the header is centred.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { ORGANISATION } from "~/data/organisation";
+import { pathTo } from "~/lib/routes";
+
+const locale = Astro.locals.locale;
+---
+
+<Section id="looking-for-housing" labelledby="looking-for-housing-title">
+  <SectionHeader id="looking-for-housing-title" title={t`Looking for housing?`}>
+    <div class="flex flex-col gap-2">
+      <WordFade
+        duration={0.65}
+        text={t`We provide fully furnished rooms in shared homes — with support, coaching, and a safe environment. Are you a young person in Luxembourg looking for housing?`}
+      />
+      <WordFade duration={0.65} text={t`Complete our quick form and we'll contact you as soon as a place becomes available.`} />
+    </div>
+    <div slot="actions" data-inview="fade" class="flex flex-wrap justify-center gap-4">
+      <ButtonLink href={pathTo(locale, "housing")} secondary>{t`Learn more`}</ButtonLink>
+      <ButtonLink href={ORGANISATION.links.applyForHousing} external>{t`Apply now`}</ButtonLink>
+    </div>
+  </SectionHeader>
+</Section>

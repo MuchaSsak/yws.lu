@@ -17,6 +17,35 @@ msgstr "(opens in a new tab)"
 msgid "A Luxembourg non-profit (ASBL) with Gestion Locative Sociale (GLS) status, working with the Ministry of Housing to solve the youth housing crisis."
 msgstr "A Luxembourg non-profit (ASBL) with Gestion Locative Sociale (GLS) status, working with the Ministry of Housing to solve the youth housing crisis."
 
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a beige bungalow at the end of a paved driveway"
+msgstr "A YWS shared house in Luxembourg: a beige bungalow at the end of a paved driveway"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a grey three-storey town house with white window surrounds"
+msgstr "A YWS shared house in Luxembourg: a grey three-storey town house with white window surrounds"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a modern white villa with wide windows above garden steps"
+msgstr "A YWS shared house in Luxembourg: a modern white villa with wide windows above garden steps"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a narrow sandstone town house with carved window frames"
+msgstr "A YWS shared house in Luxembourg: a narrow sandstone town house with carved window frames"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a three-storey corner building with a café on the ground floor"
+msgstr "A YWS shared house in Luxembourg: a three-storey corner building with a café on the ground floor"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a white detached house among fields, seen from above"
+msgstr "A YWS shared house in Luxembourg: a white detached house among fields, seen from above"
+
+#: src/data/houses.ts
+msgid "A YWS shared house in Luxembourg: a white house with a dark tiled roof, a lawn and a fir tree"
+msgstr "A YWS shared house in Luxembourg: a white house with a dark tiled roof, a lawn and a fir tree"
+
+#: src/components/about/AboutHero.astro
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
 msgid "About us"
@@ -26,6 +55,10 @@ msgstr "About us"
 msgctxt "page title"
 msgid "About us: our mission and real impact"
 msgstr "About us: our mission and real impact"
+
+#: src/components/about/OurMission.astro
+msgid "Affordability"
+msgstr "Affordability"
 
 #: src/components/housing/HowItWorks.astro
 msgid "After the interviews, our team carefully reviews all applications and selects candidates based on key criteria like urgency, motivation, and readiness for communal living."
@@ -43,6 +76,10 @@ msgstr "Aged 18–34 and need stable, affordable housing in Luxembourg? Fully fu
 msgid "All rights reserved"
 msgstr "All rights reserved"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "All tenants are monitored and supported by trained social workers throughout the lease. If any issue arises, our professional team intervenes directly."
+msgstr "All tenants are monitored and supported by trained social workers throughout the lease. If any issue arises, our professional team intervenes directly."
+
 #: src/components/home/PartnerStrip.astro
 msgid "André Losch Fondation"
 msgstr "André Losch Fondation"
@@ -57,16 +94,24 @@ msgstr "Apply"
 msgid "Apply for housing"
 msgstr "Apply for housing"
 
+#: src/components/home/HousingTeaser.astro
 #: src/components/housing/HousingHero.astro
 #: src/components/housing/WhoGetsPriority.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Apply now"
 msgstr "Apply now"
 
 #: src/components/housing/HousingHero.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Are you between 18 and 34 and in need of stable, affordable housing in Luxembourg?"
 msgstr "Are you between 18 and 34 and in need of stable, affordable housing in Luxembourg?"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "As a landlord, you benefit from a 90% tax exemption on net rental income. This significantly offsets the fact that the rent is typically 30–40% lower than private market rates."
+msgstr "As a landlord, you benefit from a 90% tax exemption on net rental income. This significantly offsets the fact that the rent is typically 30–40% lower than private market rates."
+
 #: src/components/home/HomeHero.astro
+#: src/pages/[locale]/specimen.astro
 msgid "better future"
 msgstr "better future"
 
@@ -74,6 +119,14 @@ msgstr "better future"
 msgctxt "credits: <title> by <author>"
 msgid "by"
 msgstr "by"
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "By signing a lease with our certified organization, you receive guaranteed rent every month, no exceptions — even if the property is temporarily vacant."
+msgstr "By signing a lease with our certified organization, you receive guaranteed rent every month, no exceptions — even if the property is temporarily vacant."
+
+#: src/components/owners/OwnersHero.astro
+msgid "By working with us, you're not only helping build someone's future — you also enjoy a reliable, worry-free rental experience."
+msgstr "By working with us, you're not only helping build someone's future — you also enjoy a reliable, worry-free rental experience."
 
 #: src/components/layout/SiteHeader.astro
 msgid "Call us"
@@ -83,6 +136,15 @@ msgstr "Call us"
 msgid "Cheers to them!"
 msgstr "Cheers to them!"
 
+#: src/components/about/OurMission.astro
+msgid "Coaching"
+msgstr "Coaching"
+
+#: src/components/home/HousingTeaser.astro
+msgid "Complete our quick form and we'll contact you as soon as a place becomes available."
+msgstr "Complete our quick form and we'll contact you as soon as a place becomes available."
+
+#: src/components/home/ContactSection.astro
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
 #: src/lib/not-found.ts
@@ -94,6 +156,7 @@ msgid "Credits 💖"
 msgstr "Credits 💖"
 
 #: src/components/housing/HowItWorks.astro
+#: src/pages/[locale]/specimen.astro
 msgid "During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you."
 msgstr "During your appointment, we'll go into more detail and assess whether one of our houses could be a good fit for you."
 
@@ -109,12 +172,21 @@ msgstr "Fill Out the Form"
 msgid "Gestion locative sociale"
 msgstr "Gestion locative sociale"
 
+#: src/components/owners/OwnersContact.astro
+msgid "Get in touch directly. We'd love to hear from you."
+msgstr "Get in touch directly. We'd love to hear from you."
+
 #: src/components/home/HomeHero.astro
 msgid "Give youth a chance for a"
 msgstr "Give youth a chance for a"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "Guaranteed Rent"
+msgstr "Guaranteed Rent"
+
 #: src/components/housing/HowItWorks.astro
 #: src/components/layout/SiteFooter.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Here's how it works"
 msgstr "Here's how it works"
 
@@ -126,6 +198,14 @@ msgstr "Homepage"
 msgid "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
 msgstr "How Youth Work Synergy ASBL handles personal data when you visit this website or contact us, and how to exercise your rights under the GDPR."
 
+#: src/components/about/AboutHero.astro
+msgid "In Luxembourg, hundreds of young people are struggling to find a place to live. Rents are high, requirements are strict, and for many aged 18–34, securing housing without family support is simply out of reach. That's where we come in."
+msgstr "In Luxembourg, hundreds of young people are struggling to find a place to live. Rents are high, requirements are strict, and for many aged 18–34, securing housing without family support is simply out of reach. That's where we come in."
+
+#: src/components/owners/OwnersContact.astro
+msgid "Interested in renting your property to us?"
+msgstr "Interested in renting your property to us?"
+
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
 msgid "Language"
@@ -136,6 +216,9 @@ msgid "Lead Developer"
 msgstr "Lead Developer"
 
 #: src/components/home/HomeHero.astro
+#: src/components/home/HousingTeaser.astro
+#: src/components/home/WhoWeAre.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Learn more"
 msgstr "Learn more"
 
@@ -161,13 +244,19 @@ msgstr "Let's Talk"
 msgid "Looking for housing"
 msgstr "Looking for housing"
 
+#: src/components/home/HousingTeaser.astro
 #: src/components/housing/HousingHero.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Looking for housing?"
 msgstr "Looking for housing?"
 
 #: src/components/layout/SiteHeader.astro
 msgid "Main"
 msgstr "Main"
+
+#: src/components/home/ContactSection.astro
+msgid "Map: {address}"
+msgstr "Map: {address}"
 
 #: src/components/layout/SiteHeader.astro
 msgid "Menu"
@@ -186,22 +275,48 @@ msgctxt "credits: the model was changed"
 msgid "modified (optimised for the web)"
 msgstr "modified (optimised for the web)"
 
+#: src/components/about/RealImpact.astro
+msgid "Next picture"
+msgstr "Next picture"
+
 #: src/components/layout/SiteFooter.astro
 msgctxt "footer address label"
 msgid "Office"
 msgstr "Office"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "Ongoing Tenant Support"
+msgstr "Ongoing Tenant Support"
+
+#: src/components/home/ContactSection.astro
 #: src/components/layout/SiteFooter.astro
 msgid "Open in Google Maps"
 msgstr "Open in Google Maps"
+
+#: src/components/owners/OwnersHero.astro
+msgid "Our goal is to offer safe, affordable housing to young people in need, and we do it in partnership with property owners like you."
+msgstr "Our goal is to offer safe, affordable housing to young people in need, and we do it in partnership with property owners like you."
+
+#: src/components/about/OurMission.astro
+msgid "Our mission"
+msgstr "Our mission"
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "Our partner organizations have technical teams that perform regular checkups and small maintenance tasks to ensure your property is well maintained at all times."
+msgstr "Our partner organizations have technical teams that perform regular checkups and small maintenance tasks to ensure your property is well maintained at all times."
 
 #: src/components/home/PartnerStrip.astro
 msgid "Our partners"
 msgstr "Our partners"
 
 #: src/components/housing/HowItWorks.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Our Selection Process"
 msgstr "Our Selection Process"
+
+#: src/components/about/OurMission.astro
+msgid "Our youth educators offer personalized coaching to help residents find jobs, training, return to school or help with their initiatives!"
+msgstr "Our youth educators offer personalized coaching to help residents find jobs, training, return to school or help with their initiatives!"
 
 #: src/lib/not-found.ts
 msgctxt "404 heading"
@@ -213,8 +328,17 @@ msgid "Partnering with us means doing good and making a smart financial choice �
 msgstr "Partnering with us means doing good and making a smart financial choice — including up to 90% tax exemption on your net rental income and other benefits."
 
 #: src/components/housing/HowItWorks.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Personal Interview"
 msgstr "Personal Interview"
+
+#: src/components/about/RealImpact.astro
+msgid "Pictures of our shared houses"
+msgstr "Pictures of our shared houses"
+
+#: src/components/about/RealImpact.astro
+msgid "Previous picture"
+msgstr "Previous picture"
 
 #: src/components/layout/SiteFooter.astro
 msgid "Privacy policy"
@@ -226,10 +350,24 @@ msgid "Privacy policy"
 msgstr "Privacy policy"
 
 #: src/components/home/HomeHero.astro
+#: src/pages/[locale]/specimen.astro
 msgctxt "Rent out your [property]"
 msgid "property"
 msgstr "property"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "Property Flexibility"
+msgstr "Property Flexibility"
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "Property Maintenance"
+msgstr "Property Maintenance"
+
+#: src/components/about/OurMission.astro
+msgid "Providing affordable housing, we help youth to find a place which they can actually afford, right here in Luxembourg."
+msgstr "Providing affordable housing, we help youth to find a place which they can actually afford, right here in Luxembourg."
+
+#: src/components/about/RealImpact.astro
 #: src/components/layout/SiteFooter.astro
 msgid "Real impact"
 msgstr "Real impact"
@@ -240,12 +378,17 @@ msgid "Registered office (postal address)"
 msgstr "Registered office (postal address)"
 
 #: src/components/home/HomeHero.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Rent out"
 msgstr "Rent out"
 
 #: src/components/layout/SiteFooter.astro
 msgid "Rent Out Your Property"
 msgstr "Rent Out Your Property"
+
+#: src/components/about/AboutHero.astro
+msgid "Rent out your property — Give youth a chance for a better future"
+msgstr "Rent out your property — Give youth a chance for a better future"
 
 #: src/lib/meta.ts
 msgctxt "page title"
@@ -259,20 +402,63 @@ msgstr "Rent your house, apartment or room to Youth Work Synergy: guaranteed ren
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
 #: src/lib/not-found.ts
+#: src/pages/[locale]/specimen.astro
 msgid "Rent your property"
 msgstr "Rent your property"
+
+#: src/components/owners/OwnersHero.astro
+msgid "Rent your property with confidence:"
+msgstr "Rent your property with confidence:"
+
+#: src/components/owners/OwnersContact.astro
+msgctxt "email subject"
+msgid "Renting my property"
+msgstr "Renting my property"
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
+msgstr "Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose."
+
+#: src/components/owners/OwnersHero.astro
+msgid "safe, reliable & impactful"
+msgstr "safe, reliable & impactful"
 
 #: src/components/layout/CreditsDialog.astro
 msgid "See credits"
 msgstr "See credits"
+
+#: src/components/home/ProjectsTeaser.astro
+msgid "See for yourself"
+msgstr "See for yourself"
+
+#: src/components/home/ContactSection.astro
+msgid "Show map"
+msgstr "Show map"
+
+#: src/components/about/RealImpact.astro
+msgid "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
+msgstr "Since 2023, we've already opened {sharedHouses} shared houses across the country — providing stable homes for over {youngPeopleHoused} young people. But demand is growing fast, and with over {waitingList} requests on our waiting list, we're ready to do more — with your help."
 
 #: src/layouts/BaseLayout.astro
 msgid "Skip to content"
 msgstr "Skip to content"
 
 #: src/components/housing/HowItWorks.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Start by completing a short application form. This helps us understand your situation and what kind of housing you need."
 msgstr "Start by completing a short application form. This helps us understand your situation and what kind of housing you need."
+
+#: src/components/about/OurMission.astro
+msgid "Sustainability"
+msgstr "Sustainability"
+
+#: src/components/about/OurMission.astro
+msgid "Sustainable living — our homes are furnished with high-quality second-hand items, proving that eco-conscious choices are both affordable and beautiful."
+msgstr "Sustainable living — our homes are furnished with high-quality second-hand items, proving that eco-conscious choices are both affordable and beautiful."
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "Tax Benefits"
+msgstr "Tax Benefits"
 
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
@@ -288,26 +474,60 @@ msgstr "TEC conference: Much More Than a Method"
 msgid "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
 msgstr "The closing conference of V – Comprehensive Guide to Best Practices in Mobile Learning for Adults took place online on 9 April 2026. See tecpractices.eu."
 
+#: src/components/home/ContactSection.astro
+msgid "The map loads from Google Maps when you ask for it."
+msgstr "The map loads from Google Maps when you ask for it."
+
+#: src/components/home/ProjectsTeaser.astro
+msgid "The young people living in our houses don't just find a place to live — they find space to grow."
+msgstr "The young people living in our houses don't just find a place to live — they find space to grow."
+
+#: src/components/about/AboutHero.astro
+msgid "The Youth Work Synergy group, about twenty people cheering outdoors"
+msgstr "The Youth Work Synergy group, about twenty people cheering outdoors"
+
 #: src/lib/not-found.ts
 msgctxt "404 lead"
 msgid "This page does not exist or has moved."
 msgstr "This page does not exist or has moved."
 
+#: src/components/about/AboutHero.astro
 #: src/components/home/HomeHero.astro
 msgid "Turn your property into a home for young people in Luxembourg."
 msgstr "Turn your property into a home for young people in Luxembourg."
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "We also ensure full insurance coverage against unexpected events and take full responsibility for maintenance and tenant supervision."
+msgstr "We also ensure full insurance coverage against unexpected events and take full responsibility for maintenance and tenant supervision."
+
+#: src/components/about/AboutHero.astro
+msgid "We are a Luxembourg-based non-profit (ASBL) with GLS (Gestion Locative Sociale) status, working in collaboration with the Ministry of Housing to solve the youth housing crisis."
+msgstr "We are a Luxembourg-based non-profit (ASBL) with GLS (Gestion Locative Sociale) status, working in collaboration with the Ministry of Housing to solve the youth housing crisis."
+
 #: src/components/home/HomeHero.astro
 msgid "We are a trusted Luxembourg-based non-profit (ASBL) working in collaboration with the Ministry of Housing."
 msgstr "We are a trusted Luxembourg-based non-profit (ASBL) working in collaboration with the Ministry of Housing."
+
+#: src/components/owners/OwnersHero.astro
+msgid "We are always looking to rent any type of residential property — whether it's a house, apartment, or individual room."
+msgstr "We are always looking to rent any type of residential property — whether it's a house, apartment, or individual room."
 
 #: src/lib/meta.ts
 msgid "We help young people transition into independent, fulfilling lives by combining access to housing with educational and emotional support."
 msgstr "We help young people transition into independent, fulfilling lives by combining access to housing with educational and emotional support."
 
 #: src/components/housing/WhoGetsPriority.astro
+#: src/pages/[locale]/specimen.astro
 msgid "We prioritize young people in urgent situations — like eviction or sudden loss of income. We also check for basic financial stability to ensure long-term housing. We aim to create a respectful and balanced living environment, including gender diversity when possible. Due to high demand and limited space, we can't help everyone right away — but we review each request with care and responsibility."
 msgstr "We prioritize young people in urgent situations — like eviction or sudden loss of income. We also check for basic financial stability to ensure long-term housing. We aim to create a respectful and balanced living environment, including gender diversity when possible. Due to high demand and limited space, we can't help everyone right away — but we review each request with care and responsibility."
+
+#: src/components/home/HousingTeaser.astro
+msgid "We provide fully furnished rooms in shared homes — with support, coaching, and a safe environment. Are you a young person in Luxembourg looking for housing?"
+msgstr "We provide fully furnished rooms in shared homes — with support, coaching, and a safe environment. Are you a young person in Luxembourg looking for housing?"
+
+#: src/components/home/WhoWeAre.astro
+msgid "We rent houses from private owners and sublet rooms for young tenants — while providing them with educational support and guidance toward independence."
+msgstr "We rent houses from private owners and sublet rooms for young tenants — while providing them with educational support and guidance toward independence."
 
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
@@ -319,6 +539,18 @@ msgctxt "page title"
 msgid "We Spark Projects: youth-led projects"
 msgstr "We Spark Projects: youth-led projects"
 
+#: src/components/home/ProjectsTeaser.astro
+msgid "We support residents in developing and running their own social, cultural, or educational projects. With our professional guidance and encouragement these initiatives reflect their creativity, resilience and drive to make a difference."
+msgstr "We support residents in developing and running their own social, cultural, or educational projects. With our professional guidance and encouragement these initiatives reflect their creativity, resilience and drive to make a difference."
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "We take care of your property — from renovation to insurance."
+msgstr "We take care of your property — from renovation to insurance."
+
+#: src/components/about/AboutHero.astro
+msgid "We turn empty houses into real homes — and change lives in the process."
+msgstr "We turn empty houses into real homes — and change lives in the process."
+
 #: src/components/housing/HousingHero.astro
 msgid "We're here to help"
 msgstr "We're here to help"
@@ -328,28 +560,44 @@ msgctxt "404 links heading"
 msgid "Where to go from here:"
 msgstr "Where to go from here:"
 
+#: src/components/owners/WhyRentToUs.astro
+msgid "Whether your house needs light repairs or full renovation, we can manage the work professionally and at fair cost, always with your agreement. We prepare each property for sale, long-term use and fully furnish it."
+msgstr "Whether your house needs light repairs or full renovation, we can manage the work professionally and at fair cost, always with your agreement. We prepare each property for sale, long-term use and fully furnish it."
+
 #: src/components/housing/WhoGetsPriority.astro
 #: src/components/layout/SiteFooter.astro
+#: src/pages/[locale]/specimen.astro
 msgid "Who Gets Priority?"
 msgstr "Who Gets Priority?"
 
+#: src/components/home/WhoWeAre.astro
 #: src/components/layout/SiteFooter.astro
 msgid "Who we are"
 msgstr "Who we are"
 
 #: src/components/layout/SiteFooter.astro
+#: src/components/owners/WhyRentToUs.astro
 msgid "Why Rent to Us?"
 msgstr "Why Rent to Us?"
 
 #: src/components/home/HomeHero.astro
+#: src/pages/[locale]/specimen.astro
 msgctxt "Rent out [your] property"
 msgid "your"
 msgstr "your"
+
+#: src/components/owners/WhyRentToUs.astro
+msgid "Your property remains available to you and your family. If you ever need to reclaim it for personal use, we will handle the relocation of the current occupants swiftly and respectfully."
+msgstr "Your property remains available to you and your family. If you ever need to reclaim it for personal use, we will handle the relocation of the current occupants swiftly and respectfully."
 
 #: src/lib/meta.ts
 msgctxt "page title"
 msgid "Youth housing in Luxembourg, ages 18–34"
 msgstr "Youth housing in Luxembourg, ages 18–34"
+
+#: src/components/home/WhoWeAre.astro
+msgid "Youth Work Synergy (YWS) is a local non-profit dedicated to tackling the housing crisis by offering affordable and stable coliving spaces for young people aged 18–34."
+msgstr "Youth Work Synergy (YWS) is a local non-profit dedicated to tackling the housing crisis by offering affordable and stable coliving spaces for young people aged 18–34."
 
 #: src/lib/meta.ts
 msgid "Youth Work Synergy (YWS) is a Luxembourg non-profit: we rent homes from private owners and offer young people aged 18–34 affordable, stable coliving."
@@ -363,3 +611,7 @@ msgstr "Youth Work Synergy | Homes for young people in Luxembourg"
 #: src/lib/meta.ts
 msgid "Youth-led projects we support: a housing workshop, a documentary on the housing crisis, Erasmus+ and European Solidarity Corps projects."
 msgstr "Youth-led projects we support: a housing workshop, a documentary on the housing crisis, Erasmus+ and European Solidarity Corps projects."
+
+#: src/components/home/ProjectsTeaser.astro
+msgid "Youth-Led Projects!"
+msgstr "Youth-Led Projects!"

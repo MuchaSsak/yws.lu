@@ -1,0 +1,73 @@
+---
+/**
+ * A feature card (wiki: design/design.md § Components: the 2025 GlareCard look, rewritten as own code, Q23): 3 rem
+ * radius, 64 px ink-orange icon, centred title (h3) and text, a faint glass fill over the page glow. Cards rise into
+ * view one after another (`index` staggers them, 125 ms apart as in 2025). Static: the 2025 tilt and foil are a
+ * hover-only layer, a proposal for later. Put cards in a `<ul class="feature-cards">`.
+ */
+import Icon from "~/components/ui/Icon.astro";
+
+interface Props {
+  icon:
+    | "hand-coins"
+    | "dollar-sign"
+    | "heart-handshake"
+    | "land-plot"
+    | "brush-cleaning"
+    | "book-open-check"
+    | "piggy-bank"
+    | "armchair";
+  title: string;
+  index?: number;
+}
+
+const { icon, title, index = 0 } = Astro.props;
+---
+
+<li class="feature-card" data-inview="rise" style={`--i: ${index}`}>
+  <Icon name={icon} size={64} class="text-ink-orange" />
+  <h3 class="feature-card-title">{title}</h3>
+  <p class="feature-card-text">
+    <slot />
+  </p>
+</li>
+
+<style>
+  .feature-card {
+    display: flex;
+    flex: 0 1 20rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: calc(20rem * 21 / 17);
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-feature);
+    background: rgb(255 255 255 / 0.15);
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1));
+    text-align: center;
+    /* The rise (global.css § Fade in) and the hover border share one transition list. */
+    transition:
+      border-color var(--dur-2) var(--ease-out),
+      transform var(--dur-4) var(--ease-in-out) calc(var(--i, 0) * 125ms);
+  }
+  .feature-card:hover {
+    border-color: var(--color-primary);
+  }
+  .feature-card-title {
+    padding-bottom: 0.375rem;
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    font-weight: 600;
+  }
+  .feature-card-text {
+    font-weight: 500;
+  }
+  :global(.feature-cards) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-top: 3rem;
+  }
+</style>

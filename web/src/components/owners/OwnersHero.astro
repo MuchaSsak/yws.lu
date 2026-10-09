@@ -1,0 +1,74 @@
+---
+/**
+ * Rent your property, the hero (wiki: site/structure.md § Rent your property 1): the H1 with the orange highlight on
+ * "safe, reliable & impactful" and three lines, each sweeping in behind the reveal box as in 2025. The 2025 background
+ * lines (Aceternity, rewritten as own code, Q23) come with the owners slice.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import Reveal from "~/components/effects/Reveal.astro";
+---
+
+<section class="owners-hero px-side">
+  <div class="flex flex-col items-center text-center">
+    <Reveal duration={0.5}>
+      <h1 class="owners-title">
+        <span>{t`Rent your property with confidence:`}</span>{" "}
+        <span class="highlight font-bold italic">{t`safe, reliable & impactful`}</span>
+      </h1>
+    </Reveal>
+    <div class="owners-lede">
+      <Reveal rise duration={0.5}>
+        <p>{t`We are always looking to rent any type of residential property — whether it's a house, apartment, or individual room.`}</p>
+      </Reveal>
+      <Reveal rise duration={0.6}>
+        <p>{t`Our goal is to offer safe, affordable housing to young people in need, and we do it in partnership with property owners like you.`}</p>
+      </Reveal>
+      <Reveal rise duration={0.7}>
+        <p>{t`By working with us, you're not only helping build someone's future — you also enjoy a reliable, worry-free rental experience.`}</p>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The 2025 hero: at least one screen tall, 144 px from the top on phones, 192 from 768, 256 from 1280; 600 weight,
+     tight tracking. */
+  .owners-hero {
+    min-height: 100svh;
+    padding-top: 9rem;
+  }
+  @media (min-width: 768px) {
+    .owners-hero {
+      padding-top: 12rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .owners-hero {
+      padding-top: 16rem;
+    }
+  }
+  .owners-title {
+    font-size: var(--text-h2);
+    line-height: 3.5rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  @media (min-width: 640px) {
+    .owners-title {
+      line-height: 5rem;
+    }
+  }
+  .owners-lede {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: var(--measure);
+    padding-block: 2rem;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    text-wrap: balance;
+  }
+</style>

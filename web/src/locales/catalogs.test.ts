@@ -55,6 +55,11 @@ describe("catalogs", () => {
         const plain = [...target.values()].filter((entry) => / [:;!?»%]|« /.test(entry.str)).map((entry) => entry.str);
         expect(plain).toEqual([]);
       });
+    if (locale === "fr")
+      it("fr uses the typographic apostrophe (’) between letters (site/i18n.md § Formatting)", () => {
+        const straight = [...target.values()].filter((entry) => /\p{L}'\p{L}/u.test(entry.str)).map((entry) => entry.str);
+        expect(straight).toEqual([]);
+      });
     it(`${locale} keeps every placeholder and tag`, () => {
       const broken = source
         .filter((entry) => {

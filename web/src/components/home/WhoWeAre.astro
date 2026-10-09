@@ -1,0 +1,171 @@
+---
+/**
+ * Who we are (wiki: site/structure.md § Home 3): two sentences and a link to About us, inside the warp tunnel (adapted
+ * from Magic UI's WarpBackground, MIT; THIRD_PARTY_NOTICES.md): four grid planes in perspective with coloured beams
+ * sliding along them, CSS only. Beam positions, hues and delays are fixed at build time (a seeded generator), so every
+ * build and screenshot is the same. The beams run only while the tunnel is near the viewport (src/scripts/inview.ts,
+ * `data-loop`) and not at all under reduced motion; the grid stays.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { pathTo } from "~/lib/routes";
+
+const locale = Astro.locals.locale;
+
+// The 2025 settings: 2 beams per side, beam 2.5 % wide, 5 s per pass, delays 0–3 s, hue 0–360, aspect 1:1–1:10.
+const BEAMS_PER_SIDE = 2;
+const BEAM_SIZE = 2.5;
+let seed = 0x2f6b7e1d;
+const random = () => {
+  seed = (seed + 0x6d2b79f5) | 0;
+  let value = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
+  return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+};
+const step = Math.floor(100 / BEAM_SIZE) / BEAMS_PER_SIDE;
+const sides = (["top", "bottom", "left", "right"] as const).map((side) => ({
+  side,
+  beams: Array.from({ length: BEAMS_PER_SIDE }, (_, index) => ({
+    x: `${Math.floor(index * step) * BEAM_SIZE}%`,
+    delay: `${(random() * 3).toFixed(2)}s`,
+    hue: Math.floor(random() * 360),
+    aspect: Math.floor(random() * 10) + 1,
+  })),
+}));
+---
+
+<section id="who-we-are" aria-labelledby="who-we-are-title" class="who-we-are">
+  <div class="warp">
+    <div class="warp-tunnel" data-loop aria-hidden="true">
+      {sides.map(({ side, beams }) => (
+        <div class={`warp-side warp-${side}`}>
+          {beams.map((beam) => (
+            <span
+              class="warp-beam"
+              style={`--x: ${beam.x}; --delay: ${beam.delay}; --hue: ${beam.hue}; --aspect: ${beam.aspect}`}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="who-we-are-content px-side">
+      <SectionHeader id="who-we-are-title" title={t`Who we are`}>
+        <div class="flex flex-col gap-2">
+          <WordFade
+            duration={0.65}
+            text={t`Youth Work Synergy (YWS) is a local non-profit dedicated to tackling the housing crisis by offering affordable and stable coliving spaces for young people aged 18–34.`}
+          />
+          <WordFade
+            duration={0.65}
+            text={t`We rent houses from private owners and sublet rooms for young tenants — while providing them with educational support and guidance toward independence.`}
+          />
+        </div>
+        <div slot="actions" data-inview="fade">
+          <ButtonLink href={pathTo(locale, "about")}>{t`Learn more`}</ButtonLink>
+        </div>
+      </SectionHeader>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The 2025 box: 80 px of padding around the header (none on phones), 128 px under it, 24 px under the section. */
+  .who-we-are {
+    padding-bottom: 1.5rem;
+  }
+  .warp {
+    position: relative;
+  }
+  @media (min-width: 640px) {
+    .warp {
+      padding: 5rem;
+    }
+  }
+  .who-we-are-content {
+    position: relative;
+    padding-bottom: 8rem;
+  }
+  .warp-tunnel {
+    --beam-size: 2.5%;
+    --grid-color: #c8c8c8;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    clip-path: inset(0);
+    container-type: size;
+    perspective: 200px;
+    transform-style: preserve-3d;
+    pointer-events: none;
+    mask-image: radial-gradient(closest-side, #000 50%, transparent 100%);
+  }
+  .warp-side {
+    position: absolute;
+    container-type: inline-size;
+    height: 100cqmax;
+    transform-style: preserve-3d;
+    background:
+      linear-gradient(var(--grid-color) 0 1px, transparent 1px var(--beam-size)) 50% -0.5px / var(--beam-size) var(--beam-size),
+      linear-gradient(90deg, var(--grid-color) 0 1px, transparent 1px var(--beam-size)) 50% 50% / var(--beam-size)
+        var(--beam-size);
+  }
+  .warp-top {
+    z-index: 1;
+    width: 100cqi;
+    transform-origin: 50% 0%;
+    transform: rotateX(-90deg);
+  }
+  .warp-bottom {
+    top: 100%;
+    width: 100cqi;
+    transform-origin: 50% 0%;
+    transform: rotateX(-90deg);
+  }
+  .warp-left {
+    top: 0;
+    left: 0;
+    width: 100cqh;
+    transform-origin: 0% 0%;
+    transform: rotate(90deg) rotateX(-90deg);
+  }
+  .warp-right {
+    top: 0;
+    right: 0;
+    width: 100cqh;
+    transform-origin: 100% 0%;
+    transform: rotate(-90deg) rotateX(-90deg);
+  }
+  .warp-beam {
+    position: absolute;
+    top: 0;
+    left: var(--x);
+    width: var(--beam-size);
+    aspect-ratio: 1 / var(--aspect);
+    background: linear-gradient(hsl(var(--hue) 80% 60%), transparent);
+    transform: translate(-50%, 100cqmax);
+    animation-name: warp-beam;
+    animation-duration: 5s;
+    animation-delay: var(--delay);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+  }
+  .warp-tunnel.is-playing .warp-beam {
+    animation-play-state: running;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .warp-beam {
+      display: none;
+    }
+  }
+  @keyframes warp-beam {
+    from {
+      transform: translate(-50%, 100cqmax);
+    }
+    to {
+      transform: translate(-50%, -100%);
+    }
+  }
+</style>

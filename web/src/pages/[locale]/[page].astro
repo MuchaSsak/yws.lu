@@ -2,11 +2,16 @@
 /**
  * Every inner page, once per locale, from the one route map (wiki: site/i18n.md § URLs). The slug decides the
  * route id; the id decides the page content; title and description come from the metadata table (src/lib/meta.ts).
- * Spike scope: youth housing only.
  */
+import AboutHero from "~/components/about/AboutHero.astro";
+import OurMission from "~/components/about/OurMission.astro";
+import RealImpact from "~/components/about/RealImpact.astro";
 import HousingHero from "~/components/housing/HousingHero.astro";
 import HowItWorks from "~/components/housing/HowItWorks.astro";
 import WhoGetsPriority from "~/components/housing/WhoGetsPriority.astro";
+import OwnersContact from "~/components/owners/OwnersContact.astro";
+import OwnersHero from "~/components/owners/OwnersHero.astro";
+import WhyRentToUs from "~/components/owners/WhyRentToUs.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { pageStaticPaths, type RouteId } from "~/lib/routes";
 
@@ -21,6 +26,20 @@ const { id } = Astro.props as { id: RouteId };
       <HousingHero />
       <HowItWorks />
       <WhoGetsPriority />
+    </>
+  )}
+  {id === "owners" && (
+    <>
+      <OwnersHero />
+      <WhyRentToUs />
+      <OwnersContact />
+    </>
+  )}
+  {id === "about" && (
+    <>
+      <AboutHero />
+      <OurMission />
+      <RealImpact />
     </>
   )}
 </BaseLayout>

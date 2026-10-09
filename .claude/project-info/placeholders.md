@@ -36,6 +36,11 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | Footer legal row | Privacy policy · Legal notice | Politique de confidentialité · Mentions légales |
 | Credits dialog | by · modified (optimised for the web) · Lead Developer | par · modifié (optimisé pour le web) · Développeur principal (existing) |
 | Partner strip | Our partners · European Solidarity Corps · Ministry of Housing and Spatial Planning · Ministry of Justice · André Losch Fondation · Gestion locative sociale | Nos partenaires · Corps européen de solidarité · Ministère du Logement et de l’Aménagement du territoire · Ministère de la Justice · André Losch Fondation · Gestion locative sociale |
+| Home contact, office map (click to load) | Show map · The map loads from Google Maps when you ask for it. · Map: {address} (frame title) | Afficher la carte · La carte se charge depuis Google Maps à votre demande. · Carte : {address} |
+| Owners contact, email subject | Renting my property | Louer mon bien |
+| About us, gallery | Pictures of our shared houses · Previous picture · Next picture | Photos de nos colocations · Photo précédente · Photo suivante |
+| About us, group photo alt | The Youth Work Synergy group, about twenty people cheering outdoors | Le groupe Youth Work Synergy : une vingtaine de personnes, bras levés, en plein air |
+| About us, house pictures alt (7, `src/data/houses.ts`) | A YWS shared house in Luxembourg: \<what the photo shows\> (no village, Q40) | Une colocation YWS au Luxembourg : \<ce que montre la photo\> |
 
 ## French fixes (the client's French, corrected so it reads natural; listed, not silent) [user 2026-10-09]
 
@@ -52,7 +57,15 @@ Metadata (titles and descriptions, both locales): the table in `site/seo.md` § 
 | Partnering with us means… | Devenir partenaire avec nous, c’est… | Devenir notre partenaire, c’est… | « partenaire de », not « avec » |
 | We are a trusted… Ministry of Housing | …le Ministère du Logement. | …le ministère du Logement. | French capitalisation in running text |
 | We prioritize… including gender diversity when possible | …en incluant une diversité de genre lorsque cela est possible. | …en veillant à la mixité de genre lorsque c’est possible. | calque; « mixité » is the French term |
+| Rent out your property — **Give youth a chance for a better future** (About us) | — Donnez une chance à la jeunesse pour un avenir meilleur | — donnez aux jeunes la chance d’un avenir meilleur | calque, and no capital after the dash; same wording as the home fix |
+| We turn empty houses into real homes — and change lives **in the process** | …et changeons des vies en cours de route. | …et changeons des vies au passage. | « en cours de route » means "midway"; calque |
+| …for many aged 18–34… (About us) | pour beaucoup de 18 à 34 ans | pour beaucoup de jeunes de 18 à 34 ans | the noun was missing |
+| We are a Luxembourg-based non-profit (ASBL) with GLS… Ministry of Housing | …le Ministère du Logement… | …le ministère du Logement… | French capitalisation in running text |
+| We provide fully furnished rooms… with support, coaching, and a safe environment | du coaching, et un cadre sécurisé | du coaching et un cadre sécurisé | no serial comma before « et » in French |
+| Interested in renting your property to us? | Intéressé(e) à louer votre bien à notre organisation ? | Vous souhaitez nous louer votre bien ? | « intéressé à » is an anglicism; one natural question |
+| Property Flexibility · Property Maintenance (owners cards) | Flexibilité de la propriété · Entretien de la propriété | Flexibilité d’usage · Entretien du bien | « propriété » again (see the nav fix) |
 | every French string | plain space before `: ; ! ?` and `»` | no-break space (U+00A0) | French typography, whitespace only (`i18n.md` § Formatting) |
+| every French string | straight apostrophe (') between letters, mixed with ’ | typographic apostrophe (’) | one apostrophe style; `catalogs.test.ts` checks it |
 
 Kept as written (checked): « Postulez maintenant » (« postuler » is the usual verb for a colocation), « Voici comment
 cela fonctionne », « Qui sommes-nous », « À la recherche d’un logement », the mission line.
@@ -67,6 +80,7 @@ cela fonctionne », « Qui sommes-nous », « À la recherche d’un logement »
 
 ## English slips (fixed as their pages migrate, listed here) [user 2026-10-09]
 
-"aged 18 - 34" (elsewhere "18–34"); "as soon as place becomes available" (→ "a place"); "If any issue arrives" (→
-"arises"). "We prepare each property for sale, long-term use" ("sale" in a rental offer) waits for Q25: a meaning,
-not a grammar fix.
+Fixed in slice 0 (home, owners, about; the French was already right and is kept): "aged 18 - 34" → "aged 18–34"
+(home Who we are, About us hero); "as soon as place becomes available" → "a place"; "If any issue arrives" →
+"arises"; "30-40%" → "30–40%". Waiting: "We prepare each property for sale, long-term use" ("sale" in a rental
+offer) waits for Q25: a meaning, not a grammar fix.

@@ -1,0 +1,124 @@
+---
+/**
+ * Real impact (wiki: site/structure.md § About us 3, content/content-model.md § Statistics, § House pictures): the
+ * statistics sentence with the numbers from src/data/statistics.ts, then the house pictures as a scroll-snap gallery:
+ * swipe, scroll or the arrow buttons; no autoplay; every picture shown (2025 skipped the first). All static: numbers
+ * and pictures are in the HTML, no third-party request.
+ */
+import { Image } from "astro:assets";
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import Icon from "~/components/ui/Icon.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { HOUSE_PICTURES } from "~/data/houses";
+import { STATISTICS } from "~/data/statistics";
+import { getI18n } from "~/lib/i18n";
+
+const i18n = getI18n(Astro.locals.locale);
+const { sharedHouses, youngPeopleHoused, waitingList } = STATISTICS;
+const galleryLabel = t`Pictures of our shared houses`;
+const previous = t`Previous picture`;
+const next = t`Next picture`;
+---
+
+<Section id="real-impact" labelledby="real-impact-title">
+  <SectionHeader id="real-impact-title" title={t`Real impact`}>
+    <WordFade
+      duration={0.65}
+      text={t`Since 2023, we've already opened ${sharedHouses} shared houses across the country — providing stable homes for over ${youngPeopleHoused} young people. But demand is growing fast, and with over ${waitingList} requests on our waiting list, we're ready to do more — with your help.`}
+    />
+  </SectionHeader>
+  {HOUSE_PICTURES.length > 0 && (
+    <div class="gallery" role="region" aria-label={galleryLabel} data-gallery>
+      <ul class="gallery-track" role="list" tabindex="0">
+        {HOUSE_PICTURES.map((picture) => (
+          <li class="gallery-item">
+            <Image
+              src={picture.image}
+              alt={i18n._(picture.alt)}
+              widths={[400, 600, 800].filter((width) => width < picture.image.width).concat(picture.image.width)}
+              sizes="(min-width: 768px) 40rem, calc(100vw - 2rem)"
+              class="gallery-image"
+            />
+          </li>
+        ))}
+      </ul>
+      <div class="gallery-controls">
+        <button type="button" class="btn-icon" data-gallery-step="-1">
+          <Icon name="arrow-left" size={20} />
+          <span class="sr-only">{previous}</span>
+        </button>
+        <button type="button" class="btn-icon" data-gallery-step="1">
+          <Icon name="arrow-right" size={20} />
+          <span class="sr-only">{next}</span>
+        </button>
+      </div>
+    </div>
+  )}
+</Section>
+
+<script>
+  // The arrows scroll the track by one picture; swiping and the keyboard (the track is focusable) scroll it natively.
+  for (const gallery of document.querySelectorAll<HTMLElement>("[data-gallery]")) {
+    const track = gallery.querySelector<HTMLElement>(".gallery-track");
+    for (const button of gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-step]")) {
+      button.addEventListener("click", () => {
+        if (!track) return;
+        const step = Number(button.dataset.galleryStep);
+        const item = track.querySelector<HTMLElement>(".gallery-item");
+        const width = (item?.offsetWidth ?? track.clientWidth) + 16;
+        const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        const atStart = track.scrollLeft <= 4;
+        // Wraps round at either end, as the 2025 carousel looped.
+        if (step > 0 && atEnd) track.scrollTo({ left: 0 });
+        else if (step < 0 && atStart) track.scrollTo({ left: track.scrollWidth });
+        else track.scrollBy({ left: step * width });
+      });
+    }
+  }
+</script>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+  .gallery-track {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    border-radius: var(--radius-2xl);
+  }
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery-item {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+  .gallery-image {
+    display: block;
+    width: 100%;
+    height: 30rem;
+    object-fit: contain;
+  }
+  .gallery-controls {
+    display: flex;
+    gap: 1rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-track {
+      scroll-behavior: smooth;
+    }
+  }
+</style>

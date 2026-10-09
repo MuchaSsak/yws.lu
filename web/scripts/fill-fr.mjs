@@ -13,7 +13,8 @@
  * grammar or wording fix to the client's French lands (each one listed in placeholders.md).
  *
  * French spacing: every fr msgstr gets a no-break space (U+00A0) instead of a plain space before `: ; ! ?` and `»`,
- * after `«` and between a number and `%` (site/i18n.md § Formatting); catalogs.test.ts fails on a plain space there.
+ * after `«` and between a number and `%`, and the typographic apostrophe (’) between letters (site/i18n.md
+ * § Formatting); catalogs.test.ts fails on a plain space or a straight apostrophe there.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -98,12 +99,13 @@ for (const [key, lines] of enJsx) {
 
 const manual = existsSync(manualPath) ? JSON.parse(readFileSync(manualPath, "utf8")) : {};
 const unquote = (lines) => lines.map((line) => JSON.parse(line.replace(/^(msgid|msgstr|msgctxt) /, ""))).join("");
-/** French spacing (site/i18n.md § Formatting): whitespace only, never wording. */
+/** French typography (site/i18n.md § Formatting): spacing and the apostrophe (’) only, never wording. */
 const frenchSpacing = (text) =>
   text
     .replace(/ +([:;!?»])/g, " $1")
     .replace(/« +/g, "« ")
-    .replace(/(\d) +%/g, "$1 %");
+    .replace(/(\d) +%/g, "$1 %")
+    .replace(/(\p{L})'(\p{L})/gu, "$1’$2");
 
 const text = readFileSync(PO, "utf8").replace(/\r\n/g, "\n");
 let filled = 0;

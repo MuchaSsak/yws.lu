@@ -1,0 +1,67 @@
+---
+/**
+ * Why Rent to Us? (wiki: site/structure.md § Rent your property 2): four paragraphs, then the five benefits as feature
+ * cards. "90%" is the client's claim (open-questions Q17).
+ */
+import { t } from "lingui-for-astro/macro";
+
+import WordFade from "~/components/effects/WordFade.astro";
+import FeatureCard from "~/components/ui/FeatureCard.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+
+const cards = [
+  {
+    icon: "hand-coins",
+    title: t`Guaranteed Rent`,
+    text: t`By signing a lease with our certified organization, you receive guaranteed rent every month, no exceptions — even if the property is temporarily vacant.`,
+  },
+  {
+    icon: "dollar-sign",
+    title: t`Tax Benefits`,
+    text: t`As a landlord, you benefit from a 90% tax exemption on net rental income. This significantly offsets the fact that the rent is typically 30–40% lower than private market rates.`,
+  },
+  {
+    icon: "heart-handshake",
+    title: t`Ongoing Tenant Support`,
+    text: t`All tenants are monitored and supported by trained social workers throughout the lease. If any issue arises, our professional team intervenes directly.`,
+  },
+  {
+    icon: "land-plot",
+    title: t`Property Flexibility`,
+    text: t`Your property remains available to you and your family. If you ever need to reclaim it for personal use, we will handle the relocation of the current occupants swiftly and respectfully.`,
+  },
+  {
+    icon: "brush-cleaning",
+    title: t`Property Maintenance`,
+    text: t`Our partner organizations have technical teams that perform regular checkups and small maintenance tasks to ensure your property is well maintained at all times.`,
+  },
+] as const;
+---
+
+<Section id="why-rent-to-us" labelledby="why-rent-to-us-title">
+  <SectionHeader id="why-rent-to-us-title" title={t`Why Rent to Us?`}>
+    <div class="flex flex-col gap-2">
+      <WordFade duration={0.65} text={t`We take care of your property — from renovation to insurance.`} />
+      <WordFade
+        duration={0.65}
+        text={t`Whether your house needs light repairs or full renovation, we can manage the work professionally and at fair cost, always with your agreement. We prepare each property for sale, long-term use and fully furnish it.`}
+      />
+      <WordFade
+        duration={0.65}
+        text={t`We also ensure full insurance coverage against unexpected events and take full responsibility for maintenance and tenant supervision.`}
+      />
+      <WordFade
+        duration={0.65}
+        text={t`Renting to YWS means peace of mind, guaranteed rent, and your property used for a meaningful purpose.`}
+      />
+    </div>
+  </SectionHeader>
+  <ul class="feature-cards" role="list">
+    {cards.map((card, index) => (
+      <FeatureCard icon={card.icon} title={card.title} index={index}>
+        {card.text}
+      </FeatureCard>
+    ))}
+  </ul>
+</Section>

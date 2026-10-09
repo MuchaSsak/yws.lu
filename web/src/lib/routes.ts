@@ -24,7 +24,7 @@ export const ROUTE_IDS = Object.keys(ROUTES) as RouteId[];
  * The routes migrated so far (wiki: revamp-plan.md § Slices). Astro builds these, and every e2e / Lighthouse sweep
  * runs over them; a slice adds its id when it starts. Removed once every route is migrated.
  */
-export const READY: readonly RouteId[] = ["home", "housing"];
+export const READY: readonly RouteId[] = ["home", "housing", "owners", "about"];
 
 /** Routes search engines may index (sitemap, robots meta); the legal pages are `noindex, follow` (site/seo.md § Crawl). */
 export const INDEXABLE: readonly RouteId[] = ["home", "housing", "owners", "about", "projects", "tec"];

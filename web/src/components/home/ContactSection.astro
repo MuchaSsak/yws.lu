@@ -1,0 +1,167 @@
+---
+/**
+ * Contact us (wiki: site/structure.md § Home 6, § Embeds): socials, email and both phones as real links (the 2025 email
+ * and phones were plain text), and the office map as a click-to-load facade: no request reaches Google until the
+ * visitor asks for the map; "Open in Google Maps" is always there. `#contact` is the anchor the menus use;
+ * `#contact-section` keeps the 2025 anchor working [assumption]. No form, ever [user 2026-10-09].
+ */
+import { t } from "lingui-for-astro/macro";
+
+import Sparkles from "~/components/effects/Sparkles.astro";
+import ContactActions from "~/components/ui/ContactActions.astro";
+import Icon from "~/components/ui/Icon.astro";
+import NewTab from "~/components/ui/NewTab.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { ORGANISATION } from "~/data/organisation";
+
+const { office } = ORGANISATION;
+const address = `${office.street}, ${office.postalCode} ${office.locality}`;
+const showMap = t`Show map`;
+const mapNote = t`The map loads from Google Maps when you ask for it.`;
+const openMap = t`Open in Google Maps`;
+const mapTitle = t`Map: ${address}`;
+---
+
+<Section id="contact" labelledby="contact-title" class="contact">
+  <span id="contact-section" class="contact-alias" aria-hidden="true"></span>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <SectionHeader id="contact-title" effect="plain" align="start">
+        <Sparkles slot="title" colors={["#ff7820", "#ffd120"]} class="pr-4">{t`Contact us`}</Sparkles>
+      </SectionHeader>
+      <ContactActions socials />
+    </div>
+
+    <div class="contact-map" data-map={office.embed} data-map-title={mapTitle}>
+      <div class="contact-map-facade">
+        <Icon name="map-pin" size={40} class="text-ink-orange" />
+        <p class="contact-map-address">
+          <span class="font-semibold">{office.label}</span>
+          <span>{office.street}</span>
+          <span>
+            {office.postalCode} {office.locality}
+          </span>
+        </p>
+        <div class="contact-map-actions">
+          <button type="button" class="btn" data-map-show>
+            {showMap}
+          </button>
+          <a href={office.maps} target="_blank" rel="noopener" class="contact-map-link">
+            {openMap}
+            <NewTab />
+          </a>
+        </div>
+        <p class="contact-map-note">{mapNote}</p>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<script>
+  // Swap the facade for Google's embed only when asked (no Google request before the click).
+  for (const map of document.querySelectorAll<HTMLElement>("[data-map]")) {
+    map.querySelector("[data-map-show]")?.addEventListener("click", () => {
+      const frame = document.createElement("iframe");
+      frame.src = map.dataset.map ?? "";
+      frame.title = map.dataset.mapTitle ?? "";
+      frame.className = "contact-map-frame";
+      frame.referrerPolicy = "no-referrer-when-downgrade";
+      map.replaceChildren(frame);
+      frame.focus();
+    });
+  }
+</script>
+
+<style>
+  .contact-alias {
+    position: absolute;
+  }
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  @media (min-width: 1280px) {
+    .contact-grid {
+      flex-direction: row;
+      align-items: center;
+    }
+    .contact-grid > * {
+      flex: 1;
+    }
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  @media (min-width: 1280px) {
+    .contact-info {
+      align-items: flex-start;
+    }
+  }
+  .contact-map {
+    min-height: 30rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .contact-map-facade {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 30rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    background:
+      linear-gradient(var(--color-border) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem,
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem,
+      var(--color-background);
+  }
+  .contact-map-address {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+    font-size: var(--text-lg);
+  }
+  .contact-map-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .contact-map-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+    color: var(--color-primary-strong);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .contact-map-note {
+    max-width: 22rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+  .contact-map :global(.contact-map-frame) {
+    display: block;
+    width: 100%;
+    height: 30rem;
+    border: 0;
+  }
+</style>

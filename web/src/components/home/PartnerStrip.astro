@@ -32,7 +32,7 @@ const label = t`Our partners`;
 const newTab = t`(opens in a new tab)`;
 ---
 
-<section class="marquee py-12" aria-label={label}>
+<section class="marquee py-12" aria-label={label} data-loop>
   {[false, true].map((copy) => (
     <ul class="marquee-track" aria-hidden={copy ? "true" : undefined}>
       {partners.map((partner) => (
