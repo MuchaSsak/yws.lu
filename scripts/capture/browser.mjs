@@ -81,6 +81,10 @@ async function revealByScrolling(page) {
 }
 
 async function fullPageShot(page, file) {
+  // A full-page capture grows the viewport in one step, and `content-visibility: auto` sections (the 2026 site) render a
+  // frame later: they shot as blank boxes and a black footer. Render everything; a no-op on the 2025 site.
+  await page.addStyleTag({ content: "* { content-visibility: visible !important; }" });
+  await page.waitForTimeout(300);
   const height = await page.evaluate(() => document.documentElement.scrollHeight);
   const width = page.viewportSize().width;
   const LIMIT = 16_000;

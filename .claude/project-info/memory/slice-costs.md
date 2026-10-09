@@ -24,7 +24,7 @@ CLS ≤ 0.05 · a11y / BP / SEO 100.
 | 11 Legal notice | 2026-10-09 | `/en/legal-notice/` · `/fr/mentions-legales/` | 0 | 120 | 100 / 1427 / 0–50 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 342 ms, TBT 0 ms |
 | 11 Privacy policy | 2026-10-09 | `/en/privacy-policy/` · `/fr/politique-de-confidentialite/` | 0 | 125–126 | 100 / 1426–1430 / 7–88 / 0 | 100 · 100 · 100 | desktop perf 100, LCP 341–342 ms, TBT 0 ms |
 
-The rows: the full `bun run lhci` sweep of 2026-10-09 evening (36 rows, en + fr, mobile + desktop, median of 3, laptop, SwiftShader; the review build with `is-crawlable` skipped). Every row within the floors; 4 target misses, mobile LCP only: home 2027 ms and TEC 2101 ms in both languages (target 2000, floor 2500). The 404 is not in the sweep (`routes.ts` lists indexable pages); the review-only specimen scored 100.
+The rows: the full `bun run lhci` sweep of 2026-10-09 evening (36 rows, en + fr, mobile + desktop, median of 3, laptop, SwiftShader; the review build with `is-crawlable` skipped). Every row within the floors; 4 target misses, mobile LCP only: home 2027 ms and TEC 2101 ms in both languages (target 2000, floor 2500). The 404 is not in the sweep (`routes.ts` lists indexable pages); the review-only specimen scored 100. After the glow re-encode (commit `9bc8d57`), the case-study capture (en, median of 3, `.case-study/REPORT.md`) measured home mobile LCP 1652 ms and TEC 1952 ms: no target miss left on phones; TEC desktop perf 94 (runs 100 / 94 / 90: SwiftShader compiling the globe shader stalls frames, Speed Index 2.2 s).
 
 ## Load costs found and fixed (2026-10-09)
 

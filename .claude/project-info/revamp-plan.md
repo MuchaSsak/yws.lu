@@ -32,35 +32,40 @@
 - [x] wiki-check 0 errors; committed
 
 ## P2. Design system
-- [ ] Inventory (colours, type, spacing, radii, shadows, z, breakpoints, motion, components) + contact sheet
-- [ ] Tokens consolidated (@theme), AA unit test, duplicates merged
-- [ ] `design.md`, `design-quality.md`, specimen page
-- [ ] Applied with no visual change (shot diffs), tag `history/design-system-v1`
+- [x] Inventory (colours, type, spacing, radii, shadows, z, breakpoints, motion, components):
+  `research/2026-10-09-design-inventory.md`
+- [x] Tokens consolidated (@theme), AA unit test (17 pairs), duplicates merged
+- [x] `design.md`, `design-quality.md`, specimen page (review-only, never in a launch build)
+- [ ] ~~Applied with no visual change (shot diffs), tag `history/design-system-v1`~~ superseded: the owner asked for
+  visual changes during the port (header, menu, projects, cards), so the shot-diff step and its tag were dropped;
+  `history/pre-migration` and `history/after-2026-10` keep the two looks
 
 ## P3. Stack
 - [x] Spike Astro + Lingui (housing page + home hero 3D) measured like P0 (`.case-study/spike/`): home mobile 98, housing desktop 99; misses = the 3D island (home desktop 67) and the flow field (housing mobile 87)
 - [x] Decision table in `technologies.md` (Astro 7 + Lingui 6), tag `history/pre-migration`
-- [ ] Migration route by route (slices below), Next app removed at parity
+- [x] Migration route by route (slices below)
+- [ ] Next app removed at parity: **waits for the owner's explicit OK** (tag `history/next-app-final` made; then
+  trim the root `package.json` to the capture devDeps, root `bun install`, README, technologies.md, HANDOFF.md)
 
 ## P4-P7. Slices (each: research → build → evaluate → fix → close)
-- [ ] 0 Foundation (layout shell, tokens, i18n, SEO infra, gates)
-- [ ] 1 Header + language switcher
-- [ ] 2 Footer
-- [ ] 3 Home
-- [ ] 4 Looking for housing
-- [ ] 5 Rent your property
-- [ ] 6 About us
-- [ ] 7 We Spark projects
-- [ ] 8 Jobs retired (308s, PDFs) [user 2026-10-09]
-- [ ] 9 TEC conference (past event: 9 April 2026)
-- [ ] 10 404
-- [ ] 11 Legal pages (privacy, legal notice; PLACEHOLDER facts)
+- [x] 0 Foundation (layout shell, tokens, i18n, SEO infra, gates)
+- [x] 1 Header + language switcher
+- [x] 2 Footer
+- [x] 3 Home
+- [x] 4 Looking for housing
+- [x] 5 Rent your property
+- [x] 6 About us
+- [x] 7 We Spark projects
+- [x] 8 Jobs retired (308s, PDFs) [user 2026-10-09]
+- [x] 9 TEC conference (past event: 9 April 2026)
+- [x] 10 404
+- [x] 11 Legal pages (privacy, legal notice; PLACEHOLDER facts)
 
-Status 2026-10-09: slices 0–11 are **built** (every route in `routes.ts`, the migration-era `READY` list removed; `check`
-green, the review gate clean, og cards drawn). A box ticks when the full sweep passes for its route: next is
-`bun run e2e`, `e2e:xb`, `lhci`, `shots --all`, then the en+fr review at 390/1024/1440/1920.
+Status 2026-10-09 (evening): every slice closed: `check` green (50 unit tests), `e2e` 390/390, `e2e:xb` 516/516, `lhci` 36 rows within the floors, the en+fr review at phone and desktop done page by page with the owner's redesigns (log.md). Numbers: `memory/slice-costs.md`.
 
 ## P8. After
-- [ ] Full sweep green; P0 capture re-run into `.case-study/after/`; compare folder
-- [ ] wiki-lint, log, lessons, placeholders, open questions
-- [ ] Commit, tag `history/after-2026-10`; `.case-study/REPORT.md`
+- [x] Full sweep green; P0 capture re-run into `.case-study/after/` (Lighthouse en × 3 runs, SEO, axe, shots at 390 + 1440); `.case-study/REPORT.md` compares
+- [x] wiki-lint, log, lessons, placeholders, open questions
+- [x] Commit, tag `history/after-2026-10` (local); `.case-study/REPORT.md` + `.case-study/handover/`
+- Left for the owner: the Next app removal (above), clips and the outside tools (need a public URL), the
+  launch steps (`site/seo.md` § Launch), 22 legal placeholders, open questions Q8, Q35, Q40, Q41
