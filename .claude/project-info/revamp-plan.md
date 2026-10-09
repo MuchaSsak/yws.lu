@@ -9,14 +9,14 @@
 - [x] Tag `history/baseline-2026-10-09`, branch `revamp/2026-10`, `.case-study/` gitignored
 - [x] QA tooling devDeps (Playwright 1.63, axe, lighthouse 13.5, chrome-launcher, sharp, gltf-transform, knip)
 - [x] Baseline build (`next build`, log `.case-study/before/next-build.log`)
-- [ ] Lighthouse local, 7 pages × mobile+desktop × 3 runs (`scripts/capture/lighthouse.mjs`): 6/7 done; missing jobs desktop (hangs) + tec-conference; rerun with `--only jobs,tec-conference --run-limit 180000`
+- [x] Lighthouse local, 7 pages × mobile+desktop × 3 runs: **rerun on the laptop** (`.case-study/before/lighthouse-laptop/`); Jobs mobile hung 3/3, desktop 1/3 (a finding); PC numbers kept as secondary
 - [ ] PSI field data: API quota exhausted anonymously → PSI web UI shots instead (P0.6)
-- [ ] axe + SEO audit (local + live) + hosts/redirects (`scripts/capture/browser.mjs --tasks seo,hosts,axe`)
-- [ ] Repo metrics (`scripts/capture/repo-metrics.mjs`): public/, images, models, deps, LOC, tsc, lint, knip
+- [x] axe + SEO audit (local + live) + hosts/redirects (`scripts/capture/browser.mjs --tasks seo,hosts,axe`)
+- [x] Repo metrics (`scripts/capture/repo-metrics.mjs`): public/, images, models, deps, LOC, tsc, lint, knip
 - [ ] Screenshots en+fr × 7 widths + reduced motion (`--tasks shots`)
 - [ ] Clips (load 5 s, scroll, menu, language switch) (`--tasks clips`)
 - [ ] Outside tools: Rich Results Test, Schema validator, PSI UI, OG preview (home + 1 inner)
-- [ ] `.case-study/before/README.md` + `metrics.json`; `memory/baseline.md`
+- [ ] `.case-study/before/README.md` + `metrics.json`; `memory/baseline.md` (written; README + metrics.json to do)
 - [ ] Commit tooling + capture scripts
 
 ## Resume notes (stop 2026-10-09, moving PC → laptop)

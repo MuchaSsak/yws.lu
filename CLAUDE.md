@@ -46,8 +46,8 @@ non-negotiables: read only the pages your task needs. Paths are plain text on pu
   fallback and full `prefers-reduced-motion` support; heavy loops play only when visible (`.claude/project-info/tech/usage/three.md`).
 - **Truth:** no invented facts, numbers, testimonials, dates, addresses, legal numbers or partner names. Client facts
   come from the client. Placeholders: marked `PLACEHOLDER`, logged in `.claude/project-info/placeholders.md`, said in chat.
-- **French that exists is human text:** keep it verbatim (fix only obvious typos, listed). New French is native, never
-  literal, and marked for review (`.claude/project-info/site/i18n.md`).
+- **French that exists is human text:** keep the client's wording; fix typos, grammar and literal (calqued) microcopy,
+  each fix listed. New French is native, never literal, and marked for review (`.claude/project-info/site/i18n.md`).
 - **Licences:** every font, image, model, icon, library and copied component is free for commercial use (OFL, Apache,
   MIT, BSD, ISC, CC0, CC BY with credit) or the client's / owner's own work. Unknown = not used. Aceternity, GSAP and
   React Bits code is rewritten as own code (`.claude/project-info/design/assets.md`).

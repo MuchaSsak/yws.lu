@@ -12,7 +12,7 @@
 - Keep the feel (playful, colourful, 3D, warm): objective fixes ship; feel changes are `comps/` proposals listed in the report - 2026-10-09.
 - Keep every version for the case study: tag `history/*` before a big change, capture a look before replacing it - 2026-10-05.
 - Commit only what the site ships: QA shots, clips and research screenshots stay local (gitignored) - 2026-10-08.
-- Existing French is human text: keep it verbatim; new French is native (never literal) and marked for review - 2026-10-09.
+- Existing French is human text: keep the wording, but fix typos, grammar and calqued microcopy (« Apprendre encore plus » → « En savoir plus »), each fix listed in `placeholders.md`; new French is native (never literal) and marked for review; the same naturalness check for English microcopy [user 2026-10-09] - 2026-10-09.
 - Every section built or edited is checked in en and fr at phone, laptop and desktop; boxes are sized for French, never the English word - 2026-10-08.
 - Heavy media loads near visibility and plays only when visible (a load-time loop cost 270–480 ms TBT) - 2026-10-05.
 - Every hover has a tap, focus or scroll twin; phones get the same content - 2026-10-05.

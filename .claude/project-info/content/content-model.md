@@ -46,10 +46,11 @@ the one module; a unit test checks the shapes (E.164 phones, absolute URLs, post
 | `houses-pictures` bucket (public) | image files | listed in the browser; the carousel skips index 0 (`.emptyFolderPlaceholder`) | 7 images (assel.webp, limpertsberg.webp, mondercange, oberanven, oberkorn, soleuvre, spinkange .jpg; 28–63 KB each) |
 | `projects` table | typed in `typings/projects.ts` | **does not exist** ("relation public.projects does not exist") | dead type |
 
-**Build-time plan:** fetch both at build (no request-time code), render the numbers and pictures into the HTML, and
-refresh on the client after load (a tiny script compares and updates the text), so a new Supabase value shows at once
-and the next deploy bakes it in. Deploy-hook refresh is an owner option (`seo.md` § Launch). Decided in P3
-(`technologies.md` § Decisions).
+**Build time only** [assumption 2026-10-09, Q13]: `web/src/data/supabase.ts` fetches both during the build, the
+numbers and pictures are baked into the HTML (pictures through `astro:assets`), and visitors never call Supabase (no
+third-party request, no `__cf_bm` cookie, no client JS). A new value shows after the next deploy: the owner's deploy
+hook (`seo.md` § Launch). If Supabase is unreachable at build, the statistics fall back to the last known values
+(9 / 40 / 750, as of 2025-07-09) and the gallery is left out; the build never fails on it.
 
 ## Page content sources
 

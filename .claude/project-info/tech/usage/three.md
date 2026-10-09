@@ -11,7 +11,7 @@
    2025 site showed the scene (≥ 1280 px for the hero house) it dynamic-imports `components/three/<scene>/mount.tsx`.
 3. `mount.tsx` creates a React root in the box; the scene calls `onReady` once the model is in, and CSS fades the
    canvas in over the poster.
-4. Reduced motion: the scene holds its final pose (no intro spin, no auto-rotate); the flow-field streaks don't run.
+4. Reduced motion: the poster stays (the final pose, no WebGL loaded); `?poster` forces the scene for `scripts/poster.mjs`, which renders it in its final pose (no intro spin, no auto-rotate); the flow-field streaks don't run.
 
 Why not `client:visible`: R3F/drei touch `window` at import, so the island must be `client:only`, which loads at page
 load and can't wait for visibility [research: stack § 1.8]. The loader script does both: idle and visible.

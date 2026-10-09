@@ -67,5 +67,5 @@ sublets furnished rooms in shared houses to young people (18–34), with coachin
 | --- | --- |
 | Migration breaks a 3D moment or effect | per-route parity checklist, shot diffs, Next app kept until parity |
 | Old URLs lose rankings | 308 for every old path (both hosts, with/without slash), e2e-tested |
-| Supabase data stale in a static build | build-time fetch + client refresh (`content-model.md` § Supabase) |
+| Supabase data stale in a static build | build-time fetch + an owner deploy hook (`content-model.md` § Supabase, Q13) |
 | New copy not approved | every new string listed in `placeholders.md` / the report |

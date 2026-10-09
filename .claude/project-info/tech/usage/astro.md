@@ -28,8 +28,9 @@ and the Lingui context. No cookies, headers or `Accept-Language` exist at build 
   the committed `vercel.json` is stale; `routes.test.ts` checks it too.
 - Astro `redirects` and i18n root redirects are **meta-refresh pages without a status** in static output: never
   use them for SEO redirects.
-- `vercel.json` also sets `framework`, `installCommand`, `buildCommand`, `outputDirectory`, so the switch from the
-  Next app needs no Vercel project-setting change [assumption: confirm on the first preview].
+- `vercel.json` sits at the **repo root** and sets `framework`, `installCommand` / `buildCommand` (`cd web && …`) and
+  `outputDirectory` (`web/dist`), so the switch from the Next app needs no Vercel project-setting change
+  ([technologies](../technologies.md) § Hosting) [assumption: confirm on the first preview].
 - Node: `engines.node >=22.19.0` (Lingui 6, Lighthouse); Vercel then builds on 24.x [research: stack].
 
 ## Local preview = production behaviour

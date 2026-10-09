@@ -14,3 +14,5 @@ scripts/** text=auto eol=lf
 *.ico binary
 *.pdf binary
 *.mp4 binary
+# Byte-for-byte copies (a verification file starts with a UTF-8 BOM): git must never touch them.
+web/public/ms32821332.txt -text

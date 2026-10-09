@@ -5,7 +5,7 @@
 
 | # | Question | Blocks | Who | Default if unanswered | Status |
 | --- | --- | --- | --- | --- | --- |
-| Q1 | Registered legal name, RCS / LBR number (`F…`), legal representative (president) | legal notice, `Organization.legalName` / `identifier` JSON-LD | client | legal notice shows `PLACEHOLDER` fields; JSON-LD omits them | open |
+| Q1 | Registered legal name, RCS / LBR number (`F…`), legal representative (president), VAT number or agrément if any | legal notice, `Organization.legalName` / `identifier` JSON-LD | client | legal notice shows `PLACEHOLDER` fields; JSON-LD omits them | open |
 | Q2 | The two phones: which is landline/mobile, what each is for, office hours? | contact buttons' labels, `ContactPoint` | client | both shown as "Phone" with the number; no hours | open |
 | Q3 | German and/or Luxembourgish versions? | locales | client | en + fr only; adding one = a catalog + a config line (`i18n.md`) | open |
 | Q4 | May the site credit the developer (a "site by" link, `creator` markup, humans.txt name)? | footer, humans.txt | owner + client | keep only the existing credits dialog [user 2026-10-09] | open |
@@ -17,7 +17,7 @@
 | Q10 | Rights to the photos of young people (project galleries, group photo): consent on file? | imagery | client | photos kept as published today [assumption] | open |
 | Q11 | Partner logos: permission and the EU emblem rules for Erasmus+ / ESC | partner strip | client | kept as published today [assumption] | open |
 | Q12 | Google Business Profile: does one exist for the office? NAP must match the site | local SEO | client / owner | runbook step for the owner (`seo.md` § Launch) | open |
-| Q13 | Who updates Supabase statistics and how often? (decides the refresh path) | build-time data | client / owner | build-time fetch + client refresh [assumption] | open |
+| Q13 | Who updates Supabase statistics and how often? (decides the refresh path) | build-time data | client / owner | **build-time only** + an owner deploy hook (no visitor request to Supabase: no third-party cookie, no extra JS) [assumption 2026-10-09] | open |
 | Q14 | The brochure PDF (`public/files/brochure.pdf`) was linked only from dead code (`BedroomModel`): keep and link, or drop? | assets | client | not linked; file kept in git history [assumption] | open |
 | Q15 | Is the LinkedIn URL (`/in/ywslu/`, a personal-profile URL) the organisation's official page? | `sameAs` | client | used as is [assumption] | open |
 | Q16 | Vercel: which domain is primary in the project settings? (evidence: apex 308 → www) | canonical host | owner | `www.yws.lu` [assumption, verified by curl 2026-10-09] | open |
@@ -28,3 +28,20 @@
 | Q21 | EU funding: which projects are Erasmus+ / ESC funded? The 2021-27 rules want the "Co-funded by the European Union" emblem shown statically (not in a marquee) and as large as the biggest other logo; `erasmus.svg` is the old 2014-20 logo | partner strip, project pages | client (Anefore for the disclaimer) | partner strip kept, ESC and Erasmus+ logos shown statically, old logo flagged; emblem added only once the client confirms which projects [assumption] | open |
 | Q22 | Source and rights of the poster illustrations (Safe Paths, TEC banner) and of the photos (project, group, houses); consent of the people shown | imagery | client | kept as published today, listed in `design/assets.md` as "client material, unconfirmed" [assumption] (see Q10) | open |
 | Q23 | Aceternity UI (proprietary), GSAP (Webflow no-charge licence) and React Bits (MIT + Commons Clause) are outside the licence list | effects | owner | **replaced by own code** (the licence rule: not on the list = not used); same look, rewritten, never ported line by line [rule, 2026-10-09] | decided |
+| Q24 | Housing facts for an eligibility box: rent per room, whether students qualify, income/contract rule, residence permit, response and waiting times, whether house locations may be shown | housing page, `audience.md` | client | only what the site says today (18–34, the priority criteria) [assumption] | open |
+| Q25 | "We prepare each property for sale, long-term use" (both locales): is "sale" intended in a rental offer? | owners copy | client | kept verbatim, flagged in the report | open |
+| Q26 | Header "Apply for housing": straight to the Google Form, or to the housing page (eligibility first)? | header, F02 | owner | **the housing page** (the 2025 nav did the same; the page's "Apply now" opens the form) [assumption 2026-10-09] | open |
+| Q27 | May the site cite outside trust signals: the logement.lu GLS list link, the ESC Quality Label, Anna Lindh Foundation membership, the CRIJE listing, an owner count or testimonial? | owners page, About | client | none added [assumption] | open |
+| Q28 | Owner terms: insurance cover, how damage is handled, lease length and notice | owners page | client | not stated beyond the client's copy | open |
+| Q29 | French address form for young people: « vous » (today) or « tu »? | French copy | client | « vous » [assumption] | open |
+| Q30 | French inclusive writing: middle dot or neutral rephrase? | new French | client | neutral rephrase where possible [assumption] | open |
+| Q31 | The houses map (My Maps, removed from About us in commit 8cd66bc, 2025-12-02): show again? It locates homes where young people live | About us, privacy | client | **hidden** [assumption] | open |
+| Q32 | Was there a reason the contact email and phone became plain text (commit 8cd66bc)? | contact | owner | made links again (`mailto:`, `tel:`) [assumption] | open |
+| Q33 | A master logo (SVG, or PNG ≥ 512 px) for the favicons, the header and share images? The site has a 300 × 200 white PNG and a 32 px favicon | favicons, JSON-LD logo, OG | client | the 32 px icon only (`/favicon.ico` 16 + 32, `/favicon.png`), never upscaled; no 48 px icon (Google's minimum), apple-touch-icon or manifest until a master exists [assumption] | open |
+| Q34 | Allow AI training crawlers in `robots.txt`? | robots.txt | owner + client | no rule (allowed) [assumption] | open |
+| Q35 | Approve the drafted translations of the mixed-language project texts (3 French texts in the English dictionary, The Self Chronicle in English on the French site) and the French TEC page? | We Spark, TEC | client | originals ship with a `lang` attribute and a language label [assumption] | open |
+| Q36 | Vercel plan (Hobby or Pro), log retention, and whether Vercel's DPA covers the plan | privacy policy | owner | Unknown in the policy (PLACEHOLDER) | open |
+| Q37 | Who operates the contact@yws.lu mailbox (MX: dclux.xion.oxcs.net)? DPA, a privacy contact, a DPO? | privacy policy | client | Unknown (PLACEHOLDER) | open |
+| Q38 | The Google Forms (apply, Get Your Home, Safe Paths): Workspace or personal account, fields, retention | privacy policy | client | the policy names Google as the form host, retention Unknown (PLACEHOLDER) | open |
+| Q39 | Does the Get Your Home photographer (EXIF Artist tag) want a credit? | credits | client | no credit added; EXIF stripped by the image pipeline [assumption] | open |
+| Q40 | Facts that decide whether the accessibility laws apply to YWS (public funding share, board appointments, headcount, turnover) | accessibility statement | client | no statement page (a new page is the client's call) [assumption] | open |

@@ -20,7 +20,7 @@
 | F02 | Apply for housing | Apply CTA reachable in 1 tap on every page (header), opens the Google Form in a new tab with a "(opens in a new tab)" note | todo |
 | F03 | Rent your property contact | email (prefilled subject) + call buttons on the page, `tel:` per number in E.164 | todo |
 | F04 | Contact without forms | per-audience next step, copy-to-clipboard for email + address, map behind a click-to-load facade, socials with names | todo |
-| F05 | Impact statistics | Supabase `statistics` rendered in the HTML at build, refreshed on the client; fallback = last built value | todo |
+| F05 | Impact statistics | Supabase `statistics` rendered in the HTML at build (no visitor request to Supabase); fallback = the last known values with their date | todo |
 | F06 | Houses pictures | Supabase bucket listed at build, images through the image pipeline, accessible carousel | todo |
 | F07 | We Spark projects | each project with its own heading, photos responsive (≤ 2560 px, AVIF/WebP), links labelled | todo |
 | F08 | TEC conference page | indexable summary in en + fr; past event stated truthfully; link to tecpractices.eu | todo |

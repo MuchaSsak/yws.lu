@@ -51,17 +51,17 @@
   nav and buttons ("Apply for housing", "Rent your property", "Contact us"). New strings follow the same split.
 - Questions as headings ("Looking for housing?", "Interested in renting your property to us?").
 - A spaced em dash for asides, in both locales (house style).
-- Slips to fix only with approval (`placeholders.md`): "aged 18 - 34" (elsewhere "18–34"); "as soon as place becomes
+- Slips fixed as their pages migrate, each listed (`placeholders.md`) [user 2026-10-09]: "aged 18 - 34" (elsewhere "18–34"); "as soon as place becomes
   available" (missing "a"); "If any issue arrives" (arises); French text inside the EN dictionary (3 projects and
   `heroDescriptionJobs`); "We prepare each property for sale, long-term use" ("sale" in a rental offer, both locales: Q25).
 
 **French, as written:**
 - Native, not literal, at its best: Affordability → « Loyers accessibles », Coaching → « Accompagnement », "safe,
   reliable & impactful" → « sûr, fiable et utile », "Let's Talk" → « Parlons-en ». New French matches this standard.
-- Literal spots, kept verbatim until the client decides: « Apprendre encore plus » ("Learn more"; usual « En savoir
-  plus »); « Postulez maintenant » ("Apply now"; « postuler » reads as a job application); « Louez votre propriété »
-  (nav; « propriété » suggests an estate, while the owner page says « Louez votre bien » and the slug is
-  `louer-son-bien`); « Santé à eux ! » ("Cheers to them!", a toast).
+- Literal spots are **fixed and listed** (`placeholders.md` § French fixes) [user 2026-10-09]: « Apprendre encore
+  plus » → « En savoir plus »; « Louez votre propriété » → « Louez votre bien » (the owner page's word and the slug
+  `louer-son-bien`); « Santé à eux ! » (a toast) → « Merci à eux ! »; « Pourquoi nous louer ? » → « Pourquoi nous
+  confier votre bien ? ». « Postulez maintenant » stays: « postuler » is the usual verb for a colocation.
 - Sentence case; a space before ? ! : ; as in « Qui a la priorité ? » (how it is encoded: `i18n.md`); « 90 % » with a
   space (EN "90%").
 - « colocation(s) » for the shared houses (the copy's word and a searched one); « jeunes » for the people.
@@ -95,15 +95,15 @@ Existing = in the dictionary. New = needs the client's approval; register each i
 | Purpose | en | fr | Status |
 | --- | --- | --- | --- |
 | Apply button · nav housing | Apply now · Apply for housing | Postulez maintenant · Demander un logement | existing |
-| Nav owners · contact | Rent your property · Contact us | Louez votre propriété · Contactez-nous | existing |
+| Nav owners · contact | Rent your property · Contact us | Louez votre bien (fixed) · Contactez-nous | existing |
 | New tab (hidden) | (opens in a new tab) | (s'ouvre dans un nouvel onglet) | new (in the spike) |
 | Apply destination (hidden) | (Google Form, opens in a new tab) | (formulaire Google, s'ouvre dans un nouvel onglet) | new |
 | Call · email | Call {number} · Email us | Appeler le {number} · Nous écrire | new |
 | Copy | Copy email · Copy address · Copied | Copier l'adresse e-mail · Copier l'adresse · Copiée | new |
 | Map facade · map link | Show the map (loads Google Maps) · Open in Google Maps | Afficher la carte (charge Google Maps) · Ouvrir dans Google Maps | new |
 | TEC primary | Visit tecpractices.eu | Découvrir tecpractices.eu | new (Q8) |
-| Chrome | Menu · Main · Language · Skip to content · Our partners | Menu · Principale · Langue · Aller au contenu · Nos partenaires | new (partly in the spike) |
-| 404 heading | Page not found | Page introuvable | new |
+| Chrome | Menu · Main · Language · Skip to content · Our partners · Call us | Menu · Principale · Langue · Aller au contenu · Nos partenaires · Appelez-nous | new (in the spike) |
+| 404 heading · lead · links | Page not found · This page does not exist or has moved. · Where to go from here: | Page introuvable · Cette page n’existe pas ou a été déplacée. · Pour continuer : | new |
 | Email subjects | Housing question · Renting my property to YWS · Partnership · TEC Practices | Question sur un logement · Louer mon bien à YWS · Partenariat · TEC Practices | new |
 
 ## Words to avoid

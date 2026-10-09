@@ -13,7 +13,7 @@
 | Instances | `src/lib/i18n.ts`: one cached `setupI18n` per locale; **never** a global `activate()` (all locales render in one process) |
 | Catalogs | `src/locales/{en,fr}/messages.po`, compiled on import (no compiled catalog committed) |
 | Gate | production build: `failOnMissing: "catalog"` (a message missing from fr fails the build) + `failOnCompileError` |
-| Extract | `bun run i18n:extract` (`lingui extract --clean`); then fill `fr` and run the catalog test |
+| Extract | `bun run i18n:extract` (`lingui extract --clean`); then `bun run i18n:fill` and `bun run test` |
 
 Pre-1.0, single-maintainer package: keep `.astro` copy as plain `t` calls so replacing it costs a few
 `i18n._(msg…)` lines [research: stack, risk 3].
@@ -30,12 +30,13 @@ Pre-1.0, single-maintainer package: keep `.astro` copy as plain `t` calls so rep
 
 ## French
 
-- **Existing French is human text**: copied verbatim from `lib/dictionary.tsx` (the 2025 site). Only obvious typos are
-  fixed, each listed in [placeholders](../../placeholders.md) § French typo fixes [user 2026-10-09].
+- **Existing French is human text**: copied mechanically from `lib/dictionary.tsx` (the 2025 site) by
+  `bun run i18n:fill` (`scripts/fill-fr.mjs`). Typos, grammar mistakes and calqued microcopy are fixed through
+  `scripts/fr-manual.json`, each listed in [placeholders](../../placeholders.md) § French fixes [user 2026-10-09].
 - **New French** is written natively (not a literal translation), and each new string is listed in
   [placeholders](../../placeholders.md) § New copy as "to review" [user 2026-10-09].
-- Typography: French spacing before `? ! : ;` as the client wrote it (a normal space in the 2025 copy); quotes «  »
-  only where the client used them.
+- Typography: a no-break space (U+00A0) before `? ! : ;` and `»`, after `«`, before `%`, applied by the fill script and
+  checked by `catalogs.test.ts` ([i18n](../../site/i18n.md) § Formatting); quotes «  » only where the client used them.
 
 ## Tests
 
