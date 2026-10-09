@@ -67,12 +67,13 @@ const programme = [
   </SectionHeader>
   <ul class="tec-programme" role="list">
     {programme.map((item) => (
-      <li>
-        <span class="tec-programme-label">
-          <Icon name={item.icon} class="tec-programme-icon" />
-          {item.label}
-        </span>{" "}
-        {item.text}
+      <li class="tec-programme-item" data-inview="rise">
+        <span class="tec-programme-badge" aria-hidden="true">
+          <Icon name={item.icon} size={22} />
+        </span>
+        <p>
+          <span class="tec-programme-label">{item.label}</span> {item.text}
+        </p>
       </li>
     ))}
   </ul>
@@ -158,28 +159,50 @@ const programme = [
     text-decoration: underline;
   }
   /* The 2025 list: 20 px, rows split by a rule, half the width from 640 px. */
+  /* The programme as four glass cards (2025: a plain list with rules), two to a row from 1024. */
   .tec-programme {
-    display: flex;
-    flex-direction: column;
-    max-width: 40rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    max-width: 60rem;
     margin-inline: auto;
-    padding-top: 1.5rem;
-    font-size: var(--text-xl);
-    line-height: var(--text-xl--line-height);
+    padding-top: 2rem;
+    font-size: var(--text-lg);
+    line-height: 1.55;
   }
-  .tec-programme li {
-    padding-block: 1rem;
-    border-bottom: 1px solid var(--color-border);
+  @media (min-width: 1024px) {
+    .tec-programme {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
   }
-  .tec-programme li:last-child {
-    border-bottom: 0;
+  .tec-programme-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.85);
+    border-radius: 1.5rem;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.38));
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 18px 40px -24px rgb(120 60 20 / 0.3);
+  }
+  .tec-programme-item p {
+    margin: 0;
+  }
+  .tec-programme-badge {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 25%, white, color-mix(in oklab, var(--color-primary) 18%, white) 70%);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 22%, white);
+    color: var(--color-ink-orange);
   }
   .tec-programme-label {
-    font-weight: 600;
-  }
-  .tec-programme-label :global(.tec-programme-icon) {
-    display: inline-block;
-    margin-right: 0.25rem;
-    vertical-align: -0.2em;
+    font-weight: 700;
   }
 </style>

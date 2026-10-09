@@ -96,7 +96,7 @@ April–May 2026 past: Q9) · Girlssective (`#girlssective`) · Projet V Mobile 
 
 **TEC conference.** 2025 order kept: 1 Hero (H1 "Much More Than a Method", quote, Projet V closing conference, 9 April
 2026 14:30–15:30, Zoom) · 2 Globe + partner countries (Italy, Germany, Luxembourg) · 3 Why this conference matters ·
-4 Conference programme · 5 Q&A (time, format, registration) · 6 What we will present · 7 Who is it for? · 8 Join us!
+4 Conference programme (four glass cards with icon badges since 2026-10-09; 2025: a list) · 5 Q&A (time, format, registration) · 6 What we will present · 7 Who is it for? · 8 Join us!
 (email + Zoom). Revamp (Q8 [assumption]): past tense; every Zoom CTA becomes **Visit tecpractices.eu** ↗ (primary in
 the hero, again at the end); the registration card goes; no claim about a recording; no Event markup; new French page.
 Built [repo: web/src/components/tec/]: a line "This event took place on 9 April 2026." above the H1; headings 6–8 become
