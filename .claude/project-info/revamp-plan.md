@@ -13,24 +13,23 @@
 - [ ] PSI field data: API quota exhausted anonymously → PSI web UI shots instead (P0.6)
 - [x] axe + SEO audit (local + live) + hosts/redirects (`scripts/capture/browser.mjs --tasks seo,hosts,axe`)
 - [x] Repo metrics (`scripts/capture/repo-metrics.mjs`): public/, images, models, deps, LOC, tsc, lint, knip
-- [ ] Screenshots en+fr × 7 widths + reduced motion (`--tasks shots`)
+- [x] Screenshots en+fr × 7 widths + reduced motion (`--tasks shots`): 21 views overflow horizontally
 - [ ] Clips (load 5 s, scroll, menu, language switch) (`--tasks clips`)
 - [ ] Outside tools: Rich Results Test, Schema validator, PSI UI, OG preview (home + 1 inner)
-- [ ] `.case-study/before/README.md` + `metrics.json`; `memory/baseline.md` (written; README + metrics.json to do)
-- [ ] Commit tooling + capture scripts
+- [x] `.case-study/before/README.md` + `metrics.json`; `memory/baseline.md`
+- [x] Commit tooling + capture scripts
 
-## Resume notes (stop 2026-10-09, moving PC → laptop)
-- **Read [HANDOFF.md](HANDOFF.md) first**: setup on the new machine, decisions, what is done, what was running, the
-  ordered next steps, the baseline numbers and findings.
-- Lighthouse local: 6/7 pages done; jobs desktop + tec-conference missing (jobs hangs under SwiftShader).
+## Resume notes
+- Moving machines: [HANDOFF.md](HANDOFF.md) (setup, decisions, findings). The laptop is the measuring machine now.
+- P0 left: clips, outside tools (Rich Results, Schema validator, PSI UI, OG preview), owner screenshots (ask in P8).
 
 ## P1. Framework
 - [x] Research notes (audiences/keywords, comparable sites, SEO/structured data, legal, stack, licences)
-- [ ] Wiki pages (README, working-agreement, lessons, open-questions, placeholders, log, product/*, content/*, site/*, design/*, tech/*, legal/*, memory/*)
-- [ ] CLAUDE.md, CLAUDE.local.md, hooks installed + routing tested (8 prompts, 3 fr, 1 noise)
-- [ ] Skills moved + adapted, `SKILLS/` deleted (never committed)
-- [ ] Gates as scripts + package.json commands; one route list
-- [ ] wiki-check 0 errors; commit `chore(ai): ...`
+- [x] Wiki pages (README, working-agreement, lessons, open-questions, placeholders, log, product/*, content/*, site/*, design/*, tech/*, legal/*, memory/*)
+- [x] CLAUDE.md, CLAUDE.local.md, hooks installed + routing tested (8 prompts, 3 fr, 1 noise: 8/8 after adding LCP/TBT/CLS and « traduction » synonyms)
+- [x] Skills built from the portfolio originals (`SKILLS/` was not carried to the laptop, never committed)
+- [x] Gates as scripts + package.json commands; one route list (`check` green; e2e/lhci/shots/og wired, run in slice 0)
+- [x] wiki-check 0 errors; committed
 
 ## P2. Design system
 - [ ] Inventory (colours, type, spacing, radii, shadows, z, breakpoints, motion, components) + contact sheet
@@ -39,7 +38,7 @@
 - [ ] Applied with no visual change (shot diffs), tag `history/design-system-v1`
 
 ## P3. Stack
-- [ ] Spike Astro + Lingui (housing page + home hero 3D) measured like P0 — code written in `web/`, not installed/built/measured yet
+- [ ] Spike Astro + Lingui (housing page + home hero 3D) measured like P0: built, poster rendered, Lighthouse running (`.case-study/spike/`)
 - [ ] Decision table in `technologies.md`, tag `history/pre-migration`
 - [ ] Migration route by route (slices below), Next app removed at parity
 

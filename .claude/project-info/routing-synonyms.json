@@ -11,8 +11,8 @@
   "proprietair*": ["owners", "landlords"],
   "bailleur*": ["landlords"],
   "louer": ["owners"],
-  "traduction*": ["translation"],
-  "tradui*": ["translation"],
+  "traduction*": ["translation", "French", "locales"],
+  "tradui*": ["translation", "French", "locales"],
   "francais": ["French"],
   "anglais": ["English"],
   "langue*": ["locales", "language"],
@@ -51,6 +51,10 @@
   "translate*": ["translation"],
   "credits": ["credits"],
   "pagespeed": ["Lighthouse"],
+  "lcp": ["budgets", "Lighthouse"],
+  "tbt": ["budgets", "Lighthouse"],
+  "cls": ["budgets", "Lighthouse"],
+  "inp": ["budgets", "Lighthouse"],
   "google": ["Google", "SEO"],
   "favicon*": ["SEO"]
 }
