@@ -27,7 +27,7 @@ Participation gratuite
 
 Pour participer à l’un des ateliers, merci de vous inscrire via le lien ci-dessous :
 
-<https://forms.gle/rncBigsjMoAbYVr4A>
+[https://forms.gle/<wbr>rncBigsjMoAbYVr4A](https://forms.gle/rncBigsjMoAbYVr4A)
 
 ### Contact
 

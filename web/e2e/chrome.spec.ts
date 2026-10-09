@@ -11,9 +11,11 @@ import { HOMES, PAGES } from "./routes";
 for (const { path } of PAGES) {
   test(`landmarks ${path}`, async ({ page }) => {
     await page.goto(path);
-    await expect(page.locator("header")).toHaveCount(1);
+    // Roles, not tags: a <header> inside an <article> or <section> is a card's header, not the banner landmark.
+    await expect(page.getByRole("banner")).toHaveCount(1);
+    await expect(page.getByRole("main")).toHaveCount(1);
+    await expect(page.getByRole("contentinfo")).toHaveCount(1);
     await expect(page.locator("main")).toHaveCount(1);
-    await expect(page.locator("footer")).toHaveCount(1);
   });
 }
 

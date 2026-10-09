@@ -32,6 +32,8 @@
 - Tailwind 4 emits a `@theme` variable only when the source names it (a utility or a literal `var(--name)`): a name built at runtime (`` var(--color-${name}) ``) is undefined, and `--shadow-*` never is (shadow utilities inline it): print values or give a fallback - 2026-10-09.
 - A grid `repeat(auto-fill, minmax(a, b))` counts its columns from `b` when `b` is fixed: a 15rem max gave one photo per row on a phone. Thumbnails that should go two to a row: flex-wrap with items `min(width, 50% - gap/2)` - 2026-10-09.
 - `scale`/`transform` grows the scrollable area: the TEC globe's scroll-driven 1.3× pushed a 390 px page to 428 px. Scale only where there is room (or `overflow-x: clip` the section) and measure `scrollWidth` after scrolling to the end - 2026-10-09.
+- An entrance that starts off screen (`translate(1000px, …)`) makes the page pan sideways until it lands: the about photo gave a 995 px overflow at 320 for 2 s. Clip the section (`overflow-x: clip`) and run the layout gate right after load, not after the walk - 2026-10-09.
+- A `w-max` (no-wrap) line is only safe where it fits: the home hero's second line was 949 px in French at 768 and 1024. Let it wrap; wide screens keep the one line anyway - 2026-10-09.
 
 ### Privacy of inputs
 - Never type a key, id or URL from memory: copy it mechanically from its source file (a script), or it is invented - 2026-10-09.
@@ -58,3 +60,4 @@
 - QA page walks jump with `scrollTo({ top, behavior: "instant" })`: under `scroll-behavior: smooth` a plain `scrollTo(0, y)` animates, the walk never gets down the page, and lazy images and in-view text shoot blank - 2026-10-09.
 - WebSearch has a budget shared by parallel agents; prefer WebFetch of known URLs, then Playwright - 2026-10-05.
 - A "faithful port" of a copied component keeps its licence. Before porting an effect, check `research/2026-10-09-licences.md`: Aceternity, GSAP and React Bits code is rewritten from the idea, not translated line by line (Q23) - 2026-10-09.
+- A gate's comment is not its code: the text-fit probe said it counted only text painted on top and never checked, so the fixed header and the open menu "overlapped" every line under them (80 of the 122 first-run failures). Read a probe's code before trusting or blaming it; landmark tests query roles (`banner`), not tags (`header` matches card headers) - 2026-10-09.

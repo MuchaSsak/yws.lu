@@ -5,9 +5,10 @@
  *
  * The globe is cobe (MIT) with the 2025 Magic UI settings, now marking the partner countries (2025: the demo's ten
  * world cities). Text first: a CSS sphere holds its place; cobe loads when the page is idle and the globe is near the
- * screen, fades in, turns only while on screen, and under reduced motion draws one still frame. It grows a little as
- * the page scrolls on wide screens (2025: scale 1 → 1.3 over the first 300 px; CSS scroll-driven here). The 2025 React Bits Folder is
- * own CSS: a folder whose sheets name the countries (no flag emoji: lessons.md).
+ * screen, fades in and turns only while on screen; under reduced motion it never loads and the CSS sphere stays (the
+ * poster rule, three.md). It grows a little as the page scrolls on wide screens (2025: scale 1 → 1.3 over the first
+ * 300 px; CSS scroll-driven here). The 2025 React Bits Folder is own CSS: a folder whose sheets name the countries
+ * (no flag emoji: lessons.md).
  */
 import { t, Trans } from "lingui-for-astro/macro";
 
@@ -41,9 +42,7 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
         Mobile Learning for Adults, presented the new website, and introduced the publication developed through this work.
       </Trans>
     </p>
-    <div class="tec-globe-sphere" data-tec-globe data-markers={markers} aria-hidden="true">
-      <canvas></canvas>
-    </div>
+    <div class="tec-globe-sphere" data-tec-globe data-markers={markers} aria-hidden="true"></div>
   </div>
 </section>
 
@@ -51,8 +50,6 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
   import type createGlobe from "cobe";
 
   const host = document.querySelector<HTMLElement>("[data-tec-globe]");
-  const canvas = host?.querySelector("canvas");
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Europe in front (cobe's angles for a longitude: π − (λ − π/2)), tilted to show the north as in 2025.
   const START_PHI = Math.PI - ((10 * Math.PI) / 180 - Math.PI / 2);
 
@@ -61,9 +58,10 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
   let loading = false;
 
   const start = async () => {
-    if (!host || !canvas || loading) return;
+    if (!host || loading) return;
     loading = true;
     const { default: create } = await import("cobe");
+    const canvas = host.appendChild(document.createElement("canvas"));
     let phi = START_PHI;
     let width = canvas.offsetWidth;
     addEventListener("resize", () => (width = canvas.offsetWidth));
@@ -82,7 +80,7 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
       glowColor: [1, 1, 1],
       markers: JSON.parse(host.dataset.markers ?? "[]"),
       onRender: (state) => {
-        if (!still) phi += 0.005;
+        phi += 0.005;
         state.phi = phi;
         state.width = width * 2;
         state.height = width * 2;
@@ -90,9 +88,7 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
     });
     globe = instance;
     requestAnimationFrame(() => (host.dataset.ready = ""));
-    // Reduced motion: one still frame, then the loop stops.
-    if (still) setTimeout(() => instance.toggle(false), 300);
-    else instance.toggle(onScreen);
+    instance.toggle(onScreen);
   };
 
   const watch = () => {
@@ -101,15 +97,18 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
       (entries) => {
         onScreen = entries.some((entry) => entry.isIntersecting);
         if (onScreen && !loading) void start();
-        else if (!still) globe?.toggle(onScreen);
+        else globe?.toggle(onScreen);
       },
       { rootMargin: "200px" },
     ).observe(host);
   };
   const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(watch, { timeout: 3000 }) : setTimeout(watch, 300));
 
-  if (document.readyState === "complete") idle();
-  else addEventListener("load", idle, { once: true });
+  // Reduced motion: no WebGL at all, the CSS sphere is the poster.
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.readyState === "complete") idle();
+    else addEventListener("load", idle, { once: true });
+  }
 </script>
 
 <style>
@@ -177,7 +176,8 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
       translate: -50% -50%;
     }
   }
-  .tec-globe-sphere canvas {
+  /* :global: the canvas is created by the script, so it has no scoped attribute. */
+  .tec-globe-sphere :global(canvas) {
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -188,7 +188,7 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
     background: none;
     box-shadow: none;
   }
-  .tec-globe-sphere[data-ready] canvas {
+  .tec-globe-sphere[data-ready] :global(canvas) {
     opacity: 1;
   }
   /* The scroll growth only where the globe sits behind the text with room around it. */

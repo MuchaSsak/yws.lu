@@ -48,7 +48,9 @@ import Reveal from "~/components/effects/Reveal.astro";
       padding-top: 16rem;
     }
   }
+  /* Capped so wide screens keep the two balanced lines of 1440 (one 1,600–1,800 px line from 1920 otherwise). */
   .owners-title {
+    max-width: 75rem;
     font-size: var(--text-h2);
     line-height: 3.5rem;
     font-weight: 600;

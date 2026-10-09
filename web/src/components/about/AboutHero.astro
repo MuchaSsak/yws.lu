@@ -62,6 +62,8 @@ const alt = t`The Youth Work Synergy group, about twenty people cheering outdoor
     gap: 3rem;
     align-items: center;
     padding-block: 9rem;
+    /* The photo flies in from 1000 px to the right: without the clip, the page pans sideways until it lands. */
+    overflow-x: clip;
   }
   @media (min-width: 1280px) {
     .about-hero {

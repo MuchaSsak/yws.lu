@@ -93,10 +93,13 @@ const LABELS = new Set([
 const languageOf = (text) => (/\b(le|la|les|des|est|pour|une|avec)\b/.test(text) && /[éèàç]/.test(text) ? "fr" : "en");
 
 const escape = (text) => text.replace(/([\\*_`<>[\]])/g, "\\$1");
-/** Bare URLs and the email become Markdown links (they were plain text in 2025). */
+/**
+ * Bare URLs and the email become Markdown links (they were plain text in 2025). A URL stays the visible text, with a
+ * line-break opportunity after each path slash so a narrow screen never breaks it inside a word (text-fit gate).
+ */
 const linkify = (text) =>
   escape(text)
-    .replace(/https?:\/\/\S+/g, (url) => `<${url.replace(/\\/g, "")}>`)
+    .replace(/https?:\/\/\S+/g, (url) => `[${url.replace(/(?<=[^/])\/(?=[^/])/g, "/<wbr>")}](${url.replace(/\\/g, "")})`)
     .replace(/\b[\w.]+@[\w.]+\.[a-z]{2,}\b/g, (email) => `[${email}](mailto:${email})`);
 
 function markdown(text) {

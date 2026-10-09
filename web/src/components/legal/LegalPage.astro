@@ -22,10 +22,12 @@ const updated = formatDate(entry.data.updated.toISOString().slice(0, 10), locale
 ---
 
 <article class="legal px-side">
-  <h1 class="legal-title">{entry.data.title}</h1>
-  <p class="legal-updated">{t`Last updated: ${updated}`}</p>
-  <div class="legal-text">
-    <Content />
+  <div class="legal-shell">
+    <h1 class="legal-title">{entry.data.title}</h1>
+    <p class="legal-updated">{t`Last updated: ${updated}`}</p>
+    <div class="legal-text">
+      <Content />
+    </div>
   </div>
 </article>
 
@@ -33,12 +35,20 @@ const updated = formatDate(entry.data.updated.toISOString().slice(0, 10), locale
   .legal {
     padding-block: var(--space-hero-top) var(--space-section);
   }
+  /* The sections' shell, so the text lines up with the header on wide screens. */
+  .legal-shell {
+    max-width: var(--content-max);
+    margin-inline: auto;
+  }
+  /* Boxes as wide as their text: the layout gate measures boxes, and nothing here is a full-width block. */
   .legal-title {
+    width: fit-content;
     font-size: var(--text-h2);
     line-height: var(--text-h2--line-height);
     font-weight: 900;
   }
   .legal-updated {
+    width: fit-content;
     padding-top: 0.5rem;
     color: var(--color-muted-foreground);
     font-size: var(--text-sm);

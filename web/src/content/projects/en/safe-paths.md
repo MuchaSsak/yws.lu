@@ -27,7 +27,7 @@ Participation: Free of charge
 
 To participate in one of the workshops, please register via the link below:
 
-<https://forms.gle/rncBigsjMoAbYVr4A>
+[https://forms.gle/<wbr>rncBigsjMoAbYVr4A](https://forms.gle/rncBigsjMoAbYVr4A)
 
 ### Contact
 

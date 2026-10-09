@@ -27,20 +27,24 @@ import { ORGANISATION } from "~/data/organisation";
       <ButtonLink href={ORGANISATION.links.applyForHousing} shimmer external>{t`Apply now`}</ButtonLink>
     </div>
   </div>
-  <div class="absolute top-16 -z-10 h-[35rem] w-full" aria-hidden="true">
-    <canvas class="flow-field size-full"></canvas>
-  </div>
+  <div class="flow-field absolute top-16 -z-10 h-[35rem] w-full" aria-hidden="true"></div>
 </section>
 
 <script>
   import { mountFlowField } from "~/scripts/flow-field";
 
   const start = () => {
-    const canvas = document.querySelector<HTMLCanvasElement>(".flow-field");
-    if (canvas) mountFlowField(canvas, { count: innerWidth <= 600 ? 400 : 700, band: 220, hue: 300 });
+    const host = document.querySelector(".flow-field");
+    if (!host) return;
+    const canvas = host.appendChild(document.createElement("canvas"));
+    canvas.className = "size-full";
+    mountFlowField(canvas, { count: innerWidth <= 600 ? 400 : 700, band: 220, hue: 300 });
   };
-  // After the page has loaded and gone idle: the streaks never compete with the first paint.
+  // After the page has loaded and gone idle: the streaks never compete with the first paint. Reduced motion: no
+  // canvas at all.
   const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 200));
-  if (document.readyState === "complete") idle();
-  else addEventListener("load", idle, { once: true });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.readyState === "complete") idle();
+    else addEventListener("load", idle, { once: true });
+  }
 </script>
