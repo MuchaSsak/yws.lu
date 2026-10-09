@@ -50,13 +50,14 @@ try {
       await page.goto(base + path, { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);
       if (full) {
-        // Walk the page once so near-visibility loaders (3D, lazy images, in-view fades) run, then come back up.
+        // Walk the page once so near-visibility loaders (3D, lazy images, in-view fades) run, then come back up. Instant
+        // jumps: under `scroll-behavior: smooth` a plain scrollTo animates and the walk never gets down the page.
         await page.evaluate(async () => {
           for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight * 0.8) {
-            scrollTo(0, y);
+            scrollTo({ top: y, behavior: "instant" });
             await new Promise((done) => setTimeout(done, 120));
           }
-          scrollTo(0, 0);
+          scrollTo({ top: 0, behavior: "instant" });
         });
       }
       await page.waitForTimeout(reduced ? 300 : settle);

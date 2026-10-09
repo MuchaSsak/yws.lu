@@ -32,10 +32,11 @@ export function urlsFor(phase) {
 export const INTERACTIONS = {
   before: {
     menuButton: 'nav [data-slot="sheet-trigger"]',
-    // The flag-only Select: open the visible trigger, then pick the option.
+    // The flag-only Select: open the visible trigger, then pick the option (named in the current language: "French🇫🇷"
+    // in English, "Français" in the menu's French copy).
     switchToFrench: async (page) => {
       await page.locator('[data-slot="select-trigger"]:visible').first().click();
-      await page.getByRole("option", { name: /Fran/ }).click();
+      await page.getByRole("option", { name: /French|Fran/ }).click();
     },
   },
   after: {

@@ -21,7 +21,7 @@ for (const { path } of PAGES) {
       // Viewport by viewport, so the overlap check sees what is really painted together.
       const height = await page.evaluate(() => document.documentElement.scrollHeight);
       for (let y = 0; y < height; y += (width < 700 ? 844 : 1000) * 0.9) {
-        await page.evaluate((top) => scrollTo(0, top), y);
+        await page.evaluate((top) => scrollTo({ top, behavior: "instant" }), y);
         await page.waitForTimeout(80);
         problems.push(...(await textFitProblems(page)));
       }

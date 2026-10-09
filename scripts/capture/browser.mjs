@@ -5,6 +5,7 @@
  *
  *   node scripts/capture/browser.mjs --phase before --base http://localhost:3100 --tasks shots,clips,axe,seo
  *   [--out .case-study/before] [--only home,about-us] [--widths 390,1440] [--locales en,fr]
+ *   [--clips language-switch,menu]  (re-record only the clips whose name starts with one of these)
  *
  * Screenshots: every width in pages.mjs, full page at device scale 1 (taller than 16,000 px is shot in
  * segments and stitched), after a slow scroll to the bottom and back so scroll-triggered sections are shown,
@@ -31,6 +32,7 @@ const phase = opt("phase", "before");
 const base = opt("base", "http://localhost:3100").replace(/\/$/, "");
 const out = resolve(opt("out", `.case-study/${phase}`));
 const tasks = opt("tasks", "shots,clips,axe,seo").split(",");
+const clipFilter = opt("clips", "").split(",").filter(Boolean);
 const only = opt("only", null)?.split(",");
 const widths = opt("widths", WIDTHS.join(",")).split(",").map(Number);
 const locales = opt("locales", "en,fr").split(",");
@@ -60,17 +62,20 @@ async function open(page, path) {
   return response;
 }
 
-/** Scroll down in viewport steps (scroll-triggered sections reveal), then back to the top. */
+/**
+ * Scroll down in viewport steps (scroll-triggered sections reveal), then back to the top. Instant jumps: under
+ * `scroll-behavior: smooth` (both sites) a plain scrollTo animates and the walk never reaches the lower sections.
+ */
 async function revealByScrolling(page) {
   await page.evaluate(async () => {
     const step = Math.round(window.innerHeight * 0.8);
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
-      window.scrollTo(0, y);
+      window.scrollTo({ top: y, behavior: "instant" });
       await new Promise((r) => setTimeout(r, 250));
     }
-    window.scrollTo(0, document.documentElement.scrollHeight);
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" });
     await new Promise((r) => setTimeout(r, 600));
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" });
     await new Promise((r) => setTimeout(r, 600));
   });
 }
@@ -138,6 +143,7 @@ function toMp4(webm, mp4) {
 }
 
 async function clip(name, width, locale, action) {
+  if (clipFilter.length && !clipFilter.some((prefix) => name.startsWith(prefix))) return;
   const dir = join(out, "clips");
   const tmp = join(dir, ".tmp", name);
   mkdirSync(tmp, { recursive: true });
@@ -347,6 +353,25 @@ async function hosts() {
   for (const c of chains) console.log(`host ${c.url} → ${c.chain.map((s) => s.status).join(" → ")}`);
 }
 
+/**
+ * Every page answers as expected before anything is written: a broken server (a `next dev` that rewrote `.next`, a
+ * stale build) would otherwise overwrite good captures with error pages.
+ */
+async function preflight() {
+  const bad = [];
+  for (const target of targets) {
+    const response = await fetch(base + target.path).catch(() => null);
+    const expected = target.id === "not-found" ? 404 : 200;
+    if (response?.status !== expected) bad.push(`${target.path} → ${response?.status ?? "no answer"} (expected ${expected})`);
+  }
+  if (bad.length) {
+    console.error(`preflight: ${bad.length} page(s) on ${base} don't answer as expected, nothing captured:\n  ${bad.join("\n  ")}`);
+    await browser.close();
+    process.exit(1);
+  }
+}
+
+if (["seo", "axe", "shots", "clips"].some((task) => tasks.includes(task))) await preflight();
 mkdirSync(out, { recursive: true });
 try {
   if (tasks.includes("seo")) await seo();

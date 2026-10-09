@@ -13,7 +13,7 @@ for (const { path } of PAGES) {
     await page.goto(path);
     await page.evaluate(async () => {
       for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight * 0.8) {
-        scrollTo(0, y);
+        scrollTo({ top: y, behavior: "instant" });
         await new Promise((done) => setTimeout(done, 60));
       }
     });
