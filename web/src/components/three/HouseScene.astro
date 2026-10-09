@@ -1,9 +1,9 @@
 ---
 /**
  * The 3D house beside the home hero, from 1280 px up as in 2025 (wiki: tech/usage/three.md). The box is sized in CSS
- * (no layout shift) and shows a still poster; the React Three Fiber scene is imported only when the page is idle,
- * the box is near the screen, the screen is wide and motion is allowed, then fades in over the poster. Decorative:
- * hidden from AT.
+ * (no layout shift) and shows a still poster; the three.js scene (drawn in a worker) is imported only when the page is
+ * idle, the box is near the screen, the screen is wide and motion is allowed, then fades in over the poster.
+ * Decorative: hidden from AT.
  */
 interface Props {
   class?: string;
@@ -18,7 +18,7 @@ const { class: className } = Astro.props;
     src="/posters/house.webp"
     alt=""
     width="960"
-    height="958"
+    height="994"
     loading="lazy"
     decoding="async"
   />
@@ -27,14 +27,15 @@ const { class: className } = Astro.props;
 <script>
   const host = document.querySelector<HTMLElement>("[data-house-scene]");
   const wide = matchMedia("(min-width: 1280px)");
-  // Reduced motion keeps the poster (the same final pose, no WebGL); `?poster` lets scripts/poster.mjs render it.
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches && !new URLSearchParams(location.search).has("poster");
+  // Reduced motion keeps the poster (the same final pose, no WebGL); `?poster` lets scripts/poster.mjs render that pose.
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const posterOnly = reduced && !new URLSearchParams(location.search).has("poster");
   let started = false;
 
   const start = () => {
-    if (started || still || !host || !wide.matches) return;
+    if (started || posterOnly || !host || !wide.matches) return;
     started = true;
-    void import("./house/mount").then(({ mountHouse }) => mountHouse(host));
+    void import("./house/mount").then(({ mountHouse }) => mountHouse(host, reduced));
   };
   const whenVisible = () => {
     if (!host) return;

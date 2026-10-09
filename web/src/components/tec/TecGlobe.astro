@@ -4,10 +4,10 @@
  * what the conference launched, and the three partner countries, over a dotted globe.
  *
  * The globe is cobe (MIT) with the 2025 Magic UI settings, now marking the partner countries (2025: the demo's ten
- * world cities). Text first: a CSS sphere holds its place; cobe loads when the page is idle and the globe is near the
- * screen, fades in and turns only while on screen; under reduced motion it never loads and the CSS sphere stays (the
- * poster rule, three.md). It grows a little as the page scrolls on wide screens (2025: scale 1 → 1.3 over the first
- * 300 px; CSS scroll-driven here). The 2025 React Bits Folder is own CSS: a folder whose sheets name the countries
+ * world cities; globe.ts). Text first: a CSS sphere holds its place; cobe loads when the page is idle and the globe is
+ * near the screen, draws in a worker (mount-globe.ts), fades in and turns only while on screen; under reduced motion it
+ * never loads and the CSS sphere stays (the poster rule, three.md). It grows a little as the page scrolls on wide
+ * screens (2025: scale 1 → 1.3 over the first 300 px; CSS scroll-driven here). The 2025 React Bits Folder is own CSS: a folder whose sheets name the countries
  * (no flag emoji: lessons.md).
  */
 import { t, Trans } from "lingui-for-astro/macro";
@@ -47,48 +47,17 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
 </section>
 
 <script>
-  import type createGlobe from "cobe";
-
   const host = document.querySelector<HTMLElement>("[data-tec-globe]");
-  // Europe in front (cobe's angles for a longitude: π − (λ − π/2)), tilted to show the north as in 2025.
-  const START_PHI = Math.PI - ((10 * Math.PI) / 180 - Math.PI / 2);
-
-  let globe: ReturnType<typeof createGlobe> | undefined;
+  let toggle: ((on: boolean) => void) | undefined;
   let onScreen = false;
   let loading = false;
 
   const start = async () => {
     if (!host || loading) return;
     loading = true;
-    const { default: create } = await import("cobe");
-    const canvas = host.appendChild(document.createElement("canvas"));
-    let phi = START_PHI;
-    let width = canvas.offsetWidth;
-    addEventListener("resize", () => (width = canvas.offsetWidth));
-    const instance = create(canvas, {
-      devicePixelRatio: 2,
-      width: width * 2,
-      height: width * 2,
-      phi,
-      theta: 0.3,
-      dark: 0,
-      diffuse: 0.4,
-      mapSamples: 16000,
-      mapBrightness: 1.2,
-      baseColor: [1, 1, 1],
-      markerColor: [251 / 255, 100 / 255, 21 / 255],
-      glowColor: [1, 1, 1],
-      markers: JSON.parse(host.dataset.markers ?? "[]"),
-      onRender: (state) => {
-        phi += 0.005;
-        state.phi = phi;
-        state.width = width * 2;
-        state.height = width * 2;
-      },
-    });
-    globe = instance;
-    requestAnimationFrame(() => (host.dataset.ready = ""));
-    instance.toggle(onScreen);
+    const { mountGlobe } = await import("./mount-globe");
+    toggle = mountGlobe(host, JSON.parse(host.dataset.markers ?? "[]"));
+    toggle(onScreen);
   };
 
   const watch = () => {
@@ -97,7 +66,7 @@ const markers = JSON.stringify(TEC_COUNTRIES.map(({ location }) => ({ location, 
       (entries) => {
         onScreen = entries.some((entry) => entry.isIntersecting);
         if (onScreen && !loading) void start();
-        else globe?.toggle(onScreen);
+        else toggle?.(onScreen);
       },
       { rootMargin: "200px" },
     ).observe(host);

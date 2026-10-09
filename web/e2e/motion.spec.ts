@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 
+import { pathTo } from "../src/lib/routes";
 import { PAGES } from "./routes";
 
 /**
@@ -44,3 +45,24 @@ test("the H1 is painted in the first frame (no entrance hides the LCP)", async (
     expect(opacity, path).toBe(1);
   }
 });
+
+/**
+ * With motion, the WebGL scenes draw in workers on OffscreenCanvases (three.md): each box gets its one canvas and turns
+ * ready (CSS swaps the poster for it) once scrolled near, without a page error.
+ */
+for (const [id, box] of [
+  ["home", "[data-house-scene]"],
+  ["tec", "[data-tec-globe]"],
+] as const) {
+  test(`with motion, the ${id} scene draws and replaces its poster`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(String(error)));
+    page.on("console", (message) => message.type() === "error" && errors.push(message.text()));
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(pathTo("en", id));
+    await page.locator(box).scrollIntoViewIfNeeded();
+    await expect(page.locator(box)).toHaveAttribute("data-ready", "", { timeout: 30_000 });
+    await expect(page.locator(`${box} canvas`)).toHaveCount(1);
+    expect(errors).toEqual([]);
+  });
+}

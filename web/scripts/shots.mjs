@@ -60,6 +60,9 @@ try {
           scrollTo({ top: 0, behavior: "instant" });
         });
       }
+      // A full-page capture grows the viewport in one step, and `content-visibility: auto` content renders a frame later:
+      // it shot as blank boxes (the footer). Render everything for the capture; scrolled views show the real behaviour.
+      if (full) await page.addStyleTag({ content: "* { content-visibility: visible !important; }" });
       await page.waitForTimeout(reduced ? 300 : settle);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       const dir = join(outDir, slug(path));

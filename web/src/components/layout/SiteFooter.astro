@@ -163,11 +163,20 @@ const mapLabel = t`Open in Google Maps`;
 </footer>
 
 <style>
+  /* Laid out only when it comes near (content-visibility): it is below the fold on every page. The height is an
+     estimate until it has rendered once. */
   .site-footer {
     margin-top: var(--space-section);
     padding: 3rem var(--pad-x) 1.5rem;
     background: var(--color-foreground);
     color: #fff;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1100px;
+  }
+  @media (min-width: 1024px) {
+    .site-footer {
+      contain-intrinsic-size: auto 600px;
+    }
   }
   .site-footer-inner,
   .footer-bottom {

@@ -16,12 +16,22 @@ CLS ≤ 0.05 · a11y / BP / SEO 100.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | — | | | | | | | none closed yet |
 
-## Known costs to fix in their slice (measured on the spike, 2026-10-09)
+## Load costs found and fixed (2026-10-09)
 
-| Where | Cost | Cause | Plan |
-| --- | --- | --- | --- |
-| home · desktop (≥ 1280 px) | perf 67, TBT 3173 ms (long tasks 2639 ms in React's chunk at 0.9 s, 626 ms in the 3D chunk at 3.6 s); 3D chunk 224 KB br | the R3F house island: WebGL context + first scene compile inside React's commit, under SwiftShader | measure each step with marks; compile with `compileAsync` (`KHR_parallel_shader_compile`), split the mount across tasks, consider mounting on first intent (pointer/scroll); keep the poster as the static state |
-| housing · phones | perf 87, TBT 444 ms; 4.7 s of 6 s CPU while the hero is on screen | the flow field: 400–700 `stroke()` calls + two full-canvas `blur()` copies per frame | batch strokes by hue/alpha bucket, 30 fps, fewer streaks on phones, glow from a CSS-filtered copy instead of canvas blur |
+Lab numbers: `bun run lhci` (median of 3, laptop, SwiftShader), or the one-page probe (single runs, marked). The whole
+sweep after the CSS fixes (`lhci-3`): every mobile row perf 94–99, TBT ≤ 148 ms, CLS 0, a11y / BP / SEO 100; every
+desktop row 99–100 except home and TEC (below).
+
+| Where | Before | Cause | Fix | After |
+| --- | --- | --- | --- | --- |
+| home · desktop (≥ 1280 px) | perf 68, TBT 2978 (en) / 3117 (fr) ms; spike: long tasks 2639 ms in React's chunk, 626 ms in the 3D chunk; chunk 1 MB raw, 279 KB transferred | the R3F + drei island: React, R3F, drei and three evaluated, the WebGL context and first frames inside React's commit, on the main thread | plain three.js in a worker on an OffscreenCanvas (`house-scene.ts`, `house.worker.ts`); React, R3F and drei removed from the site | probe: perf 98–100, TBT 0–19 ms; worker chunk 643 KB raw, 159 KB gz, off the main thread |
+| TEC · desktop | perf 67–68, TBT 1541 (en) / 1610 (fr) ms; one 1304 ms task in the globe script | cobe compiling its shader and creating the context on the main thread (`getUniformLocation` waits for the compile) | cobe in a worker (`globe.worker.ts`, stand-ins for `window`, the CSS size and `Image`) | probe: perf 96–99, TBT 1–15 ms |
+| housing · phones | perf 87, TBT 444 ms (spike); 400–560 ms in `lhci-2`; 4.7 s of 6 s CPU while the hero is on screen | the flow field: 400–700 `stroke()` calls + blurred copies per frame on the main thread | the draw loop in a worker on an OffscreenCanvas (`flow-field.worker.ts`) | probe: perf 96, TBT 123–166 ms; `lhci-3`: 97–99, TBT 95–103 ms |
+| projects · phones | TBT 405–1100 ms (`lhci-2`) | 10 cards × sparkles (animated `<svg>` re-styled every frame) + the shine (`background-position`: a repaint per frame) + layout of the whole long page | sparkles as `<span>` transforms, the shine as a translated layer, loops paused off screen, `content-visibility: auto` on cards | `lhci-3`: perf 98–99, TBT 90–103 ms |
+| about, owners fr, TEC · phones | TBT 234–681 ms (`lhci-2`) | the same loops and the off-screen layout (font swap re-layout of the whole page) | `content-visibility: auto` on `Section` and the footer | `lhci-3`: TBT 79–148 ms |
+
+How the CSS causes were found: a DevTools trace per task (style-recalc element counts) and a CSS A/B under Lighthouse
+(variants of one built page, interleaved, median TBT): `.project-card` content-visibility took TBT 215 → 148 ms.
 
 ## Safe-to-skip
 

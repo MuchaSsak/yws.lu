@@ -10,8 +10,8 @@
 | Layer | Package | Pin | Why |
 | --- | --- | --- | --- |
 | Framework | astro | 7.3.8 | static output, HTML first, ≥ 7.2.8 for the AVIF RCE fix [research: stack § 0] |
-| Islands | @astrojs/react + react / react-dom | 7.0.1 + 19.3.0 | React only for the WebGL scenes |
-| 3D | three, @react-three/fiber, @react-three/drei | 0.186.1, 9.8.1, 10.7.9 | R3F ≥ 9.8.0 is the first line that allows React 19.3 |
+| Islands | none: no UI framework ships | — | React, R3F and drei were the 3D island until 2026-10-09; the scenes are plain three.js and cobe in workers ([three](usage/three.md)) |
+| 3D | three (+ `GLTFLoader`, meshopt decoder), cobe | 0.186.1, 0.6.5 | drawn in workers on OffscreenCanvas, a page fallback where a worker has no WebGL |
 | i18n | @lingui/core, cli, conf, format-po, vite-plugin + lingui-for-astro | 6.9.0 + 0.7.1 | `.po` catalogs, macros in `.astro` ([lingui](usage/lingui.md)) |
 | Macros | @lingui/native-tools | 0.1.6 | native binary, no WASM fallback: `bun.lock` must hold the linux-x64-gnu build for Vercel |
 | CSS | tailwindcss + @tailwindcss/vite | 4.3.3 | `@theme` tokens in `src/styles/global.css` |
@@ -61,8 +61,8 @@ only failed SEO audit); BP 96 was the stretched background `<img>` (now a CSS ba
 could not beat 0 KB of framework JS. **The two misses are effects, not the stack**, and cost the same on any
 framework: the R3F house island on desktop (a 2.6 s task while React creates the WebGL scene under SwiftShader, then
 0.6 s; TBT 3.2 s) and the housing flow field on phones (400–700 strokes + two full-canvas blurs per frame: 4.7 s of
-6 s CPU while visible). Both are fixed in their slices (home, housing) against the budget, with the numbers in
-`memory/slice-costs.md`. Tag `history/pre-migration` marks the last commit before the migration.
+6 s CPU while visible). Both are fixed (2026-10-09), with the numbers in `memory/slice-costs.md`: the
+flow field draws in a worker, and the house is plain three.js in a worker (React, R3F and drei removed). Tag `history/pre-migration` marks the last commit before the migration.
 
 ## Hosting (Vercel, static, no adapter)
 

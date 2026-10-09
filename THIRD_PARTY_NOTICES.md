@@ -17,20 +17,8 @@ asset and dependency inventory is `.claude/project-info/design/assets.md`.
 
 | Component | Version | Used for | Copyright | Source |
 | --- | --- | --- | --- | --- |
-| three.js (`three`) | 0.186.1 | 3D rendering | Copyright © 2010-2026 three.js authors | https://threejs.org/ |
-| React (`react`, `react-dom`, `scheduler`, `use-sync-external-store`) | 19.3.0 / 19.3.0 / 0.28.0 / 1.7.0 | the 3D island | Copyright (c) Meta Platforms, Inc. and affiliates. | https://react.dev/ |
-| `react-reconciler` (bundled inside `@react-three/fiber/react-reconciler/`) | as bundled | React Three Fiber's renderer | Copyright (c) Meta Platforms, Inc. and affiliates. (file header) | https://react.dev/ |
-| React Three Fiber (`@react-three/fiber`) | 9.8.1 | React renderer for three.js | Copyright (c) 2019-2025 Poimandres (upstream LICENSE; the package has none) | https://github.com/pmndrs/react-three-fiber |
-| `its-fine` | 2.1.1 | R3F dependency | Copyright (c) 2022-2025 Poimandres | https://github.com/pmndrs/its-fine |
-| `zustand` | 5.0.15 | R3F dependency | Copyright (c) 2019 Paul Henschel | https://github.com/pmndrs/zustand |
-| `suspend-react` | 0.1.3 | R3F / drei dependency | Copyright (c) 2021 Paul Henschel | https://github.com/pmndrs/suspend-react |
-| `react-use-measure` | 2.1.7 | R3F dependency | Copyright (c) 2019-2025 Poimandres | https://github.com/pmndrs/react-use-measure |
-| drei (`@react-three/drei`) | 10.7.9 | `PresentationControls`, `useGLTF` | Copyright (c) 2020 react-spring | https://github.com/pmndrs/drei |
-| `three-stdlib` | 2.36.1 | GLTF loader, meshopt decoder | Copyright (c) 2021-2023 Poimandres | https://github.com/pmndrs/three-stdlib |
-| meshoptimizer decoder (inside `three-stdlib/libs/MeshoptDecoder.js`, which carries no header) | as bundled | decoding the meshopt-compressed models | Copyright (C) 2016-2026, by Arseny Kapoulkine (arseny.kapoulkine@gmail.com) (line copied from the same library's header in `three/examples/jsm/libs/meshopt_decoder.module.js`) | meshoptimizer library |
-| `@use-gesture/react`, `@use-gesture/core` | 10.3.1 | drag in `PresentationControls` | Copyright (c) 2018-present Paul Henschel <drcmda@gmail.com> | https://use-gesture.netlify.app |
-| `maath` | 0.10.8 | easing in `PresentationControls` | Copyright © 2026 Isaac Mason (upstream LICENSE; the package has none) | https://github.com/pmndrs/maath |
-| `@babel/runtime` | 7.29.10 | helpers used by drei | Copyright (c) 2014-present Sebastian McKenzie and other contributors | https://babel.dev/docs/en/next/babel-runtime |
+| three.js (`three`, with its `GLTFLoader` add-on) | 0.186.1 | the home page's 3D house (`web/src/components/three/house/`) | Copyright © 2010-2026 three.js authors | https://threejs.org/ |
+| meshoptimizer decoder (`three/examples/jsm/libs/meshopt_decoder.module.js`) | as shipped with three 0.186.1 | decoding the meshopt-compressed models | Copyright (C) 2016-2026, by Arseny Kapoulkine (arseny.kapoulkine@gmail.com) (file header) | meshoptimizer library |
 | cobe (`cobe`) | 0.6.5 | the TEC page's dotted globe (`web/src/components/tec/TecGlobe.astro`) | Copyright (c) 2021 Shu Ding | https://github.com/shuding/cobe |
 | `phenomenon` | 1.6.0 | cobe's WebGL renderer | Copyright (c) 2019 Colin van Eenige | https://github.com/vaneenige/phenomenon |
 | `simplex-noise` | 4.0.3 | the housing hero's particle streaks (`web/src/scripts/flow-field.ts`, own code) | Copyright (c) 2018 Jonas Wagner | https://github.com/jwagner/simplex-noise.js |
@@ -38,15 +26,13 @@ asset and dependency inventory is `.claude/project-info/design/assets.md`.
 | Vite (via Astro) | 8.3.4 | small runtime helpers it may emit (e.g. for dynamic imports) | Copyright (c) 2019-present, VoidZero Inc. and Vite contributors | https://vite.dev |
 | Astro (`astro`) | 7.3.8 | static site generator; listed in case runtime code ends up in the output | Copyright (c) 2021 Fred K. Schott | https://astro.build |
 
-Declared by React Three Fiber and included only if the bundler pulls them in (check after the first build):
-`base64-js` 1.5.1 (Copyright (c) 2014 Jameson Little, MIT), `buffer` 6.0.3 (Copyright (c) Feross Aboukhadijeh, and other
-contributors., MIT).
-
 ## Adapted code (MIT)
 
 | Work | Copyright | Where | Source |
 | --- | --- | --- | --- |
 | Magic UI (BoxReveal, TextAnimate, LineShadowText, SparklesText, ShimmerButton, WarpBackground, ShineBorder, Globe) | Copyright (c) Magic UI | rewritten for Astro and CSS with the same idea and parameters: `web/src/components/effects/{Reveal,WordFade,LineShadow,Sparkles}.astro`, the `.btn-shimmer` styles in `web/src/styles/global.css` (used by `web/src/components/ui/ButtonLink.astro`), the warp tunnel in `web/src/components/home/WhoWeAre.astro`, the `.shine-border` styles, the globe settings in `web/src/components/tec/TecGlobe.astro` | https://github.com/magicuidesign/magicui |
+| drei's `PresentationControls` (`@react-three/drei` 10.7.9) | Copyright (c) 2020 react-spring | the house's drag (limits, damping, speed, cursor) rewritten for plain three.js in `web/src/components/three/house/house-scene.ts` | https://github.com/pmndrs/drei |
+| maath's `easing.damp` / `dampAngle` (`maath` 0.10.8) | Copyright © 2026 Isaac Mason (upstream LICENSE; the package has none) | the damped spring reproduced in `web/src/components/three/house/house-scene.ts` | https://github.com/pmndrs/maath |
 
 ## Icons (ISC)
 
@@ -102,7 +88,7 @@ list are in `.claude/project-info/design/assets.md`.
 
 ---
 
-## MIT License text (the permission notice for every MIT entry above), verbatim from `web/node_modules/react/LICENSE`
+## MIT License text (the permission notice for every MIT entry above), verbatim from `web/node_modules/three/LICENSE`
 
 ```text
 Permission is hereby granted, free of charge, to any person obtaining a copy

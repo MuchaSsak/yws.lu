@@ -6,7 +6,7 @@
 
 ## Scope
 
-- The new site lives in `web/` during the migration: Astro 7 static, Lingui 6.9, React 19 islands only for 3D,
+- The new site lives in `web/` during the migration: Astro 7 static, Lingui 6.9, no UI framework (3D in workers),
   Tailwind 4, Vitest, Playwright + axe, Lighthouse 13.5, bun, Node ≥ 22.19 [repo: web/package.json; pending the spike].
 - The 2025 Next app at the repo root is the **reference until parity**: read it, never extend it; each route is deleted
   once its Astro twin passes the gates, then the whole app goes [user 2026-10-09, brief § 6 P3].
@@ -29,7 +29,7 @@
 
 | Thing | Rule | Example |
 | --- | --- | --- |
-| Components | PascalCase file and export | `HousingHero.astro`, `HouseCanvas.tsx` |
+| Components | PascalCase file and export | `HousingHero.astro`, `TecGlobe.astro` |
 | Modules, scripts | lowercase kebab-case | `routes.ts`, `flow-field.ts`, `vercel-config.ts` |
 | Fact tables | `UPPER_SNAKE` exports | `ROUTES`, `LEGACY`, `ORGANISATION` |
 | Route ids | one short word | `housing`, `owners`, `projects` |
@@ -49,7 +49,7 @@
 | `src/components/ui/` | shared primitives: `ButtonLink`, the section + section-header pair (the 2025 `XHeader` + `XSection` idea) | a component used by two pages moves here; never a copy |
 | `src/components/layout/` | header, footer, background | |
 | `src/components/effects/` | `Reveal`, `WordFade`, `LineShadow`, `Sparkles` (CSS, no JS framework) | own code or MIT with a notice |
-| `src/components/three/` | the 3D loaders (`.astro`) and `<scene>/mount.tsx` + canvas | the only React in the site |
+| `src/components/three/` | the 3D loaders (`.astro`), `<scene>/mount.ts`, the scene module and its worker | plain three.js |
 | `src/data/` | `organisation.ts` (the one source of facts), `statistics.ts`, `houses.ts`, `credits.ts` | a `*.test.ts` checks shapes |
 | `src/lib/` | `routes.ts` (one path builder), `locales.ts`, `i18n.ts`, later the JSON-LD graph | |
 | `src/locales/{en,fr}/` | `messages.po` + `catalogs.test.ts` | edited after `bun run i18n:extract` |
@@ -63,11 +63,12 @@
 Repo root (migration only): the Next app, `scripts/capture/` (the P0/P8 case-study capture: not gates, never edited
 between the two runs), gitignored `.case-study/`, `screenshots/`, `comps/`.
 
-## Astro vs React islands
+## Astro, scripts and workers
 
-- Default: `.astro` + CSS + a small `<script>`. React exists only for WebGL (R3F) [user 2026-10-09, HANDOFF § 2].
+- Default: `.astro` + CSS + a small `<script>`. No UI framework: React was only the 3D island and left on 2026-10-09
+  (`usage/three.md`). Canvas and WebGL loops draw in a module worker (`*.worker.ts`, OffscreenCanvas) with a page fallback.
 - No `client:*` directive: a scene loads through its loader script (idle + near visible + wide enough) that imports
-  `mount.tsx`, since `client:only` loads at page load [research: stack § 1.8]. Rules: [three](usage/three.md).
+  `mount.ts`, since `client:only` loads at page load [research: stack § 1.8]. Rules: [three](usage/three.md).
 - Menus, carousels, dialogs, tabs: native `<dialog>`, `popover`, `<details>`, CSS scroll-snap and a few lines of script.
 - Islands get translated strings as props; no Lingui catalog ships to the browser ([lingui](usage/lingui.md)).
 - A component's `<script>` runs once per page: query every instance ([astro](usage/astro.md) § Gotchas).

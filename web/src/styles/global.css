@@ -330,15 +330,18 @@
 
   /* Shine border (adapted from Magic UI's ShineBorder, MIT; THIRD_PARTY_NOTICES.md): a soft multicolour glint travels
      round the frame (14 s), only while near the viewport (data-loop) and never under reduced motion. Put it on a
-     positioned box; --shine-width and --shine-colors set the frame. */
-  .shine-border::after {
-    content: "";
+     positioned box with `<span class="shine" aria-hidden="true"><span></span></span>` inside; --shine-width and
+     --shine-colors set the frame. The ring is a mask on .shine; the glint is a 300 % layer moved by transform (the
+     2025 background-position sweep, same path: 100 % of a 300 % background = −66.667 % of the layer), so the
+     compositor runs it: the background-position version repainted the whole card every frame (a 380 × 1,592 px
+     project card on a phone). */
+  .shine-border > .shine {
     position: absolute;
     inset: 0;
     z-index: 1;
     padding: var(--shine-width, 1px);
+    overflow: hidden;
     border-radius: inherit;
-    background: radial-gradient(transparent, transparent, var(--shine-colors, #000), transparent, transparent) 0 0 / 300% 300%;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -347,13 +350,21 @@
       linear-gradient(#fff 0 0) content-box exclude,
       linear-gradient(#fff 0 0);
     pointer-events: none;
+  }
+  .shine-border > .shine > span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(transparent, transparent, var(--shine-colors, #000), transparent, transparent);
     animation: shine 14s linear infinite paused;
   }
-  .shine-border.is-playing::after {
+  .shine-border.is-playing > .shine > span {
     animation-play-state: running;
   }
   @media (prefers-reduced-motion: reduce) {
-    .shine-border::after {
+    .shine-border > .shine > span {
       animation: none;
     }
   }
@@ -389,7 +400,15 @@
     width: 21px;
     height: 21px;
     pointer-events: none;
-    animation: sparkle 0.8s var(--delay, 0s) infinite both;
+    animation: sparkle 0.8s var(--delay, 0s) infinite both paused;
+  }
+  .sparkles.is-playing .sparkle {
+    animation-play-state: running;
+  }
+  .sparkle svg {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   /* Fade in when scrolled into view (the 2025 motionFadeIn and TextAnimate "fadeIn by word"). src/scripts/inview.ts
@@ -519,7 +538,7 @@
 }
 @keyframes shine {
   50% {
-    background-position: 100% 100%;
+    transform: translate(-66.667%, -66.667%);
   }
 }
 @keyframes line-shadow {

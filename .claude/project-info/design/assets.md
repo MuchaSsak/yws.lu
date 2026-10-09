@@ -80,7 +80,7 @@
 | `…/projects/tec_conference_banner.png` | PNG 1080×1920 | 332.6 KB | TEC hero (inside Lens + ElectricBorder) | client poster (NINFEA / Kultur Nest e.V. logos, EU emblem) | illustration source Unknown (Q22) | — | **copied** byte for byte to `web/src/assets/projects/tec-conference-poster.png`; `astro:assets` serves AVIF/WebP at 256–800 px |
 | `public/images/yws_apply_for_housing_form_screenshot.jpg` | JPEG 1514×982 | 67.5 KB | **unused** | the client's Google Form | client | — | **remove** |
 | `public/images/yws_group_photo.jpg` | JPEG 2560×1707, no EXIF | 467.5 KB | About us hero (`HeroImage` imported by `app/AboutUs/(components)/hero/HeroSection.tsx` only); also baked into `bedroom.glb` | client | client; consent Unknown (Q10) | — | keep; **compress** (`astro:assets` widths) |
-| `public/models/house.glb` | glTF, glTF-Transform v4.1.0, Draco + WebP + unlit | 90.6 KB | home hero (`HouseCanvas`) → `web/src/components/three/house/HouseCanvas.tsx` | Sketchfab "Cat House" | CC BY 4.0 | yes (below) | **compress**: re-encode meshopt → `web/public/models/house.glb` (no Draco decoder from gstatic) |
+| `public/models/house.glb` | glTF, glTF-Transform v4.1.0, Draco + WebP + unlit | 90.6 KB | home hero → `web/src/components/three/house/house-scene.ts` (drawn in `house.worker.ts`) | Sketchfab "Cat House" | CC BY 4.0 | yes (below) | **compress**: re-encode meshopt → `web/public/models/house.glb` (no Draco decoder from gstatic) |
 | `public/models/rocket.glb` | glTF, Sketchfab-12.67.0 export, 9 textures (4 JPEG, 5 PNG), 1 animation | 6.10 MB | home projects section (`RocketCanvas`) | Sketchfab "Cosmonaut on a rocket" | CC BY 4.0 | yes | **compress** to ≤ 2 MB (textures are 93 %; WebP 1024); check the animation after `--flatten/--join` |
 | `public/models/wardrobe.glb` | glTF, Sketchfab-15.22.0 export, 3 textures | 1.46 MB | home housing section (`WardrobeCanvas`) | Sketchfab "Stylized Wardrobe" | CC BY 4.0 | yes | **compress** (textures 96 %) |
 | `public/models/bedroom.glb` | glTF, Blender I/O v4.3.47, Draco, 26 images (7 YWS house photos, `Untitled-1` "Our Homes" lettering on wood, `Untitled-2` "Our Journey" with the group photo) | 5.29 MB | **not rendered**: `BedroomCanvas` imported by nothing; `BedroomModel` also preloads a missing `/models/loft_bedroom.glb` | Sketchfab "Loft Bedroom", retextured | CC BY 4.0 (modification not credited); wood texture and fonts Unknown | yes today | **remove** with `canvases/bedroom/` and its credit |
@@ -137,25 +137,20 @@ links (4 of 5 answered HTTP 202 to a script). The "Lead Developer" line stays as
 | ColorBends (Jobs) | React Bits (MIT + Commons Clause) | dropped with the Jobs page | — |
 | LightPillar, ElectricBorder, Folder (TEC) | React Bits | own code or dropped | Q23 |
 | SplashCursor (TEC) | React Bits + 61 % identical to Pavel Dobryakov's WebGL-Fluid-Simulation (MIT), no notice | if kept: rebuilt from Pavel's MIT original with its notice (entry ready in `THIRD_PARTY_NOTICES.md`), never over the pointer; else dropped | Q23 |
-| GSAP intro (`useGSAP`, `expo.out`) | Webflow licence | expo-out easing in `useFrame` (`HouseCanvas.tsx`) | written |
+| GSAP intro (`useGSAP`, `expo.out`) | Webflow licence | expo-out easing in the frame loop (`house-scene.ts`) | written |
 | react-fast-marquee | MIT | CSS marquee in `global.css` (own) | written |
 
 ## Dependencies the revamped site ships (`web/package.json`, read from `web/node_modules/<pkg>/package.json`, 2026-10-09)
 
 | Package | Version | Licence | Served to visitors? | On the list? |
 | --- | --- | --- | --- | --- |
-| three | 0.186.1 | MIT | yes (3D chunk) | yes |
-| react, react-dom | 19.3.0 | MIT | yes (3D island) | yes |
-| @react-three/fiber | 9.8.1 | MIT (no LICENSE file in the package; upstream LICENSE read) | yes (vendors `react-reconciler`, MIT, Meta headers) | yes |
-| @react-three/drei | 10.7.9 | MIT | yes (`PresentationControls`, `useGLTF`; pulls three-stdlib, @use-gesture, maath, @babel/runtime: all MIT) | yes |
+| three | 0.186.1 | MIT | yes (the house worker: core + `GLTFLoader` + meshopt decoder) | yes |
 | simplex-noise | 4.0.3 | MIT | yes (`flow-field.ts`) | yes |
 | @fontsource-variable/montserrat | 5.3.0 | OFL-1.1 | yes (woff2 + CSS) | yes |
 | tailwindcss, @tailwindcss/vite | 4.3.3 | MIT | generated CSS (with Tailwind's MIT banner) | yes |
 | astro | 7.3.8 | MIT | build; any runtime helper in `dist/`: check after the first build | yes |
-| @astrojs/react | 7.0.1 | MIT | build (the island mounts through its own loader) | yes |
 | @astrojs/sitemap | 3.7.4 | MIT | build | yes |
 | @lingui/core | 6.9.0 | MIT | build (static pages); browser only if an island translates | yes |
-| @lingui/react | 6.9.0 | MIT | not imported in `web/src` today (candidate for removal; knip) | yes |
 | lingui-for-astro | 0.7.1 | MIT | build | yes |
 | sharp | 0.35.5 | Apache-2.0 | build (its libvips binary `@img/sharp-win32-x64` is Apache-2.0 AND LGPL-3.0-or-later: build machine only) | yes (binary: build-only exception) |
 
@@ -168,8 +163,8 @@ links (4 of 5 answered HTTP 202 to a script). The "Lead Developer" line stays as
 - **Off the list, all build-time:** lightningcss 1.32.0/1.33.0 + win32 binaries (MPL-2.0; Tailwind/Vite CSS);
   common-ancestor-path 2.0.0 (BlueOak; astro), sax 1.6.1 (BlueOak; sitemap, svgo), lru-cache 11.5.3 (BlueOak; unstorage,
   Babel), argparse 2.0.1 (Python-2.0; js-yaml), @img/sharp-win32-x64 (LGPL binary). caniuse-lite (CC-BY-4.0 data, on
-  the list) is build-time too; its attribution stays in the package. **webgl-constants 1.1.1** has no `license` field but an MIT LICENSE file ("Copyright (c) 2019 Tim van
-  Scherpenzeel"); it comes through drei → detect-gpu, which the spike's imports don't use [assumption: tree-shaken].
+  the list) is build-time too; its attribution stays in the package. React, React Three Fiber, drei and their
+  dependencies left the site on 2026-10-09 (the house is plain three.js in a worker: `tech/usage/three.md`).
 - **To verify** after the first `bun run build`: the packages actually present in `dist/_astro/*.js` match the
   "served" column (a bundle listing), and `THIRD_PARTY_NOTICES.md` follows it.
 - The 2025 root dependencies (research § 6) leave with the Next app: GSAP was the only one off the list in production.

@@ -4,7 +4,9 @@
  * built route (or the paths given), mobile median of --runs (default 3) + desktop median, checked against the
  * budgets; exits 1 on a miss. Runs against the Vercel-like server (scripts/serve.mjs) on 4322, reusing it when up.
  * Review builds are noindex, so SEO is scored without `is-crawlable` (the launch gate checks production robots).
- * WebGL through SwiftShader, so the 3D scenes really render (same flags as the case-study capture).
+ * WebGL through SwiftShader, so the 3D scenes really render (same flags as the case-study capture). No full-page
+ * screenshot (a report image, never scored): on the long projects page it timed out the DevTools protocol. Rows print
+ * as they finish; a run that errors is a hard miss, and the sweep goes on.
  *
  *   bun run build && bun run lhci [-- --runs 3 --mobile-only --base http://localhost:4322 /en/ /fr/]
  */
@@ -64,7 +66,7 @@ const chrome = await chromeLauncher.launch({
 });
 
 async function audit(url, mode, locale) {
-  const settings = { skipAudits: ["is-crawlable"], output: "json", logLevel: "error", locale };
+  const settings = { skipAudits: ["is-crawlable"], disableFullPageScreenshot: true, output: "json", logLevel: "error", locale };
   const config =
     mode === "desktop"
       ? { ...desktopConfig, settings: { ...desktopConfig.settings, ...settings } }
@@ -102,30 +104,8 @@ const median = (list, key) => {
 const rows = [];
 const misses = [];
 const belowFloor = [];
-try {
-  for (const path of PAGES) {
-    const locale = path.split("/")[1] === "fr" ? "fr" : "en";
-    for (const mode of modes) {
-      const list = [];
-      for (let i = 0; i < runs; i++) list.push(await audit(base + path, mode, locale));
-      const row = Object.fromEntries(Object.keys(list[0]).map((key) => [key, median(list, key)]));
-      rows.push({ path, mode, ...row });
-      for (const [key, bar] of Object.entries(BUDGET)) {
-        const lower = ["lcp", "cls", "tbt"].includes(key);
-        if (lower ? row[key] > bar : row[key] < bar) misses.push(`${path} ${mode} ${key} ${row[key]} (target ${bar})`);
-        const floor = FLOOR[key];
-        if (floor !== undefined && (lower ? row[key] > floor : row[key] < floor))
-          belowFloor.push(`${path} ${mode} ${key} ${row[key]} (floor ${floor})`);
-      }
-    }
-  }
-} finally {
-  await chrome.kill();
-  if (server) server.kill();
-}
-
-console.log("page".padEnd(34), "mode    perf a11y bp  seo    fcp    lcp    cls    tbt    KB  jsKB");
-for (const row of rows) {
+const HEADER = ["page".padEnd(34), "mode    perf a11y bp  seo    fcp    lcp    cls    tbt    KB  jsKB"];
+const print = (row) =>
   console.log(
     row.path.padEnd(34),
     row.mode.padEnd(7),
@@ -140,7 +120,36 @@ for (const row of rows) {
     String(row.kb).padStart(5),
     String(row.jsKB).padStart(5),
   );
+console.log(...HEADER);
+try {
+  for (const path of PAGES) {
+    const locale = path.split("/")[1] === "fr" ? "fr" : "en";
+    for (const mode of modes) {
+      const list = [];
+      try {
+        for (let i = 0; i < runs; i++) list.push(await audit(base + path, mode, locale));
+      } catch (error) {
+        belowFloor.push(`${path} ${mode} run error: ${error.message}`);
+        console.error(`${path} ${mode}: run error (${error.message})`);
+        continue;
+      }
+      const row = Object.fromEntries(Object.keys(list[0]).map((key) => [key, median(list, key)]));
+      rows.push({ path, mode, ...row });
+      print(rows.at(-1));
+      for (const [key, bar] of Object.entries(BUDGET)) {
+        const lower = ["lcp", "cls", "tbt"].includes(key);
+        if (lower ? row[key] > bar : row[key] < bar) misses.push(`${path} ${mode} ${key} ${row[key]} (target ${bar})`);
+        const floor = FLOOR[key];
+        if (floor !== undefined && (lower ? row[key] > floor : row[key] < floor))
+          belowFloor.push(`${path} ${mode} ${key} ${row[key]} (floor ${floor})`);
+      }
+    }
+  }
+} finally {
+  await chrome.kill();
+  if (server) server.kill();
 }
+
 mkdirSync(join(ROOT, "lighthouse"), { recursive: true });
 writeFileSync(
   join(ROOT, "lighthouse", "summary.json"),

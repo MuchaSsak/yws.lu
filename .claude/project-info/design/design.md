@@ -210,7 +210,7 @@ and never applied [repo: components/ui/dialog.tsx:39]).
 ## Motion
 
 - **Libraries:** CSS first (keyframes, transitions, scroll-driven timelines in longhands [lessons]); small vanilla
-  scripts (in-view, flow field); R3F `useFrame` inside 3D. No GSAP (licence) and no `motion` on static pages.
+  scripts (in-view); canvas and 3D loops in workers (flow field, house, globe). No GSAP (licence) and no `motion` on static pages.
 - **Durations:** 200–900 ms for everything a visitor waits for: `--dur-1` hover/press · `--dur-2` word fade, overlay ·
   `--dur-3` reveal box, menu open, poster → canvas cross-fade · `--dur-4` card rise · `--dur-5` the longest entrance.
   Continuous loops sit outside that range and run at constant speed: marquee 25 px/s, line shadow 15 s, shine 14 s,
@@ -228,6 +228,14 @@ and never applied [repo: components/ui/dialog.tsx:39]).
   canvases off, no smooth scroll. The global reset zeroes `animation-delay` too, so staged entrances can't stay hidden
   [repo: web/src/styles/global.css:75-87; lessons 2026-10-06].
 - **Loops:** run only while their section is near the viewport; never on the load path.
+  **Cost (measured 2026-10-09, `memory/slice-costs.md`):** loops animate `transform` or `opacity` on an HTML element so
+  the compositor runs them: each sparkle star is a `<span>` that scales around its own `<svg>` (an animated `<svg>`
+  re-styled the page every frame), the shine is a 300 % gradient layer translated inside the masked border ring (it
+  animated `background-position`, a repaint per frame), and both stay paused until `[data-loop]` marks them in view.
+  The flow field draws in a worker on an OffscreenCanvas. Sections (`Section`), project cards and the footer carry
+  `content-visibility: auto` with an intrinsic size, so the off-screen page skips layout, including the re-layout when
+  the web font swaps in; its paint containment clips anything that overflows the box, so decorations stay inside, and a
+  card's rise entrance is clipped at its section's edge for its 1 s.
   **proposal (comps/):** one site-wide "Pause animations" control (footer) for loops longer than 5 s (WCAG 2.2.2);
   the marquee already pauses on hover and focus.
 - **Hover:** never changes layout (no letter-spacing or weight swaps that resize); every hover has a focus twin and,
@@ -333,7 +341,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Fallback | transparent WebP poster at the final pose in a CSS-sized box (no CLS), shown before load, under reduced motion, without WebGL; no orange wireframe Suspense cube | [repo: web/scripts/poster.mjs] |
 | Contexts | one live WebGL context at a time: a scene mounts near the viewport and stops (`frameloop="never"` or unmount) when far | three.md § Rules; three scenes on one page is the open question |
 | Running | `dpr` ≤ 2; renders only while visible and the tab is visible | 2025 rendered every frame offscreen |
-| Motion | intro spin ≤ 2 s ease-out, then 0.1 rad/s; reduced motion: final pose, no spin | [repo: web/src/components/three/house/HouseCanvas.tsx:31-42] |
+| Motion | intro spin ≤ 2 s ease-out, then 0.1 rad/s; reduced motion: final pose, no spin | [repo: web/src/components/three/house/house-scene.ts] |
 | Input | drag on fine pointers; on touch no drag that captures vertical scroll (`touch-action: pan-y`) | scroll-jacking is an instant fail |
 | Semantics | box `aria-hidden`; nothing essential lives only in 3D | |
 

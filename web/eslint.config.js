@@ -2,7 +2,6 @@
 import js from "@eslint/js";
 import astro from "eslint-plugin-astro";
 import lingui from "eslint-plugin-lingui";
-import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -28,10 +27,9 @@ export default tseslint.config(
     rules: { "@typescript-eslint/consistent-type-imports": "off" },
   },
   {
-    files: ["**/*.tsx"],
-    plugins: { "react-hooks": reactHooks, lingui },
+    files: ["**/*.ts"],
+    plugins: { lingui },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       "lingui/t-call-in-function": "error",
       "lingui/no-single-variables-to-translate": "error",
     },

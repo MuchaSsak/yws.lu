@@ -1,5 +1,4 @@
 // @ts-check
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import { lingui } from "@lingui/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
@@ -27,7 +26,6 @@ export default defineConfig({
   devToolbar: { enabled: false },
   integrations: [
     linguiForAstro(),
-    react(),
     // Indexable pages only, each with its en / fr / x-default alternates (site/seo.md § Crawl). The 404, the root
     // safety net and the noindex legal pages stay out.
     sitemap({
