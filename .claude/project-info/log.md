@@ -34,3 +34,4 @@
 ## [2026-10-15] docs | seo.md § Launch 8: add the client in Bing Webmaster Tools (User management, Administrator).
 ## [2026-10-15] add | Root package.json scripts proxy to web/ (`bun run setup|dev|build|preview|check|test|e2e|lhci|shots|format` from the repo root) [user].
 ## [2026-10-15] docs | seo.md § Launch 8: the Bing import copies GSC sitemaps once; a later sitemap is submitted in Bing by hand.
+## [2026-10-15] change | Credits dialog: the Lead Developer name links muszarski.com (`rel="author"`, was GitHub), then GitHub · LinkedIn [user]; links from `data/developer.ts`, `LEAD_DEVELOPER` removed. Checked en + fr at 390 and 1440.

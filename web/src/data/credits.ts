@@ -38,6 +38,3 @@ export const CREDITS: Credit[] = [
     modified: true,
   },
 ];
-
-/** The 2025 dialog's last line, kept as it was (Q4: no new developer credit without the client's OK). */
-export const LEAD_DEVELOPER = { name: "Mateusz Muszarski", href: "https://github.com/MuchaSsak" } as const;

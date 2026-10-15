@@ -1,7 +1,8 @@
 /**
- * The developer who built the site (wiki: site/seo.md § JSON-LD graph; Q4 answered 2026-10-15). Markup only: no
- * visible credit. The `@id`, name and profiles are copied from the Person node on muszarski.com, so search engines
- * read one entity across both sites (the developer's Knowledge Panel). Change them there first, then here.
+ * The developer who built the site (wiki: site/seo.md § JSON-LD graph; Q4 answered 2026-10-15): the JSON-LD
+ * `creator`, humans.txt and the credits dialog's lead-developer line (portfolio, GitHub, LinkedIn). The `@id`, name
+ * and profiles are copied from the Person node on muszarski.com, so search engines read one entity across both
+ * sites (the developer's Knowledge Panel). Change them there first, then here.
  */
 export const DEVELOPER = {
   id: "https://muszarski.com/#person",
@@ -23,3 +24,9 @@ export const DEVELOPER = {
     "https://t.me/MateuszMuszarski",
   ],
 } as const;
+
+/** The profiles the credits dialog links next to the portfolio, picked from `sameAs` (never retyped). */
+export const DEVELOPER_LINKS = [
+  { label: "GitHub", href: DEVELOPER.sameAs.find((url) => url.includes("github.com"))! },
+  { label: "LinkedIn", href: DEVELOPER.sameAs.find((url) => url.includes("linkedin.com"))! },
+] as const;

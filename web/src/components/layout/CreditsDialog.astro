@@ -1,15 +1,18 @@
 ---
 /**
  * "See credits" (wiki: design/assets.md § Credits, requirements F10): every CC BY work the site shows, with title,
- * source, author, licence and "modified", then the 2025 dialog's lead-developer line (Q4: unchanged). A native
- * <dialog>: modal, focus moves in and back, Escape closes, the page behind is inert (2025: a Radix dialog whose
- * overlay class was malformed, a 16 px close icon at 70 % opacity).
+ * source, author, licence and "modified", then the lead-developer line (Q4 [user 2026-10-15]: the name links the
+ * portfolio as `rel=author`, then GitHub and LinkedIn; kept unformatted, since a line break before `<NewTab />`
+ * underlines a trailing space, and the no-break space keeps each dot on the line before it). A native <dialog>:
+ * modal, focus moves in and back, Escape closes, the page behind is inert (2025: a Radix dialog whose overlay class
+ * was malformed, a 16 px close icon at 70 % opacity).
  */
 import { t } from "lingui-for-astro/macro";
 
 import CreditLine from "~/components/layout/CreditLine.astro";
 import NewTab from "~/components/ui/NewTab.astro";
-import { CREDITS, LEAD_DEVELOPER } from "~/data/credits";
+import { CREDITS } from "~/data/credits";
+import { DEVELOPER, DEVELOPER_LINKS } from "~/data/developer";
 ---
 
 <button type="button" class="credits-open" data-credits-open>{t`See credits`}</button>
@@ -20,12 +23,12 @@ import { CREDITS, LEAD_DEVELOPER } from "~/data/credits";
       <CreditLine credit={credit} />
     ))}
   </ul>
+  <!-- prettier-ignore -->
   <p class="credits-dev">
     {t`Lead Developer`}{" "}
-    <a href={LEAD_DEVELOPER.href} target="_blank" rel="noopener">
-      {LEAD_DEVELOPER.name}
-      <NewTab />
-    </a>
+    <a href={DEVELOPER.url} target="_blank" rel="author noopener">{DEVELOPER.name}<NewTab /></a>{DEVELOPER_LINKS.map((link) => (
+      <><span aria-hidden="true">&nbsp;·</span> <a href={link.href} target="_blank" rel="noopener">{link.label}<NewTab /></a></>
+    ))}
   </p>
   <div class="credits-close-row">
     <button type="button" class="btn" data-credits-close>{t`Cheers to them!`}</button>

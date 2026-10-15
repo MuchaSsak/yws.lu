@@ -76,8 +76,9 @@ never imply YWS is part of it). German / Luxembourgish: research notes only (Q3)
 - **Developer credit (Q4, markup only) [user 2026-10-15]:** `Person` from `src/data/developer.ts` on the homes, with
   the `@id` `https://muszarski.com/#person`, name, profiles (`sameAs`) and portrait copied from the Person node on
   muszarski.com, so engines read one entity across both sites (the developer's Knowledge Panel). `WebSite` and every
-  `WebPage` carry `creator` → that `@id`. Never a visible credit, link or section on yws.lu beyond the 2025 line in
-  the credits dialog; `schema.test.ts` checks it. Profiles change on muszarski.com first, then here.
+  `WebPage` carry `creator` → that `@id`; `schema.test.ts` checks it. The one visible trace is the credits dialog's
+  "Lead Developer" line: the name links muszarski.com (`rel="author"`), then GitHub · LinkedIn [user 2026-10-15]. No
+  other credit, link or section on yws.lu. Profiles change on muszarski.com first, then in `data/developer.ts`.
 
 ## Metadata rules
 

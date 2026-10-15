@@ -106,7 +106,8 @@ Attribution (http://creativecommons.org/licenses/by/4.0/).`
 
 Revamp wording [research: licences § 2]: *"Cat House" (canonical link) by Roman_Nilikovskii (profile link), CC BY 4.0
 (https://creativecommons.org/licenses/by/4.0/), modified (optimised)*, in EN and FR. Canonical URLs replace the short
-links (4 of 5 answered HTTP 202 to a script). The "Lead Developer" line stays as it is (Q4).
+links (4 of 5 answered HTTP 202 to a script). The "Lead Developer" line links the portfolio
+(muszarski.com, `rel="author"`), GitHub and LinkedIn, from `data/developer.ts` (Q4 [user 2026-10-15]).
 
 ## Fonts
 
