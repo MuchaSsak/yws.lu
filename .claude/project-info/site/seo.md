@@ -229,7 +229,8 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
    `/fr/louer-son-bien/`; day 2: about, projects and tec in both locales (daily quota). Inspect
    `https://www.yws.lu/AboutUs` once: it should report the redirect.
 8. **Bing:** bing.com/webmasters → sign in → **Import** from Google Search Console → allow → select `yws.lu` →
-   Import (site + submitted sitemaps). Fallback: Add site → meta tag → `BING_SITE_VERIFICATION` → redeploy → Verify.
+   Import (site + submitted sitemaps; a one-time copy: a sitemap submitted in GSC later goes in by hand, Sitemaps →
+   Submit sitemap → `https://www.yws.lu/sitemap-index.xml`). Fallback: Add site → meta tag → `BING_SITE_VERIFICATION` → redeploy → Verify.
    Then ⚙ **Settings** → **User management** → **Add user** → the client's email, role **Administrator**
    (view-only: **Read-only**).
 9. **IndexNow:** `cd web && bun run indexnow --all` → 200 or 202 (key file `web/public/247b545c08794fcfaa356693c094db59.txt`, committed). After later deploys: `bun run indexnow`.
