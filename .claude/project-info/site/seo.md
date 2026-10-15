@@ -57,7 +57,7 @@ never imply YWS is part of it). German / Luxembourgish: research notes only (Q3)
 
 | Page | Nodes |
 | --- | --- |
-| home (en, fr) | `WebSite` + `NGO` (full) + `WebPage` (`about` → org) |
+| home (en, fr) | `WebSite` + `NGO` (full) + `Person` (developer) + `WebPage` (`about` → org) |
 | about | `AboutPage` (`mainEntity` → org) + `NGO` (full, same `@id`) + `BreadcrumbList` |
 | housing, owners, projects, tec | `WebPage` + `BreadcrumbList` |
 | privacy policy, legal notice · 404, root | `WebPage` · none |
@@ -73,6 +73,11 @@ never imply YWS is part of it). German / Luxembourgish: research notes only (Q3)
 - **Not marked up:** FAQPage (rich result gone 2026-05-07), Event (no rich results for LU / FR or French; online-only
   ineligible; the TEC event is past), JobPosting (Jobs retired [user 2026-10-09]), LocalBusiness, HowTo, `meta
   keywords`. No rich result is promised.
+- **Developer credit (Q4, markup only) [user 2026-10-15]:** `Person` from `src/data/developer.ts` on the homes, with
+  the `@id` `https://muszarski.com/#person`, name, profiles (`sameAs`) and portrait copied from the Person node on
+  muszarski.com, so engines read one entity across both sites (the developer's Knowledge Panel). `WebSite` and every
+  `WebPage` carry `creator` → that `@id`. Never a visible credit, link or section on yws.lu beyond the 2025 line in
+  the credits dialog; `schema.test.ts` checks it. Profiles change on muszarski.com first, then here.
 
 ## Metadata rules
 
@@ -158,7 +163,7 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
   `## Pages (français)` (title + description), `## Contact` from `organisation.ts`. Google ignores it; Lighthouse
   13.5 checks it [research: seo-structured-data § 7].
 - **`/humans.txt`:** TEAM = Youth Work Synergy ASBL + contact; THANKS = the CC BY model authors as in the credits
-  dialog [repo: lib/dictionary.tsx]; SITE = languages, Astro, Lingui, three.js, last update. **No developer name until Q4.**
+  dialog [repo: lib/dictionary.tsx]; SITE = languages, Astro, Lingui, three.js, last update; the developer's name and site (Q4) [user 2026-10-15].
 
 ## Verification and IndexNow
 
@@ -184,7 +189,7 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
 8. Robots values per § Crawl; the sitemap is exactly the indexable set, with alternates and a real `lastmod`.
 9. Launch build: no `PLACEHOLDER`, no empty verification meta, no `meta keywords`. Every build: no `<form>` [user
    2026-10-09], no raster image outside WebP/AVIF (favicons and share cards aside).
-10. Files: `robots.txt`, `sitemap-index.xml`, `llms.txt`, `humans.txt` (no developer name while Q4 is open),
+10. Files: `robots.txt`, `sitemap-index.xml`, `llms.txt`, `humans.txt`,
     `favicon.ico` with a 48 px frame, `apple-touch-icon.png`, byte-identical `ms32821332.txt`, the IndexNow key.
 11. `vercel.json` current (`--check` in `build`); every legacy source lands on a built page in one hop
     (`routes.test.ts`; curl checks on the preview in e2e).
@@ -225,6 +230,8 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
    `https://www.yws.lu/AboutUs` once: it should report the redirect.
 8. **Bing:** bing.com/webmasters → sign in → **Import** from Google Search Console → allow → select `yws.lu` →
    Import (site + submitted sitemaps). Fallback: Add site → meta tag → `BING_SITE_VERIFICATION` → redeploy → Verify.
+   Then ⚙ **Settings** → **User management** → **Add user** → the client's email, role **Administrator**
+   (view-only: **Read-only**).
 9. **IndexNow:** `cd web && bun run indexnow --all` → 200 or 202 (key file `web/public/247b545c08794fcfaa356693c094db59.txt`, committed). After later deploys: `bun run indexnow`.
 10. **Google Business Profile (Q12):** business.google.com → find "Youth Work Synergy"; if it exists, set name, the
     office address exactly as in the footer, the main phone (Q2) and website `https://www.yws.lu/` (Info → edit); if

@@ -30,3 +30,5 @@
 ## [2026-10-09] fix | Vercel preview failed at the stale-vercel.json check (the host's copy is not byte-for-byte the committed file): the check compares JSON data and only warns on Vercel (`VERCEL` set); local builds and routes.test.ts still fail on a stale file. Full build with preview env vars: 20 pages, gate clean.
 ## [2026-10-09] remove | The Next app is gone from the branch [user]: its root `middleware.ts` made Vercel deploy an Edge Function that failed the preview. Root `package.json` trimmed to the capture devDeps; `vercel build` on a Next-free copy gave a static output with no functions. Tag `history/next-app-final` keeps the app.
 ## [2026-10-15] docs | seo.md § Launch 5: add the client to Search Console as a delegated owner (view-only users: Restricted).
+## [2026-10-15] add | Q4 answered [user]: the developer is credited in markup only. `data/developer.ts` (copied from muszarski.com's Person node): a `Person` on the homes, `creator` on WebSite and every WebPage, name + site in humans.txt; nothing visible. `schema.test.ts` covers it.
+## [2026-10-15] docs | seo.md § Launch 8: add the client in Bing Webmaster Tools (User management, Administrator).
