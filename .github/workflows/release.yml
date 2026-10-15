@@ -1,4 +1,9 @@
 name: Releases
+
+# Every push to main deploys through Vercel's Git integration. This job only records the release: when the pushed
+# commits since the last tag hold a feat, fix, perf or breaking change, it tags the pushed commit with the next
+# semantic version and publishes a GitHub Release with the notes. It never commits back to main and opens no pull
+# request, so the local main never falls behind and the next `git push` goes straight through.
 on:
   push:
     branches:
@@ -6,51 +11,63 @@ on:
     paths-ignore:
       - "data/**"
 
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  changelog:
-    timeout-minutes: 60
+  release:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Create new temporary branch
-        run: git branch "release-from-${{ github.sha }}" "${{ github.sha }}"
-
-      - name: Switch to new branch
-        run: git checkout release-from-${{ github.sha }}
-
-      - name: Conventional changelog action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          version-file: "./package.json"
-          git-branch: "release-from-${{ github.sha }}"
-          skip-git-pull: true
-
-      - name: Create a PR with release info
-        if: steps.changelog.outputs.skipped == 'false'
-        id: create-pr
-        run: gh pr create --base main --head release-from-${{ github.sha }} --title 'Merge new release into main' --body 'Created by Github action'
+      - name: Tag and publish the release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          set -euo pipefail
+          last=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+          range=${last:+$last..}HEAD
+          log=$(git log --no-merges --format='%H %s' $range)
 
-      - name: Merge the PR
-        if: steps.changelog.outputs.skipped == 'false'
-        id: merge-pr
-        run: gh pr merge --admin --merge --subject 'Merge release info' --delete-branch
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          if git log --no-merges --format='%B' $range | grep -q '^BREAKING CHANGE' ||
+             grep -qE '^[0-9a-f]+ [a-z]+(\([^)]*\))?!:' <<<"$log"; then bump=major
+          elif grep -qE '^[0-9a-f]+ feat(\([^)]*\))?:' <<<"$log"; then bump=minor
+          elif grep -qE '^[0-9a-f]+ (fix|perf)(\([^)]*\))?:' <<<"$log"; then bump=patch
+          else echo "No feat, fix, perf or breaking change since ${last:-the start}: no release."; exit 0; fi
 
-      - name: Create release with last commit
-        if: steps.changelog.outputs.skipped == 'false'
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.changelog.outputs.tag }}
-          name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          IFS=. read -r major minor patch <<<"${last#v}"
+          major=${major:-0} minor=${minor:-0} patch=${patch:-0}
+          case $bump in
+            major) major=$((major + 1)) minor=0 patch=0 ;;
+            minor) minor=$((minor + 1)) patch=0 ;;
+            patch) patch=$((patch + 1)) ;;
+          esac
+          tag="v$major.$minor.$patch"
+
+          section() {
+            local lines
+            lines=$(grep -E "^[0-9a-f]+ ($2)(\([^)]*\))?!?:" <<<"$log" | while read -r sha subject; do
+              scope=$(sed -nE 's/^[a-z]+\(([^)]*)\).*/\1/p' <<<"$subject")
+              echo "* ${scope:+**$scope:** }${subject#*: } ([${sha:0:7}]($REPO_URL/commit/$sha))"
+            done || true)
+            if [ -n "$lines" ]; then printf '### %s\n\n%s\n\n' "$1" "$lines"; fi
+          }
+          {
+            section "Features" "feat"
+            section "Bug Fixes" "fix"
+            section "Performance" "perf"
+            if [ -n "$last" ]; then echo "**Full changelog:** $REPO_URL/compare/$last...$tag"; fi
+          } > notes.md
+
+          gh release create "$tag" --target "$GITHUB_SHA" --title "$tag" --notes-file notes.md
+          echo "Released $tag ($bump)."

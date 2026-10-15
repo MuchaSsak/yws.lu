@@ -35,3 +35,4 @@
 ## [2026-10-15] add | Root package.json scripts proxy to web/ (`bun run setup|dev|build|preview|check|test|e2e|lhci|shots|format` from the repo root) [user].
 ## [2026-10-15] docs | seo.md § Launch 8: the Bing import copies GSC sitemaps once; a later sitemap is submitted in Bing by hand.
 ## [2026-10-15] change | Credits dialog: the Lead Developer name links muszarski.com (`rel="author"`, was GitHub), then GitHub · LinkedIn [user]; links from `data/developer.ts`, `LEAD_DEVELOPER` removed. Checked en + fr at 390 and 1440.
+## [2026-10-15] change | Work on `main` only [user]: `revamp/2026-10` fast-forwarded into `main`; no branches, no pull requests. The release Action no longer opens and merges a PR: it tags the pushed commit and publishes a GitHub Release (feat → minor, fix/perf → patch, breaking → major), never committing back. CLAUDE.md, the commit skill, conventions, technologies, seo § Launch, HANDOFF, revamp-plan and the brief updated.

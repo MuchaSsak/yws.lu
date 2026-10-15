@@ -7,7 +7,7 @@
 
 ## 0. First steps on the laptop
 
-1. `git fetch && git checkout revamp/2026-10` (the user pushes it to a dev branch; never commit to `main`).
+1. `git fetch && git checkout main && git pull` (all work is on `main` since 2026-10-15; a push deploys it).
 2. **Copied by hand from the PC** (gitignored, not in git). `SKILLS/` was a temporary copy and is **not** carried
    over: the six skills come from the originals in `new-portfolio/.claude/skills/` (read-only):
    | Path on the PC | Size | Why |

@@ -52,7 +52,7 @@ sublets furnished rooms in shared houses to young people (18–34), with coachin
 - **Truth:** client facts and statistics come from the client (constants, dictionary, the statistics they entered). New copy is factual,
   close to the client's words, listed for approval (`placeholders.md`).
 - **Licences:** commercial-use-free or the client's own (`assets.md`).
-- **Production untouched:** branch `revamp/2026-10`; Vercel / DNS / Supabase changes are owner steps (`seo.md` § Launch).
+- **Production untouched:** work on `main`, pushed only by the owner (a push deploys); Vercel / DNS / Supabase changes are owner steps (`seo.md` § Launch).
 
 ## Stakeholders and decision rights
 

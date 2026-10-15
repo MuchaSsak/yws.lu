@@ -1,7 +1,7 @@
 # Revamp plan 2026-10 (live checklist)
 
 > The resume point after a compaction: what is done, what is next. The brief is
-> `research/2026-10-09-kickoff-prompt.md` (verbatim, § numbers below refer to it). Branch `revamp/2026-10`, never `main`.
+> `research/2026-10-09-kickoff-prompt.md` (verbatim, § numbers below refer to it). Branch `main` only since 2026-10-15 (was `revamp/2026-10`).
 > Update a box in the same commit as the work. Owner answers given 2026-10-09: Jobs retired, TEC page kept with internal
 > nav, Vercel branch previews allowed (local preferred) [user 2026-10-09].
 

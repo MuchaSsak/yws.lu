@@ -113,8 +113,11 @@ Every rule lives in [three](usage/three.md) (text first, poster, idle + visible 
 
 ## Git
 
-- Branch `revamp/2026-10`; **never commit to `main`**: the release Action on `main` turns `feat`/`fix` into a version bump
-  and a CHANGELOG entry [repo: .github/workflows/release.yml].
+- **Work on `main` only**: no other branch, no pull request [user 2026-10-15]. A push to `main` deploys production
+  (Vercel's Git integration), and the release Action tags it and publishes a GitHub Release when the pushed commits
+  hold a `feat` (minor), `fix`/`perf` (patch) or breaking change (major); it never commits back, so the local `main`
+  never falls behind [repo: .github/workflows/release.yml]. `CHANGELOG.md` stops at 1.12.1; later notes live in
+  the GitHub Releases.
 - Conventional Commits, `type(scope): summary`, imperative, ≤ 72 chars. Scopes: `seo`, `perf`, `design`, `i18n`, `a11y`,
   `refactor`, `ai`, `qa`, `home`, `header`, `footer`, `housing`, `owners`, `about`, `projects`, `tec`, `legal`, `404`,
   `wip` (the `commit` skill). One commit per slice (scope = the page) and per phase; a pause is `chore(wip): <where>`.

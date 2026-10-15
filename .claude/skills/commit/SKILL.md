@@ -6,8 +6,8 @@ model: claude-haiku-4-5
 
 Fast commit. Spend under 10 s; don't deliberate.
 
-1. Never on `main`: if `git branch --show-current` prints `main`, stop and say so (work happens on `revamp/2026-10`
-   or another work branch).
+1. Only on `main` [user 2026-10-15]: if `git branch --show-current` prints anything else, stop and say so. Never
+   push (a push to `main` deploys production; the owner pushes).
 2. **Author = the owner, not Claude.** The commit uses the repo's configured identity (`git config user.name` /
    `user.email`, set to the owner's identity `MuchaSsak`). If it prints `Claude` or nothing, stop and say so; never
    change the global git config. Keep the `Co-Authored-By` trailer the session's instructions give.

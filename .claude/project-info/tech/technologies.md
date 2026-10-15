@@ -77,8 +77,8 @@ flow field draws in a worker, and the house is plain three.js in a worker (React
   failed the preview.
 - **Node** on Vercel: `engines.node >=22.19.0` resolves to 24.x (Node 20 deployments error since 2026-10-01).
   **Bun** on Vercel: "Bun 1" from `bun.lock`; Astro itself runs on Node through its bin shebang.
-- **Previews:** branch previews of `revamp/2026-10` are allowed when a public URL is needed; local first
-  (`bun run preview` behaves like Vercel) [user 2026-10-09].
+- **Deploys:** every push to `main` is a Production deploy; there are no work branches or previews any more
+  [user 2026-10-15]. Check locally first (`bun run preview` behaves like Vercel).
 - **Production settings are owner steps**: domains, env vars, deploy hooks, DNS ([seo](../site/seo.md) § Launch).
 
 ## Data: static, no backend

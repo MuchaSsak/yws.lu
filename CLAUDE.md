@@ -2,7 +2,7 @@
 
 The website of Youth Work Synergy ASBL, a Luxembourg non-profit that rents homes from private owners and sublets
 furnished rooms in shared houses to young people (18–34), and runs youth projects. Built in 2025 on Next.js; the
-2026-10 revamp (branch `revamp/2026-10`) moves it to **Astro + Lingui in `web/`** with en + fr on real URLs, full SEO,
+2026-10 revamp moves it to **Astro + Lingui in `web/`** with en + fr on real URLs, full SEO,
 budgets, a design system and QA gates. Mental model: **text first, 3D second, one tap to act.** The knowledge lives in
 the wiki at `.claude/project-info/` (map: `.claude/project-info/README.md`). This file is the router and the
 non-negotiables: read only the pages your task needs. Paths are plain text on purpose (no @imports).
@@ -53,8 +53,9 @@ non-negotiables: read only the pages your task needs. Paths are plain text on pu
   React Bits code is rewritten as own code (`.claude/project-info/design/assets.md`).
 - **No forms, ever:** no contact, application, newsletter, chat or booking form; contact is email, phone, map, socials.
 - **Improve, don't add features.** New pages only where SEO needs an HTML home for existing content.
-- **Never touch production:** work on `revamp/2026-10`, never commit to `main`, push only when asked; Vercel, DNS and
-  Supabase settings are owner steps (`.claude/project-info/site/seo.md` § Launch).
+- **Never touch production:** work and commit on `main` only (no other branch, no pull request) [user 2026-10-15];
+  a push to `main` deploys production, so push only when asked. Vercel, DNS and Supabase settings are owner steps
+  (`.claude/project-info/site/seo.md` § Launch).
 - **Never weaken a gate to pass:** fix the page. **Keep every version:** tag `history/*` before a big change.
 - **Privacy of inputs:** never read `.env*` or secrets (name env vars only); never open the portfolio's `context/`.
 
