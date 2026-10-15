@@ -8,7 +8,7 @@
 | Q1 | Registered legal name, RCS / LBR number (`F…`), legal representative (president), VAT number or agrément if any | legal notice, `Organization.legalName` / `identifier` JSON-LD | client | legal notice shows `PLACEHOLDER` fields; JSON-LD omits them | open |
 | Q2 | The two phones: which is landline/mobile, what each is for, office hours? | contact buttons' labels, `ContactPoint` | client | both shown as "Phone" with the number; no hours | open |
 | Q3 | German and/or Luxembourgish versions? | locales | client | en + fr only; adding one = a catalog + a config line (`i18n.md`) | open |
-| Q4 | May the site credit the developer (a "site by" link, `creator` markup, humans.txt name)? | footer, humans.txt | owner + client | keep only the existing credits dialog [user 2026-10-09] | open |
+| Q4 | May the site credit the developer (a "site by" link, `creator` markup, humans.txt name)? | footer, humans.txt | owner + client | keep only the existing credits dialog [user 2026-10-09] | **answered 2026-10-15: `creator` markup (JSON-LD Person, same `@id` as muszarski.com) + humans.txt only; nothing visible** [user] |
 | Q5 | Analytics? (needs a privacy-policy section first) | `analytics.md` | owner | none [assumption] | open |
 | Q6 | Jobs page: offers still open? | `/jobs` | owner | — | **answered 2026-10-09: retire it** (308 → About us, no JobPosting) [user] |
 | Q7 | TEC conference nav: internal page or tecpractices.eu? | nav, TEC page | owner | — | **answered 2026-10-09: keep the page, nav internal, link to tecpractices.eu** [user] |

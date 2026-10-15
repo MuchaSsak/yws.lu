@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
 
 import { CREDITS } from "~/data/credits";
+import { DEVELOPER } from "~/data/developer";
 import { ORGANISATION } from "~/data/organisation";
 import { AUTONYMS, LOCALES } from "~/lib/locales";
 
 /**
- * humans.txt (wiki: site/seo.md § Feeds): who runs the site, whose work it shows, what it is built with. No developer
- * name here until Q4 is answered (the credits dialog keeps its 2025 line).
+ * humans.txt (wiki: site/seo.md § Feeds): who runs the site, who built it (Q4: named here and in the JSON-LD only,
+ * never on the page), whose work it shows, what it is built with.
  */
 export const GET: APIRoute = () => {
   const lines = [
@@ -14,6 +15,9 @@ export const GET: APIRoute = () => {
     `Organisation: ${ORGANISATION.legalName}`,
     `Contact: ${ORGANISATION.email}`,
     "Location: Luxembourg",
+    "",
+    `Developer: ${DEVELOPER.name}`,
+    `Site: ${DEVELOPER.url}`,
     "",
     "/* THANKS */",
     ...CREDITS.map(

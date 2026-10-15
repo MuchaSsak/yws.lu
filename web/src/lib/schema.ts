@@ -1,3 +1,4 @@
+import { DEVELOPER } from "~/data/developer";
 import { ORGANISATION } from "~/data/organisation";
 
 import { type Locale, LOCALES } from "./locales";
@@ -7,7 +8,8 @@ import { pathTo, type RouteId } from "./routes";
  * The JSON-LD graph per page (wiki: site/seo.md § Entity plan, § JSON-LD graph): stable `@id`s on the site origin,
  * every fact from organisation.ts, markup that matches the visible page. Homes carry WebSite + NGO + WebPage; About
  * us an AboutPage whose main entity is the NGO; other pages a WebPage pointing at the NGO. No FAQ, Event or
- * JobPosting (research: seo-structured-data). The registered number, founding date and VAT stay out until Q1.
+ * JobPosting (research: seo-structured-data). The registered number, founding date and VAT stay out until Q1. The
+ * developer is a markup-only `creator` (Q4): a Person node on the homes, an `@id` reference everywhere else.
  */
 export interface SchemaInput {
   site: string;
@@ -81,6 +83,19 @@ export function schemaGraph({ site, locale, route, name, description, mission, i
     alternateName: [ORGANISATION.shortName],
     inLanguage: LOCALES.map((l) => LANGS[l]),
     publisher: { "@id": id("organization") },
+    creator: { "@id": DEVELOPER.id },
+  };
+
+  // Same @id as on the developer's own site, so engines merge the two into one entity.
+  const developer = {
+    "@type": "Person",
+    "@id": DEVELOPER.id,
+    name: DEVELOPER.name,
+    alternateName: DEVELOPER.alternateName,
+    url: DEVELOPER.url,
+    jobTitle: DEVELOPER.jobTitle,
+    image: DEVELOPER.image,
+    sameAs: [...DEVELOPER.sameAs],
   };
 
   const page = {
@@ -92,13 +107,14 @@ export function schemaGraph({ site, locale, route, name, description, mission, i
     inLanguage: LANGS[locale],
     isPartOf: { "@id": id("website") },
     about: { "@id": id("organization") },
+    creator: { "@id": DEVELOPER.id },
     ...(route === "about" ? { mainEntity: { "@id": id("organization") } } : {}),
     ...(image ? { thumbnailUrl: image } : {}),
   };
 
   const graph: object[] = [page];
   // The full organisation and the site node on the homes and About us; elsewhere the page refers to them by @id.
-  if (route === "home") graph.unshift(website, organisation);
+  if (route === "home") graph.unshift(website, organisation, developer);
   else if (route === "about") graph.unshift(organisation);
   return { "@context": "https://schema.org", "@graph": graph };
 }
