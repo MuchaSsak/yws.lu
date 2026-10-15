@@ -2,7 +2,20 @@
   "name": "yws.lu",
   "version": "1.12.1",
   "private": true,
-  "description": "Youth Work Synergy ASBL website. The site lives in web/; the root holds only the case-study capture scripts (scripts/capture/).",
+  "description": "Youth Work Synergy ASBL website. The site lives in web/ (root scripts proxy to it); the root also holds the case-study capture scripts (scripts/capture/).",
+  "scripts": {
+    "setup": "cd web && bun install",
+    "dev": "cd web && bun run dev",
+    "build": "cd web && bun run build",
+    "preview": "cd web && bun run preview",
+    "check": "cd web && bun run check",
+    "test": "cd web && bun run test",
+    "e2e": "cd web && bun run e2e",
+    "e2e:xb": "cd web && bun run e2e:xb",
+    "lhci": "cd web && bun run lhci",
+    "shots": "cd web && bun run shots",
+    "format": "cd web && bun run format"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "1.63.0",

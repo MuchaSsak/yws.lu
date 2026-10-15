@@ -105,7 +105,9 @@ and Supabase client left with the Next app (removed 2026-10-09, tag `history/nex
 
 ## Commands
 
-Run from `web/` unless marked root. Serve before browser gates: `bun run preview` (port 4322).
+Run from `web/` unless marked root. The root `package.json` proxies the main ones (`setup` = install, `dev`, `build`,
+`preview`, `check`, `test`, `e2e`, `e2e:xb`, `lhci`, `shots`, `format`), so `bun run dev` works from the repo root too
+[user 2026-10-15]. Serve before browser gates: `bun run preview` (port 4322).
 
 | Do | Run | Notes |
 | --- | --- | --- |
