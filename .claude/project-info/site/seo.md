@@ -214,7 +214,10 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
    `yws.lu` → copy the TXT value (`google-site-verification=…`). DNS host: `nslookup -type=NS yws.lu` (Vercel
    nameservers → Vercel → Domains → `yws.lu` → DNS Records; otherwise the registrar's DNS panel). Add: Type **TXT**,
    Name/Host `@` or blank (the apex, as the panel calls it), Value = the copied string, default TTL; edit or delete no
-   existing TXT record. GSC → **Verify** (minutes to days). Keep the record forever.
+   existing TXT record. GSC → **Verify** (minutes to days). Keep the record forever. Then give the client the
+   property: Settings → **Users and permissions** → ⋮ (top right) → **Manage property owners** → **Add an owner** →
+   their Google account (delegated owner: survives the developer leaving); a view-only person gets **Add user** →
+   **Restricted** instead.
 6. **Sitemap:** GSC → Indexing → **Sitemaps** → `sitemap-index.xml` → Submit → expect Success, 12 URLs.
 7. **URL Inspection** (GSC top bar) → each URL → **Test live URL** (canonical, robots, indexable) → **Request
    indexing**. Day 1: `/en/`, `/fr/`, `/en/youth-housing/`, `/fr/logement-jeunes/`, `/en/rent-your-property/`,
