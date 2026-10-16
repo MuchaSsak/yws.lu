@@ -1,7 +1,9 @@
 ---
 /**
  * Home hero (wiki: site/structure.md § Home): the owner pitch, the 3D house on wide screens. The heading paints on the
- * first frame; the scene loads after the page is idle (ToyScene).
+ * first frame; the scene loads after the page is idle (ToyScene). Since 2026-10-16 (Google Ad Grants: the mission and a
+ * clear call to action on the first screen) a line above the H1 says who we are, and the one "Learn more" became the
+ * two journeys: "Rent your property" (the owners page) and "Apply for housing" (the housing page).
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -19,6 +21,9 @@ const property = t({ message: "property", context: "Rent out your [property]" })
 
 <section id="hero" class="flex px-side pt-48 text-left">
   <div class="flex flex-col items-start">
+    <p class="pb-3 text-sm font-bold tracking-wide text-ink-orange uppercase sm:text-base">
+      {t`Non-profit housing for young people in Luxembourg`}
+    </p>
     <Reveal duration={0.5}>
       <h1 class="pb-4 text-5xl font-bold sm:text-6xl">
         {t`Rent out`} <LineShadow class="text-orange-600 italic" text={your} />{" "}
@@ -37,8 +42,9 @@ const property = t({ message: "property", context: "Rent out your [property]" })
         <span>{t`Partnering with us means doing good and making a smart financial choice — including up to 90% tax exemption on your net rental income and other benefits.`}</span>
       </p>
     </Reveal>
-    <div data-inview="fade" style="--fade-delay: 1.25s">
-      <ButtonLink href={pathTo(locale, "owners")}>{t`Learn more`}</ButtonLink>
+    <div data-inview="fade" style="--fade-delay: 1.25s" class="flex flex-wrap gap-3">
+      <ButtonLink href={pathTo(locale, "owners")}>{t`Rent your property`}</ButtonLink>
+      <ButtonLink href={pathTo(locale, "housing")} secondary>{t`Apply for housing`}</ButtonLink>
     </div>
   </div>
   <ToyScene toy="house" class="grow max-xl:hidden xl:h-[32.5rem] 2xl:h-[40rem]" />

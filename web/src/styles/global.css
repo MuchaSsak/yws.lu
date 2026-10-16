@@ -45,14 +45,55 @@
   --ease-anticipate: cubic-bezier(0.68, -0.4, 0.32, 1.4);
 }
 
-/* Montserrat Variable's metrics on the system fallback, so the swap doesn't shift the layout (CLS). */
+/* Montserrat Variable's metrics on the system fallback, so the swap doesn't shift the layout (CLS). One face per weight
+   band, each on the Arial cut it would use (Liberation Sans has the same metrics): one regular-tuned face made bold
+   headings 5–9 % narrower and lines 12 % taller than Montserrat, so the owners H1 rewrapped when the font arrived (live
+   CLS 0.199, 2026-10-16). Widths measured on site headings and body lines; overrides are scaled by size-adjust, hence
+   Montserrat's ascent 0.968 and descent 0.251 divided by it. */
 @font-face {
   font-family: "Montserrat Fallback";
-  src: local("Arial");
-  ascent-override: 96.8%;
-  descent-override: 25.1%;
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  font-weight: 100 449;
+  ascent-override: 86%;
+  descent-override: 22.3%;
   line-gap-override: 0%;
-  size-adjust: 113.1%;
+  size-adjust: 112.57%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  font-weight: 450 549;
+  ascent-override: 84.6%;
+  descent-override: 21.9%;
+  line-gap-override: 0%;
+  size-adjust: 114.39%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold");
+  font-weight: 550 649;
+  ascent-override: 89.6%;
+  descent-override: 23.2%;
+  line-gap-override: 0%;
+  size-adjust: 108.09%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold");
+  font-weight: 650 799;
+  ascent-override: 87.9%;
+  descent-override: 22.8%;
+  line-gap-override: 0%;
+  size-adjust: 110.13%;
+}
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial Black"), local("Arial-Black");
+  font-weight: 800 1000;
+  ascent-override: 97.1%;
+  descent-override: 25.2%;
+  line-gap-override: 0%;
+  size-adjust: 99.7%;
 }
 
 /* Layout, motion and layer tokens. Values are the 2025 ones (stepped at Tailwind's breakpoints), so applying them moves

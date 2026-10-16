@@ -33,19 +33,22 @@ heading was an `<h1>` [file: HANDOFF.md § 5]).
 
 | Width | Shows | Notes |
 | --- | --- | --- |
-| wide (English from 1280 px, French from 1600 px: where each locale's nav fits, checked by the header-fit e2e test) | logo → locale home · About us · Rent your property · We Spark Projects · TEC Conference · Contact us · **Apply for housing** (orange-tinted pill, solid on hover) · the other language with its flag ("🇫🇷 Français" / "🇬🇧 English", flags drawn as SVG) | existing labels; "Apply for housing" → the housing page, eligibility first, as in 2025 (Q26 default [assumption 2026-10-09]); the housing page's "Apply now" opens the Google Form |
+| wide (English from 1280 px, French from 1440 px since 2026-10-16 (was 1600 with TEC in the nav; French overflows 19 px at 1366): where each locale's nav fits, checked by the text-fit e2e test) | logo → locale home · About us · Rent your property · We Spark Projects · Contact us · **Apply for housing** (orange-tinted pill, solid on hover) · the other language with its flag ("🇫🇷 Français" / "🇬🇧 English", flags drawn as SVG) | existing labels; "Apply for housing" → the housing page, eligibility first, as in 2025 (Q26 default [assumption 2026-10-09]); the housing page's "Apply now" opens the Google Form |
 | narrower | logo · **Apply** (short label on phones: "Apply" / « Postuler », new copy) · the other language (from 640 px) · **Menu** | 64 px tall below 1280 px, 80 px above; a light frosted bar, `white/75` + blur, dark text and the logo drawn in ink [user 2026-10-09: the dark bar was too heavy] (2025 `bg-black/25` with white text: 1.8:1) |
 | menu (disclosure under the header) | Apply for housing (pill), the nav items, Call us +352 28 66 22, contact@yws.lu, 🇬🇧 English · 🇫🇷 Français (current marked) | "Menu" is a text button with `aria-expanded`; while open the rest of the page is `inert` (focus stays in the header), dimmed and still (a tap on the dim closes), Escape closes and returns focus; a link closes it. Motion [user 2026-10-09]: the bars turn into a cross, the sheet (white, rounded bottom) drops in over 320 ms and its links follow 35 ms apart; closing plays back; reduced motion: instant |
 | proposal (`comps/`): phone action bar | Apply now (form ↗) · Rent out · Contact us, fixed bottom ≤ 56 px | "every journey one tap away" literally; a new element over content, so a proposal; today Rent out and Contact are two taps (menu → item) on phones |
 
-TEC Conference → the internal page [user 2026-10-09] (the 2025 desktop nav pointed at tecpractices.eu from commit
+TEC Conference left the header and the menu on 2026-10-16 (a past event in the main nav reads as stale content: Google Ad
+Grants review); it stays in the footer and on the Projet V card. Before that: TEC Conference → the internal page [user 2026-10-09] (the 2025 desktop nav pointed at tecpractices.eu from commit
 87b18ab, 2026-05-11). Jobs leaves every menu. "Contact us" → the current page's `#contact` (home, owners), else
 `/<locale>/#contact`.
 
 ## Pages: sections in order
 
-**Home.** 1 Hero: H1 "Rent out *your* *property*", line "Give youth a chance for a better future", 3 sentences (a home
-for young people; ASBL with the Ministry of Housing; "up to 90%" tax exemption: Q17), "Learn more" → owners; 3D house
+**Home.** 1 Hero: a line above the H1 "Non-profit housing for young people in Luxembourg" (new, 2026-10-16: Ad Grants
+wants the mission on the first screen), H1 "Rent out *your* *property*", line "Give youth a chance for a better future", 3 sentences (a home
+for young people; ASBL with the Ministry of Housing; "up to 90%" tax exemption: Q17), "Rent your property" → owners + "Apply for housing" → housing (2026-10-16; was one "Learn more"
+→ owners); 3D house
 (2025: ≥ 1280 px only; revamp: poster on phones, scene after the H1, near visibility). 2 Partner strip: ESC, Fondation
 **Sommer**, Gestion Locative Sociale, Erasmus+, Ministry of Housing, André Losch Fondation, Ministry of Justice, each
 linking out (2025 links were `tabIndex=-1`); EU logos static (Q21). 3 Who we are (`#who-we-are`): 2 sentences, "Learn
@@ -89,8 +92,8 @@ under labels with a bar in the project's colour; an even 4:3 grid of photos (two
 to 400 px; photos ≤ 2560 px AVIF/WebP; logos decorative (alt "": the `<h2>` names the project; 2025: the whole
 description as alt); text capped at 70 characters a line. Texts: the `projects` content collection (`i18n.md` § Project texts). Get Your Home (`#get-your-home`,
 Erasmus+, 6 photos, "Register now" ↗) · Locked Out (`#locked-out`, Fondation Sommer, 4 photos, "Learn more" ↗ Drive) ·
-Safe Paths Luxembourg (`#safe-paths`, Ministry of Justice, poster per locale, "Learn more" ↗ form; workshops
-April–May 2026 past: Q9) · Girlssective (`#girlssective`) · Projet V Mobile Learning (`#mobile-learning`; revamp:
+Safe Paths Luxembourg (`#safe-paths`, Ministry of Justice, poster per locale; workshops April–May 2026 past (Q9):
+since 2026-10-16 the text says they took place, the Registration section and its form link are gone) · Girlssective (`#girlssective`) · Projet V Mobile Learning (`#mobile-learning`; revamp:
 "The closing conference" → the TEC page) · Les jeunes amis du sport (`#sport`) · The Self Chronicle
 (`#self-chronicle`). The last three have no link. Languages: `i18n.md` § French rules.
 
@@ -138,11 +141,12 @@ never wrap; 36 `PLACEHOLDER` markers until the client answers (placeholders.md).
 | young person | Apply now / Postulez maintenant | Google Form `links.applyForHousing` ↗ | header, action bar, home § 4, housing hero + § 3, footer |
 | young person | Looking for housing / À la recherche d'un logement · Learn more | housing page | nav, menu, footer · home § 4 |
 | young person | email, subject "Housing application" / « Demande de logement » (new) | `mailto:` | contact sections |
-| owner | Learn more · Rent your property / Louez votre propriété · Rent out / Louer | owners page | home hero · nav, menu, footer · action bar |
+| owner | Rent your property / Louez votre bien · Rent out / Louer | owners page | home hero · nav, menu, footer · action bar · closing block |
+| young person, owner | closing block "How can we help you?" (`NextSteps.astro`, 2026-10-16): Looking for housing? → Apply now ↗ + Learn more; Interested in renting your property to us? → Rent your property | form ↗ · housing · owners | end of About us, We Spark Projects, TEC (pages that had no call to action) |
 | owner | email, subject "Renting my property" / « Louer mon bien » (new) · each phone | `mailto:` · `tel:` | owners hero + `#contact`, home contact, footer |
 | partner, funder | Learn more · See for yourself / Voyez par vous-même | about · projects | home § 3, § 5 |
-| practitioner | TEC Conference · Visit tecpractices.eu (new, Q8) | TEC page · `links.tecPractices` ↗ | nav · TEC hero + end |
-| projects | Register now (Get Your Home) · Learn more (Locked Out, Safe Paths) | Google Form ↗ · Drive ↗ · form ↗ | project cards (still open? Q9) |
+| practitioner | TEC Conference · Visit tecpractices.eu (new, Q8) | TEC page · `links.tecPractices` ↗ | footer, Projet V card · TEC hero + end |
+| projects | Register now (Get Your Home) · Learn more (Locked Out) | Google Form ↗ · Drive ↗ | project cards (Safe Paths' form link removed 2026-10-16: past workshops; Q9) |
 | everyone | Contact us / Contactez-nous | `#contact` | nav, menu, action bar, footer |
 | everyone | Copy / Copier → « Copié » · Open in Google Maps · How your data is handled → privacy policy (all new) | clipboard (email, address) · `office.maps` ↗ · privacy page | contact sections (F04), footer |
 | everyone | See credits / Voir les crédits · English / Français | dialog · same page, other locale | footer · header, menu, footer |

@@ -12,6 +12,8 @@ Les ateliers combinent contenus juridiques, soutien psychologique et outils de s
 
 ### Programme des ateliers
 
+Ces ateliers ont eu lieu au printemps 2026 :
+
 - Atelier théorique (FR) : 10 avril 2026, de 17h00 à 21h00
 - Atelier théorique (EN) : 17 avril 2026, de 17h00 à 21h00
 - Atelier pratique (FR) : 22 mai 2026, de 17h00 à 21h00
@@ -22,12 +24,6 @@ Les ateliers combinent contenus juridiques, soutien psychologique et outils de s
 Lieu : 11C Avenue de la Porte-Neuve, L-2227 Luxembourg
 
 Participation gratuite
-
-### Inscription
-
-Pour participer à l’un des ateliers, merci de vous inscrire via le lien ci-dessous :
-
-[https://forms.gle/<wbr>rncBigsjMoAbYVr4A](https://forms.gle/rncBigsjMoAbYVr4A)
 
 ### Contact
 

@@ -15,6 +15,7 @@ import OwnersHero from "~/components/owners/OwnersHero.astro";
 import WhyRentToUs from "~/components/owners/WhyRentToUs.astro";
 import ProjectsPage from "~/components/projects/ProjectsPage.astro";
 import TecPage from "~/components/tec/TecPage.astro";
+import NextSteps from "~/components/ui/NextSteps.astro";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { pageStaticPaths, type RouteId } from "~/lib/routes";
 
@@ -48,4 +49,6 @@ const { id } = Astro.props as { id: RouteId };
       <RealImpact />
     </>
   )}
+  {/* Pages that ended without a next step close on both journeys (NextSteps: Ad Grants, 2026-10-16). */}
+  {(id === "about" || id === "projects" || id === "tec") && <NextSteps />}
 </BaseLayout>

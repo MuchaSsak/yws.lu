@@ -10,8 +10,9 @@
 The commands below are in `web/package.json` (2026-10-09). `bun run check` is green; `launch-gate.mjs` runs and fails,
 as it should, until every route is migrated (links to unbuilt pages, share images); `bun run e2e`, `lhci`, `shots` and
 `og` are wired but not yet run against a full build [repo: web/package.json]. Every command runs from `web/` against a fresh
-`bun run build`, served by `bun run preview` (`scripts/serve.mjs` on 4322: Vercel's redirects, headers, trailing slash,
-brotli, 404 status), never `astro dev` or `astro preview` ([astro](astro.md) § Local preview).
+`bun run build`, served by `bun run preview` (`scripts/serve.mjs` on 4322: Vercel's redirects with `header` and `host`
+conditions (test the apex with `curl -H "Host: yws.lu"`), headers, trailing slash, brotli, 404 status; it reads
+`vercel.json` once, at start), never `astro dev` or `astro preview` ([astro](astro.md) § Local preview).
 
 ## The gates (machine)
 

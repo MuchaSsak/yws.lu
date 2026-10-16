@@ -1,0 +1,109 @@
+---
+/**
+ * The closing call to action of the pages that had none (About us, We Spark Projects, TEC; wiki: site/structure.md §
+ * CTA inventory) [2026-10-16: Google Ad Grants asks for calls to action on every page]: the two journeys side by side,
+ * each a glass card with its icon, the existing heading and line, and its buttons. Young people: "Apply now" (the
+ * Google Form, new tab) + "Learn more" (the housing page); owners: "Rent your property" (the owners page). Only the
+ * section title is new copy. Stacked on phones, two columns from 768 px.
+ */
+import { t } from "lingui-for-astro/macro";
+
+import ButtonLink from "~/components/ui/ButtonLink.astro";
+import Icon from "~/components/ui/Icon.astro";
+import Section from "~/components/ui/Section.astro";
+import SectionHeader from "~/components/ui/SectionHeader.astro";
+import { ORGANISATION } from "~/data/organisation";
+import { pathTo } from "~/lib/routes";
+
+const locale = Astro.locals.locale;
+---
+
+<Section id="next-steps" labelledby="next-steps-title">
+  <SectionHeader id="next-steps-title" title={t`How can we help you?`} />
+  <ul class="next-steps" role="list">
+    <li class="next-step">
+      <span class="next-step-badge" aria-hidden="true">
+        <Icon name="armchair" size={40} class="text-ink-orange" />
+      </span>
+      <h3 class="next-step-title">{t`Looking for housing?`}</h3>
+      <p class="next-step-text">{t`Complete our quick form and we'll contact you as soon as a place becomes available.`}</p>
+      <div class="next-step-actions">
+        <ButtonLink href={ORGANISATION.links.applyForHousing} external>{t`Apply now`}</ButtonLink>
+        <ButtonLink href={pathTo(locale, "housing")} secondary>{t`Learn more`}</ButtonLink>
+      </div>
+    </li>
+    <li class="next-step">
+      <span class="next-step-badge" aria-hidden="true">
+        <Icon name="heart-handshake" size={40} class="text-ink-orange" />
+      </span>
+      <h3 class="next-step-title">{t`Interested in renting your property to us?`}</h3>
+      <p class="next-step-text">{t`Turn your property into a home for young people in Luxembourg.`}</p>
+      <div class="next-step-actions">
+        <ButtonLink href={pathTo(locale, "owners")}>{t`Rent your property`}</ButtonLink>
+      </div>
+    </li>
+  </ul>
+</Section>
+
+<style>
+  .next-steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    max-width: 64rem;
+    margin: 2.5rem auto 0;
+  }
+  @media (min-width: 768px) {
+    .next-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  /* The owners' contact cards' glass (ContactActions), so the closing block reads as part of the same family. */
+  .next-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.85);
+    border-radius: 1.75rem;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.4));
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.06),
+      0 18px 40px -24px rgb(120 60 20 / 0.3);
+    text-align: center;
+  }
+  .next-step-badge {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 9999px;
+    /* The FeatureCard badge. */
+    background: radial-gradient(circle at 30% 25%, white, color-mix(in oklab, var(--color-primary) 18%, white) 70%);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 22%, white),
+      0 8px 18px -10px rgb(194 65 12 / 0.5);
+  }
+  .next-step-title {
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .next-step-text {
+    max-width: 30rem;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    text-wrap: pretty;
+  }
+  /* Buttons sit on the card's floor, so both cards' buttons line up whatever the text length. */
+  .next-step-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+</style>

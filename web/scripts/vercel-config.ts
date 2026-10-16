@@ -13,6 +13,7 @@ import { fileURLToPath } from "node:url";
 
 import { DEFAULT_LOCALE } from "../src/lib/locales";
 import { LEGACY, pathTo } from "../src/lib/routes";
+import { SITE_URL } from "./launch.mjs";
 
 const FILE = fileURLToPath(new URL("../../vercel.json", import.meta.url));
 
@@ -20,8 +21,14 @@ interface Redirect {
   source: string;
   destination: string;
   permanent: boolean;
-  has?: { type: "header"; key: string; value: string }[];
+  has?: ({ type: "header"; key: string; value: string } | { type: "host"; value: { eq: string } })[];
 }
+
+/** The browser's first language is French (only the first counts, no q-values: site/i18n.md § Root). */
+const FRENCH_FIRST = { type: "header", key: "accept-language", value: "(?i)^\\s*fr.*" } as const;
+/** The bare domain people type: yws.lu (the canonical host is www, Q16). `eq` is exact equality: a regex-like string
+ *  could also match www.yws.lu and loop every page. */
+const ON_APEX = { type: "host", value: { eq: new URL(SITE_URL).hostname.replace(/^www\./, "") } } as const;
 
 function legacyRedirects(): Redirect[] {
   const redirects: Redirect[] = [];
@@ -36,6 +43,24 @@ function legacyRedirects(): Redirect[] {
   return redirects;
 }
 
+/**
+ * Requests on the bare domain go to their final www page in one hop: `yws.lu` → `www.yws.lu/en/` (or `/fr/`), an old
+ * URL straight to its new page, anything else to the same path on www. While Vercel's domain setting redirects the
+ * apex to www these rules never run; they take over once `yws.lu` is connected to Production without a redirect
+ * (site/seo.md § Launch 2) and save the second hop (Lighthouse on `yws.lu`: 1.66 s of redirects, 2026-10-16).
+ */
+function apexRedirects(): Redirect[] {
+  return [
+    { source: "/", has: [ON_APEX, FRENCH_FIRST], destination: SITE_URL + pathTo("fr", "home"), permanent: false },
+    { source: "/", has: [ON_APEX], destination: SITE_URL + pathTo(DEFAULT_LOCALE, "home"), permanent: false },
+    { source: "/sitemap.xml", has: [ON_APEX], destination: `${SITE_URL}/sitemap-index.xml`, permanent: true },
+    ...legacyRedirects().map((rule) => ({ ...rule, has: [ON_APEX], destination: SITE_URL + rule.destination })),
+    // `/:path*` drops a trailing slash (path-to-regexp), and www would add it back in a second hop: pages first.
+    { source: "/:path*/", has: [ON_APEX], destination: `${SITE_URL}/:path*/`, permanent: true },
+    { source: "/:path*", has: [ON_APEX], destination: `${SITE_URL}/:path*`, permanent: true },
+  ];
+}
+
 export function vercelConfig() {
   return {
     $schema: "https://openapi.vercel.sh/vercel.json",
@@ -45,13 +70,10 @@ export function vercelConfig() {
     outputDirectory: "web/dist",
     trailingSlash: true,
     redirects: [
+      // First, so the bare domain never takes two hops.
+      ...apexRedirects(),
       // `/` by the browser's first language; temporary, so search engines keep both locale homes (site/i18n.md § Root).
-      {
-        source: "/",
-        has: [{ type: "header", key: "accept-language", value: "(?i)^\\s*fr.*" }],
-        destination: pathTo("fr", "home"),
-        permanent: false,
-      },
+      { source: "/", has: [FRENCH_FIRST], destination: pathTo("fr", "home"), permanent: false },
       { source: "/", destination: pathTo(DEFAULT_LOCALE, "home"), permanent: false },
       // The conventional sitemap URL (404 on the 2025 site) → the index Astro writes.
       { source: "/sitemap.xml", destination: "/sitemap-index.xml", permanent: true },

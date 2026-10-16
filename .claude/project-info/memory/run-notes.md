@@ -41,3 +41,8 @@
   `--texture-compress false`; meshopt alone kept the brotli size (88 → 94 KB) and dropped the Draco decoder.
 - **The laptop's global git identity is "Claude"**; the repo has a local `user.name`/`user.email` set to the owner's
   identity (copied from the branch's history), so commits are the owner's (`commit` skill checks it).
+- **Ad Grants pass, 2026-10-16.** Live before (mobile, 1 run, laptop Chrome): `yws.lu` 96 (redirects 1.66 s, FCP 2.1 s),
+  `/en/` 99, `/fr/` 100, housing 100, owners **90 (CLS 0.199, font swap)**, about 100, projects 98, TEC 100; 0 broken
+  links (Facebook 400 / LinkedIn 999 answer bots only). Local after (median of 3, `lhci`): every page mobile 99–100, CLS
+  0 (owners 0.199 → 0); TEC desktop 94 as on 2026-10-09 (globe under SwiftShader); projects mobile 98 / TBT 160 in the
+  7-page run, 100 / TBT 14–21 rerun alone (median of 5): noise.

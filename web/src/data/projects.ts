@@ -23,7 +23,7 @@ import type { RouteId } from "~/lib/routes";
  * What each We Spark project shows besides its text (wiki: site/structure.md § We Spark Projects): logo, pictures with
  * an alt that says what is in them, the link out, and the frame colour of its card (the 2025 shine colours). The texts
  * are the `projects` content collection; this list is keyed by the same slug, which is also the card's anchor.
- * Links are copied from the 2025 ProjectsList (Q9: past dates kept as a record).
+ * Links are copied from the 2025 ProjectsList (Q9: past dates kept as a record, never a sign-up for a past event).
  */
 export interface Picture {
   image: ImageMetadata;
@@ -83,7 +83,7 @@ export const PROJECT_EXTRAS: Record<string, ProjectExtras> = {
       fr: [{ image: safePathsFr, alt: msg`Safe Paths Luxembourg workshop poster` }],
     },
     pictureWidth: 400,
-    link: { href: "https://forms.gle/rncBigsjMoAbYVr4A", label: learnMore },
+    // No link: it pointed at the registration form of the spring 2026 workshops, now past (Q9, 2026-10-16).
     shine: "#3BFFAA",
   },
   girlssective: { pictures: [], shine: "#8D30FF" },

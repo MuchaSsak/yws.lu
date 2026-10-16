@@ -10,6 +10,648 @@
       "source": "/",
       "has": [
         {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        },
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": "(?i)^\\s*fr.*"
+        }
+      ],
+      "destination": "https://www.yws.lu/fr/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ],
+      "destination": "https://www.yws.lu/en/",
+      "permanent": false
+    },
+    {
+      "source": "/sitemap.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ],
+      "destination": "https://www.yws.lu/sitemap-index.xml",
+      "permanent": true
+    },
+    {
+      "source": "/AboutUs",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/AboutUs/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/aboutus",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/aboutus/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/LookingForHousing",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/LookingForHousing/",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/lookingforhousing",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/lookingforhousing/",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/RentYourProperty",
+      "destination": "https://www.yws.lu/en/rent-your-property/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/RentYourProperty/",
+      "destination": "https://www.yws.lu/en/rent-your-property/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/rentyourproperty",
+      "destination": "https://www.yws.lu/en/rent-your-property/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/rentyourproperty/",
+      "destination": "https://www.yws.lu/en/rent-your-property/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/WeSparkProjects",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/WeSparkProjects/",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/wesparkprojects",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/wesparkprojects/",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/TecConference",
+      "destination": "https://www.yws.lu/en/tec-conference/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/TecConference/",
+      "destination": "https://www.yws.lu/en/tec-conference/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/tecconference",
+      "destination": "https://www.yws.lu/en/tec-conference/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/tecconference/",
+      "destination": "https://www.yws.lu/en/tec-conference/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/Jobs",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/Jobs/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/jobs",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/jobs/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/files/CDD_:name(.*)",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/files/cdd_:name(.*)",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-story",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-story/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-accommodations",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-accommodations/",
+      "destination": "https://www.yws.lu/en/youth-housing/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-projects",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/our-projects/",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/contact",
+      "destination": "https://www.yws.lu/en/#contact",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/contact/",
+      "destination": "https://www.yws.lu/en/#contact",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/cash-donation",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/cash-donation/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/donation-in-kind",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/donation-in-kind/",
+      "destination": "https://www.yws.lu/en/about-us/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/news-event",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/news-event/",
+      "destination": "https://www.yws.lu/en/youth-projects/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/legal-notices",
+      "destination": "https://www.yws.lu/en/legal-notice/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/legal-notices/",
+      "destination": "https://www.yws.lu/en/legal-notice/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "https://www.yws.lu/en/privacy-policy/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "https://www.yws.lu/en/privacy-policy/",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ]
+    },
+    {
+      "source": "/:path*/",
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ],
+      "destination": "https://www.yws.lu/:path*/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": {
+            "eq": "yws.lu"
+          }
+        }
+      ],
+      "destination": "https://www.yws.lu/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
           "type": "header",
           "key": "accept-language",
           "value": "(?i)^\\s*fr.*"

@@ -1,31 +1,31 @@
 ---
-title: "Projet : Girlssective (2024–2025)"
+title: "Project: Girlssective (2024–2025)"
 order: 4
-lang: fr
+lang: en
 ---
 
-Le projet Girlssective, lancé par un groupe de 5 jeunes en collaboration avec Youth Work Synergy, est une initiative dédiée à la promotion de la diversité, de l’inclusion et à l’autonomisation des femmes, en particulier des femmes immigrées, réfugiées et expatriées âgées de 16 à 35 ans. Ce projet s’inscrit dans le cadre des projets de solidarité du European Solidarity Corps.
+The Girlssective project, launched by a group of 5 young people in collaboration with Youth Work Synergy, is an initiative dedicated to promoting diversity and inclusion and to empowering women, especially immigrant, refugee and expatriate women aged 16 to 35. It is one of the European Solidarity Corps solidarity projects.
 
-### Objectifs principaux
+### Main objectives
 
-Soutenir les femmes issues de communautés marginalisées ou vulnérables en leur fournissant des ateliers, un mentorat, et un soutien personnalisé pour surmonter les défis qu’elles rencontrent.
+Support women from marginalised or vulnerable communities with workshops, mentoring and personalised support, so they can overcome the challenges they face.
 
-Renforcer la confiance en soi des participantes et les aider à s’épanouir dans leurs communautés locales.
+Build the participants’ self-confidence and help them thrive in their local communities.
 
-Promouvoir la diversité et l’inclusion au Luxembourg en mettant l’accent sur l’intégration des femmes immigrées et réfugiées.
+Promote diversity and inclusion in Luxembourg, with a focus on the integration of immigrant and refugee women.
 
-### Activités clés
+### Key activities
 
-Organisation d’ateliers interactifs sur des sujets variés tels que le développement personnel, la gestion de carrière, et la santé mentale.
+Interactive workshops on a range of topics such as personal development, career management and mental health.
 
-Mentorat personnalisé pour accompagner les femmes dans leur parcours de développement et de résilience.
+Personalised mentoring to support women on their path of growth and resilience.
 
-Collaboration avec des partenaires locaux et des réseaux communautaires pour élargir l’impact du projet et offrir un soutien continu aux participantes.
+Collaboration with local partners and community networks to widen the project’s impact and give the participants ongoing support.
 
-### Logo et symbolisme
+### Logo and symbolism
 
-Le logo officiel de Girlssective représente la force, l’unité et la nouvelle aventure qui commence pour soutenir les femmes dans leur parcours vers l’autonomisation. Ce logo incarne les valeurs fondamentales du projet : diversité, inclusion et résilience.
+The official Girlssective logo stands for strength, unity and the new adventure that begins in supporting women on their path to empowerment. It embodies the project’s core values: diversity, inclusion and resilience.
 
-### Résultats attendus
+### Expected results
 
-Le projet Girlssective vise à soutenir plusieurs dizaines de femmes en les aidant à acquérir les compétences nécessaires pour faire face aux défis de l’intégration, à développer leur confiance et à réussir dans leurs communautés. Il s’agit d’un espace sécurisé pour permettre aux femmes de se connecter, d’apprendre et de grandir ensemble.
+The Girlssective project aims to support several dozen women by helping them gain the skills they need to face the challenges of integration, build their confidence and succeed in their communities. It is a safe space where women can connect, learn and grow together.

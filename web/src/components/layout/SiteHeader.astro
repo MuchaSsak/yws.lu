@@ -9,8 +9,10 @@
  * of the page is `inert` (focus stays in the header) and dimmed (a tap on it closes), Escape closes it and focus
  * returns to the button. Motion [user 2026-10-09]: the bars turn into a cross, the sheet drops in and its links follow
  * one after another; closing plays it back. Reduced motion: it simply appears.
- * The inline nav needs more room in French: it appears from 1280 px in English and 1600 px in French (both measured
- * by the header-fit e2e check), the menu below that.
+ * The TEC conference (a past event, 9 April 2026) left the header on 2026-10-16 so the main nav shows only current
+ * journeys (Google Ad Grants asks for up-to-date content); the footer and the Projet V card still link it.
+ * The inline nav needs more room in French: it appears from 1280 px in English and 1440 px in French (1600 px until
+ * TEC left the nav; French still overflows by 19 px at 1366), the menu below that.
  */
 import { t } from "lingui-for-astro/macro";
 
@@ -31,7 +33,6 @@ const nav: { id: RouteId; href: string; label: string; hash?: string }[] = [
   { id: "about", href: pathTo(locale, "about"), label: t`About us` },
   { id: "owners", href: pathTo(locale, "owners"), label: t`Rent your property` },
   { id: "projects", href: pathTo(locale, "projects"), label: t`We Spark Projects` },
-  { id: "tec", href: pathTo(locale, "tec"), label: t`TEC Conference` },
   { id: "home", href: pathTo(locale, "home", "contact"), label: t`Contact us`, hash: "contact" },
 ];
 const apply = {
@@ -510,7 +511,7 @@ const call = ORGANISATION.phones[0]!;
       width: 5.25rem;
     }
   }
-  @media (min-width: 1600px) {
+  @media (min-width: 1440px) {
     :global(html[lang="fr"]) .site-nav {
       display: block;
     }

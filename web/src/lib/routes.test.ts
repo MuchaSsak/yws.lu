@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-import { vercelJson } from "../../scripts/vercel-config";
+import { vercelConfig, vercelJson } from "../../scripts/vercel-config";
 import { LOCALES } from "./locales";
 import { alternates, LEGACY, pathTo, ROUTE_IDS, ROUTES, routeOf } from "./routes";
 
@@ -43,5 +43,29 @@ describe("legacy redirects", () => {
 
   it("are current in vercel.json (run `bun run vercel:config`)", () => {
     expect(readFileSync(new URL("../../../vercel.json", import.meta.url), "utf8")).toBe(vercelJson());
+  });
+});
+
+describe("bare-domain redirects (yws.lu → www in one hop)", () => {
+  const { redirects } = vercelConfig();
+  const onApex = redirects.filter((rule) => rule.has?.some((condition) => condition.type === "host"));
+
+  it("match the bare domain exactly and land on www", () => {
+    for (const rule of onApex) {
+      expect(rule.has).toContainEqual({ type: "host", value: { eq: "yws.lu" } });
+      expect(rule.destination.startsWith("https://www.yws.lu/")).toBe(true);
+    }
+  });
+
+  it("send every old URL and both language homes straight to the final page", () => {
+    for (const rule of redirects.filter((other) => !onApex.includes(other))) {
+      const twin = onApex.find((apex) => apex.source === rule.source && apex.has?.length === (rule.has?.length ?? 0) + 1);
+      expect(twin?.destination, rule.source).toBe(`https://www.yws.lu${rule.destination}`);
+    }
+  });
+
+  it("come first, and only host rules leave the site (no rule can loop www)", () => {
+    expect(redirects.slice(0, onApex.length)).toEqual(onApex);
+    for (const rule of redirects.filter((other) => !onApex.includes(other))) expect(rule.destination.startsWith("/")).toBe(true);
   });
 });

@@ -147,7 +147,12 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
   `PLACEHOLDER` fails and Vercel keeps the previous deployment live. This also covers Vercel dropping its preview
   `X-Robots-Tag` on custom branch domains [research: seo-structured-data § 3].
 - **Host:** canonical `https://www.yws.lu` (Q16 [assumption]); apex → www 308 lives in Vercel → Domains (live [web:
-  curl https://yws.lu 2026-10-09]); no host rule in `vercel.json` (a second host rule looped assets in the portfolio).
+  curl https://yws.lu 2026-10-09]). `yws.lu` then took two hops to a page (→ www → `/en/`: Lighthouse 1.66 s of
+  redirects on a phone, 2026-10-16), so `vercel.json` carries host rules for the apex only (`value: { eq: "yws.lu" }`,
+  exact: a regex-like value could match www and loop, as a host rule did in the portfolio): `/` → `www…/en/` or `/fr/`
+  (307, by language), each legacy URL → its final page, anything else → the same path on www (308), in one hop. They
+  run only once the apex is connected to Production without a domain redirect (§ Launch 2); `routes.test.ts` checks
+  they are exact, first, and the only rules that leave the site.
 - **Status codes:** the 404 is a real 404, noindex; unknown URLs never redirect home (soft 404); legacy 308s take one
   hop (`structure.md` § Redirects).
 
@@ -205,7 +210,10 @@ a unit test enforces the limits and uniqueness. French spaces before `: ? !` are
    lives on `main` (no pull request [user 2026-10-15]): `git push` deploys it; check Deployments → the latest
    Production → Build Logs shows `astro build` (the release Action tags it [repo: .github/workflows/release.yml]).
 2. **Primary domain:** Vercel → Settings → **Domains**: `www.yws.lu` on Production, no redirect; `yws.lu` →
-   **Redirect to `www.yws.lu`**, 308 (Q16). Check `curl -sI https://yws.lu/en/` → 308 to www.
+   **Connect to an environment: Production** (no redirect), so the one-hop rules in `vercel.json` answer it (§ Crawl,
+   Host). Check: `curl -sI https://yws.lu/` → 307 `https://www.yws.lu/en/`; `curl -sI https://yws.lu/AboutUs` → 308
+   `https://www.yws.lu/en/about-us/`; `curl -sI https://www.yws.lu/en/` → 200. Undo: set `yws.lu` back to **Redirect to
+   `www.yws.lu`** (308); everything still works, with the second hop.
 3. **Env flags:** Vercel → Settings → **Environment Variables**. Nothing is required: a Production deploy is a launch
    build by itself (`VERCEL_ENV=production` [repo: web/scripts/launch.mjs]); `IS_FULL_PRODUCTION` = `true` is only for
    a launch build elsewhere and must never be set on Preview. Optional, Production only: `GOOGLE_SITE_VERIFICATION`,

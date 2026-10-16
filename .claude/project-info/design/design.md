@@ -127,8 +127,9 @@ the three grey families of 2025 (zinc tokens, `neutral-*`, `slate-*`) collapse i
 
 ## Typography
 
-- **One family: Montserrat Variable** (OFL), self-hosted latin woff2, preloaded, metric-matched Arial fallback
-  (size-adjust 113.1 %) [repo: web/src/layouts/BaseLayout.astro:6-9,50; web/src/styles/global.css:38-45]. The flag
+- **One family: Montserrat Variable** (OFL), self-hosted latin woff2, preloaded, metric-matched Arial fallback,
+  one face per weight band (Arial / Arial Bold / Arial Black, size-adjust 112.57–114.39 / 108.09–110.13 / 99.7 %;
+  width and line height measured equal to Montserrat 2026-10-16) [repo: web/src/layouts/BaseLayout.astro:6-9,50; web/src/styles/global.css]. The flag
   emoji font goes: language labels are text ("English", "Français") [lessons 2026-10-06].
 - **Italic:** used in 8 places and synthesized today (no italic file) [inventory § 2]. Keep synthesized unless the
   italic file fits the 100 KB font budget: open value (§ Open values).
@@ -310,6 +311,7 @@ control (12 keyboard-dead CTAs in 2025 [inventory § 12]).
 | Select, Sheet | **deleted** | language = links, menu = disclosure |
 | Button (shadcn) + ShimmerButton (Magic UI, MIT) | **merged** → `.btn` + `ButtonLink` | § Buttons |
 | Card (shadcn) | **kept** as a surface for project cards; **swapped** 2026-10-09 for full-width project chapters + "at a glance" tiles [user: "improve the projects subpage and layout"] | chapters: glass, the shine border, the project's colour in a corner glow, the gradient number, labels and list dots; a side column sticky from 1024 px. Tiles: 4 px top border in the colour, gradient number faded by its gradient (not `opacity`), lift on hover/focus |
+| Closing call to action (new, 2026-10-16) | `NextSteps` (own code) | "How can we help you?" + two glass cards (the contact cards' glass, the FeatureCard badge): housing (Apply now ↗ + Learn more) and owners (Rent your property); buttons on each card's floor; one column below 768 px. Ends About us, We Spark Projects and TEC (Ad Grants: a call to action on every page) [repo: web/src/components/ui/NextSteps.astro] |
 | GlareCard (Aceternity) | **rewritten** → `FeatureCard` (own code, Q23) | keeps the 3 rem radius and centred title + text; 2026-10-09: the ink-orange icon on a soft orange badge, glass surface, cards hug their text (the 2025 17:21 box left a third empty; a row takes its tallest card), hover lifts, and a sheen crosses each card once as it rises in (the glare's scroll twin, transform only) |
 | ShineBorder ×2 (Magic UI) | **merged** → one CSS `.shine-border` | 1 px project cards, 3 px photo frame; `motion-safe` only |
 | BoxReveal, LineShadowText, SparklesText, TextAnimate (Magic UI) | **kept** as CSS (`Reveal`, `LineShadow`, `Sparkles`, `WordFade`) | done in the spike [repo: web/src/components/effects/*]; TextAnimate's 9 unused variants are not ported. The box sweeps in-out, ≤ 0.8 s (2025: ease-in up to 1.1 s, the lede covered for most of a second) [2026-10-09]. `WordFade` splits at breaking spaces only, so French no-break spaces stay in their word |

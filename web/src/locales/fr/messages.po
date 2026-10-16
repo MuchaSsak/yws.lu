@@ -121,6 +121,7 @@ msgctxt "header button on phones, short for Apply for housing"
 msgid "Apply"
 msgstr "Postuler"
 
+#: src/components/home/HomeHero.astro
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
 msgid "Apply for housing"
@@ -129,6 +130,7 @@ msgstr "Demander un logement"
 #: src/components/home/HousingTeaser.astro
 #: src/components/housing/HousingHero.astro
 #: src/components/housing/WhoGetsPriority.astro
+#: src/components/ui/NextSteps.astro
 #: src/pages/[locale]/specimen.astro
 msgid "Apply now"
 msgstr "Postulez maintenant"
@@ -185,6 +187,7 @@ msgid "Coaching"
 msgstr "Accompagnement"
 
 #: src/components/home/HousingTeaser.astro
+#: src/components/ui/NextSteps.astro
 msgid "Complete our quick form and we'll contact you as soon as a place becomes available."
 msgstr "Remplissez notre formulaire rapide et nous vous contacterons dès qu’une place se libère."
 
@@ -299,6 +302,10 @@ msgstr "Voici comment cela fonctionne"
 msgid "Homepage"
 msgstr "Page d’accueil"
 
+#: src/components/ui/NextSteps.astro
+msgid "How can we help you?"
+msgstr "Comment pouvons-nous vous aider ?"
+
 #: src/components/home/ContactSection.astro
 msgid "How your data is handled"
 msgstr "Comment vos données sont traitées"
@@ -316,6 +323,7 @@ msgid "In Luxembourg, hundreds of young people are struggling to find a place to
 msgstr "Au Luxembourg, des centaines de jeunes peinent à trouver un logement. Les loyers sont élevés, les exigences strictes, et pour beaucoup de jeunes de 18 à 34 ans, accéder à un logement sans aide familiale est tout simplement hors de portée. C’est là que nous intervenons."
 
 #: src/components/owners/OwnersContact.astro
+#: src/components/ui/NextSteps.astro
 msgid "Interested in renting your property to us?"
 msgstr "Vous souhaitez nous louer votre bien ?"
 
@@ -344,9 +352,9 @@ msgstr "Dernière mise à jour : {updated}"
 msgid "Lead Developer"
 msgstr "Développeur principal"
 
-#: src/components/home/HomeHero.astro
 #: src/components/home/HousingTeaser.astro
 #: src/components/home/WhoWeAre.astro
+#: src/components/ui/NextSteps.astro
 #: src/data/projects.ts
 #: src/pages/[locale]/specimen.astro
 msgid "Learn more"
@@ -380,6 +388,7 @@ msgstr "À la recherche d’un logement"
 
 #: src/components/home/HousingTeaser.astro
 #: src/components/housing/HousingHero.astro
+#: src/components/ui/NextSteps.astro
 #: src/pages/[locale]/specimen.astro
 msgid "Looking for housing?"
 msgstr "Vous cherchez un logement ?"
@@ -428,6 +437,10 @@ msgstr "Bien plus qu’une méthode"
 #: src/components/about/RealImpact.astro
 msgid "Next picture"
 msgstr "Photo suivante"
+
+#: src/components/home/HomeHero.astro
+msgid "Non-profit housing for young people in Luxembourg"
+msgstr "ASBL pour le logement des jeunes au Luxembourg"
 
 #: src/components/layout/SiteFooter.astro
 msgctxt "footer address label"
@@ -578,8 +591,10 @@ msgstr "Gestion locative sociale au Luxembourg"
 msgid "Rent your house, apartment or room to Youth Work Synergy: guaranteed rent every month, a 90% tax exemption on net rental income and tenant support."
 msgstr "Louez votre maison, votre appartement ou une chambre à Youth Work Synergy : loyer garanti chaque mois, exonération fiscale de 90 % et suivi des locataires."
 
+#: src/components/home/HomeHero.astro
 #: src/components/layout/SiteFooter.astro
 #: src/components/layout/SiteHeader.astro
+#: src/components/ui/NextSteps.astro
 #: src/lib/not-found.ts
 #: src/pages/[locale]/specimen.astro
 msgid "Rent your property"
@@ -656,7 +671,6 @@ msgid "Tax Benefits"
 msgstr "Avantages fiscaux"
 
 #: src/components/layout/SiteFooter.astro
-#: src/components/layout/SiteHeader.astro
 msgid "TEC Conference"
 msgstr "Conférence TEC"
 
@@ -740,6 +754,7 @@ msgstr "Date et heure"
 
 #: src/components/about/AboutHero.astro
 #: src/components/home/HomeHero.astro
+#: src/components/ui/NextSteps.astro
 msgid "Turn your property into a home for young people in Luxembourg."
 msgstr "Transformez votre bien en un foyer pour les jeunes au Luxembourg."
 

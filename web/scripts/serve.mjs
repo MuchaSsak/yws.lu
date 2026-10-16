@@ -54,6 +54,8 @@ const headerRules = (config.headers ?? []).map((rule) => ({ ...rule, ...compile(
 
 const hasMatches = (conditions, request) =>
   (conditions ?? []).every((condition) => {
+    // Vercel matches `host` on the hostname alone (no port).
+    if (condition.type === "host") return String(request.headers.host ?? "").replace(/:\d+$/, "") === condition.value.eq;
     if (condition.type !== "header") return false;
     const value = request.headers[condition.key.toLowerCase()];
     if (value === undefined) return false;
@@ -63,7 +65,8 @@ const hasMatches = (conditions, request) =>
   });
 
 const fill = (destination, keys, match) =>
-  keys.reduce((out, key, index) => out.replaceAll(`:${key.name}`, match[index + 1] ?? ""), destination);
+  // `:name`, `:name*`, `:name+`, `:name?` as Vercel writes them in a destination (`/:path*`).
+  keys.reduce((out, key, index) => out.replace(new RegExp(`:${key.name}[*+?]?`, "g"), match[index + 1] ?? ""), destination);
 
 /** Compressed bodies, keyed by the file's mtime too: a rebuild under a running server must never serve the old page. */
 const cache = new Map();

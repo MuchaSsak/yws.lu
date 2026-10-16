@@ -12,6 +12,8 @@ The workshops combine legal content, psychological support, and awareness tools 
 
 ### Workshop Schedule
 
+These workshops took place in spring 2026:
+
 - Theoretical Workshop (FR): April 10, 2026, from 5:00 PM to 9:00 PM
 - Theoretical Workshop (EN): April 17, 2026, from 5:00 PM to 9:00 PM
 - Practical Workshop (FR): May 22, 2026, from 5:00 PM to 9:00 PM
@@ -22,12 +24,6 @@ The workshops combine legal content, psychological support, and awareness tools 
 Location: 11C Avenue de la Porte-Neuve, L-2227 Luxembourg
 
 Participation: Free of charge
-
-### Registration
-
-To participate in one of the workshops, please register via the link below:
-
-[https://forms.gle/<wbr>rncBigsjMoAbYVr4A](https://forms.gle/rncBigsjMoAbYVr4A)
 
 ### Contact
 

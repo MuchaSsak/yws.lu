@@ -9,6 +9,7 @@
 
 ### The owner's way of working
 - No forms of any kind (contact, apply, newsletter, chat, booking): make email, phone, map and socials better instead - 2026-10-09.
+- Asked for a summary to forward (WhatsApp, the client): answer at once, paste-ready, before more tool calls; the work resumes after [user asked twice] - 2026-10-16.
 - Keep the general feel (playful, colourful, 3D, warm), but a weak or unimpressive component may be replaced by a better one; list each swap in the report [user 2026-10-09] - 2026-10-09.
 - Visuals come first: Mehdi (the owner of yws.lu) judges the finished look. Every interactive piece gets designed motion (the menu once opened with none), reviewed in shots as the client would see it [user 2026-10-09] - 2026-10-09.
 - Keep every version for the case study: tag `history/*` before a big change, capture a look before replacing it - 2026-10-05.
@@ -33,6 +34,7 @@
 - Language links show a flag drawn as SVG beside the autonym [user 2026-10-09]; never flag emoji (Windows draws them as letters) - 2026-10-09.
 - Render metadata on the server: the 2025 site's `window`-guarded helper shipped no `<title>` at all - 2026-10-09.
 - Tailwind 4 emits a `@theme` variable only when the source names it literally: `` var(--color-${name}) `` is undefined and `--shadow-*` never is; print values or give a fallback - 2026-10-09.
+- A metric-matched fallback font needs one `@font-face` per weight band on the cut the system would use (Arial / Arial Bold / Arial Black), and its ascent/descent overrides scale with `size-adjust`: one regular-tuned face left bold headings 5 % narrow, and the owners H1 rewrapped on swap (CLS 0.199). Measure widths in Playwright - 2026-10-16.
 - `contain-intrinsic-size: auto 1400px` sets the width too: a skipped (`content-visibility`) item 1400 px wide stretched a grid's `auto` track past the phone screen. Use `contain-intrinsic-height`, and `minmax(0, 1fr)` tracks around long content - 2026-10-09.
 - `content-visibility: auto` breaks jumps: an anchor lands off target while the sections above stand at their estimated height (`/en/#contact` 552 px past it), and WebKit's `scrollIntoView` into a skipped section does not move at all. Draw everything for a jump (`anchor-jumps.ts`); e2e scroll with the wheel, as a reader does - 2026-10-09.
 - JavaScript's `\s` matches the no-break space: splitting French text on `/\s+/` cut « logement ? » into spans (a triple gap, a `?` alone on a line). Split on `[^\S\u00A0\u202F]` - 2026-10-09.
@@ -50,7 +52,8 @@
 - Python on Windows writes CRLF: always `open(..., "w", newline="\n")` - 2026-10-05.
 - Git Bash: prefix URL-path arguments with `MSYS_NO_PATHCONV=1` (`/en/` → `P:/Git/en/`); give node `C:/...` paths, never `/c/...` - 2026-10-09.
 - Use your own ports (3100 Next, 4322 Astro); stop a server by its port's PID (`netstat -ano | grep :<port>` → `taskkill //F //PID <pid>`), never by image name, never one you didn't start - 2026-10-09.
-- When a change does not move a shot, `curl` the served HTML before judging the CSS (serve.mjs once served stale pages) - 2026-10-09.
+- When a change does not move a shot, `curl` the served HTML before judging the CSS (serve.mjs once served stale pages); `serve.mjs` reads `vercel.json` at start, so restart it after `bun run vercel:config` - 2026-10-16.
+- `bun run i18n:fill` reads the removed 2025 dictionary and fails: add new French to `scripts/fr-manual.json` and its `msgstr` in `src/locales/fr/messages.po` by hand; `bun run i18n:extract` must show 0 missing - 2026-10-16.
 - Read every check's whole output: `bun run check` stops at the first red task, and the launch gate once hid real errors behind 85 expected ones - 2026-10-09.
 - e2e role queries match substrings: pass `exact: true` for short names; landmark tests query roles (`banner`), not tags - 2026-10-09.
 - Playwright WebKit on Windows is not Safari (fonts, AV1, CSP noise): check a WebKit-only finding against the live site first - 2026-10-09.
@@ -58,7 +61,6 @@
 - Measure WebGL cost with Lighthouse itself (`lh-probe`): Playwright's headless shell showed 3 short tasks where Lighthouse's Chrome had a 1.3 s one - 2026-10-09.
 - A busy machine fakes regressions: run Lighthouse alone (no shots, builds or agents in parallel), check the load, rerun - 2026-10-07.
 - The PageSpeed Insights API without a key hits "Quota exceeded" at once: use the PSI web UI, or set `PSI_API_KEY` - 2026-10-09.
-- `next dev` writes into `.next`, and the next `next start` answered 500 on every route without a log line: rebuild before serving a baseline; captures preflight every page's status - 2026-10-09.
 - QA page walks jump with `scrollTo({ top, behavior: "instant" })`: under `scroll-behavior: smooth` the walk never gets down the page - 2026-10-09.
 - WebSearch has a budget shared by parallel agents; prefer WebFetch of known URLs, then Playwright - 2026-10-05.
 - Aceternity, GSAP and React Bits code is rewritten from the idea, never translated line by line: a faithful port keeps its licence (`research/2026-10-09-licences.md`, Q23) - 2026-10-09.
